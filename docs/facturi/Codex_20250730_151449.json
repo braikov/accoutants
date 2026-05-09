@@ -1,0 +1,207 @@
+{
+  "schema_version": "accountant.document.v2",
+  "source": {
+    "file_name": "20250730_151449.jpg",
+    "file_path": "../docs/facturi/20250730_151449.jpg",
+    "page_count": 1,
+    "page_index": 0,
+    "detected_document_count": 1,
+    "extracted_document_index": 0,
+    "image_quality": {
+      "readability": "fair",
+      "issues": [
+        "low_contrast",
+        "heavy_shadow_over_text"
+      ]
+    }
+  },
+  "extraction": {
+    "document_type": "invoice",
+    "language": "bg",
+    "country": "BG",
+    "document": {
+      "number": "0002677791",
+      "date": "2025-07-30",
+      "tax_event_date": "2025-07-30",
+      "due_date": null,
+      "currency": "BGN",
+      "exchange_rate": "null",
+      "place": "София",
+      "notes": "Оригинал. Клиентски № 211585. Счетоводна статия номер: 14286696. Плащане: с карта. Стоката е получена от: Мариана Петрова."
+    },
+    "supplier": {
+      "name": "Ташев - Галвинг ООД",
+      "eik": "130358417",
+      "vat_number": "BG130358417",
+      "address": "бул. Климент Охридски 68",
+      "city": "София",
+      "country": "BG",
+      "mol": "Христофо Ташев"
+    },
+    "customer": {
+      "name": "Инко Трейд ЕООД",
+      "eik": "206802564",
+      "vat_number": "BG206802564",
+      "address": "ул. Ропот 9",
+      "city": "Варна",
+      "country": "BG",
+      "mol": "Мариана Петрова"
+    },
+    "totals": {
+      "net": "72.50",
+      "vat": "14.50",
+      "gross": "87.00",
+      "discount": null,
+      "rounding": null,
+      "amount_due": "87.00"
+    },
+    "vat_breakdown": [
+      {
+        "rate": "20.00",
+        "net": "72.50",
+        "vat": "14.50",
+        "gross": "87.00",
+        "reason": null
+      }
+    ],
+    "payments": [
+      {
+        "method": "card",
+        "amount": "87.00",
+        "currency": "BGN",
+        "iban": "BG33UNCR76301075613740",
+        "bic": "UNCRBGSF",
+        "bank_name": "УниКредит Булбанк АД"
+      }
+    ],
+    "line_items": [
+      {
+        "description": "0% КТП 45А, Дека конусна за развальцоване на тръби, Ф 4-16 мм",
+        "quantity": "1.000",
+        "unit": "бр",
+        "unit_price": "72.5000",
+        "discount_pct": null,
+        "vat_rate": "20.00",
+        "net": "72.50",
+        "vat": "14.50",
+        "gross": "87.00",
+        "includes_vat": false
+      }
+    ],
+    "fiscal": {
+      "fiscal_receipt_number": null,
+      "fiscal_device_number": null,
+      "operator": null,
+      "qr_code": null
+    }
+  },
+  "validation": {
+    "needs_review": true,
+    "checks": [
+      {
+        "code": "supplier_eik_checksum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "customer_eik_checksum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "supplier_vat_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "customer_vat_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "iban_mod97",
+        "status": "fail",
+        "message": "IBAN 'BG33UNCR76301075613740' fails mod-97 checksum."
+      },
+      {
+        "code": "bic_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "currency_iso",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "document_type_enum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "date_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "due_date_after_issue",
+        "status": "skipped",
+        "message": "issue or due date missing/malformed"
+      },
+      {
+        "code": "totals_match",
+        "status": "pass",
+        "message": "72.50 + 14.50 = 87.00"
+      },
+      {
+        "code": "vat_breakdown_match",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "line_items_sum",
+        "status": "pass",
+        "message": "all populated component sums match totals"
+      },
+      {
+        "code": "image_quality_issue",
+        "status": "warning",
+        "message": "issues: low_contrast, heavy_shadow_over_text"
+      }
+    ],
+    "errors": [
+      "iban_mod97"
+    ],
+    "warnings": [
+      "image_quality_issue"
+    ]
+  },
+  "model_assessment": {
+    "confidence": {
+      "overall": 0.87,
+      "document": 0.99,
+      "supplier": 0.92,
+      "customer": 0.95,
+      "totals": 0.97,
+      "line_items": 0.84
+    },
+    "extraction_warnings": [
+      "The paper is faint and slightly blurred.",
+      "A top-right slip obscures a small area.",
+      "Exchange rate text is printed but not needed for BGN document."
+    ]
+  },
+  "evidence": {},
+  "provider": {
+    "engine": "open_ai",
+    "model": "gpt-5.4-mini",
+    "pipeline": "vision_direct",
+    "ocr_used": false,
+    "prompt_version": "codex-unified-v2-r13-2026-05-09-csharp",
+    "created_at": "2026-05-09T15:19:47Z",
+    "duration_ms": 5495,
+    "input_tokens": 4958,
+    "output_tokens": 584,
+    "cost_estimate_usd": "0.0063"
+  }
+}

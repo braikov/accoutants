@@ -1,0 +1,138 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://miro.local/accountant/invoice.v1.schema.json",
+  "title": "PaymentDocumentExtractionV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "document_type",
+    "language",
+    "supplier",
+    "customer",
+    "document",
+    "totals",
+    "payments",
+    "line_items",
+    "confidence",
+    "evidence",
+    "needs_review",
+    "warnings"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "const": "invoice.v1" },
+    "document_type": {
+      "type": "string",
+      "enum": ["invoice", "receipt", "debit_note", "credit_note", "proforma", "unknown"]
+    },
+    "language": { "type": ["string", "null"] },
+    "supplier": { "$ref": "#/$defs/party" },
+    "customer": { "$ref": "#/$defs/party" },
+    "document": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["number", "date", "due_date", "place", "currency"],
+      "properties": {
+        "number": { "type": ["string", "null"] },
+        "date": { "type": ["string", "null"], "description": "ISO date YYYY-MM-DD when possible." },
+        "due_date": { "type": ["string", "null"], "description": "ISO date YYYY-MM-DD when possible." },
+        "place": { "type": ["string", "null"] },
+        "currency": { "type": ["string", "null"], "description": "ISO 4217 currency code, e.g. BGN, EUR." }
+      }
+    },
+    "totals": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["net", "vat", "gross", "discount", "rounding"],
+      "properties": {
+        "net": { "type": ["number", "null"] },
+        "vat": { "type": ["number", "null"] },
+        "gross": { "type": ["number", "null"] },
+        "discount": { "type": ["number", "null"] },
+        "rounding": { "type": ["number", "null"] }
+      }
+    },
+    "payments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["method", "amount", "currency", "iban", "bic", "bank_name"],
+        "properties": {
+          "method": { "type": ["string", "null"], "enum": ["cash", "card", "bank_transfer", "mixed", "unknown", null] },
+          "amount": { "type": ["number", "null"] },
+          "currency": { "type": ["string", "null"] },
+          "iban": { "type": ["string", "null"] },
+          "bic": { "type": ["string", "null"] },
+          "bank_name": { "type": ["string", "null"] }
+        }
+      }
+    },
+    "line_items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["description", "quantity", "unit", "unit_price", "vat_rate", "net", "vat", "gross"],
+        "properties": {
+          "description": { "type": ["string", "null"] },
+          "quantity": { "type": ["number", "null"] },
+          "unit": { "type": ["string", "null"] },
+          "unit_price": { "type": ["number", "null"] },
+          "vat_rate": { "type": ["number", "null"] },
+          "net": { "type": ["number", "null"] },
+          "vat": { "type": ["number", "null"] },
+          "gross": { "type": ["number", "null"] }
+        }
+      }
+    },
+    "confidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["overall", "low_confidence_fields"],
+      "properties": {
+        "overall": { "type": "number", "minimum": 0, "maximum": 1 },
+        "low_confidence_fields": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "document_number",
+        "document_date",
+        "supplier_name",
+        "supplier_vat_number",
+        "supplier_eik",
+        "customer_name",
+        "gross_total"
+      ],
+      "properties": {
+        "document_number": { "type": ["string", "null"] },
+        "document_date": { "type": ["string", "null"] },
+        "supplier_name": { "type": ["string", "null"] },
+        "supplier_vat_number": { "type": ["string", "null"] },
+        "supplier_eik": { "type": ["string", "null"] },
+        "customer_name": { "type": ["string", "null"] },
+        "gross_total": { "type": ["string", "null"] }
+      }
+    },
+    "needs_review": { "type": "boolean" },
+    "warnings": { "type": "array", "items": { "type": "string" } }
+  },
+  "$defs": {
+    "party": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "eik", "vat_number", "address", "city", "country"],
+      "properties": {
+        "name": { "type": ["string", "null"] },
+        "eik": { "type": ["string", "null"] },
+        "vat_number": { "type": ["string", "null"] },
+        "address": { "type": ["string", "null"] },
+        "city": { "type": ["string", "null"] },
+        "country": { "type": ["string", "null"] }
+      }
+    }
+  }
+}

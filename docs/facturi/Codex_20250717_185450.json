@@ -1,0 +1,204 @@
+{
+  "schema_version": "accountant.document.v2",
+  "source": {
+    "file_name": "20250717_185450.jpg",
+    "file_path": "../docs/facturi/20250717_185450.jpg",
+    "page_count": 1,
+    "page_index": 0,
+    "detected_document_count": 1,
+    "extracted_document_index": 0,
+    "image_quality": {
+      "readability": "good",
+      "issues": [
+        "fold_obscures_data"
+      ]
+    }
+  },
+  "extraction": {
+    "document_type": "protocol",
+    "language": "bg",
+    "country": "BG",
+    "document": {
+      "number": "6501012904",
+      "date": "2025-07-08",
+      "tax_event_date": "2025-07-08",
+      "due_date": null,
+      "currency": "BGN",
+      "exchange_rate": null,
+      "place": "София",
+      "notes": "Получил: ИНКО ТРЕЙД ЕООД; Съставил: Силвия Кюркчийска; Начин на плащане: В брой; Условие на плащане: null"
+    },
+    "supplier": {
+      "name": "ИНКО ТРЕЙД ЕООД",
+      "eik": "206802564",
+      "vat_number": "BG206802564",
+      "address": "ВАРНА, УЛ РОЩОК9",
+      "city": "Варна",
+      "country": "BG",
+      "mol": null
+    },
+    "customer": {
+      "name": "Кауфланд България ЕООД енд Ко.КД",
+      "eik": "131129282",
+      "vat_number": "BG131129282",
+      "address": "1233 София, ул. Скопие 1А",
+      "city": "София",
+      "country": "BG",
+      "mol": null
+    },
+    "totals": {
+      "net": "416.58",
+      "vat": "83.32",
+      "gross": "499.90",
+      "discount": null,
+      "rounding": null,
+      "amount_due": "499.90"
+    },
+    "vat_breakdown": [
+      {
+        "rate": "20.00",
+        "net": "416.58",
+        "vat": "83.32",
+        "gross": "499.90",
+        "reason": null
+      }
+    ],
+    "payments": [
+      {
+        "method": "cash",
+        "amount": "499.90",
+        "currency": "BGN",
+        "iban": null,
+        "bic": null,
+        "bank_name": null
+      }
+    ],
+    "line_items": [
+      {
+        "description": "Ауся климатик",
+        "quantity": "1.000",
+        "unit": "бр",
+        "unit_price": "416.58",
+        "discount_pct": null,
+        "vat_rate": "20.00",
+        "net": "416.58",
+        "vat": "83.32",
+        "gross": "499.90",
+        "includes_vat": false
+      }
+    ],
+    "fiscal": {
+      "fiscal_receipt_number": null,
+      "fiscal_device_number": null,
+      "operator": null,
+      "qr_code": null
+    }
+  },
+  "validation": {
+    "needs_review": true,
+    "checks": [
+      {
+        "code": "supplier_eik_checksum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "customer_eik_checksum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "supplier_vat_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "customer_vat_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "iban_mod97",
+        "status": "skipped",
+        "message": "IBAN is null"
+      },
+      {
+        "code": "bic_format",
+        "status": "skipped",
+        "message": "BIC is null"
+      },
+      {
+        "code": "currency_iso",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "document_type_enum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "date_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "due_date_after_issue",
+        "status": "skipped",
+        "message": "issue or due date missing/malformed"
+      },
+      {
+        "code": "totals_match",
+        "status": "pass",
+        "message": "416.58 + 83.32 = 499.90"
+      },
+      {
+        "code": "vat_breakdown_match",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "line_items_sum",
+        "status": "pass",
+        "message": "all populated component sums match totals"
+      },
+      {
+        "code": "image_quality_issue",
+        "status": "warning",
+        "message": "issues: fold_obscures_data"
+      }
+    ],
+    "errors": [],
+    "warnings": [
+      "image_quality_issue"
+    ]
+  },
+  "model_assessment": {
+    "confidence": {
+      "overall": 0.84,
+      "document": 0.72,
+      "supplier": 0.9,
+      "customer": 0.9,
+      "totals": 0.98,
+      "line_items": 0.7
+    },
+    "extraction_warnings": [
+      "Printed title is partially obscured, document type inferred from structure.",
+      "Some bottom fields are faint but readable.",
+      "One line item description is slightly unclear."
+    ]
+  },
+  "evidence": {},
+  "provider": {
+    "engine": "open_ai",
+    "model": "gpt-5.4-mini",
+    "pipeline": "vision_direct",
+    "ocr_used": false,
+    "prompt_version": "codex-unified-v2-r13-2026-05-09-csharp",
+    "created_at": "2026-05-09T15:19:42Z",
+    "duration_ms": 5121,
+    "input_tokens": 4989,
+    "output_tokens": 561,
+    "cost_estimate_usd": "0.0063"
+  }
+}

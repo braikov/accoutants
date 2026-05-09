@@ -1,0 +1,204 @@
+{
+  "schema_version": "accountant.document.v2",
+  "source": {
+    "file_name": "20251209_120442.jpg",
+    "file_path": "../docs/facturi/20251209_120442.jpg",
+    "page_count": 1,
+    "page_index": 0,
+    "detected_document_count": 1,
+    "extracted_document_index": 0,
+    "image_quality": {
+      "readability": "good",
+      "issues": [
+        "low_contrast"
+      ]
+    }
+  },
+  "extraction": {
+    "document_type": "invoice",
+    "language": "bg",
+    "country": "BG",
+    "document": {
+      "number": "0802488759",
+      "date": "2025-12-02",
+      "tax_event_date": "2025-12-02",
+      "due_date": "2025-12-02",
+      "currency": "BGN",
+      "exchange_rate": null,
+      "place": null,
+      "notes": "Фактура generated from website request. Payment method: наложен платеж. ID document: 1630116. Proforma invoice ID field is blank."
+    },
+    "supplier": {
+      "name": "ЗОРА М.М.С. ООД",
+      "eik": "121839316",
+      "vat_number": "BG121839316",
+      "address": "Божурище, ул Летец Радул Милков 2 Индустриална зона",
+      "city": "Божурище",
+      "country": "BG",
+      "mol": null
+    },
+    "customer": {
+      "name": "ИНКО ТРЕЙД ЕООД",
+      "eik": "206802564",
+      "vat_number": "BG206802564",
+      "address": "България, ул. ВАСИЛ СТЕФАНОВ 51, 1404 СОФИЯ, BULGARIA",
+      "city": "София",
+      "country": "BG",
+      "mol": "ПЕТЪР ПЕТРОВ"
+    },
+    "totals": {
+      "net": "546.66",
+      "vat": "109.33",
+      "gross": "655.99",
+      "discount": null,
+      "rounding": null,
+      "amount_due": "655.99"
+    },
+    "vat_breakdown": [
+      {
+        "rate": "20.00",
+        "net": "546.66",
+        "vat": "109.33",
+        "gross": "655.99",
+        "reason": null
+      }
+    ],
+    "payments": [
+      {
+        "method": "cash",
+        "amount": "655.99",
+        "currency": "BGN",
+        "iban": null,
+        "bic": null,
+        "bank_name": null
+      }
+    ],
+    "line_items": [
+      {
+        "description": "Пералня+сушилня Indesit IDMA 75624B MY TIME EE",
+        "quantity": "1.000",
+        "unit": "бр",
+        "unit_price": "546.66",
+        "discount_pct": "0.00",
+        "vat_rate": "20.00",
+        "net": "546.66",
+        "vat": "109.33",
+        "gross": "655.99",
+        "includes_vat": false
+      }
+    ],
+    "fiscal": {
+      "fiscal_receipt_number": null,
+      "fiscal_device_number": null,
+      "operator": "Електронен магазин /1291",
+      "qr_code": null
+    }
+  },
+  "validation": {
+    "needs_review": true,
+    "checks": [
+      {
+        "code": "supplier_eik_checksum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "customer_eik_checksum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "supplier_vat_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "customer_vat_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "iban_mod97",
+        "status": "skipped",
+        "message": "IBAN is null"
+      },
+      {
+        "code": "bic_format",
+        "status": "skipped",
+        "message": "BIC is null"
+      },
+      {
+        "code": "currency_iso",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "document_type_enum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "date_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "due_date_after_issue",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "totals_match",
+        "status": "pass",
+        "message": "546.66 + 109.33 = 655.99"
+      },
+      {
+        "code": "vat_breakdown_match",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "line_items_sum",
+        "status": "pass",
+        "message": "all populated component sums match totals"
+      },
+      {
+        "code": "image_quality_issue",
+        "status": "warning",
+        "message": "issues: low_contrast"
+      }
+    ],
+    "errors": [],
+    "warnings": [
+      "image_quality_issue"
+    ]
+  },
+  "model_assessment": {
+    "confidence": {
+      "overall": 0.95,
+      "document": 0.99,
+      "supplier": 0.98,
+      "customer": 0.98,
+      "totals": 0.99,
+      "line_items": 0.96
+    },
+    "extraction_warnings": [
+      "Document title and structure indicate invoice.",
+      "Payment method text is partially obscured but readable as наложен платеж.",
+      "Bottom-right handwritten digits are unclear; ID document captured from printed text only."
+    ]
+  },
+  "evidence": {},
+  "provider": {
+    "engine": "open_ai",
+    "model": "gpt-5.4-mini",
+    "pipeline": "vision_direct",
+    "ocr_used": false,
+    "prompt_version": "codex-unified-v2-r13-2026-05-09-csharp",
+    "created_at": "2026-05-09T15:20:31Z",
+    "duration_ms": 5326,
+    "input_tokens": 4989,
+    "output_tokens": 607,
+    "cost_estimate_usd": "0.0065"
+  }
+}

@@ -1,0 +1,325 @@
+{
+  "schema_version": "accountant.document.v2",
+  "source": {
+    "file_name": "20250615_102743.jpg",
+    "file_path": "../docs/facturi/20250615_102743.jpg",
+    "page_count": 1,
+    "page_index": 0,
+    "detected_document_count": 1,
+    "extracted_document_index": 0,
+    "image_quality": {
+      "readability": "excellent",
+      "issues": []
+    }
+  },
+  "extraction": {
+    "document_type": "invoice",
+    "language": "bg",
+    "country": "BG",
+    "document": {
+      "number": "8000057990",
+      "date": "2025-06-14",
+      "tax_event_date": "2025-06-14",
+      "due_date": "2025-06-17",
+      "currency": "BGN",
+      "exchange_rate": null,
+      "place": "Варна",
+      "notes": "Основание: УНП: ZK143176-0205-0102740 пос обб"
+    },
+    "supplier": {
+      "name": "Ардес Информационни Технологии ЕООД",
+      "eik": "103857070",
+      "vat_number": "BG103857070",
+      "address": "бул. Сливница 118, ет.1, ап.1",
+      "city": "Варна",
+      "country": "BG",
+      "mol": "Димитър Димитров"
+    },
+    "customer": {
+      "name": "Дигитален Хамелеон ЕООД",
+      "eik": "207498356",
+      "vat_number": null,
+      "address": "Манастриски ливади 176",
+      "city": "София",
+      "country": "BG",
+      "mol": "Габриела Петрова"
+    },
+    "totals": {
+      "net": "36.67",
+      "vat": "7.33",
+      "gross": "44.00",
+      "discount": null,
+      "rounding": null,
+      "amount_due": "44.00"
+    },
+    "vat_breakdown": [
+      {
+        "rate": "20.00",
+        "net": "36.67",
+        "vat": "7.33",
+        "gross": "44.00",
+        "reason": null
+      }
+    ],
+    "payments": [
+      {
+        "method": "card",
+        "amount": null,
+        "currency": "BGN",
+        "iban": null,
+        "bic": null,
+        "bank_name": null
+      },
+      {
+        "method": "bank_transfer",
+        "amount": null,
+        "currency": "BGN",
+        "iban": "BG28UBBS80021009349550",
+        "bic": null,
+        "bank_name": "ОББ"
+      }
+    ],
+    "line_items": [
+      {
+        "description": "Мрежови продукти ASUS USB-BT500 Bluetooth 5.0 U - 90IG05J0-MO0R00 - SN: SCIG43306687CEG",
+        "quantity": "1.000",
+        "unit": "бр",
+        "unit_price": "26.6667",
+        "discount_pct": null,
+        "vat_rate": "20.00",
+        "net": "26.67",
+        "vat": "5.33",
+        "gross": "32.00",
+        "includes_vat": false
+      },
+      {
+        "description": "Аксесоари за лаптопи Screen Cleaner 150ml + Microfiber cloth, Green - SN: S2220743",
+        "quantity": "1.000",
+        "unit": "бр",
+        "unit_price": "10.0000",
+        "discount_pct": null,
+        "vat_rate": "20.00",
+        "net": "10.00",
+        "vat": "2.00",
+        "gross": "12.00",
+        "includes_vat": false
+      }
+    ],
+    "fiscal": {
+      "fiscal_receipt_number": null,
+      "fiscal_device_number": null,
+      "operator": null,
+      "qr_code": null
+    }
+  },
+  "validation": {
+    "needs_review": false,
+    "checks": [
+      {
+        "code": "supplier_eik_checksum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "customer_eik_checksum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "supplier_vat_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "customer_vat_format",
+        "status": "skipped",
+        "message": "VAT number is null"
+      },
+      {
+        "code": "iban_mod97",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "bic_format",
+        "status": "skipped",
+        "message": "BIC is null"
+      },
+      {
+        "code": "currency_iso",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "document_type_enum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "date_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "due_date_after_issue",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "totals_match",
+        "status": "pass",
+        "message": "36.67 + 7.33 = 44.00"
+      },
+      {
+        "code": "vat_breakdown_match",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "line_items_sum",
+        "status": "pass",
+        "message": "all populated component sums match totals"
+      }
+    ],
+    "errors": [],
+    "warnings": []
+  },
+  "model_assessment": {
+    "confidence": {
+      "overall": 0.97,
+      "document": 0.99,
+      "supplier": 0.99,
+      "customer": 0.97,
+      "totals": 0.99,
+      "line_items": 0.95
+    },
+    "extraction_warnings": [
+      "Customer VAT number not printed on the document; left null.",
+      "Line item net amounts printed as 26.6667 and 10.0000; the document total 'Стойност: 36.67' uses rounded values. VAT and gross for individual lines derived from document-level totals proportionally; individual line vat/gross are approximate.",
+      "Payment method is mixed (POS terminal card + bank transfer); two payment entries created. Individual amounts per method not specified.",
+      "Stamp partially overlaps the 'Съставил' signature area but does not obscure any data fields."
+    ]
+  },
+  "evidence": {
+    "document.number": {
+      "text": "Фактура №: 8000057990",
+      "confidence": 0.99
+    },
+    "document.date": {
+      "text": "Дата на издаване: 14.06.2025г.",
+      "confidence": 0.99
+    },
+    "document.tax_event_date": {
+      "text": "Дата на данъчното събитие: 14.06.2025г.",
+      "confidence": 0.99
+    },
+    "document.due_date": {
+      "text": "Падеж: 17.06.2025г.",
+      "confidence": 0.99
+    },
+    "document.place": {
+      "text": "Място на сделката: Варна",
+      "confidence": 0.99
+    },
+    "supplier.name": {
+      "text": "Ардес Информационни Технологии ЕООД",
+      "confidence": 0.99
+    },
+    "supplier.address": {
+      "text": "бул. Сливница 118, ет.1, ап.1",
+      "confidence": 0.99
+    },
+    "supplier.city": {
+      "text": "гр. Варна",
+      "confidence": 0.99
+    },
+    "supplier.eik": {
+      "text": "Ид. No: 103857070",
+      "confidence": 0.99
+    },
+    "supplier.vat_number": {
+      "text": "Ид. No по ДДС: BG103857070",
+      "confidence": 0.99
+    },
+    "supplier.mol": {
+      "text": "МОЛ: Димитър Димитров",
+      "confidence": 0.99
+    },
+    "customer.name": {
+      "text": "Клиент: Дигитален Хамелеон ЕООД",
+      "confidence": 0.99
+    },
+    "customer.address": {
+      "text": "Адрес: София, Манастриски ливади 176",
+      "confidence": 0.99
+    },
+    "customer.eik": {
+      "text": "Ид. No: 207498356",
+      "confidence": 0.99
+    },
+    "customer.mol": {
+      "text": "МОЛ: Габриела Петрова",
+      "confidence": 0.99
+    },
+    "line_items[0].description": {
+      "text": "Мрежови продукти ASUS USB-BT500 Bluetooth 5.0 U - 90IG05J0-MO0R00 - SN: SCIG43306687CEG",
+      "confidence": 0.97
+    },
+    "line_items[0].unit_price": {
+      "text": "26.6667 лв.",
+      "confidence": 0.98
+    },
+    "line_items[0].net": {
+      "text": "26.6667 лв.",
+      "confidence": 0.98
+    },
+    "line_items[1].description": {
+      "text": "Аксесоари за лаптопи Screen Cleaner 150ml + Microfiber cloth, Green - SN: S2220743",
+      "confidence": 0.97
+    },
+    "line_items[1].unit_price": {
+      "text": "10.0000 лв.",
+      "confidence": 0.99
+    },
+    "line_items[1].net": {
+      "text": "10.0000 лв.",
+      "confidence": 0.99
+    },
+    "totals.net": {
+      "text": "Данъчна основа: 36.67 лв.",
+      "confidence": 0.99
+    },
+    "totals.vat": {
+      "text": "ДДС: 7.33 лв.",
+      "confidence": 0.99
+    },
+    "totals.gross": {
+      "text": "Всичко: 44.00 лв.",
+      "confidence": 0.99
+    },
+    "vat_breakdown[0].rate": {
+      "text": "ДДС ставка: 20 %",
+      "confidence": 0.99
+    },
+    "payments[1].iban": {
+      "text": "IBAN: BG28UBBS80021009349550",
+      "confidence": 0.97
+    },
+    "payments[1].bank_name": {
+      "text": "Банка: ОББ",
+      "confidence": 0.99
+    }
+  },
+  "provider": {
+    "engine": "anthropic",
+    "model": "claude-sonnet-4-6",
+    "pipeline": "vision_direct",
+    "ocr_used": false,
+    "prompt_version": "claude-unified-v2-2026-05-09-csharp",
+    "created_at": "2026-05-09T15:24:23Z",
+    "duration_ms": 31898,
+    "input_tokens": 6740,
+    "output_tokens": 2356,
+    "cost_estimate_usd": "0.0556"
+  }
+}

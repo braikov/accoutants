@@ -1,0 +1,57 @@
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Documents";
+}
+
+<section class="page-head">
+    <div>
+        <p class="eyebrow">Test folder</p>
+        <h1>Payment Documents</h1>
+    </div>
+    <div class="head-stats">
+        <span>@Model.Documents.Count images</span>
+        <span>@Model.Documents.Sum(d => d.Results.Count(r => r.Value)) AI results</span>
+    </div>
+</section>
+
+@if (Model.Documents.Count == 0)
+{
+    <section class="empty-state folder-state">
+        <h2>No images found</h2>
+        <p>Current image folder: <code>@Model.ImageFolder</code></p>
+        <p>Checked folders:</p>
+        <ul>
+            @foreach (var folder in Model.CandidateImageFolders)
+            {
+                <li><code>@folder</code></li>
+            }
+        </ul>
+    </section>
+}
+
+<section class="document-grid" aria-label="Documents">
+    @foreach (var document in Model.Documents)
+    {
+        <a class="document-card" asp-page="/Document" asp-route-file="@document.FileName">
+            <div class="thumb-wrap">
+                <img src="/document-image?file=@Uri.EscapeDataString(document.FileName)" alt="@document.FileName" loading="lazy" />
+            </div>
+            <div class="card-body">
+                <div class="file-name">@document.FileName</div>
+                <div class="meta-line">
+                    <span>@(document.DocumentType ?? "unknown")</span>
+                    <span>@(document.DocumentNumber ?? "no number")</span>
+                </div>
+                <div class="supplier">@((document.Supplier?.Length > 54 ? document.Supplier[..54] + "..." : document.Supplier) ?? "No supplier")</div>
+                <div class="amount">@((document.Gross is null ? "" : $"{document.Gross} {document.Currency}") )</div>
+                <div class="ai-row">
+                    @foreach (var ai in document.Results)
+                    {
+                        <span class="ai-pill @(ai.Value ? "ok" : "missing")">@ai.Key</span>
+                    }
+                </div>
+            </div>
+        </a>
+    }
+</section>

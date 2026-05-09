@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "validator_version": "1.0",
+  "result_file": "20240213_190514.result.json",
+  "passed": true,
+  "checks": [
+    { "name": "supplier_eik_checksum",  "status": "pass", "message": null },
+    { "name": "recipient_eik_checksum", "status": "pass", "message": null },
+    { "name": "iban_mod97",             "status": "pass", "message": null },
+    { "name": "bic_format",             "status": "pass", "message": null },
+    { "name": "totals_arithmetic",      "status": "pass", "message": null },
+    { "name": "vat_rate_consistency",   "status": "pass", "message": null },
+    { "name": "line_items_sum",         "status": "pass", "message": null },
+    { "name": "issue_date_format",      "status": "pass", "message": null },
+    { "name": "due_date_format",        "status": "pass", "message": null },
+    { "name": "due_date_after_issue",   "status": "pass", "message": null },
+    { "name": "currency_iso",           "status": "pass", "message": null },
+    { "name": "document_type_enum",     "status": "pass", "message": null }
+  ]
+}

@@ -1,0 +1,323 @@
+{
+  "schema_version": "accountant.document.v2",
+  "source": {
+    "file_name": "IMG-39ef79a80616212302e2ff986167024c-V.jpg",
+    "file_path": "../docs/facturi/IMG-39ef79a80616212302e2ff986167024c-V.jpg",
+    "page_count": 1,
+    "page_index": 0,
+    "detected_document_count": 2,
+    "extracted_document_index": 0,
+    "image_quality": {
+      "readability": "good",
+      "issues": [
+        "partial_text_cutoff_on_supplier_name_and_address",
+        "fiscal_receipt_partially_overlapping_invoice"
+      ]
+    }
+  },
+  "extraction": {
+    "document_type": "invoice",
+    "language": "bg",
+    "country": "BG",
+    "document": {
+      "number": "1000030625",
+      "date": "2025-03-25",
+      "tax_event_date": "2025-03-25",
+      "due_date": null,
+      "currency": "BGN",
+      "exchange_rate": null,
+      "place": "ВАРНА",
+      "notes": null
+    },
+    "supplier": {
+      "name": "ЕКСПЕРТ СЕРВИЗ Е",
+      "eik": "202683671",
+      "vat_number": "BG202683671",
+      "address": "бул. Владислав Варненчик №277",
+      "city": "Варна",
+      "country": "BG",
+      "mol": "СВИЛЕН КО"
+    },
+    "customer": {
+      "name": "МЕДТЕКЛАБ ЕООД",
+      "eik": "201556176",
+      "vat_number": "BG201556176",
+      "address": "УЛ. РОЩОК №9",
+      "city": "Варна",
+      "country": "BG",
+      "mol": "ГАБРИЕЛА ПЕТРОВА"
+    },
+    "totals": {
+      "net": "161.31",
+      "vat": "32.26",
+      "gross": "193.57",
+      "discount": null,
+      "rounding": null,
+      "amount_due": "193.57"
+    },
+    "vat_breakdown": [
+      {
+        "rate": "20.00",
+        "net": "161.31",
+        "vat": "32.26",
+        "gross": "193.57",
+        "reason": null
+      }
+    ],
+    "payments": [
+      {
+        "method": "cash",
+        "amount": "193.57",
+        "currency": "BGN",
+        "iban": null,
+        "bic": null,
+        "bank_name": null
+      }
+    ],
+    "line_items": [
+      {
+        "description": "Техническо обслужване",
+        "quantity": "1.000",
+        "unit": "часа",
+        "unit_price": "100.00",
+        "discount_pct": null,
+        "vat_rate": "20.00",
+        "net": "100.00",
+        "vat": "20.00",
+        "gross": "120.00",
+        "includes_vat": false
+      },
+      {
+        "description": "ФИЛТЪР КЛИМАТИК",
+        "quantity": "1.000",
+        "unit": "бр",
+        "unit_price": "61.31",
+        "discount_pct": null,
+        "vat_rate": "20.00",
+        "net": "61.31",
+        "vat": "12.26",
+        "gross": "73.57",
+        "includes_vat": false
+      }
+    ],
+    "fiscal": {
+      "fiscal_receipt_number": "3675045",
+      "fiscal_device_number": "DY432107",
+      "operator": "01",
+      "qr_code": null
+    }
+  },
+  "validation": {
+    "needs_review": true,
+    "checks": [
+      {
+        "code": "supplier_eik_checksum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "customer_eik_checksum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "supplier_vat_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "customer_vat_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "iban_mod97",
+        "status": "skipped",
+        "message": "IBAN is null"
+      },
+      {
+        "code": "bic_format",
+        "status": "skipped",
+        "message": "BIC is null"
+      },
+      {
+        "code": "currency_iso",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "document_type_enum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "date_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "due_date_after_issue",
+        "status": "skipped",
+        "message": "issue or due date missing/malformed"
+      },
+      {
+        "code": "totals_match",
+        "status": "pass",
+        "message": "161.31 + 32.26 = 193.57"
+      },
+      {
+        "code": "vat_breakdown_match",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "line_items_sum",
+        "status": "pass",
+        "message": "all populated component sums match totals"
+      },
+      {
+        "code": "multiple_documents_detected",
+        "status": "warning",
+        "message": "detected 2 documents; only index 0 extracted."
+      },
+      {
+        "code": "image_quality_issue",
+        "status": "warning",
+        "message": "issues: partial_text_cutoff_on_supplier_name_and_address, fiscal_receipt_partially_overlapping_invoice"
+      }
+    ],
+    "errors": [],
+    "warnings": [
+      "multiple_documents_detected",
+      "image_quality_issue"
+    ]
+  },
+  "model_assessment": {
+    "confidence": {
+      "overall": 0.87,
+      "document": 0.95,
+      "supplier": 0.8,
+      "customer": 0.96,
+      "totals": 0.97,
+      "line_items": 0.9
+    },
+    "extraction_warnings": [
+      "A second document — a fiscal receipt (касов бон) stapled/placed over the top-right of the invoice — was detected but not separately extracted; its data has been partially captured in the fiscal block.",
+      "Supplier name is cut off at the right edge of the invoice; full name reads 'Експерт Сервиз Е...' — likely 'Експерт Сервиз ЕООД'.",
+      "Supplier address is partially cut off at the right edge; full street name not fully legible.",
+      "Supplier МОЛ (representative) name is partially obscured; read as 'СВИЛЕН КО...'.",
+      "Line item VAT amounts derived from 20% rate applied to printed net values; individual line VAT not explicitly printed on document.",
+      "Fiscal receipt number and device number partially obscured; read as best effort."
+    ]
+  },
+  "evidence": {
+    "document.number": {
+      "text": "№ 1000030625",
+      "confidence": 0.97
+    },
+    "document.date": {
+      "text": "ДАТА :25.3.2025",
+      "confidence": 0.97
+    },
+    "document.tax_event_date": {
+      "text": "Дата на дан. събитие  25.3.2025",
+      "confidence": 0.97
+    },
+    "document.place": {
+      "text": "Място на сделката:  ВАРНА",
+      "confidence": 0.98
+    },
+    "supplier.name": {
+      "text": "Фирма : ЕКСПЕРТ СЕРВИЗ Е",
+      "confidence": 0.8
+    },
+    "supplier.eik": {
+      "text": "Идент №: 202683671",
+      "confidence": 0.9
+    },
+    "supplier.vat_number": {
+      "text": "ИН по ДДС : BG202683671",
+      "confidence": 0.9
+    },
+    "supplier.address": {
+      "text": "Адрес: гр. Варна , бул. Влади...",
+      "confidence": 0.8
+    },
+    "supplier.mol": {
+      "text": "Представител : СВИЛЕН КО...",
+      "confidence": 0.75
+    },
+    "customer.name": {
+      "text": "Фирма: МЕДТЕКЛАБ ЕООД",
+      "confidence": 0.98
+    },
+    "customer.eik": {
+      "text": "Идент №: 201556176",
+      "confidence": 0.97
+    },
+    "customer.vat_number": {
+      "text": "Ин по ДДС BG201556176",
+      "confidence": 0.97
+    },
+    "customer.address": {
+      "text": "Адрес: ВАРНА УЛ. РОЩОК №9",
+      "confidence": 0.95
+    },
+    "customer.mol": {
+      "text": "Представител : ГАБРИЕЛА ПЕТРОВА",
+      "confidence": 0.97
+    },
+    "totals.net": {
+      "text": "Данъчна основа: 161.31",
+      "confidence": 0.97
+    },
+    "totals.vat": {
+      "text": "ДДС 20%: 32.26",
+      "confidence": 0.97
+    },
+    "totals.gross": {
+      "text": "Обща стойност: 193.57",
+      "confidence": 0.97
+    },
+    "payments[0].method": {
+      "text": "Плащане: В Брой",
+      "confidence": 0.98
+    },
+    "line_items[0].description": {
+      "text": "Техническо обслужване",
+      "confidence": 0.97
+    },
+    "line_items[0].unit_price": {
+      "text": "100.00",
+      "confidence": 0.97
+    },
+    "line_items[1].description": {
+      "text": "ФИЛТЪР КЛИМАТИК",
+      "confidence": 0.97
+    },
+    "line_items[1].unit_price": {
+      "text": "61.31",
+      "confidence": 0.97
+    },
+    "fiscal.fiscal_receipt_number": {
+      "text": "3675045",
+      "confidence": 0.82
+    },
+    "fiscal.fiscal_device_number": {
+      "text": "DY432107",
+      "confidence": 0.82
+    }
+  },
+  "provider": {
+    "engine": "anthropic",
+    "model": "claude-sonnet-4-6",
+    "pipeline": "vision_direct",
+    "ocr_used": false,
+    "prompt_version": "claude-unified-v2-2026-05-09-csharp",
+    "created_at": "2026-05-09T15:31:01Z",
+    "duration_ms": 28085,
+    "input_tokens": 6741,
+    "output_tokens": 2066,
+    "cost_estimate_usd": "0.0512"
+  }
+}

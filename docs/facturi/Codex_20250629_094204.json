@@ -1,0 +1,214 @@
+{
+  "schema_version": "accountant.document.v2",
+  "source": {
+    "file_name": "20250629_094204.jpg",
+    "file_path": "../docs/facturi/20250629_094204.jpg",
+    "page_count": 1,
+    "page_index": 0,
+    "detected_document_count": 4,
+    "extracted_document_index": 0,
+    "image_quality": {
+      "readability": "fair",
+      "issues": [
+        "low_contrast",
+        "fold_obscures_data",
+        "stamp_obscures_data"
+      ]
+    }
+  },
+  "extraction": {
+    "document_type": "invoice",
+    "language": "bg",
+    "country": "BG",
+    "document": {
+      "number": "0000300823",
+      "date": "2024-09-26",
+      "tax_event_date": null,
+      "due_date": null,
+      "currency": "BGN",
+      "exchange_rate": null,
+      "place": null,
+      "notes": null
+    },
+    "supplier": {
+      "name": "НИКСМЕТАЛ ОЙЛ ЕООД",
+      "eik": "205318980",
+      "vat_number": "BG205318980",
+      "address": "ботевград, \"Цар Иван Шишман\" 43",
+      "city": "Ботевград",
+      "country": "BG",
+      "mol": "Станислав Геровски"
+    },
+    "customer": {
+      "name": "ИнкоТрейд ЕООД",
+      "eik": "206802564",
+      "vat_number": "BG206802564",
+      "address": "гр. Варна",
+      "city": "Варна",
+      "country": "BG",
+      "mol": "Мариана Кинчова Петрова"
+    },
+    "totals": {
+      "net": "119.58",
+      "vat": "23.92",
+      "gross": "143.50",
+      "discount": null,
+      "rounding": null,
+      "amount_due": null
+    },
+    "vat_breakdown": [
+      {
+        "rate": "20.00",
+        "net": "119.58",
+        "vat": "23.92",
+        "gross": "143.50",
+        "reason": null
+      }
+    ],
+    "payments": [
+      {
+        "method": "card",
+        "amount": "143.50",
+        "currency": "BGN",
+        "iban": "BG37STSAS93001528411158",
+        "bic": "STSABGSF",
+        "bank_name": "Банка ДСК"
+      }
+    ],
+    "line_items": [
+      {
+        "description": "ДИЗ. ГОРИВО Б-6",
+        "quantity": "64.930",
+        "unit": null,
+        "unit_price": "1.84167",
+        "discount_pct": null,
+        "vat_rate": "20.00",
+        "net": "119.58",
+        "vat": "23.92",
+        "gross": "143.50",
+        "includes_vat": false
+      }
+    ],
+    "fiscal": {
+      "fiscal_receipt_number": null,
+      "fiscal_device_number": null,
+      "operator": "Митко Драганов",
+      "qr_code": null
+    }
+  },
+  "validation": {
+    "needs_review": true,
+    "checks": [
+      {
+        "code": "supplier_eik_checksum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "customer_eik_checksum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "supplier_vat_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "customer_vat_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "iban_mod97",
+        "status": "fail",
+        "message": "IBAN 'BG37STSAS93001528411158' fails mod-97 checksum."
+      },
+      {
+        "code": "bic_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "currency_iso",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "document_type_enum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "date_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "due_date_after_issue",
+        "status": "skipped",
+        "message": "issue or due date missing/malformed"
+      },
+      {
+        "code": "totals_match",
+        "status": "pass",
+        "message": "119.58 + 23.92 = 143.50"
+      },
+      {
+        "code": "vat_breakdown_match",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "line_items_sum",
+        "status": "pass",
+        "message": "all populated component sums match totals"
+      },
+      {
+        "code": "multiple_documents_detected",
+        "status": "warning",
+        "message": "detected 4 documents; only index 0 extracted."
+      },
+      {
+        "code": "image_quality_issue",
+        "status": "warning",
+        "message": "issues: low_contrast, fold_obscures_data, stamp_obscures_data"
+      }
+    ],
+    "errors": [
+      "iban_mod97"
+    ],
+    "warnings": [
+      "multiple_documents_detected",
+      "image_quality_issue"
+    ]
+  },
+  "model_assessment": {
+    "confidence": {
+      "overall": 0.39,
+      "document": 0.93,
+      "supplier": 0.98,
+      "customer": 0.97,
+      "totals": 0.96,
+      "line_items": 0.9
+    },
+    "extraction_warnings": [
+      "Multiple invoices are visible; extracted the top-left document only.",
+      "Document number and date are partially unclear; date inferred from visible text.",
+      "Four documents are visible in one image."
+    ]
+  },
+  "evidence": {},
+  "provider": {
+    "engine": "open_ai",
+    "model": "gpt-5.4-mini",
+    "pipeline": "vision_direct",
+    "ocr_used": false,
+    "prompt_version": "codex-unified-v2-r13-2026-05-09-csharp",
+    "created_at": "2026-05-09T15:19:37Z",
+    "duration_ms": 5427,
+    "input_tokens": 4959,
+    "output_tokens": 526,
+    "cost_estimate_usd": "0.0061"
+  }
+}

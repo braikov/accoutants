@@ -1,0 +1,204 @@
+{
+  "schema_version": "accountant.document.v2",
+  "source": {
+    "file_name": "20240213_190514.jpg",
+    "file_path": "docs/facturi/20240213_190514.jpg",
+    "page_count": 1,
+    "page_index": 0,
+    "detected_document_count": 1,
+    "extracted_document_index": 0,
+    "image_quality": {
+      "readability": "good",
+      "issues": [
+        "low_contrast",
+        "stamp_obscures_data"
+      ]
+    }
+  },
+  "extraction": {
+    "document_type": "invoice",
+    "language": "bg",
+    "country": "BG",
+    "document": {
+      "number": "0300051648",
+      "date": "2023-12-11",
+      "tax_event_date": "2023-12-11",
+      "due_date": "2023-12-19",
+      "currency": "BGN",
+      "exchange_rate": null,
+      "place": null,
+      "notes": "Оригинал"
+    },
+    "supplier": {
+      "name": "АВАНС ТРЕЙД ООД",
+      "eik": "201760264",
+      "vat_number": "BG201760264",
+      "address": "ул.Свищовска 1",
+      "city": "Габрово",
+      "country": "BG",
+      "mol": "Николай Умников"
+    },
+    "customer": {
+      "name": "ИНКО ТРЕЙД ЕООД",
+      "eik": "206802564",
+      "vat_number": "BG206802564",
+      "address": "УЛ.РОЩОК 9",
+      "city": "Варна",
+      "country": "BG",
+      "mol": null
+    },
+    "totals": {
+      "net": "230.00",
+      "vat": "46.00",
+      "gross": "276.00",
+      "discount": null,
+      "rounding": null,
+      "amount_due": "276.00"
+    },
+    "vat_breakdown": [
+      {
+        "rate": "20.00",
+        "net": "230.00",
+        "vat": "46.00",
+        "gross": "276.00",
+        "reason": null
+      }
+    ],
+    "payments": [
+      {
+        "method": "bank_transfer",
+        "amount": "276.00",
+        "currency": "BGN",
+        "iban": "BG62BPBI79291053720501",
+        "bic": "BPBIBGSF",
+        "bank_name": "Юробанк България АД"
+      }
+    ],
+    "line_items": [
+      {
+        "description": "М.К. 120 КАПАК КЕЪР СОФТx24",
+        "quantity": "240.000",
+        "unit": "бр",
+        "unit_price": "0.958",
+        "discount_pct": null,
+        "vat_rate": "20.00",
+        "net": "230.00",
+        "vat": "46.00",
+        "gross": "276.00",
+        "includes_vat": false
+      }
+    ],
+    "fiscal": {
+      "fiscal_receipt_number": null,
+      "fiscal_device_number": null,
+      "operator": null,
+      "qr_code": null
+    }
+  },
+  "validation": {
+    "needs_review": true,
+    "checks": [
+      {
+        "code": "supplier_eik_checksum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "customer_eik_checksum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "supplier_vat_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "customer_vat_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "iban_mod97",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "bic_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "currency_iso",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "document_type_enum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "date_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "due_date_after_issue",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "totals_match",
+        "status": "pass",
+        "message": "230.00 + 46.00 = 276.00"
+      },
+      {
+        "code": "vat_breakdown_match",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "line_items_sum",
+        "status": "pass",
+        "message": "all populated component sums match totals"
+      },
+      {
+        "code": "image_quality_issue",
+        "status": "warning",
+        "message": "issues: low_contrast, stamp_obscures_data"
+      }
+    ],
+    "errors": [],
+    "warnings": [
+      "image_quality_issue"
+    ]
+  },
+  "model_assessment": {
+    "confidence": {
+      "overall": 0.94,
+      "document": 0.99,
+      "supplier": 0.98,
+      "customer": 0.97,
+      "totals": 0.98,
+      "line_items": 0.91
+    },
+    "extraction_warnings": [
+      "Low contrast in the lower section.",
+      "Bank details are partially obscured by the stamp."
+    ]
+  },
+  "evidence": {},
+  "provider": {
+    "engine": "open_ai",
+    "model": "gpt-5.4-mini",
+    "pipeline": "vision_direct",
+    "ocr_used": false,
+    "prompt_version": "codex-unified-v2-r13-2026-05-09-csharp",
+    "created_at": "2026-05-09T14:57:20Z",
+    "duration_ms": 6774,
+    "input_tokens": 4939,
+    "output_tokens": 513,
+    "cost_estimate_usd": "0.0060"
+  }
+}

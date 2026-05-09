@@ -1,0 +1,288 @@
+{
+  "schema_version": "accountant.document.v2",
+  "source": {
+    "file_name": "20260312_183710.jpg",
+    "file_path": "../docs/facturi/20260312_183710.jpg",
+    "page_count": 1,
+    "page_index": 0,
+    "detected_document_count": 1,
+    "extracted_document_index": 0,
+    "image_quality": {
+      "readability": "good",
+      "issues": [
+        "partial_fold_obscures_invoice_number",
+        "slight_crease_over_header"
+      ]
+    }
+  },
+  "extraction": {
+    "document_type": "invoice",
+    "language": "bg",
+    "country": "BG",
+    "document": {
+      "number": "0180151192",
+      "date": "2025-12-13",
+      "tax_event_date": null,
+      "due_date": null,
+      "currency": "BGN",
+      "exchange_rate": null,
+      "place": null,
+      "notes": null
+    },
+    "supplier": {
+      "name": "ПРАКТИКЕР РИТЕЙЛ ЕООД",
+      "eik": "200525782",
+      "vat_number": "BG200525782",
+      "address": "УЛ. ОКОЛОВРЪСТЕН ПЪТ 265",
+      "city": "София",
+      "country": "BG",
+      "mol": null
+    },
+    "customer": {
+      "name": "ИНКО ТРЕЙД ЕООД",
+      "eik": "206802564",
+      "vat_number": "BG206802564",
+      "address": "УЛ. РОЩОК 9",
+      "city": "Варна",
+      "country": "BG",
+      "mol": null
+    },
+    "totals": {
+      "net": "102.95",
+      "vat": "20.59",
+      "gross": "123.54",
+      "discount": null,
+      "rounding": null,
+      "amount_due": "123.54"
+    },
+    "vat_breakdown": [
+      {
+        "rate": "20.00",
+        "net": "102.95",
+        "vat": "20.59",
+        "gross": "123.54",
+        "reason": null
+      }
+    ],
+    "payments": [
+      {
+        "method": "card",
+        "amount": "123.54",
+        "currency": "BGN",
+        "iban": null,
+        "bic": null,
+        "bank_name": null
+      }
+    ],
+    "line_items": [],
+    "fiscal": {
+      "fiscal_receipt_number": "0186071",
+      "fiscal_device_number": "DT973905",
+      "operator": "0013",
+      "qr_code": "4FDFF13D7DE293F44E2C90EBCCE428B7096"
+    }
+  },
+  "validation": {
+    "needs_review": true,
+    "checks": [
+      {
+        "code": "supplier_eik_checksum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "customer_eik_checksum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "supplier_vat_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "customer_vat_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "iban_mod97",
+        "status": "skipped",
+        "message": "IBAN is null"
+      },
+      {
+        "code": "bic_format",
+        "status": "skipped",
+        "message": "BIC is null"
+      },
+      {
+        "code": "currency_iso",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "document_type_enum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "date_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "due_date_after_issue",
+        "status": "skipped",
+        "message": "issue or due date missing/malformed"
+      },
+      {
+        "code": "totals_match",
+        "status": "pass",
+        "message": "102.95 + 20.59 = 123.54"
+      },
+      {
+        "code": "vat_breakdown_match",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "line_items_sum",
+        "status": "skipped",
+        "message": "no line items"
+      },
+      {
+        "code": "image_quality_issue",
+        "status": "warning",
+        "message": "issues: partial_fold_obscures_invoice_number, slight_crease_over_header"
+      }
+    ],
+    "errors": [],
+    "warnings": [
+      "image_quality_issue"
+    ]
+  },
+  "model_assessment": {
+    "confidence": {
+      "overall": 0.88,
+      "document": 0.78,
+      "supplier": 0.9,
+      "customer": 0.95,
+      "totals": 0.97,
+      "line_items": null
+    },
+    "extraction_warnings": [
+      "Invoice number partially obscured by fold/crease; read as '0180151192' but digits after '018015' are uncertain — could be '1192' or similar.",
+      "The fiscal receipt also functions as a VAT invoice (ФАКТУРА); document type classified as 'invoice' per the printed 'ФАКТУРА No' title.",
+      "Line items are not printed on this receipt; only VAT group totals (Group B, 20%) are visible.",
+      "QR code text partially reconstructed from the printed alphanumeric string beneath the barcode; last characters may be incomplete.",
+      "The УНП (unique receipt number) reads 'УНП: ДТ973905-0013 0151501' — used to populate fiscal fields.",
+      "Exchange rate 1.95583 BGN/EUR is printed but serves only as informational EUR equivalent; invoice currency is BGN so exchange_rate is set to null."
+    ]
+  },
+  "evidence": {
+    "document.number": {
+      "text": "ФАКТУРА No: 018015/192",
+      "confidence": 0.75
+    },
+    "document.date": {
+      "text": "13-12-2025 17:03:10",
+      "confidence": 0.95
+    },
+    "supplier.name": {
+      "text": "\"ПРАКТИКЕР РИТЕЙЛ\" ЕООД",
+      "confidence": 0.88
+    },
+    "supplier.eik": {
+      "text": "ЕИК: 200525782",
+      "confidence": 0.97
+    },
+    "supplier.vat_number": {
+      "text": "ЗДДС N:BG 200525782",
+      "confidence": 0.97
+    },
+    "supplier.address": {
+      "text": "ГР.СОФИЯ, УЛ.\"ОКОЛОВРЪСТЕН ПЪТ\" 265",
+      "confidence": 0.92
+    },
+    "customer.name": {
+      "text": "КУПУВАЧ: ИНКО ТРЕЙД ЕООД",
+      "confidence": 0.97
+    },
+    "customer.eik": {
+      "text": "ИДЕНТ. No.: 206802564",
+      "confidence": 0.97
+    },
+    "customer.vat_number": {
+      "text": "ЗДДС No.: BG206802564",
+      "confidence": 0.97
+    },
+    "customer.address": {
+      "text": "АДРЕС: УЛ. РОЩОК 9",
+      "confidence": 0.92
+    },
+    "customer.city": {
+      "text": "ВАРНА",
+      "confidence": 0.97
+    },
+    "totals.gross": {
+      "text": "ОБЩА СУМА ЛВ 123,54",
+      "confidence": 0.97
+    },
+    "totals.vat": {
+      "text": "ДДС ГРУПА Б=20,00% 20,59",
+      "confidence": 0.97
+    },
+    "totals.net": {
+      "text": "НЕТО СТОЙНОСТ Б 102,95",
+      "confidence": 0.97
+    },
+    "payments[0].method": {
+      "text": "С ДЕБИТНА КАРТА 123,54",
+      "confidence": 0.97
+    },
+    "fiscal.fiscal_device_number": {
+      "text": "DT973905",
+      "confidence": 0.97
+    },
+    "fiscal.fiscal_receipt_number": {
+      "text": "0186071 0303",
+      "confidence": 0.92
+    },
+    "fiscal.operator": {
+      "text": "Код на оператор 0013",
+      "confidence": 0.95
+    },
+    "fiscal.qr_code": {
+      "text": "4FDFF13D7DE293F44E2C90EBCCE428B7096",
+      "confidence": 0.8
+    },
+    "vat_breakdown[0].rate": {
+      "text": "ДДС ГРУПА Б=20,00%",
+      "confidence": 0.97
+    },
+    "vat_breakdown[0].net": {
+      "text": "НЕТО СТОЙНОСТ Б 102,95",
+      "confidence": 0.97
+    },
+    "vat_breakdown[0].vat": {
+      "text": "20,59",
+      "confidence": 0.97
+    },
+    "vat_breakdown[0].gross": {
+      "text": "ОБОРОТ Б 123,54 / ОБЩА СУМА ЛВ 123,54",
+      "confidence": 0.95
+    }
+  },
+  "provider": {
+    "engine": "anthropic",
+    "model": "claude-sonnet-4-6",
+    "pipeline": "vision_direct",
+    "ocr_used": false,
+    "prompt_version": "claude-unified-v2-2026-05-09-csharp",
+    "created_at": "2026-05-09T15:30:04Z",
+    "duration_ms": 27955,
+    "input_tokens": 6253,
+    "output_tokens": 1867,
+    "cost_estimate_usd": "0.0468"
+  }
+}

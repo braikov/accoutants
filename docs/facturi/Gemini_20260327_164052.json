@@ -1,0 +1,191 @@
+{
+  "schema_version": "accountant.document.v2",
+  "source": {
+    "file_name": "20260327_164052.jpg",
+    "file_path": "../docs/facturi/20260327_164052.jpg",
+    "page_count": 1,
+    "page_index": 0,
+    "detected_document_count": 1,
+    "extracted_document_index": 0,
+    "image_quality": {
+      "readability": "excellent",
+      "issues": []
+    }
+  },
+  "extraction": {
+    "document_type": "invoice",
+    "language": "bg",
+    "country": "BG",
+    "document": {
+      "number": "0000150465",
+      "date": "2026-03-27",
+      "tax_event_date": "2026-03-27",
+      "due_date": null,
+      "currency": "EUR",
+      "exchange_rate": null,
+      "place": "Варна",
+      "notes": null
+    },
+    "supplier": {
+      "name": "КЛАСИК МЕТАЛ ЕООД",
+      "eik": "103908351",
+      "vat_number": "BG103908351",
+      "address": "жк Възраждане 1",
+      "city": "Варна",
+      "country": "BG",
+      "mol": "Владимир Бодуров"
+    },
+    "customer": {
+      "name": "ИНКО ТРЕЙД ЕООД",
+      "eik": "206802564",
+      "vat_number": "BG206802564",
+      "address": "ул. Рощок 9",
+      "city": "Варна",
+      "country": "BG",
+      "mol": "Мариана Петрова"
+    },
+    "totals": {
+      "net": "153.50",
+      "vat": "30.70",
+      "gross": "184.20",
+      "discount": null,
+      "rounding": null,
+      "amount_due": "184.20"
+    },
+    "vat_breakdown": [
+      {
+        "rate": "20.00",
+        "net": "153.50",
+        "vat": "30.70",
+        "gross": "184.20",
+        "reason": null
+      }
+    ],
+    "payments": [
+      {
+        "method": "bank_transfer",
+        "amount": "184.20",
+        "currency": "EUR",
+        "iban": "BG98STSA93001506003157",
+        "bic": "STSABGSF",
+        "bank_name": "БАНКА ДСК"
+      }
+    ],
+    "line_items": [
+      {
+        "description": "100030-Лазерно рязане - детайл",
+        "quantity": "1.000",
+        "unit": "бр",
+        "unit_price": "153.5000",
+        "discount_pct": null,
+        "vat_rate": "20.00",
+        "net": "153.50",
+        "vat": "30.70",
+        "gross": "184.20",
+        "includes_vat": false
+      }
+    ],
+    "fiscal": {
+      "fiscal_receipt_number": null,
+      "fiscal_device_number": null,
+      "operator": null,
+      "qr_code": null
+    }
+  },
+  "validation": {
+    "needs_review": false,
+    "checks": [
+      {
+        "code": "supplier_eik_checksum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "customer_eik_checksum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "supplier_vat_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "customer_vat_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "iban_mod97",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "bic_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "currency_iso",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "document_type_enum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "date_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "due_date_after_issue",
+        "status": "skipped",
+        "message": "issue or due date missing/malformed"
+      },
+      {
+        "code": "totals_match",
+        "status": "pass",
+        "message": "153.50 + 30.70 = 184.20"
+      },
+      {
+        "code": "vat_breakdown_match",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "line_items_sum",
+        "status": "pass",
+        "message": "all populated component sums match totals"
+      }
+    ],
+    "errors": [],
+    "warnings": []
+  },
+  "model_assessment": {
+    "confidence": {
+      "overall": 1,
+      "document": 1,
+      "supplier": 1,
+      "customer": 1,
+      "totals": 1,
+      "line_items": 1
+    },
+    "extraction_warnings": []
+  },
+  "evidence": {},
+  "provider": {
+    "engine": "google",
+    "model": "gemini-flash-latest",
+    "pipeline": "vision_direct",
+    "ocr_used": false,
+    "prompt_version": "gemini-unified-v2-2026-05-09-csharp",
+    "created_at": "2026-05-09T15:33:51Z",
+    "duration_ms": 13843,
+    "input_tokens": 4441,
+    "output_tokens": 948,
+    "cost_estimate_usd": "0.0006"
+  }
+}

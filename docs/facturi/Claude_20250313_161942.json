@@ -1,0 +1,313 @@
+{
+  "schema_version": "accountant.document.v2",
+  "source": {
+    "file_name": "20250313_161942.jpg",
+    "file_path": "../docs/facturi/20250313_161942.jpg",
+    "page_count": 1,
+    "page_index": 0,
+    "detected_document_count": 1,
+    "extracted_document_index": 0,
+    "image_quality": {
+      "readability": "good",
+      "issues": [
+        "slight_fold_top_left_corner"
+      ]
+    }
+  },
+  "extraction": {
+    "document_type": "invoice",
+    "language": "bg",
+    "country": "BG",
+    "document": {
+      "number": "4826949293",
+      "date": "2025-03-13",
+      "tax_event_date": "2025-03-13",
+      "due_date": null,
+      "currency": "BGN",
+      "exchange_rate": null,
+      "place": "4826 4826 МОЛ България",
+      "notes": null
+    },
+    "supplier": {
+      "name": "ЙЕТТЕЛ БЪЛГАРИЯ ЕАД",
+      "eik": "130460283",
+      "vat_number": "BG130460283",
+      "address": "кв. МЛАДОСТ 4, Бизнес Парк София, сграда 6",
+      "city": "София",
+      "country": "BG",
+      "mol": null
+    },
+    "customer": {
+      "name": "МЕДТЕКЛАБ ЕООД",
+      "eik": "201556176",
+      "vat_number": "BG201556176",
+      "address": "жк ВАСИЛ ЛЕВСКИ ул. РОЩОК №9",
+      "city": "Варна",
+      "country": "BG",
+      "mol": null
+    },
+    "totals": {
+      "net": "983.32",
+      "vat": "196.66",
+      "gross": "1179.98",
+      "discount": null,
+      "rounding": null,
+      "amount_due": "1179.98"
+    },
+    "vat_breakdown": [
+      {
+        "rate": "20.00",
+        "net": "983.32",
+        "vat": "196.66",
+        "gross": "1179.98",
+        "reason": null
+      }
+    ],
+    "payments": [
+      {
+        "method": "card",
+        "amount": "1179.98",
+        "currency": "BGN",
+        "iban": null,
+        "bic": null,
+        "bank_name": null
+      }
+    ],
+    "line_items": [
+      {
+        "description": "iPhone 16e 128GB Black MD1Q4ZD/A 356675700432577",
+        "quantity": "1.000",
+        "unit": "бр",
+        "unit_price": "983.32",
+        "discount_pct": "0.00",
+        "vat_rate": "20.00",
+        "net": "983.32",
+        "vat": "196.66",
+        "gross": "1179.98",
+        "includes_vat": false
+      }
+    ],
+    "fiscal": {
+      "fiscal_receipt_number": null,
+      "fiscal_device_number": null,
+      "operator": "Ивелина Димитрова Демирова",
+      "qr_code": null
+    }
+  },
+  "validation": {
+    "needs_review": true,
+    "checks": [
+      {
+        "code": "supplier_eik_checksum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "customer_eik_checksum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "supplier_vat_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "customer_vat_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "iban_mod97",
+        "status": "skipped",
+        "message": "IBAN is null"
+      },
+      {
+        "code": "bic_format",
+        "status": "skipped",
+        "message": "BIC is null"
+      },
+      {
+        "code": "currency_iso",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "document_type_enum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "date_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "due_date_after_issue",
+        "status": "skipped",
+        "message": "issue or due date missing/malformed"
+      },
+      {
+        "code": "totals_match",
+        "status": "pass",
+        "message": "983.32 + 196.66 = 1179.98"
+      },
+      {
+        "code": "vat_breakdown_match",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "line_items_sum",
+        "status": "pass",
+        "message": "all populated component sums match totals"
+      },
+      {
+        "code": "image_quality_issue",
+        "status": "warning",
+        "message": "issues: slight_fold_top_left_corner"
+      }
+    ],
+    "errors": [],
+    "warnings": [
+      "image_quality_issue"
+    ]
+  },
+  "model_assessment": {
+    "confidence": {
+      "overall": 0.97,
+      "document": 0.99,
+      "supplier": 0.99,
+      "customer": 0.97,
+      "totals": 0.99,
+      "line_items": 0.97
+    },
+    "extraction_warnings": [
+      "Customer address partially unclear — 'жк ВАСИЛ ЛЕВСКИ ул. РОЩОК №9' read as printed but spacing between 'ЛЕВСКИ' and 'ул.' may be run-together in the original.",
+      "The invoice also states the gross amount in EUR (603.32 euro) but the invoice currency is BGN; EUR amount noted for reference only.",
+      "Discount column 'ТО (лв.)' shows 0.00, confirming 0% discount applied."
+    ]
+  },
+  "evidence": {
+    "document.number": {
+      "text": "No. 4826949293",
+      "confidence": 0.99
+    },
+    "document.date": {
+      "text": "Дата: 13.03.2025",
+      "confidence": 0.99
+    },
+    "document.place": {
+      "text": "Място на сделката: 4826 4826 МОЛ България",
+      "confidence": 0.97
+    },
+    "document.tax_event_date": {
+      "text": "Дата на данъчното събитие / плащане / 13.03.2025",
+      "confidence": 0.99
+    },
+    "supplier.name": {
+      "text": "ЙЕТТЕЛ БЪЛГАРИЯ ЕАД",
+      "confidence": 0.99
+    },
+    "supplier.eik": {
+      "text": "ИН: 130460283",
+      "confidence": 0.99
+    },
+    "supplier.vat_number": {
+      "text": "ИН по ЗДДС: BG130460283",
+      "confidence": 0.99
+    },
+    "supplier.address": {
+      "text": "кв. МЛАДОСТ 4, Бизнес Парк София, сграда 6",
+      "confidence": 0.97
+    },
+    "supplier.city": {
+      "text": "София",
+      "confidence": 0.99
+    },
+    "customer.name": {
+      "text": "МЕДТЕКЛАБ ЕООД",
+      "confidence": 0.99
+    },
+    "customer.eik": {
+      "text": "ИН: 201556176",
+      "confidence": 0.99
+    },
+    "customer.vat_number": {
+      "text": "ИН по ЗДДС: BG201556176",
+      "confidence": 0.99
+    },
+    "customer.address": {
+      "text": "жк ВАСИЛ ЛЕВСКИ ул. РОЩОК №9",
+      "confidence": 0.95
+    },
+    "customer.city": {
+      "text": "Варна",
+      "confidence": 0.99
+    },
+    "line_items[0].description": {
+      "text": "iPhone 16e 128GB Black MD1Q4ZD/A 356675700432577",
+      "confidence": 0.97
+    },
+    "line_items[0].quantity": {
+      "text": "1",
+      "confidence": 0.99
+    },
+    "line_items[0].unit_price": {
+      "text": "983.32",
+      "confidence": 0.99
+    },
+    "line_items[0].discount_pct": {
+      "text": "ТО %: 0%",
+      "confidence": 0.99
+    },
+    "line_items[0].net": {
+      "text": "Стойност в лв.: 983.32",
+      "confidence": 0.99
+    },
+    "line_items[0].vat_rate": {
+      "text": "ДДС: 20%",
+      "confidence": 0.99
+    },
+    "line_items[0].vat": {
+      "text": "ДДС (лв.): 196.66",
+      "confidence": 0.99
+    },
+    "totals.net": {
+      "text": "Данъчна основа с 20% лв. 983.32",
+      "confidence": 0.99
+    },
+    "totals.vat": {
+      "text": "Начислен ДДС 20% лв. 196.66",
+      "confidence": 0.99
+    },
+    "totals.gross": {
+      "text": "Обща стойност: 1 179.98 лв./603.32 евро",
+      "confidence": 0.99
+    },
+    "payments[0].method": {
+      "text": "С карта 1 179.98 лв.",
+      "confidence": 0.99
+    },
+    "payments[0].amount": {
+      "text": "1 179.98 лв.",
+      "confidence": 0.99
+    },
+    "fiscal.operator": {
+      "text": "Съставител: 1000045912. Ивелина Димитрова Демирова",
+      "confidence": 0.97
+    }
+  },
+  "provider": {
+    "engine": "anthropic",
+    "model": "claude-sonnet-4-6",
+    "pipeline": "vision_direct",
+    "ocr_used": false,
+    "prompt_version": "claude-unified-v2-2026-05-09-csharp",
+    "created_at": "2026-05-09T15:21:24Z",
+    "duration_ms": 30484,
+    "input_tokens": 6749,
+    "output_tokens": 2044,
+    "cost_estimate_usd": "0.0509"
+  }
+}

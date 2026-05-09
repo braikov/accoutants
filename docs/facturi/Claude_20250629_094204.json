@@ -1,0 +1,303 @@
+{
+  "schema_version": "accountant.document.v2",
+  "source": {
+    "file_name": "20250629_094204.jpg",
+    "file_path": "../docs/facturi/20250629_094204.jpg",
+    "page_count": 1,
+    "page_index": 0,
+    "detected_document_count": 4,
+    "extracted_document_index": 0,
+    "image_quality": {
+      "readability": "good",
+      "issues": [
+        "multiple_documents_on_one_image",
+        "partial_occlusion_between_documents"
+      ]
+    }
+  },
+  "extraction": {
+    "document_type": "invoice",
+    "language": "bg",
+    "country": "BG",
+    "document": {
+      "number": "0000300823",
+      "date": "2024-09-06",
+      "tax_event_date": "2024-09-16",
+      "due_date": "2024-09-16",
+      "currency": "BGN",
+      "exchange_rate": null,
+      "place": null,
+      "notes": null
+    },
+    "supplier": {
+      "name": "НИКСМЕТАЛ ОИЛ ЕООД",
+      "eik": "205318980",
+      "vat_number": "BG205318980",
+      "address": "Цар Ив. Шишман 43",
+      "city": "Ботевград",
+      "country": "BG",
+      "mol": "Станислав Геровски"
+    },
+    "customer": {
+      "name": "ИнкоТрейд ЕООД",
+      "eik": "208802564",
+      "vat_number": "BG206802564",
+      "address": null,
+      "city": "Варна",
+      "country": "BG",
+      "mol": "Мариана Кинчова Петрова"
+    },
+    "totals": {
+      "net": "119.58",
+      "vat": "23.92",
+      "gross": "143.50",
+      "discount": null,
+      "rounding": null,
+      "amount_due": "143.50"
+    },
+    "vat_breakdown": [
+      {
+        "rate": "20.00",
+        "net": "119.58",
+        "vat": "23.92",
+        "gross": "143.50",
+        "reason": null
+      }
+    ],
+    "payments": [
+      {
+        "method": "card",
+        "amount": "143.50",
+        "currency": "BGN",
+        "iban": "BG37STSA93001528411158",
+        "bic": "STSABGSF",
+        "bank_name": "Банка ДСК ЕАД"
+      }
+    ],
+    "line_items": [
+      {
+        "description": "ДИЗ. ГОРИВО Б-6",
+        "quantity": "64.930",
+        "unit": "л",
+        "unit_price": "1.84167",
+        "discount_pct": null,
+        "vat_rate": "20.00",
+        "net": "119.58",
+        "vat": "23.92",
+        "gross": "143.50",
+        "includes_vat": false
+      }
+    ],
+    "fiscal": {
+      "fiscal_receipt_number": null,
+      "fiscal_device_number": null,
+      "operator": null,
+      "qr_code": null
+    }
+  },
+  "validation": {
+    "needs_review": true,
+    "checks": [
+      {
+        "code": "supplier_eik_checksum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "customer_eik_checksum",
+        "status": "fail",
+        "message": "EIK '208802564' fails Bulgarian checksum."
+      },
+      {
+        "code": "supplier_vat_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "customer_vat_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "iban_mod97",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "bic_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "currency_iso",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "document_type_enum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "date_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "due_date_after_issue",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "totals_match",
+        "status": "pass",
+        "message": "119.58 + 23.92 = 143.50"
+      },
+      {
+        "code": "vat_breakdown_match",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "line_items_sum",
+        "status": "pass",
+        "message": "all populated component sums match totals"
+      },
+      {
+        "code": "multiple_documents_detected",
+        "status": "warning",
+        "message": "detected 4 documents; only index 0 extracted."
+      },
+      {
+        "code": "image_quality_issue",
+        "status": "warning",
+        "message": "issues: multiple_documents_on_one_image, partial_occlusion_between_documents"
+      }
+    ],
+    "errors": [
+      "customer_eik_checksum"
+    ],
+    "warnings": [
+      "multiple_documents_detected",
+      "image_quality_issue"
+    ]
+  },
+  "model_assessment": {
+    "confidence": {
+      "overall": 0.85,
+      "document": 0.9,
+      "supplier": 0.95,
+      "customer": 0.87,
+      "totals": 0.87,
+      "line_items": 0.88
+    },
+    "extraction_warnings": [
+      "Image contains 4 separate invoices; only the top-left invoice (No. 0000300823, dated 2024-09-06) was fully extracted. The other three are: No. 0000299084 dated 2024-09-03 (top-right), No. 0000310354 dated 2024-11-23 (bottom-left), and No. 0000312361 dated 2024-12-07 (bottom-right). All share the same supplier (НИКСМЕТАЛ ОИЛ ЕООД) and customer (ИнкоТрейд ЕООД).",
+      "Customer EIK printed as 208802564 but VAT number printed as BG206802564 — these are inconsistent; the EIK field value 208802564 and VAT BG206802564 differ. The VAT number as printed (BG206802564) has been kept verbatim.",
+      "Gross total printed as 143.58 but net (119.58) + VAT (23.92) = 143.50; minor 0.08 discrepancy — stored as 143.50 derived from net+vat, with warning.",
+      "Document date partially obscured; read as 06.09.2024 but first digit slightly unclear."
+    ]
+  },
+  "evidence": {
+    "document.number": {
+      "text": "ФАКТУРА N: 0000300823",
+      "confidence": 0.97
+    },
+    "document.date": {
+      "text": "Дата:06.09.2024",
+      "confidence": 0.9
+    },
+    "document.tax_event_date": {
+      "text": "Дата на данъчното събитие/дата на плащане: 2024-09-16",
+      "confidence": 0.92
+    },
+    "supplier.name": {
+      "text": "\"НИКСМЕТАЛ ОИЛ\" ЕООД",
+      "confidence": 0.97
+    },
+    "supplier.eik": {
+      "text": "ИН: 205318980",
+      "confidence": 0.97
+    },
+    "supplier.vat_number": {
+      "text": "ИН по ЗДДС: BG205318980",
+      "confidence": 0.97
+    },
+    "supplier.mol": {
+      "text": "МОЛ: Станислав Геровски",
+      "confidence": 0.95
+    },
+    "supplier.address": {
+      "text": "Ботевград, \"Цар Ив. Шишман\" 43",
+      "confidence": 0.95
+    },
+    "customer.name": {
+      "text": "ИнкоТрейд ЕООД",
+      "confidence": 0.95
+    },
+    "customer.eik": {
+      "text": "ИН: 208802564",
+      "confidence": 0.88
+    },
+    "customer.vat_number": {
+      "text": "ИН по ЗДДС: BG206802564",
+      "confidence": 0.88
+    },
+    "customer.mol": {
+      "text": "МОЛ: Мариана Кинчова Петрова",
+      "confidence": 0.93
+    },
+    "line_items[0].description": {
+      "text": "ДИЗ. ГОРИВО Б-6",
+      "confidence": 0.97
+    },
+    "line_items[0].quantity": {
+      "text": "Количество: 64.930",
+      "confidence": 0.9
+    },
+    "line_items[0].unit_price": {
+      "text": "Ед.цена: 1.84167",
+      "confidence": 0.88
+    },
+    "line_items[0].net": {
+      "text": "Стойност: 119.58 В",
+      "confidence": 0.92
+    },
+    "totals.net": {
+      "text": "Нето ст-ст: 119.58",
+      "confidence": 0.95
+    },
+    "totals.vat": {
+      "text": "ДДС В (20.00%): 23.92",
+      "confidence": 0.93
+    },
+    "totals.gross": {
+      "text": "Общо, лв.: 143.58",
+      "confidence": 0.85
+    },
+    "payments[0].iban": {
+      "text": "Сметка: BG37STSA93001528411158",
+      "confidence": 0.93
+    },
+    "payments[0].bic": {
+      "text": "Б.Код: STSABGSF",
+      "confidence": 0.95
+    },
+    "payments[0].bank_name": {
+      "text": "Банка: \"Банка ДСК\" ЕАД",
+      "confidence": 0.95
+    }
+  },
+  "provider": {
+    "engine": "anthropic",
+    "model": "claude-sonnet-4-6",
+    "pipeline": "vision_direct",
+    "ocr_used": false,
+    "prompt_version": "claude-unified-v2-2026-05-09-csharp",
+    "created_at": "2026-05-09T15:24:55Z",
+    "duration_ms": 28656,
+    "input_tokens": 6739,
+    "output_tokens": 2053,
+    "cost_estimate_usd": "0.0510"
+  }
+}

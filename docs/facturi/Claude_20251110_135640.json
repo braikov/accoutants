@@ -1,0 +1,391 @@
+{
+  "schema_version": "accountant.document.v2",
+  "source": {
+    "file_name": "20251110_135640.jpg",
+    "file_path": "../docs/facturi/20251110_135640.jpg",
+    "page_count": 1,
+    "page_index": 0,
+    "detected_document_count": 2,
+    "extracted_document_index": 0,
+    "image_quality": {
+      "readability": "good",
+      "issues": [
+        "partial_occlusion_of_supplier_block_right_edge",
+        "low_contrast_on_fiscal_receipt_section"
+      ]
+    }
+  },
+  "extraction": {
+    "document_type": "protocol",
+    "language": "bg",
+    "country": "BG",
+    "document": {
+      "number": "7000154402",
+      "date": "2025-02-25",
+      "tax_event_date": null,
+      "due_date": null,
+      "currency": "BGN",
+      "exchange_rate": null,
+      "place": "Склад Онлайн магазин",
+      "notes": "Транзакция № 149407"
+    },
+    "supplier": {
+      "name": "Бошнаков ЕООД",
+      "eik": "102082965",
+      "vat_number": "BG102082965",
+      "address": "жк \"Славейков\" - СПЗ, Хипермаркет",
+      "city": "Бургас",
+      "country": "BG",
+      "mol": null
+    },
+    "customer": {
+      "name": "ИНКО ТРЕЙД ЕООД",
+      "eik": "206802564",
+      "vat_number": "BG206802564",
+      "address": "УЛ. РОЩОК 9 УЛ. РОЩОК 9",
+      "city": "Варна",
+      "country": "BG",
+      "mol": null
+    },
+    "totals": {
+      "net": "803.00",
+      "vat": "160.60",
+      "gross": "963.60",
+      "discount": null,
+      "rounding": null,
+      "amount_due": "963.60"
+    },
+    "vat_breakdown": [
+      {
+        "rate": "20.00",
+        "net": "803.00",
+        "vat": "160.60",
+        "gross": "963.60",
+        "reason": null
+      }
+    ],
+    "payments": [
+      {
+        "method": "unknown",
+        "amount": "963.60",
+        "currency": "BGN",
+        "iban": null,
+        "bic": null,
+        "bank_name": null
+      }
+    ],
+    "line_items": [
+      {
+        "description": "Подложка ламинатна 5мм",
+        "quantity": "35.000",
+        "unit": null,
+        "unit_price": "2.29",
+        "discount_pct": null,
+        "vat_rate": null,
+        "net": null,
+        "vat": null,
+        "gross": "80.15",
+        "includes_vat": true
+      },
+      {
+        "description": "Плафон LED 35W 3300lm 4000K LED 25000h бял",
+        "quantity": "5.000",
+        "unit": null,
+        "unit_price": "52.90",
+        "discount_pct": null,
+        "vat_rate": null,
+        "net": null,
+        "vat": null,
+        "gross": "264.50",
+        "includes_vat": true
+      },
+      {
+        "description": "Ламиниран паркет 8мм 33/AC5 Дъб Солар 1285x192 (2.22)",
+        "quantity": "19.000",
+        "unit": null,
+        "unit_price": "29.95",
+        "discount_pct": null,
+        "vat_rate": null,
+        "net": null,
+        "vat": null,
+        "gross": "569.05",
+        "includes_vat": true
+      },
+      {
+        "description": "Транспорт",
+        "quantity": "1.000",
+        "unit": null,
+        "unit_price": "49.90",
+        "discount_pct": null,
+        "vat_rate": null,
+        "net": null,
+        "vat": null,
+        "gross": "49.90",
+        "includes_vat": true
+      }
+    ],
+    "fiscal": {
+      "fiscal_receipt_number": "02794946",
+      "fiscal_device_number": "01794946",
+      "operator": "Цветелина Калоянова",
+      "qr_code": "7AB44846942A94BE615156781235217CA4F789CC"
+    }
+  },
+  "validation": {
+    "needs_review": true,
+    "checks": [
+      {
+        "code": "supplier_eik_checksum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "customer_eik_checksum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "supplier_vat_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "customer_vat_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "iban_mod97",
+        "status": "skipped",
+        "message": "IBAN is null"
+      },
+      {
+        "code": "bic_format",
+        "status": "skipped",
+        "message": "BIC is null"
+      },
+      {
+        "code": "currency_iso",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "document_type_enum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "date_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "due_date_after_issue",
+        "status": "skipped",
+        "message": "issue or due date missing/malformed"
+      },
+      {
+        "code": "totals_match",
+        "status": "pass",
+        "message": "803.00 + 160.60 = 963.60"
+      },
+      {
+        "code": "vat_breakdown_match",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "line_items_sum",
+        "status": "pass",
+        "message": "all populated component sums match totals"
+      },
+      {
+        "code": "line_items_incomplete",
+        "status": "warning",
+        "message": "line items missing component(s): net, vat"
+      },
+      {
+        "code": "multiple_documents_detected",
+        "status": "warning",
+        "message": "detected 2 documents; only index 0 extracted."
+      },
+      {
+        "code": "image_quality_issue",
+        "status": "warning",
+        "message": "issues: partial_occlusion_of_supplier_block_right_edge, low_contrast_on_fiscal_receipt_section"
+      }
+    ],
+    "errors": [],
+    "warnings": [
+      "line_items_incomplete",
+      "multiple_documents_detected",
+      "image_quality_issue"
+    ]
+  },
+  "model_assessment": {
+    "confidence": {
+      "overall": 0.88,
+      "document": 0.95,
+      "supplier": 0.88,
+      "customer": 0.95,
+      "totals": 0.92,
+      "line_items": 0.9
+    },
+    "extraction_warnings": [
+      "Image contains two documents: a ПРИЕМО-ПРЕДАВАТЕЛЕН ПРОТОКОЛ (left, extracted) and a Masterhaus fiscal receipt / фискален бон (right, not extracted as a separate document).",
+      "Supplier block on the protocol is partially cut off at the right edge; supplier EIK and VAT number are read from the fiscal receipt section which shows the same entity (Бошнаков ЕООД, EIK 102082965).",
+      "Line items net and vat amounts are not individually printed on the protocol; only gross (СУМА) amounts are visible. VAT breakdown totals are taken from the fiscal receipt.",
+      "VAT rate column is absent from the protocol table; 20% rate inferred from the fiscal receipt ДДС ГРУПА Б=20.00% line."
+    ]
+  },
+  "evidence": {
+    "document.number": {
+      "text": "№ 7000154402",
+      "confidence": 0.98
+    },
+    "document.date": {
+      "text": "25.02.2025",
+      "confidence": 0.98
+    },
+    "document.place": {
+      "text": "Място на сделка: Склад Онлайн магазин",
+      "confidence": 0.97
+    },
+    "supplier.name": {
+      "text": "\"БОШНАКОВ\" ЕООД",
+      "confidence": 0.95
+    },
+    "supplier.eik": {
+      "text": "ЕИК: 102082965",
+      "confidence": 0.9
+    },
+    "supplier.vat_number": {
+      "text": "ЗДДС №: BG102082965",
+      "confidence": 0.9
+    },
+    "customer.name": {
+      "text": "ИНКО ТРЕЙД ЕООД",
+      "confidence": 0.98
+    },
+    "customer.eik": {
+      "text": "ЕИК: 206802564",
+      "confidence": 0.97
+    },
+    "customer.vat_number": {
+      "text": "ИН по ДДС: BG206802564",
+      "confidence": 0.97
+    },
+    "customer.address": {
+      "text": "УЛ. РОЩОК 9 УЛ. РОЩОК 9",
+      "confidence": 0.9
+    },
+    "customer.city": {
+      "text": "гр. Варна, 9010",
+      "confidence": 0.97
+    },
+    "totals.gross": {
+      "text": "ОБЩА СУМА 963.60",
+      "confidence": 0.97
+    },
+    "totals.net": {
+      "text": "НЕТО СТОЙНОСТ Б 803.00",
+      "confidence": 0.92
+    },
+    "totals.vat": {
+      "text": "ДДС ГРУПА Б=20.00% 160.60",
+      "confidence": 0.92
+    },
+    "vat_breakdown[0].rate": {
+      "text": "ДДС ГРУПА Б=20.00%",
+      "confidence": 0.95
+    },
+    "line_items[0].description": {
+      "text": "Подложка ламинатна 5мм",
+      "confidence": 0.97
+    },
+    "line_items[0].quantity": {
+      "text": "КОЛИЧЕСТВО 35.000",
+      "confidence": 0.97
+    },
+    "line_items[0].unit_price": {
+      "text": "ЕДИНИЧНА ЦЕНА 2.29",
+      "confidence": 0.96
+    },
+    "line_items[0].gross": {
+      "text": "СУМА 80.15 Б",
+      "confidence": 0.95
+    },
+    "line_items[1].description": {
+      "text": "Плафон LED 35W 3300lm 4000K LED 25000h бял",
+      "confidence": 0.95
+    },
+    "line_items[1].quantity": {
+      "text": "КОЛИЧЕСТВО 5.000",
+      "confidence": 0.97
+    },
+    "line_items[1].unit_price": {
+      "text": "ЕДИНИЧНА ЦЕНА 52.90",
+      "confidence": 0.96
+    },
+    "line_items[1].gross": {
+      "text": "СУМА 264.50 Б",
+      "confidence": 0.95
+    },
+    "line_items[2].description": {
+      "text": "Ламиниран паркет 8мм 33/AC5 Дъб Солар 1285x192 (2.22)",
+      "confidence": 0.93
+    },
+    "line_items[2].quantity": {
+      "text": "КОЛИЧЕСТВО 19.000",
+      "confidence": 0.97
+    },
+    "line_items[2].unit_price": {
+      "text": "ЕДИНИЧНА ЦЕНА 29.95",
+      "confidence": 0.96
+    },
+    "line_items[2].gross": {
+      "text": "СУМА 569.05 Б",
+      "confidence": 0.95
+    },
+    "line_items[3].description": {
+      "text": "Транспорт",
+      "confidence": 0.99
+    },
+    "line_items[3].quantity": {
+      "text": "КОЛИЧЕСТВО 1.000",
+      "confidence": 0.99
+    },
+    "line_items[3].unit_price": {
+      "text": "ЕДИНИЧНА ЦЕНА 49.90",
+      "confidence": 0.97
+    },
+    "line_items[3].gross": {
+      "text": "СУМА 49.90 Б",
+      "confidence": 0.97
+    },
+    "fiscal.fiscal_device_number": {
+      "text": "01794946",
+      "confidence": 0.9
+    },
+    "fiscal.fiscal_receipt_number": {
+      "text": "02794946",
+      "confidence": 0.9
+    },
+    "fiscal.qr_code": {
+      "text": "7AB44846942A94BE615156781235217CA4F789CC",
+      "confidence": 0.85
+    }
+  },
+  "provider": {
+    "engine": "anthropic",
+    "model": "claude-sonnet-4-6",
+    "pipeline": "vision_direct",
+    "ocr_used": false,
+    "prompt_version": "claude-unified-v2-2026-05-09-csharp",
+    "created_at": "2026-05-09T15:29:00Z",
+    "duration_ms": 35817,
+    "input_tokens": 6725,
+    "output_tokens": 2723,
+    "cost_estimate_usd": "0.0610"
+  }
+}

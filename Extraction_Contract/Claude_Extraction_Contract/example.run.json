@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0",
+  "vendor": "anthropic",
+  "model": "claude-sonnet-4-6",
+  "prompt_version": "claude-2026-05-08",
+  "input_file": "20240213_190514.jpg",
+  "input_bytes": 943210,
+  "input_resized": false,
+  "input_resize_note": null,
+  "started_at": "2026-05-08T13:01:42Z",
+  "elapsed_sec": 14.27,
+  "tokens": {
+    "input": 5650,
+    "output": 696
+  },
+  "cost_usd": 0.0274,
+  "stop_reason": "tool_use",
+  "error": null
+}

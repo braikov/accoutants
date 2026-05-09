@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0",
+  "document_type": "invoice",
+  "document_no": "0300051648",
+  "issue_date": "2023-12-11",
+  "tax_event_date": "2023-12-11",
+  "due_date": "2023-12-19",
+  "place_of_deal": null,
+  "supplier": {
+    "name": "АВАНС ТРЕЙД ООД",
+    "eik": "201760264",
+    "vat_number": "BG201760264",
+    "address": "ул. Свищовска 1",
+    "city": "Габрово",
+    "mol": "Николай Умников",
+    "phone": "066 80 10 43"
+  },
+  "recipient": {
+    "name": "ИНКО ТРЕЙД ЕООД",
+    "eik": "206802564",
+    "vat_number": "BG206802564",
+    "address": "ул. Рощок 9",
+    "city": "Варна",
+    "mol": null,
+    "phone": null
+  },
+  "bank": {
+    "bank_name": "Юробанк България АД",
+    "iban": "BG62BPBI79291053720501",
+    "bic": "BPBIBGSF"
+  },
+  "payment_method": "bank_transfer",
+  "currency": "BGN",
+  "line_items": [
+    {
+      "position": 1,
+      "code": "730",
+      "description": "М.К.120 КАПАК КЕЪР СОФТх24",
+      "unit": "бр.",
+      "quantity": 240.0,
+      "unit_price": 0.958,
+      "discount_pct": null,
+      "amount": 230.0,
+      "vat_rate": null,
+      "includes_vat": false
+    }
+  ],
+  "totals": {
+    "tax_base": 230.0,
+    "vat_rate": 20.0,
+    "vat_amount": 46.0,
+    "total": 276.0,
+    "amount_in_words": "Двеста седемдесет и шест лв."
+  },
+  "notes": "Съставил: РАДОСЛАВ НЕНОВ",
+  "extraction_warnings": [
+    "Recipient MOL field appears blank on the document.",
+    "Staple/paperclip partially obscures top-right corner; no critical data affected."
+  ]
+}

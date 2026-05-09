@@ -1,0 +1,129 @@
+@page
+@model DocumentModel
+@{
+    var document = Model.Document!;
+    ViewData["Title"] = document.FileName;
+}
+
+<section class="detail-head compact">
+    <a class="back-link" asp-page="/Index">Back</a>
+    <div>
+        <p class="eyebrow">Document review</p>
+        <h1>@document.FileName</h1>
+    </div>
+    <nav class="detail-nav">
+        @if (document.PreviousFileName is not null)
+        {
+            <a asp-page="/Document" asp-route-file="@document.PreviousFileName">Previous</a>
+        }
+        @if (document.NextFileName is not null)
+        {
+            <a asp-page="/Document" asp-route-file="@document.NextFileName">Next</a>
+        }
+    </nav>
+</section>
+
+<section class="difference-panel">
+    <details open>
+        <summary>
+            Differences
+            <span>@document.Differences.Count fields</span>
+        </summary>
+        @if (document.Differences.Count == 0)
+        {
+            <p class="no-differences">No comparable extraction differences found.</p>
+        }
+        else
+        {
+            <div class="diff-table-wrap">
+                <table class="diff-table">
+                    <thead>
+                        <tr>
+                            <th>Field</th>
+                            <th>Codex</th>
+                            <th>Claude</th>
+                            <th>Gemini</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var diff in document.Differences)
+                        {
+                            <tr>
+                                <td><code>@diff.Path</code></td>
+                                @foreach (var ai in Accountant.ReviewSite.Services.DocumentStore.AiNames)
+                                {
+                                    <td>@diff.Values[ai]</td>
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </details>
+</section>
+
+<section class="compare-grid" aria-label="Document comparison">
+    <article class="compare-panel image-panel">
+        <header class="panel-head">
+            <h2>Image</h2>
+            <span>@document.FileName</span>
+        </header>
+        <div class="panel-body image-stage">
+            <img src="/document-image?file=@Uri.EscapeDataString(document.FileName)" alt="@document.FileName" />
+        </div>
+    </article>
+
+    @foreach (var result in document.Results)
+    {
+        <article class="compare-panel">
+            <header class="panel-head">
+                <h2>@result.Ai</h2>
+                <span>@(result.FileName ?? "missing")</span>
+            </header>
+            @if (!result.Exists)
+            {
+                <div class="panel-body empty-state">
+                    <h3>@result.Ai result missing</h3>
+                    <p>No @result.Ai JSON file was found next to the source image.</p>
+                </div>
+            }
+            else
+            {
+                <div class="panel-body json-panel">
+                    <div class="json-summary compact-summary">
+                        <div>
+                            <span class="label">Type</span>
+                            <strong>@(result.Summary.DocumentType ?? "unknown")</strong>
+                        </div>
+                        <div>
+                            <span class="label">Number</span>
+                            <strong>@(result.Summary.DocumentNumber ?? "-")</strong>
+                        </div>
+                        <div>
+                            <span class="label">Date</span>
+                            <strong>@(result.Summary.Date ?? "-")</strong>
+                        </div>
+                        <div>
+                            <span class="label">Gross</span>
+                            <strong>@(result.Summary.Gross is null ? "-" : $"{result.Summary.Gross} {result.Summary.Currency}")</strong>
+                        </div>
+                        <div>
+                            <span class="label">Review</span>
+                            <strong class="review-flag @(result.Summary.NeedsReview == true ? "warn" : "ok")">@(result.Summary.NeedsReview?.ToString() ?? "-")</strong>
+                        </div>
+                        <div>
+                            <span class="label">Conf.</span>
+                            <strong>@(result.Summary.OverallConfidence?.ToString("0.00") ?? "-")</strong>
+                        </div>
+                        <div>
+                            <span class="label">Cost</span>
+                            <strong>@(result.Summary.CostEstimateUsd is null ? "-" : $"${result.Summary.CostEstimateUsd}")</strong>
+                        </div>
+                    </div>
+                    <pre class="json-view"><code>@result.PrettyJson</code></pre>
+                </div>
+            }
+        </article>
+    }
+</section>

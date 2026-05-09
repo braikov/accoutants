@@ -1,0 +1,236 @@
+{
+  "schema_version": "accountant.document.v2",
+  "source": {
+    "file_name": "20250601_150442.jpg",
+    "file_path": "../docs/facturi/20250601_150442.jpg",
+    "page_count": 1,
+    "page_index": 0,
+    "detected_document_count": 1,
+    "extracted_document_index": 0,
+    "image_quality": {
+      "readability": "good",
+      "issues": [
+        "low_contrast"
+      ]
+    }
+  },
+  "extraction": {
+    "document_type": "receipt",
+    "language": "bg",
+    "country": "BG",
+    "document": {
+      "number": null,
+      "date": "2025-06-01",
+      "tax_event_date": "2025-06-01",
+      "due_date": null,
+      "currency": "BGN",
+      "exchange_rate": null,
+      "place": "София",
+      "notes": "Фискален бон; payment by debit card. Printed fiscal receipt details and QR present."
+    },
+    "supplier": {
+      "name": "БАУХАУС БЪЛГАРИЯ ЕООД ТЦ за РДГ КД",
+      "eik": "201611345",
+      "vat_number": "BG201611345",
+      "address": "бул. История Славянобългарска №17",
+      "city": "София",
+      "country": "BG",
+      "mol": null
+    },
+    "customer": {
+      "name": "Инко Трейд - ЕООД",
+      "eik": "206802564",
+      "vat_number": "BG206802564",
+      "address": "ул. Рощок 9 обл.ВАРНА, гр.ВАРНА 9010",
+      "city": "Варна",
+      "country": "BG",
+      "mol": null
+    },
+    "totals": {
+      "net": "66.13",
+      "vat": "13.22",
+      "gross": "79.35",
+      "discount": null,
+      "rounding": null,
+      "amount_due": "79.35"
+    },
+    "vat_breakdown": [
+      {
+        "rate": "20.00",
+        "net": "66.13",
+        "vat": "13.22",
+        "gross": "79.35",
+        "reason": null
+      }
+    ],
+    "payments": [
+      {
+        "method": "card",
+        "amount": "79.35",
+        "currency": "BGN",
+        "iban": null,
+        "bic": null,
+        "bank_name": null
+      }
+    ],
+    "line_items": [
+      {
+        "description": "ДЕКОРАТИВНА ТОПКА ЧЕШМЪР",
+        "quantity": "1.000",
+        "unit": "бр",
+        "unit_price": "26.90",
+        "discount_pct": null,
+        "vat_rate": "20.00",
+        "net": "26.90",
+        "vat": "5.38",
+        "gross": "32.28",
+        "includes_vat": false
+      },
+      {
+        "description": "КАШПА DALLAS ESPRIT, 14X13CM",
+        "quantity": "3.000",
+        "unit": "бр",
+        "unit_price": "7.50",
+        "discount_pct": null,
+        "vat_rate": "20.00",
+        "net": "22.50",
+        "vat": "4.50",
+        "gross": "27.00",
+        "includes_vat": false
+      },
+      {
+        "description": "МОП ПЕПЕРУДА VILEDA PVA",
+        "quantity": "1.000",
+        "unit": "бр",
+        "unit_price": "29.95",
+        "discount_pct": null,
+        "vat_rate": "20.00",
+        "net": "29.95",
+        "vat": "5.99",
+        "gross": "35.94",
+        "includes_vat": false
+      }
+    ],
+    "fiscal": {
+      "fiscal_receipt_number": "0795227",
+      "fiscal_device_number": "DT795227",
+      "operator": null,
+      "qr_code": "F8EB20E6AC215C3990CE3FC51DF8AACE38136E19"
+    }
+  },
+  "validation": {
+    "needs_review": true,
+    "checks": [
+      {
+        "code": "missing_document_number",
+        "status": "fail",
+        "message": "document_number is missing"
+      },
+      {
+        "code": "supplier_eik_checksum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "customer_eik_checksum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "supplier_vat_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "customer_vat_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "iban_mod97",
+        "status": "skipped",
+        "message": "IBAN is null"
+      },
+      {
+        "code": "bic_format",
+        "status": "skipped",
+        "message": "BIC is null"
+      },
+      {
+        "code": "currency_iso",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "document_type_enum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "date_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "due_date_after_issue",
+        "status": "skipped",
+        "message": "issue or due date missing/malformed"
+      },
+      {
+        "code": "totals_match",
+        "status": "pass",
+        "message": "66.13 + 13.22 = 79.35"
+      },
+      {
+        "code": "vat_breakdown_match",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "line_items_sum",
+        "status": "fail",
+        "message": "sum(net)=79.35, totals.net=66.13; sum(vat)=15.87, totals.vat=13.22; sum(gross)=95.22, totals.gross=79.35"
+      },
+      {
+        "code": "image_quality_issue",
+        "status": "warning",
+        "message": "issues: low_contrast"
+      }
+    ],
+    "errors": [
+      "missing_document_number",
+      "line_items_sum"
+    ],
+    "warnings": [
+      "image_quality_issue"
+    ]
+  },
+  "model_assessment": {
+    "confidence": {
+      "overall": 0.93,
+      "document": 0.98,
+      "supplier": 0.96,
+      "customer": 0.93,
+      "totals": 0.99,
+      "line_items": 0.92
+    },
+    "extraction_warnings": [
+      "Document number is not clearly printed as a standalone invoice number.",
+      "Line item names are partially low-resolution but readable.",
+      "Fiscal receipt appears to be the only document visible."
+    ]
+  },
+  "evidence": {},
+  "provider": {
+    "engine": "open_ai",
+    "model": "gpt-5.4-mini",
+    "pipeline": "vision_direct",
+    "ocr_used": false,
+    "prompt_version": "codex-unified-v2-r13-2026-05-09-csharp",
+    "created_at": "2026-05-09T15:19:21Z",
+    "duration_ms": 8048,
+    "input_tokens": 3820,
+    "output_tokens": 723,
+    "cost_estimate_usd": "0.0061"
+  }
+}

@@ -1,0 +1,380 @@
+{
+  "schema_version": "accountant.document.v2",
+  "source": {
+    "file_name": "20250402_210847.jpg",
+    "file_path": "../docs/facturi/20250402_210847.jpg",
+    "page_count": 1,
+    "page_index": 0,
+    "detected_document_count": 1,
+    "extracted_document_index": 0,
+    "image_quality": {
+      "readability": "good",
+      "issues": [
+        "stamp_obscures_data"
+      ]
+    }
+  },
+  "extraction": {
+    "document_type": "invoice",
+    "language": "bg",
+    "country": "BG",
+    "document": {
+      "number": "6000411991",
+      "date": "2025-04-01",
+      "tax_event_date": "2025-04-01",
+      "due_date": "2025-04-01",
+      "currency": "BGN",
+      "exchange_rate": null,
+      "place": null,
+      "notes": null
+    },
+    "supplier": {
+      "name": "ДИАНА ООД",
+      "eik": "811187662",
+      "vat_number": "BG811187662",
+      "address": "ул. \"Георги Измирлиев\" №15, ет. 1",
+      "city": "Благоевград",
+      "country": "BG",
+      "mol": "Диана Яръмова"
+    },
+    "customer": {
+      "name": "МедТекЛаб - ЕООД",
+      "eik": "201556176",
+      "vat_number": "BG201556176",
+      "address": "жк ВАСИЛ ЛЕВСКИ ул. РОЩОК №9 обл. ВАРНА",
+      "city": "Варна",
+      "country": "BG",
+      "mol": null
+    },
+    "totals": {
+      "net": "1527.31",
+      "vat": "305.46",
+      "gross": "1832.77",
+      "discount": null,
+      "rounding": null,
+      "amount_due": "1832.77"
+    },
+    "vat_breakdown": [
+      {
+        "rate": "0.00",
+        "net": "1399.57",
+        "vat": "0.00",
+        "gross": "1399.57",
+        "reason": "Основание за неначисляване на ДДС и при нулева ставка: Съгл. чл.7, ал.1 и чл.8 от Закона за счетоводството, чл.114 от ЗДДС и чл. 78 от ППЗДДС"
+      },
+      {
+        "rate": "20.00",
+        "net": "127.74",
+        "vat": "25.55",
+        "gross": "153.29",
+        "reason": null
+      }
+    ],
+    "payments": [
+      {
+        "method": "card",
+        "amount": "1832.77",
+        "currency": "BGN",
+        "iban": "BG79PRCB92301029788414",
+        "bic": "PRCBBGSF",
+        "bank_name": "ПРОКРЕДИТ БАНК БЪЛГАРИЯ ЕАД"
+      }
+    ],
+    "line_items": [
+      {
+        "description": "GOODYEAR EAGLE F1 ASYMM 6",
+        "quantity": "4.000",
+        "unit": "бр",
+        "unit_price": "346.59",
+        "discount_pct": "0.00",
+        "vat_rate": "0.00",
+        "net": "1386.37",
+        "vat": "0.00",
+        "gross": "1386.37",
+        "includes_vat": false
+      },
+      {
+        "description": "ТР.УСЛУГА ДО СЕРВИЗ НА ДИАНА",
+        "quantity": "4.000",
+        "unit": "бр",
+        "unit_price": "0.00",
+        "discount_pct": "0.00",
+        "vat_rate": "0.00",
+        "net": "0.00",
+        "vat": "0.00",
+        "gross": "0.00",
+        "includes_vat": false
+      },
+      {
+        "description": "МОНТАЖ И ДЕМОНТАЖ-ДЖИП, SUV",
+        "quantity": "4.000",
+        "unit": "бр",
+        "unit_price": "27.70",
+        "discount_pct": "20.00",
+        "vat_rate": "20.00",
+        "net": "88.64",
+        "vat": "17.73",
+        "gross": "106.37",
+        "includes_vat": false
+      },
+      {
+        "description": "ОПТИМИЗИРАН БАЛАНС",
+        "quantity": "4.000",
+        "unit": "бр",
+        "unit_price": "12.22",
+        "discount_pct": "20.00",
+        "vat_rate": "20.00",
+        "net": "39.10",
+        "vat": "7.82",
+        "gross": "46.92",
+        "includes_vat": false
+      },
+      {
+        "description": "ТЕЖЕСТИ 17\"18\"19\"20\"21\"22-24\"",
+        "quantity": "4.000",
+        "unit": "бр",
+        "unit_price": "3.30",
+        "discount_pct": "0.00",
+        "vat_rate": "0.00",
+        "net": "13.20",
+        "vat": "0.00",
+        "gross": "13.20",
+        "includes_vat": false
+      }
+    ],
+    "fiscal": {
+      "fiscal_receipt_number": null,
+      "fiscal_device_number": null,
+      "operator": null,
+      "qr_code": null
+    }
+  },
+  "validation": {
+    "needs_review": true,
+    "checks": [
+      {
+        "code": "supplier_eik_checksum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "customer_eik_checksum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "supplier_vat_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "customer_vat_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "iban_mod97",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "bic_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "currency_iso",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "document_type_enum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "date_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "due_date_after_issue",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "totals_match",
+        "status": "pass",
+        "message": "1527.31 + 305.46 = 1832.77"
+      },
+      {
+        "code": "vat_breakdown_match",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "line_items_sum",
+        "status": "fail",
+        "message": "sum(vat)=25.55, totals.vat=305.46; sum(gross)=1552.86, totals.gross=1832.77"
+      },
+      {
+        "code": "image_quality_issue",
+        "status": "warning",
+        "message": "issues: stamp_obscures_data"
+      }
+    ],
+    "errors": [
+      "line_items_sum"
+    ],
+    "warnings": [
+      "image_quality_issue"
+    ]
+  },
+  "model_assessment": {
+    "confidence": {
+      "overall": 0.88,
+      "document": 0.99,
+      "supplier": 0.96,
+      "customer": 0.95,
+      "totals": 0.99,
+      "line_items": 0.85
+    },
+    "extraction_warnings": [
+      "Supplier EIK partially unclear — digit after '811' reads as '1' but could be '!' symbol in scan; read as '811187662'.",
+      "Line items 1 (tires) and 5 (weights) have T.O.% = 0 which likely means zero VAT rate, but no explicit legal basis is printed for these specific lines; the document footer references general exemption grounds.",
+      "Line items 3 and 4 have T.O.% = 20 discount column; net values are as printed (88.64 and 39.10). Arithmetic check: 4 × 27.70 × 0.80 = 88.64 ✓; 4 × 12.22 × 0.80 = 39.10 ✓.",
+      "VAT breakdown derived: zero-rate net = 1386.37 + 0 + 13.20 = 1399.57; 20%-rate net = 88.64 + 39.10 = 127.74; total net = 1527.31 ✓. However, VAT shown as 305.46 = 20% of 1527.31, suggesting the document applies 20% VAT to the full net rather than only to the 20%-rate lines. This is inconsistent with zero-rate designations on lines 1, 2, 5. Reported totals taken as printed.",
+      "Payment method is 'Плащане с карта' (card), but bank account details (IBAN/BIC) are also printed on the invoice header; IBAN included in payment entry for reference."
+    ]
+  },
+  "evidence": {
+    "document.number": {
+      "text": "№ 6000411991",
+      "confidence": 0.99
+    },
+    "document.date": {
+      "text": "Дата на издаване: 1.4.2025",
+      "confidence": 0.99
+    },
+    "document.tax_event_date": {
+      "text": "Дата на дан. събитие 1.4.2025",
+      "confidence": 0.99
+    },
+    "document.due_date": {
+      "text": "Срок за 1.4.2025",
+      "confidence": 0.99
+    },
+    "supplier.name": {
+      "text": "ДИАНА ООД",
+      "confidence": 0.99
+    },
+    "supplier.eik": {
+      "text": "Идент. No 811187662",
+      "confidence": 0.95
+    },
+    "supplier.vat_number": {
+      "text": "ИН по ДДС: BG811187662",
+      "confidence": 0.97
+    },
+    "supplier.mol": {
+      "text": "МОЛ Диана Яръмова",
+      "confidence": 0.97
+    },
+    "supplier.address": {
+      "text": "гр. Благоевград, ул. \"Георги Измирлиев\" №15, ет. 1",
+      "confidence": 0.97
+    },
+    "customer.name": {
+      "text": "МедТекЛаб - ЕООД",
+      "confidence": 0.98
+    },
+    "customer.eik": {
+      "text": "Идент. No 201556176",
+      "confidence": 0.98
+    },
+    "customer.vat_number": {
+      "text": "ИН по ДДС: BG201556176",
+      "confidence": 0.98
+    },
+    "customer.address": {
+      "text": "жк ВАСИЛ ЛЕВСКИ ул. РОЩОК №9 обл.ВАРНА",
+      "confidence": 0.95
+    },
+    "totals.net": {
+      "text": "Данъчна основа: 1527.31",
+      "confidence": 0.99
+    },
+    "totals.vat": {
+      "text": "Начислен ДДС - 20%: 305.46",
+      "confidence": 0.99
+    },
+    "totals.gross": {
+      "text": "Сума за плащане: 1832.77",
+      "confidence": 0.99
+    },
+    "payments[0].method": {
+      "text": "Начин на плащане: Плащане с карта",
+      "confidence": 0.99
+    },
+    "payments[0].iban": {
+      "text": "IBAN BG79PRCB92301029788414",
+      "confidence": 0.95
+    },
+    "payments[0].bic": {
+      "text": "BIC PRCBBGSF",
+      "confidence": 0.97
+    },
+    "payments[0].bank_name": {
+      "text": "Банка ПРОКРЕДИТ БАНК БЪЛГАРИЯ ЕАД",
+      "confidence": 0.98
+    },
+    "line_items[0].description": {
+      "text": "GOODYEAR EAGLE F1 ASYMM 6",
+      "confidence": 0.99
+    },
+    "line_items[0].unit_price": {
+      "text": "346.59",
+      "confidence": 0.99
+    },
+    "line_items[0].net": {
+      "text": "1386.37",
+      "confidence": 0.99
+    },
+    "line_items[2].description": {
+      "text": "МОНТАЖ И ДЕМОНТАЖ-ДЖИП, SUV",
+      "confidence": 0.99
+    },
+    "line_items[2].net": {
+      "text": "88.64",
+      "confidence": 0.99
+    },
+    "line_items[3].description": {
+      "text": "ОПТИМИЗИРАН БАЛАНС",
+      "confidence": 0.99
+    },
+    "line_items[3].net": {
+      "text": "39.1",
+      "confidence": 0.99
+    },
+    "line_items[4].description": {
+      "text": "ТЕЖЕСТИ 17\"18\"19\"20\"21\"22-24\"",
+      "confidence": 0.97
+    },
+    "line_items[4].net": {
+      "text": "13.2",
+      "confidence": 0.97
+    }
+  },
+  "provider": {
+    "engine": "anthropic",
+    "model": "claude-sonnet-4-6",
+    "pipeline": "vision_direct",
+    "ocr_used": false,
+    "prompt_version": "claude-unified-v2-2026-05-09-csharp",
+    "created_at": "2026-05-09T15:21:54Z",
+    "duration_ms": 46932,
+    "input_tokens": 6729,
+    "output_tokens": 2999,
+    "cost_estimate_usd": "0.0652"
+  }
+}

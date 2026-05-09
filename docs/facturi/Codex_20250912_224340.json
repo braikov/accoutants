@@ -1,0 +1,224 @@
+{
+  "schema_version": "accountant.document.v2",
+  "source": {
+    "file_name": "20250912_224340.jpg",
+    "file_path": "../docs/facturi/20250912_224340.jpg",
+    "page_count": 1,
+    "page_index": 0,
+    "detected_document_count": 7,
+    "extracted_document_index": 1,
+    "image_quality": {
+      "readability": "fair",
+      "issues": [
+        "low_contrast",
+        "fold_obscures_data",
+        "stamp_obscures_data"
+      ]
+    }
+  },
+  "extraction": {
+    "document_type": "unknown",
+    "language": "bg",
+    "country": "BG",
+    "document": {
+      "number": "E000315475",
+      "date": "2025-01-04",
+      "tax_event_date": null,
+      "due_date": null,
+      "currency": "BGN",
+      "exchange_rate": null,
+      "place": null,
+      "notes": null
+    },
+    "supplier": {
+      "name": "НИКСМЕТАЛ ОЙЛ ЕООД",
+      "eik": "205318980",
+      "vat_number": "BG205318980",
+      "address": "гр. Ботевград, ул. Цар Иван Шишман 43",
+      "city": "Ботевград",
+      "country": "BG",
+      "mol": "Станислав Геровски"
+    },
+    "customer": {
+      "name": "ИнкоТрейд ЕООД",
+      "eik": "206802564",
+      "vat_number": "BG206802564",
+      "address": "гр. Варна",
+      "city": "Варна",
+      "country": "BG",
+      "mol": "null"
+    },
+    "totals": {
+      "net": "null",
+      "vat": "null",
+      "gross": "null",
+      "discount": null,
+      "rounding": null,
+      "amount_due": null
+    },
+    "vat_breakdown": [],
+    "payments": [],
+    "line_items": [],
+    "fiscal": {
+      "fiscal_receipt_number": null,
+      "fiscal_device_number": null,
+      "operator": null,
+      "qr_code": null
+    }
+  },
+  "validation": {
+    "needs_review": true,
+    "checks": [
+      {
+        "code": "supplier_eik_checksum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "customer_eik_checksum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "supplier_vat_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "customer_vat_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "iban_mod97",
+        "status": "skipped",
+        "message": "IBAN is null"
+      },
+      {
+        "code": "bic_format",
+        "status": "skipped",
+        "message": "BIC is null"
+      },
+      {
+        "code": "currency_iso",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "document_type_enum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "date_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "due_date_after_issue",
+        "status": "skipped",
+        "message": "issue or due date missing/malformed"
+      },
+      {
+        "code": "totals_match",
+        "status": "skipped",
+        "message": "net/vat/gross not all populated"
+      },
+      {
+        "code": "vat_breakdown_match",
+        "status": "skipped",
+        "message": "vat_breakdown is empty"
+      },
+      {
+        "code": "line_items_sum",
+        "status": "skipped",
+        "message": "no line items"
+      },
+      {
+        "code": "multiple_documents_detected",
+        "status": "warning",
+        "message": "detected 7 documents; only index 1 extracted."
+      },
+      {
+        "code": "image_quality_issue",
+        "status": "warning",
+        "message": "issues: low_contrast, fold_obscures_data, stamp_obscures_data"
+      }
+    ],
+    "errors": [],
+    "warnings": [
+      "multiple_documents_detected",
+      "image_quality_issue"
+    ]
+  },
+  "model_assessment": {
+    "confidence": {
+      "overall": 0.16,
+      "document": 0.42,
+      "supplier": 0.9,
+      "customer": 0.84,
+      "totals": 0.05,
+      "line_items": 0
+    },
+    "extraction_warnings": [
+      "Multiple receipts are visible; only the center document was extracted.",
+      "Document type is uncertain because the visible title suggests a protocol-like form and not a standard invoice.",
+      "Total amounts are obscured or not reliably readable.",
+      "Some fields may be affected by blur and overlap."
+    ]
+  },
+  "evidence": {
+    "document.number": {
+      "text": "ФАКТУРА №: E000315475",
+      "confidence": null
+    },
+    "document.date": {
+      "text": "Дата: 04.01.2025",
+      "confidence": null
+    },
+    "supplier.name": {
+      "text": "\"НИКСМЕТАЛ ОЙЛ\" ЕООД",
+      "confidence": null
+    },
+    "supplier.eik": {
+      "text": "И / ИН по ЗДДС: 205318980",
+      "confidence": null
+    },
+    "supplier.vat_number": {
+      "text": "ВG205318980",
+      "confidence": null
+    },
+    "customer.name": {
+      "text": "ИнкоТрейд ЕООД",
+      "confidence": null
+    },
+    "customer.eik": {
+      "text": "ИДЕНТ. No.: 206802564",
+      "confidence": null
+    },
+    "totals.net": {
+      "text": null,
+      "confidence": null
+    },
+    "totals.vat": {
+      "text": null,
+      "confidence": null
+    },
+    "totals.gross": {
+      "text": null,
+      "confidence": null
+    }
+  },
+  "provider": {
+    "engine": "open_ai",
+    "model": "gpt-5.4-mini",
+    "pipeline": "vision_direct",
+    "ocr_used": false,
+    "prompt_version": "codex-unified-v2-r13-2026-05-09-csharp",
+    "created_at": "2026-05-09T15:20:06Z",
+    "duration_ms": 5992,
+    "input_tokens": 5004,
+    "output_tokens": 498,
+    "cost_estimate_usd": "0.0060"
+  }
+}

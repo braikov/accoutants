@@ -1,0 +1,290 @@
+{
+  "schema_version": "accountant.document.v2",
+  "source": {
+    "file_name": "20250912_224123.jpg",
+    "file_path": "../docs/facturi/20250912_224123.jpg",
+    "page_count": 1,
+    "page_index": 0,
+    "detected_document_count": 1,
+    "extracted_document_index": 0,
+    "image_quality": {
+      "readability": "good",
+      "issues": []
+    }
+  },
+  "extraction": {
+    "document_type": "invoice",
+    "language": "bg",
+    "country": "BG",
+    "document": {
+      "number": "3000033136",
+      "date": "2025-08-07",
+      "tax_event_date": "2025-08-07",
+      "due_date": "2025-08-07",
+      "currency": "BGN",
+      "exchange_rate": null,
+      "place": null,
+      "notes": "Договор: първоначална вноска: 0"
+    },
+    "supplier": {
+      "name": "ПЛАСИКО КОМПЮТЪРС–ЕООД",
+      "eik": "148019777",
+      "vat_number": "BG148019777",
+      "address": "ул Радост 8",
+      "city": "Варна",
+      "country": "BG",
+      "mol": "Пламен Драгнев"
+    },
+    "customer": {
+      "name": "Дигитален Хамелеон - ЕООД",
+      "eik": "207498356",
+      "vat_number": "BG207498356",
+      "address": "жк Манастирски ливади бл.176 вх.Ж ап.23 обл.СОФИЯ",
+      "city": "София",
+      "country": "BG",
+      "mol": "Габриела Петрова"
+    },
+    "totals": {
+      "net": "103.32",
+      "vat": "20.67",
+      "gross": "123.99",
+      "discount": null,
+      "rounding": null,
+      "amount_due": "123.99"
+    },
+    "vat_breakdown": [
+      {
+        "rate": "20.00",
+        "net": "103.32",
+        "vat": "20.67",
+        "gross": "123.99",
+        "reason": null
+      }
+    ],
+    "payments": [
+      {
+        "method": "card",
+        "amount": "123.99",
+        "currency": "BGN",
+        "iban": "BG18UBBS81551064228519",
+        "bic": "UBBSBGSF",
+        "bank_name": "ОББ банк"
+      }
+    ],
+    "line_items": [
+      {
+        "description": "Logitech Lift Vertical Ergonomic Mouse - GRAPHITE / BLACK - EMEA | 910-006473 | 5099206099784",
+        "quantity": "1.000",
+        "unit": null,
+        "unit_price": "103.32",
+        "discount_pct": null,
+        "vat_rate": "20.00",
+        "net": "103.32",
+        "vat": "20.66",
+        "gross": "123.98",
+        "includes_vat": false
+      }
+    ],
+    "fiscal": {
+      "fiscal_receipt_number": null,
+      "fiscal_device_number": null,
+      "operator": null,
+      "qr_code": null
+    }
+  },
+  "validation": {
+    "needs_review": false,
+    "checks": [
+      {
+        "code": "supplier_eik_checksum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "customer_eik_checksum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "supplier_vat_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "customer_vat_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "iban_mod97",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "bic_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "currency_iso",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "document_type_enum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "date_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "due_date_after_issue",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "totals_match",
+        "status": "pass",
+        "message": "103.32 + 20.67 = 123.99"
+      },
+      {
+        "code": "vat_breakdown_match",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "line_items_sum",
+        "status": "pass",
+        "message": "all populated component sums match totals"
+      }
+    ],
+    "errors": [],
+    "warnings": []
+  },
+  "model_assessment": {
+    "confidence": {
+      "overall": 0.95,
+      "document": 0.98,
+      "supplier": 0.97,
+      "customer": 0.96,
+      "totals": 0.97,
+      "line_items": 0.94
+    },
+    "extraction_warnings": [
+      "Line item VAT arithmetic: 103.32 × 20% = 20.664, which rounds to 20.66, but the document prints 20.67 and gross 123.99. The document's printed totals are retained verbatim; a 0.01 rounding difference exists between line-level and summary VAT."
+    ]
+  },
+  "evidence": {
+    "document.number": {
+      "text": "№: 3000033136 / 07.08.2025",
+      "confidence": 0.98
+    },
+    "document.date": {
+      "text": "07.08.2025",
+      "confidence": 0.98
+    },
+    "document.tax_event_date": {
+      "text": "Дата на данъчно събитие: 07.08.2025",
+      "confidence": 0.98
+    },
+    "document.due_date": {
+      "text": "Срок за плащане до: 07.08.2025",
+      "confidence": 0.98
+    },
+    "supplier.name": {
+      "text": "ПЛАСИКО КОМПЮТЪРС–ЕООД",
+      "confidence": 0.97
+    },
+    "supplier.address": {
+      "text": "ВАРНА, ул Радост 8",
+      "confidence": 0.97
+    },
+    "supplier.eik": {
+      "text": "И.Н.: 148019777",
+      "confidence": 0.97
+    },
+    "supplier.vat_number": {
+      "text": "ДДС Н.: BG148019777",
+      "confidence": 0.97
+    },
+    "supplier.mol": {
+      "text": "МОЛ: Пламен Драгнев",
+      "confidence": 0.97
+    },
+    "customer.name": {
+      "text": "Получател: Дигитален Хамелеон - ЕООД",
+      "confidence": 0.97
+    },
+    "customer.address": {
+      "text": "жк Манастирски ливади бл.176 вх.Ж ап.23 обл.СОФИЯ, гр.СОФИЯ 1404",
+      "confidence": 0.95
+    },
+    "customer.eik": {
+      "text": "И.Н.: 207498356",
+      "confidence": 0.97
+    },
+    "customer.vat_number": {
+      "text": "ДДС Н.: BG207498356",
+      "confidence": 0.97
+    },
+    "customer.mol": {
+      "text": "МОЛ: Габриела Петрова",
+      "confidence": 0.97
+    },
+    "line_items[0].description": {
+      "text": "Logitech Lift Vertical Ergonomic Mouse - GRAPHITE / BLACK - EMEA | 910-006473 | 5099206099784",
+      "confidence": 0.96
+    },
+    "line_items[0].quantity": {
+      "text": "1",
+      "confidence": 0.99
+    },
+    "line_items[0].unit_price": {
+      "text": "103.32",
+      "confidence": 0.98
+    },
+    "line_items[0].net": {
+      "text": "103.32",
+      "confidence": 0.98
+    },
+    "totals.net": {
+      "text": "Данъчна основа: 103.32",
+      "confidence": 0.99
+    },
+    "totals.vat": {
+      "text": "ДДС 20%: 20.67",
+      "confidence": 0.99
+    },
+    "totals.gross": {
+      "text": "Обща сума: 123.99",
+      "confidence": 0.99
+    },
+    "payments[0].method": {
+      "text": "Начин на плащане: Дебитна/Кредитна карта",
+      "confidence": 0.97
+    },
+    "payments[0].iban": {
+      "text": "ОББ банк IBAN: BG18UBBS81551064228519",
+      "confidence": 0.95
+    },
+    "payments[0].bic": {
+      "text": "BIC: UBBSBGSF",
+      "confidence": 0.97
+    }
+  },
+  "provider": {
+    "engine": "anthropic",
+    "model": "claude-sonnet-4-6",
+    "pipeline": "vision_direct",
+    "ocr_used": false,
+    "prompt_version": "claude-unified-v2-2026-05-09-csharp",
+    "created_at": "2026-05-09T15:26:58Z",
+    "duration_ms": 28306,
+    "input_tokens": 6740,
+    "output_tokens": 1921,
+    "cost_estimate_usd": "0.0490"
+  }
+}

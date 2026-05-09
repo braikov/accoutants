@@ -1,0 +1,248 @@
+{
+  "schema_version": "accountant.document.v2",
+  "source": {
+    "file_name": "20251110_135640.jpg",
+    "file_path": "../docs/facturi/20251110_135640.jpg",
+    "page_count": 1,
+    "page_index": 0,
+    "detected_document_count": 2,
+    "extracted_document_index": 0,
+    "image_quality": {
+      "readability": "good",
+      "issues": [
+        "heavy_shadow_over_text"
+      ]
+    }
+  },
+  "extraction": {
+    "document_type": "protocol",
+    "language": "bg",
+    "country": "BG",
+    "document": {
+      "number": "7000154402",
+      "date": "2025-02-25",
+      "tax_event_date": null,
+      "due_date": null,
+      "currency": null,
+      "exchange_rate": null,
+      "place": "Склад Онлайн магазин",
+      "notes": null
+    },
+    "supplier": {
+      "name": "Бошнаков ЕООД",
+      "eik": "102082965",
+      "vat_number": "BG102082965",
+      "address": "гр. Бургас, ж.к. Славейков, СПЗ, Хипермаркет MASTERHAUS",
+      "city": "Бургас",
+      "country": "BG",
+      "mol": null
+    },
+    "customer": {
+      "name": "ИНКО ТРЕЙД ЕООД",
+      "eik": "206802564",
+      "vat_number": "BG206802564",
+      "address": "гр. Варна, 9010, ул. РОЩОК 9",
+      "city": "Варна",
+      "country": "BG",
+      "mol": null
+    },
+    "totals": {
+      "net": "803.00",
+      "vat": "160.60",
+      "gross": "963.60",
+      "discount": null,
+      "rounding": null,
+      "amount_due": null
+    },
+    "vat_breakdown": [
+      {
+        "rate": "20.00",
+        "net": "803.00",
+        "vat": "160.60",
+        "gross": "963.60",
+        "reason": null
+      }
+    ],
+    "payments": [
+      {
+        "method": "cash",
+        "amount": "963.60",
+        "currency": "BGN",
+        "iban": null,
+        "bic": null,
+        "bank_name": null
+      }
+    ],
+    "line_items": [
+      {
+        "description": "Подложка ламинатна 5мм",
+        "quantity": "35.000",
+        "unit": "бр",
+        "unit_price": "2.29",
+        "discount_pct": null,
+        "vat_rate": "20.00",
+        "net": "80.15",
+        "vat": "16.03",
+        "gross": "96.18",
+        "includes_vat": false
+      },
+      {
+        "description": "Плафон LED 35W 3300lm 4000K LED 25000h бял",
+        "quantity": "5.000",
+        "unit": "бр",
+        "unit_price": "52.90",
+        "discount_pct": null,
+        "vat_rate": "20.00",
+        "net": "264.50",
+        "vat": "52.90",
+        "gross": "317.40",
+        "includes_vat": false
+      },
+      {
+        "description": "Ламиниран паркет 8мм 33/AC5 Дъб Солар 1285x192",
+        "quantity": "19.000",
+        "unit": "бр",
+        "unit_price": "29.95",
+        "discount_pct": null,
+        "vat_rate": "20.00",
+        "net": "569.05",
+        "vat": "113.81",
+        "gross": "682.86",
+        "includes_vat": false
+      },
+      {
+        "description": "Транспорт",
+        "quantity": "1.000",
+        "unit": "бр",
+        "unit_price": "49.90",
+        "discount_pct": null,
+        "vat_rate": "20.00",
+        "net": "49.90",
+        "vat": "9.98",
+        "gross": "59.88",
+        "includes_vat": false
+      }
+    ],
+    "fiscal": {
+      "fiscal_receipt_number": null,
+      "fiscal_device_number": null,
+      "operator": null,
+      "qr_code": null
+    }
+  },
+  "validation": {
+    "needs_review": true,
+    "checks": [
+      {
+        "code": "supplier_eik_checksum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "customer_eik_checksum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "supplier_vat_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "customer_vat_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "iban_mod97",
+        "status": "skipped",
+        "message": "IBAN is null"
+      },
+      {
+        "code": "bic_format",
+        "status": "skipped",
+        "message": "BIC is null"
+      },
+      {
+        "code": "currency_iso",
+        "status": "skipped",
+        "message": "currency is null"
+      },
+      {
+        "code": "document_type_enum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "date_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "due_date_after_issue",
+        "status": "skipped",
+        "message": "issue or due date missing/malformed"
+      },
+      {
+        "code": "totals_match",
+        "status": "pass",
+        "message": "803.00 + 160.60 = 963.60"
+      },
+      {
+        "code": "vat_breakdown_match",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "line_items_sum",
+        "status": "fail",
+        "message": "sum(net)=963.60, totals.net=803.00; sum(vat)=192.72, totals.vat=160.60; sum(gross)=1156.32, totals.gross=963.60"
+      },
+      {
+        "code": "multiple_documents_detected",
+        "status": "warning",
+        "message": "detected 2 documents; only index 0 extracted."
+      },
+      {
+        "code": "image_quality_issue",
+        "status": "warning",
+        "message": "issues: heavy_shadow_over_text"
+      }
+    ],
+    "errors": [
+      "line_items_sum"
+    ],
+    "warnings": [
+      "multiple_documents_detected",
+      "image_quality_issue"
+    ]
+  },
+  "model_assessment": {
+    "confidence": {
+      "overall": 0.93,
+      "document": 0.98,
+      "supplier": 0.86,
+      "customer": 0.98,
+      "totals": 0.95,
+      "line_items": 0.93
+    },
+    "extraction_warnings": [
+      "Multiple documents are visible; extracted the protocol on the left.",
+      "Supplier EIK is partly obscured; one digit is inferred from the printed VAT number.",
+      "Right-side receipt was not extracted."
+    ]
+  },
+  "evidence": {},
+  "provider": {
+    "engine": "open_ai",
+    "model": "gpt-5.4-mini",
+    "pipeline": "vision_direct",
+    "ocr_used": false,
+    "prompt_version": "codex-unified-v2-r13-2026-05-09-csharp",
+    "created_at": "2026-05-09T15:20:25Z",
+    "duration_ms": 5929,
+    "input_tokens": 4908,
+    "output_tokens": 640,
+    "cost_estimate_usd": "0.0066"
+  }
+}

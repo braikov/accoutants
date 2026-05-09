@@ -1,0 +1,157 @@
+{
+  "schema_version": "accountant.document.v2",
+  "source": {
+    "file_name": "20240213_190514.jpg",
+    "file_path": "docs/facturi/20240213_190514.jpg",
+    "page_count": 1,
+    "page_index": 0,
+    "detected_document_count": 1,
+    "extracted_document_index": 0,
+    "image_quality": {
+      "readability": "good",
+      "issues": []
+    }
+  },
+  "extraction": {
+    "document_type": "invoice",
+    "language": "bg",
+    "country": "BG",
+    "document": {
+      "number": "0300051648",
+      "date": "2023-12-11",
+      "tax_event_date": "2023-12-11",
+      "due_date": "2023-12-19",
+      "currency": "BGN",
+      "exchange_rate": null,
+      "place": null,
+      "notes": null
+    },
+    "supplier": {
+      "name": "АВАНС ТРЕЙД ООД",
+      "eik": "201760264",
+      "vat_number": "BG201760264",
+      "address": "ул. Свищовска 1",
+      "city": "Габрово",
+      "country": "BG",
+      "mol": "Николай Умников"
+    },
+    "customer": {
+      "name": "ИНКО ТРЕЙД ЕООД",
+      "eik": "206802564",
+      "vat_number": "BG206802564",
+      "address": "ул. Рощок 9",
+      "city": "Варна",
+      "country": "BG",
+      "mol": null
+    },
+    "totals": {
+      "net": "230.00",
+      "vat": "46.00",
+      "gross": "276.00",
+      "discount": null,
+      "rounding": null,
+      "amount_due": "276.00"
+    },
+    "vat_breakdown": [
+      {
+        "rate": "20.00",
+        "net": "230.00",
+        "vat": "46.00",
+        "gross": "276.00",
+        "reason": null
+      }
+    ],
+    "payments": [
+      {
+        "method": "bank_transfer",
+        "amount": "276.00",
+        "currency": "BGN",
+        "iban": "BG62BPBI79291053720501",
+        "bic": "BPBIBGSF",
+        "bank_name": "Юробанк България АД"
+      }
+    ],
+    "line_items": [
+      {
+        "description": "М.К.120 КАПАК КЕЪР СОФТх24",
+        "quantity": "240.000",
+        "unit": "бр.",
+        "unit_price": "0.958",
+        "discount_pct": null,
+        "vat_rate": "20.00",
+        "net": "230.00",
+        "vat": "46.00",
+        "gross": "276.00",
+        "includes_vat": false
+      }
+    ],
+    "fiscal": {
+      "fiscal_receipt_number": null,
+      "fiscal_device_number": null,
+      "operator": null,
+      "qr_code": null
+    }
+  },
+  "validation": {
+    "needs_review": false,
+    "checks": [
+      { "code": "totals_match",          "status": "pass", "message": "230.00 + 46.00 = 276.00" },
+      { "code": "vat_breakdown_match",   "status": "pass", "message": "single rate 20% reconciles" },
+      { "code": "supplier_eik_checksum", "status": "pass", "message": "" },
+      { "code": "customer_eik_checksum", "status": "pass", "message": "" },
+      { "code": "supplier_vat_format",   "status": "pass", "message": "" },
+      { "code": "customer_vat_format",   "status": "pass", "message": "" },
+      { "code": "iban_mod97",            "status": "pass", "message": "BG62BPBI79291053720501 mod-97 = 1" },
+      { "code": "bic_format",            "status": "pass", "message": "" },
+      { "code": "date_format",           "status": "pass", "message": "" },
+      { "code": "due_date_after_issue",  "status": "pass", "message": "" },
+      { "code": "currency_iso",          "status": "pass", "message": "" },
+      { "code": "document_type_enum",    "status": "pass", "message": "" },
+      { "code": "line_items_sum",        "status": "pass", "message": "net+vat+gross sums match totals" }
+    ],
+    "errors": [],
+    "warnings": []
+  },
+  "model_assessment": {
+    "confidence": {
+      "overall": 0.96,
+      "document": 0.98,
+      "supplier": 0.95,
+      "customer": 0.96,
+      "totals": 0.99,
+      "line_items": 0.94
+    },
+    "extraction_warnings": [
+      "Recipient MOL field appears blank on the document.",
+      "Staple/paperclip partially obscures top-right corner; no critical data affected."
+    ]
+  },
+  "evidence": {
+    "document.number":         { "text": "Фактура № 0300051648",              "confidence": 0.97 },
+    "document.date":           { "text": "Дата 11.12.2023",                    "confidence": 0.96 },
+    "document.tax_event_date": { "text": "Дата на данъчно събитие 11.12.2023", "confidence": 0.94 },
+    "document.due_date":       { "text": "Дата на падеж: 19.12.2023",          "confidence": 0.95 },
+    "supplier.name":           { "text": "АВАНС ТРЕЙД ООД",                    "confidence": 0.98 },
+    "supplier.eik":            { "text": "ЕИК 201760264",                      "confidence": 0.99 },
+    "supplier.vat_number":     { "text": "ДДС номер BG201760264",              "confidence": 0.99 },
+    "supplier.mol":            { "text": "МОЛ Николай Умников",                "confidence": 0.93 },
+    "customer.name":           { "text": "ИНКО ТРЕЙД ЕООД",                    "confidence": 0.98 },
+    "customer.eik":            { "text": "ЕИК 206802564",                      "confidence": 0.99 },
+    "totals.net":              { "text": "Данъчна основа 230.00",              "confidence": 0.99 },
+    "totals.vat":              { "text": "ДДС 20.00 % 46.00",                  "confidence": 0.99 },
+    "totals.gross":            { "text": "Сума за плащане 276.00",             "confidence": 0.99 },
+    "payments[0].iban":        { "text": "IBAN BG62 BPBI 7929 1053 7205 01",   "confidence": 0.92 }
+  },
+  "provider": {
+    "engine": "anthropic",
+    "model": "claude-sonnet-4-6",
+    "pipeline": "vision_direct",
+    "ocr_used": false,
+    "prompt_version": "unified-v2-2026-05-08",
+    "created_at": "2026-05-08T13:01:42Z",
+    "duration_ms": 14270,
+    "input_tokens": 5650,
+    "output_tokens": 696,
+    "cost_estimate_usd": "0.0274"
+  }
+}

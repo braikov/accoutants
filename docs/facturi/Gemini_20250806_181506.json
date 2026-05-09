@@ -1,0 +1,272 @@
+{
+  "schema_version": "accountant.document.v2",
+  "source": {
+    "file_name": "20250806_181506.jpg",
+    "file_path": "../docs/facturi/20250806_181506.jpg",
+    "page_count": 1,
+    "page_index": 0,
+    "detected_document_count": 2,
+    "extracted_document_index": 0,
+    "image_quality": {
+      "readability": "excellent",
+      "issues": []
+    }
+  },
+  "extraction": {
+    "document_type": "invoice",
+    "language": "bg",
+    "country": "BG",
+    "document": {
+      "number": "0320040582",
+      "date": "2025-08-02",
+      "tax_event_date": "2025-08-02",
+      "due_date": null,
+      "currency": "BGN",
+      "exchange_rate": "1.95583",
+      "place": "гр. Варна, ж.к. Младост, ул. Вяра 3",
+      "notes": null
+    },
+    "supplier": {
+      "name": "ДОВЕРИЕ - БРИКО АД",
+      "eik": "130006992",
+      "vat_number": "BG130006992",
+      "address": "бул. Цариградско шосе 115",
+      "city": "София",
+      "country": "BG",
+      "mol": null
+    },
+    "customer": {
+      "name": "ИНКО ТРЕЙ ЕООД",
+      "eik": "206802564",
+      "vat_number": "BG206802564",
+      "address": null,
+      "city": "Варна",
+      "country": "BG",
+      "mol": null
+    },
+    "totals": {
+      "net": "77.95",
+      "vat": "15.59",
+      "gross": "93.54",
+      "discount": null,
+      "rounding": null,
+      "amount_due": "93.54"
+    },
+    "vat_breakdown": [
+      {
+        "rate": "20.00",
+        "net": "77.95",
+        "vat": "15.59",
+        "gross": "93.54",
+        "reason": null
+      }
+    ],
+    "payments": [
+      {
+        "method": "card",
+        "amount": "93.54",
+        "currency": "BGN",
+        "iban": "BG14BPBI79421092676704",
+        "bic": "BPBIBGSF",
+        "bank_name": "Пощенска банка"
+      }
+    ],
+    "line_items": [
+      {
+        "description": "РЪКАВИЦИ PINTO PU/ПОЛИЕСТЕР ЗЕЛЕНИ",
+        "quantity": "1.000",
+        "unit": null,
+        "unit_price": "1.99",
+        "discount_pct": null,
+        "vat_rate": "20.00",
+        "net": "1.66",
+        "vat": "0.33",
+        "gross": "1.99",
+        "includes_vat": true
+      },
+      {
+        "description": "РЪКАВИЦИ ОТ ТЕЛЕШКИ ВЕЛУР С МАНШЕТ 15 СМ",
+        "quantity": "1.000",
+        "unit": null,
+        "unit_price": "7.99",
+        "discount_pct": null,
+        "vat_rate": "20.00",
+        "net": "6.66",
+        "vat": "1.33",
+        "gross": "7.99",
+        "includes_vat": true
+      },
+      {
+        "description": "СТРОИТЕЛНИ РЪКАВИЦИ TMP-P",
+        "quantity": "1.000",
+        "unit": null,
+        "unit_price": "3.99",
+        "discount_pct": null,
+        "vat_rate": "20.00",
+        "net": "3.33",
+        "vat": "0.66",
+        "gross": "3.99",
+        "includes_vat": true
+      },
+      {
+        "description": "РЪКАВИЦИ ОТ ТЕЛЕШКИ ВЕЛУР С МАНШЕТ 7 СМ",
+        "quantity": "1.000",
+        "unit": null,
+        "unit_price": "6.99",
+        "discount_pct": null,
+        "vat_rate": "20.00",
+        "net": "5.83",
+        "vat": "1.16",
+        "gross": "6.99",
+        "includes_vat": true
+      },
+      {
+        "description": "РЪКАВИЦИ ОТ ТЕЛЕШКИ ВЕЛУР",
+        "quantity": "1.000",
+        "unit": null,
+        "unit_price": "6.99",
+        "discount_pct": null,
+        "vat_rate": "20.00",
+        "net": "5.83",
+        "vat": "1.16",
+        "gross": "6.99",
+        "includes_vat": true
+      },
+      {
+        "description": "ПОЛИПРОПИЛЕНОВО ВЪЖЕ ПЛЕТЕНО ШАРЕН О 10ММ",
+        "quantity": "40.000",
+        "unit": null,
+        "unit_price": "1.59",
+        "discount_pct": null,
+        "vat_rate": "20.00",
+        "net": "53.00",
+        "vat": "10.60",
+        "gross": "63.60",
+        "includes_vat": true
+      },
+      {
+        "description": "РЪКАВИЦИ PINTO PU/ПОЛИЕСТЕР ЖЪЛТИ",
+        "quantity": "1.000",
+        "unit": null,
+        "unit_price": "1.99",
+        "discount_pct": null,
+        "vat_rate": "20.00",
+        "net": "1.66",
+        "vat": "0.33",
+        "gross": "1.99",
+        "includes_vat": true
+      }
+    ],
+    "fiscal": {
+      "fiscal_receipt_number": "0000156549",
+      "fiscal_device_number": "51018372",
+      "operator": "Галина Бонева",
+      "qr_code": null
+    }
+  },
+  "validation": {
+    "needs_review": true,
+    "checks": [
+      {
+        "code": "supplier_eik_checksum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "customer_eik_checksum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "supplier_vat_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "customer_vat_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "iban_mod97",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "bic_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "currency_iso",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "document_type_enum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "date_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "due_date_after_issue",
+        "status": "skipped",
+        "message": "issue or due date missing/malformed"
+      },
+      {
+        "code": "totals_match",
+        "status": "pass",
+        "message": "77.95 + 15.59 = 93.54"
+      },
+      {
+        "code": "vat_breakdown_match",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "line_items_sum",
+        "status": "pass",
+        "message": "all populated component sums match totals"
+      },
+      {
+        "code": "multiple_documents_detected",
+        "status": "warning",
+        "message": "detected 2 documents; only index 0 extracted."
+      }
+    ],
+    "errors": [],
+    "warnings": [
+      "multiple_documents_detected"
+    ]
+  },
+  "model_assessment": {
+    "confidence": {
+      "overall": 0.98,
+      "document": 1,
+      "supplier": 1,
+      "customer": 0.98,
+      "totals": 1,
+      "line_items": 0.98
+    },
+    "extraction_warnings": [
+      "Image contains a second invoice (0320040621) on the right; only the left invoice (0320040582) was extracted."
+    ]
+  },
+  "evidence": {},
+  "provider": {
+    "engine": "google",
+    "model": "gemini-flash-latest",
+    "pipeline": "vision_direct",
+    "ocr_used": false,
+    "prompt_version": "gemini-unified-v2-2026-05-09-csharp",
+    "created_at": "2026-05-09T15:28:40Z",
+    "duration_ms": 23690,
+    "input_tokens": 4424,
+    "output_tokens": 1799,
+    "cost_estimate_usd": "0.0009"
+  }
+}

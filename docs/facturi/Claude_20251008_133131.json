@@ -1,0 +1,299 @@
+{
+  "schema_version": "accountant.document.v2",
+  "source": {
+    "file_name": "20251008_133131.jpg",
+    "file_path": "../docs/facturi/20251008_133131.jpg",
+    "page_count": 1,
+    "page_index": 0,
+    "detected_document_count": 1,
+    "extracted_document_index": 0,
+    "image_quality": {
+      "readability": "excellent",
+      "issues": []
+    }
+  },
+  "extraction": {
+    "document_type": "invoice",
+    "language": "bg",
+    "country": "BG",
+    "document": {
+      "number": "0000015721",
+      "date": "2025-10-08",
+      "tax_event_date": "2025-10-08",
+      "due_date": null,
+      "currency": "BGN",
+      "exchange_rate": null,
+      "place": null,
+      "notes": null
+    },
+    "supplier": {
+      "name": "КОРПАРТС ЕООД",
+      "eik": "204644699",
+      "vat_number": "BG204644699",
+      "address": "ж.к.\"Белите брези\" бл.10",
+      "city": "София",
+      "country": "BG",
+      "mol": "НИКОЛАЙ ГЕОРГИЕВ"
+    },
+    "customer": {
+      "name": "МЕД ТЕК ЛАБ ЕООД",
+      "eik": "201556176",
+      "vat_number": "BG201556176",
+      "address": "ул.Рощок № 9",
+      "city": "Варна",
+      "country": "BG",
+      "mol": "Габриела Петрова"
+    },
+    "totals": {
+      "net": "1541.67",
+      "vat": "308.33",
+      "gross": "1850.00",
+      "discount": null,
+      "rounding": null,
+      "amount_due": "1850.00"
+    },
+    "vat_breakdown": [
+      {
+        "rate": "20.00",
+        "net": "1541.67",
+        "vat": "308.33",
+        "gross": "1850.00",
+        "reason": null
+      }
+    ],
+    "payments": [
+      {
+        "method": "cash",
+        "amount": "1850.00",
+        "currency": "BGN",
+        "iban": "BG32FINV91501017158040",
+        "bic": "FINVBGSF",
+        "bank_name": "Първа инвестиционна банка"
+      }
+    ],
+    "line_items": [
+      {
+        "description": "МУФА СЪЕДИНИТЕЛ 4WD С ПОМПА ЕЛ. МОТОР IX35/TUCSON /SANTA FE/SORENTO/SPORTAGE (10-20)",
+        "quantity": "1.000",
+        "unit": "Компл",
+        "unit_price": "1541.667",
+        "discount_pct": null,
+        "vat_rate": "20.00",
+        "net": "1541.67",
+        "vat": "308.33",
+        "gross": "1850.00",
+        "includes_vat": false
+      }
+    ],
+    "fiscal": {
+      "fiscal_receipt_number": null,
+      "fiscal_device_number": null,
+      "operator": null,
+      "qr_code": null
+    }
+  },
+  "validation": {
+    "needs_review": false,
+    "checks": [
+      {
+        "code": "supplier_eik_checksum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "customer_eik_checksum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "supplier_vat_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "customer_vat_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "iban_mod97",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "bic_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "currency_iso",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "document_type_enum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "date_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "due_date_after_issue",
+        "status": "skipped",
+        "message": "issue or due date missing/malformed"
+      },
+      {
+        "code": "totals_match",
+        "status": "pass",
+        "message": "1541.67 + 308.33 = 1850.00"
+      },
+      {
+        "code": "vat_breakdown_match",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "line_items_sum",
+        "status": "pass",
+        "message": "all populated component sums match totals"
+      }
+    ],
+    "errors": [],
+    "warnings": []
+  },
+  "model_assessment": {
+    "confidence": {
+      "overall": 0.97,
+      "document": 0.99,
+      "supplier": 0.99,
+      "customer": 0.99,
+      "totals": 0.99,
+      "line_items": 0.97
+    },
+    "extraction_warnings": [
+      "Payment method is stated as 'В Брой' (cash) but bank transfer details (IBAN, BIC, bank name) are also printed in the payment section; both have been recorded under a single payment entry with method 'cash' and bank fields populated as printed.",
+      "Line item net (1541.67) × 1.20 = 1850.004, rounded to 1850.00 — reconciles correctly within tolerance."
+    ]
+  },
+  "evidence": {
+    "document.number": {
+      "text": "N: 0000015721",
+      "confidence": 0.99
+    },
+    "document.date": {
+      "text": "Дата: 08.10.2025",
+      "confidence": 0.99
+    },
+    "document.tax_event_date": {
+      "text": "Дата на данъчно събитие:08.10.2025",
+      "confidence": 0.99
+    },
+    "supplier.name": {
+      "text": "КОРПАРТС ЕООД",
+      "confidence": 0.99
+    },
+    "supplier.eik": {
+      "text": "Идентификационен номер: 204644699",
+      "confidence": 0.99
+    },
+    "supplier.vat_number": {
+      "text": "Идентификационен номер по ДДС: BG204644699",
+      "confidence": 0.99
+    },
+    "supplier.mol": {
+      "text": "МОЛ: НИКОЛАЙ ГЕОРГИЕВ",
+      "confidence": 0.99
+    },
+    "supplier.address": {
+      "text": "Адрес:ж.к.\"Белите брези\" бл.10",
+      "confidence": 0.98
+    },
+    "supplier.city": {
+      "text": "Град:СОФИЯ",
+      "confidence": 0.99
+    },
+    "customer.name": {
+      "text": "МЕД ТЕК ЛАБ ЕООД",
+      "confidence": 0.99
+    },
+    "customer.eik": {
+      "text": "Идентификационен номер: 201556176",
+      "confidence": 0.99
+    },
+    "customer.vat_number": {
+      "text": "Идентификационен номер по ДДС: BG201556176",
+      "confidence": 0.99
+    },
+    "customer.mol": {
+      "text": "МОЛ: Габриела Петрова",
+      "confidence": 0.99
+    },
+    "customer.address": {
+      "text": "Адрес:ул.Рощок № 9",
+      "confidence": 0.98
+    },
+    "customer.city": {
+      "text": "Град:ВАРНА",
+      "confidence": 0.99
+    },
+    "line_items[0].description": {
+      "text": "МУФА СЪЕДИНИТЕЛ 4WD С ПОМПА ЕЛ. МОТОР IX35/TUCSON /SANTA FE/SORENTO/SPORTAGE (10-20)",
+      "confidence": 0.98
+    },
+    "line_items[0].quantity": {
+      "text": "1.000",
+      "confidence": 0.99
+    },
+    "line_items[0].unit_price": {
+      "text": "1541.667",
+      "confidence": 0.98
+    },
+    "line_items[0].net": {
+      "text": "1541.67",
+      "confidence": 0.99
+    },
+    "totals.net": {
+      "text": "Данъчна основа: 1541.67",
+      "confidence": 0.99
+    },
+    "totals.vat": {
+      "text": "Начислен ДДС 20% 308.33",
+      "confidence": 0.99
+    },
+    "totals.gross": {
+      "text": "Сума за плащане: 1850.00",
+      "confidence": 0.99
+    },
+    "payments[0].method": {
+      "text": "Плащане: В Брой",
+      "confidence": 0.97
+    },
+    "payments[0].iban": {
+      "text": "Сметка: BG32FINV91501017158040",
+      "confidence": 0.97
+    },
+    "payments[0].bic": {
+      "text": "Код: FINVBGSF",
+      "confidence": 0.98
+    },
+    "payments[0].bank_name": {
+      "text": "Банка: Първа инвестиционна банка",
+      "confidence": 0.99
+    }
+  },
+  "provider": {
+    "engine": "anthropic",
+    "model": "claude-sonnet-4-6",
+    "pipeline": "vision_direct",
+    "ocr_used": false,
+    "prompt_version": "claude-unified-v2-2026-05-09-csharp",
+    "created_at": "2026-05-09T15:28:33Z",
+    "duration_ms": 27287,
+    "input_tokens": 6743,
+    "output_tokens": 2037,
+    "cost_estimate_usd": "0.0508"
+  }
+}

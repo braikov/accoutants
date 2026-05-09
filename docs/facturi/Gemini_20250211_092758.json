@@ -1,0 +1,191 @@
+{
+  "schema_version": "accountant.document.v2",
+  "source": {
+    "file_name": "20250211_092758.jpg",
+    "file_path": "../docs/facturi/20250211_092758.jpg",
+    "page_count": 1,
+    "page_index": 0,
+    "detected_document_count": 1,
+    "extracted_document_index": 0,
+    "image_quality": {
+      "readability": "excellent",
+      "issues": []
+    }
+  },
+  "extraction": {
+    "document_type": "invoice",
+    "language": "bg",
+    "country": "BG",
+    "document": {
+      "number": "0000006137",
+      "date": "2025-02-07",
+      "tax_event_date": "2025-02-07",
+      "due_date": "2025-02-07",
+      "currency": "BGN",
+      "exchange_rate": null,
+      "place": "гр. София",
+      "notes": null
+    },
+    "supplier": {
+      "name": "НОКСЕС ЕООД",
+      "eik": "202549149",
+      "vat_number": "BG202549149",
+      "address": "кв. Лозенец, ул. Люботрън 76, вх. А , ет.2, ап.4",
+      "city": "София",
+      "country": "BG",
+      "mol": "Диан Жилиев"
+    },
+    "customer": {
+      "name": "Инко трейд ЕООД",
+      "eik": "206802564",
+      "vat_number": "BG206802564",
+      "address": "р-н Приморски, ул. Рощок, 9",
+      "city": "Варна",
+      "country": "BG",
+      "mol": "Мариана Кинчова Петрова"
+    },
+    "totals": {
+      "net": "66.67",
+      "vat": "13.33",
+      "gross": "80.00",
+      "discount": null,
+      "rounding": null,
+      "amount_due": "80.00"
+    },
+    "vat_breakdown": [
+      {
+        "rate": "20.00",
+        "net": "66.67",
+        "vat": "13.33",
+        "gross": "80.00",
+        "reason": null
+      }
+    ],
+    "payments": [
+      {
+        "method": "bank_transfer",
+        "amount": "80.00",
+        "currency": "BGN",
+        "iban": "BG69FINV91501015880757",
+        "bic": "FINVBGSF",
+        "bank_name": "ПИБ АД"
+      }
+    ],
+    "line_items": [
+      {
+        "description": "Софтуерни ремонти PC",
+        "quantity": "1.000",
+        "unit": "бр",
+        "unit_price": "66.667",
+        "discount_pct": "0.00",
+        "vat_rate": "20.00",
+        "net": "66.67",
+        "vat": "13.33",
+        "gross": "80.00",
+        "includes_vat": false
+      }
+    ],
+    "fiscal": {
+      "fiscal_receipt_number": null,
+      "fiscal_device_number": null,
+      "operator": null,
+      "qr_code": null
+    }
+  },
+  "validation": {
+    "needs_review": false,
+    "checks": [
+      {
+        "code": "supplier_eik_checksum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "customer_eik_checksum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "supplier_vat_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "customer_vat_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "iban_mod97",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "bic_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "currency_iso",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "document_type_enum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "date_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "due_date_after_issue",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "totals_match",
+        "status": "pass",
+        "message": "66.67 + 13.33 = 80.00"
+      },
+      {
+        "code": "vat_breakdown_match",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "line_items_sum",
+        "status": "pass",
+        "message": "all populated component sums match totals"
+      }
+    ],
+    "errors": [],
+    "warnings": []
+  },
+  "model_assessment": {
+    "confidence": {
+      "overall": 1,
+      "document": 1,
+      "supplier": 1,
+      "customer": 1,
+      "totals": 1,
+      "line_items": 1
+    },
+    "extraction_warnings": []
+  },
+  "evidence": {},
+  "provider": {
+    "engine": "google",
+    "model": "gemini-flash-latest",
+    "pipeline": "vision_direct",
+    "ocr_used": false,
+    "prompt_version": "gemini-unified-v2-2026-05-09-csharp",
+    "created_at": "2026-05-09T15:22:14Z",
+    "duration_ms": 9492,
+    "input_tokens": 4438,
+    "output_tokens": 972,
+    "cost_estimate_usd": "0.0006"
+  }
+}

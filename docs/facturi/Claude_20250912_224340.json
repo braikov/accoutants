@@ -1,0 +1,288 @@
+{
+  "schema_version": "accountant.document.v2",
+  "source": {
+    "file_name": "20250912_224340.jpg",
+    "file_path": "../docs/facturi/20250912_224340.jpg",
+    "page_count": 1,
+    "page_index": 0,
+    "detected_document_count": 7,
+    "extracted_document_index": 0,
+    "image_quality": {
+      "readability": "fair",
+      "issues": [
+        "multiple_documents_overlapping",
+        "stamp_obscures_data",
+        "perspective_distortion",
+        "low_contrast_on_thermal_paper"
+      ]
+    }
+  },
+  "extraction": {
+    "document_type": "invoice",
+    "language": "bg",
+    "country": "BG",
+    "document": {
+      "number": "0000315475",
+      "date": "2025-01-04",
+      "tax_event_date": "2025-01-04",
+      "due_date": null,
+      "currency": "BGN",
+      "exchange_rate": null,
+      "place": null,
+      "notes": null
+    },
+    "supplier": {
+      "name": "НИКСМЕТАЛ ОИЛ ЕООД",
+      "eik": "205318980",
+      "vat_number": "BG205318980",
+      "address": "ул. Цар Иван Шишман 43",
+      "city": "Ботевград",
+      "country": "BG",
+      "mol": "Митко Драганов"
+    },
+    "customer": {
+      "name": "ИнкоТрейс ЕООД",
+      "eik": "206802564",
+      "vat_number": "BG206802564",
+      "address": null,
+      "city": "Варна",
+      "country": "BG",
+      "mol": "Марина Кинова Петрова"
+    },
+    "totals": {
+      "net": "154.15",
+      "vat": "30.83",
+      "gross": "183.08",
+      "discount": null,
+      "rounding": null,
+      "amount_due": "183.08"
+    },
+    "vat_breakdown": [
+      {
+        "rate": "20.00",
+        "net": "154.15",
+        "vat": "30.83",
+        "gross": "183.08",
+        "reason": null
+      }
+    ],
+    "payments": [
+      {
+        "method": "cash",
+        "amount": "183.08",
+        "currency": "BGN",
+        "iban": null,
+        "bic": null,
+        "bank_name": null
+      }
+    ],
+    "line_items": [
+      {
+        "description": "ДИЗ. ГОРИВО Б-6",
+        "quantity": "6.750",
+        "unit": "л",
+        "unit_price": "0.74162",
+        "discount_pct": null,
+        "vat_rate": "20.00",
+        "net": "5.01",
+        "vat": "1.00",
+        "gross": "6.01",
+        "includes_vat": false
+      }
+    ],
+    "fiscal": {
+      "fiscal_receipt_number": null,
+      "fiscal_device_number": null,
+      "operator": null,
+      "qr_code": null
+    }
+  },
+  "validation": {
+    "needs_review": true,
+    "checks": [
+      {
+        "code": "supplier_eik_checksum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "customer_eik_checksum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "supplier_vat_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "customer_vat_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "iban_mod97",
+        "status": "skipped",
+        "message": "IBAN is null"
+      },
+      {
+        "code": "bic_format",
+        "status": "skipped",
+        "message": "BIC is null"
+      },
+      {
+        "code": "currency_iso",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "document_type_enum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "date_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "due_date_after_issue",
+        "status": "skipped",
+        "message": "issue or due date missing/malformed"
+      },
+      {
+        "code": "totals_match",
+        "status": "fail",
+        "message": "net (154.15) + vat (30.83) = 184.98, but gross = 183.08."
+      },
+      {
+        "code": "vat_breakdown_match",
+        "status": "fail",
+        "message": "row 0: 154.15+30.83≠183.08"
+      },
+      {
+        "code": "line_items_sum",
+        "status": "fail",
+        "message": "sum(net)=5.01, totals.net=154.15; sum(vat)=1.00, totals.vat=30.83; sum(gross)=6.01, totals.gross=183.08"
+      },
+      {
+        "code": "multiple_documents_detected",
+        "status": "warning",
+        "message": "detected 7 documents; only index 0 extracted."
+      },
+      {
+        "code": "image_quality_issue",
+        "status": "warning",
+        "message": "issues: multiple_documents_overlapping, stamp_obscures_data, perspective_distortion, low_contrast_on_thermal_paper"
+      }
+    ],
+    "errors": [
+      "totals_match",
+      "vat_breakdown_match",
+      "line_items_sum"
+    ],
+    "warnings": [
+      "multiple_documents_detected",
+      "image_quality_issue"
+    ]
+  },
+  "model_assessment": {
+    "confidence": {
+      "overall": 0.75,
+      "document": 0.88,
+      "supplier": 0.88,
+      "customer": 0.85,
+      "totals": 0.78,
+      "line_items": 0.65
+    },
+    "extraction_warnings": [
+      "Image contains 7 documents total: 1 invoice (ФАКТУРА 0000315475, center-top, extracted) and 6 thermal fiscal receipts (фискални бонове) from НИКСМЕТАЛ ОИЛ ЕООД for various customers including Евгений Иванов Тодоров, Стоян Кочев Стоянов, Митко Драганов and others — only the most prominent invoice was extracted.",
+      "Line items are partially obscured and difficult to read clearly; quantity and unit price for the diesel fuel line were estimated from visible fragments and the totals.",
+      "Totals section is partially overlapped by a stamp; net/vat/gross values read with moderate confidence.",
+      "Some digits in the totals block (net: 154.15, vat: 30.83, gross: 183.08) may contain minor reading errors due to stamp overlay and image angle.",
+      "The line items table shows multiple fuel entries but most are covered by overlapping receipts; only the partially visible line was extracted."
+    ]
+  },
+  "evidence": {
+    "document.number": {
+      "text": "ФАКТУРА N: 0000315475",
+      "confidence": 0.95
+    },
+    "document.date": {
+      "text": "Дата:04.01.2025",
+      "confidence": 0.92
+    },
+    "document.tax_event_date": {
+      "text": "Дата на данъчното събитие/дата на: 2025-01-04",
+      "confidence": 0.85
+    },
+    "supplier.name": {
+      "text": "\"НИКСМЕТАЛ ОИЛ\" ЕООД",
+      "confidence": 0.92
+    },
+    "supplier.eik": {
+      "text": "205318980",
+      "confidence": 0.9
+    },
+    "supplier.vat_number": {
+      "text": "BG205318980",
+      "confidence": 0.9
+    },
+    "supplier.mol": {
+      "text": "Митко Драганов",
+      "confidence": 0.88
+    },
+    "supplier.city": {
+      "text": "Ботевград, Цар Ив. Шишман 43",
+      "confidence": 0.88
+    },
+    "customer.name": {
+      "text": "ИнкоТрейс ЕООД",
+      "confidence": 0.88
+    },
+    "customer.eik": {
+      "text": "206802564",
+      "confidence": 0.88
+    },
+    "customer.vat_number": {
+      "text": "BG206802564",
+      "confidence": 0.88
+    },
+    "customer.mol": {
+      "text": "Марина Кинова Петрова",
+      "confidence": 0.85
+    },
+    "customer.city": {
+      "text": "гр. Варна",
+      "confidence": 0.85
+    },
+    "totals.net": {
+      "text": "Данъчна основа 20.00: 154.15",
+      "confidence": 0.82
+    },
+    "totals.vat": {
+      "text": "ДДС 6 (20.00): 30.83",
+      "confidence": 0.82
+    },
+    "totals.gross": {
+      "text": "стотинки: 183.08",
+      "confidence": 0.8
+    },
+    "payments[0].method": {
+      "text": "Плащане: в брой",
+      "confidence": 0.88
+    }
+  },
+  "provider": {
+    "engine": "anthropic",
+    "model": "claude-sonnet-4-6",
+    "pipeline": "vision_direct",
+    "ocr_used": false,
+    "prompt_version": "claude-unified-v2-2026-05-09-csharp",
+    "created_at": "2026-05-09T15:27:26Z",
+    "duration_ms": 26647,
+    "input_tokens": 6739,
+    "output_tokens": 1756,
+    "cost_estimate_usd": "0.0466"
+  }
+}

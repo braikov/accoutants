@@ -1,0 +1,202 @@
+{
+  "schema_version": "accountant.document.v2",
+  "source": {
+    "file_name": "20250912_224123.jpg",
+    "file_path": "../docs/facturi/20250912_224123.jpg",
+    "page_count": 1,
+    "page_index": 0,
+    "detected_document_count": 1,
+    "extracted_document_index": 0,
+    "image_quality": {
+      "readability": "good",
+      "issues": [
+        "fold_obscures_data"
+      ]
+    }
+  },
+  "extraction": {
+    "document_type": "invoice",
+    "language": "bg",
+    "country": "BG",
+    "document": {
+      "number": "3000033136",
+      "date": "2025-08-07",
+      "tax_event_date": "2025-08-07",
+      "due_date": "2025-08-07",
+      "currency": "BGN",
+      "exchange_rate": null,
+      "place": null,
+      "notes": "Оригинал. Договор: първоначална вноска: 0. Начин на плащане: Дебитна/Кредитна карта. Срок за плащане до: 07.08.2025."
+    },
+    "supplier": {
+      "name": "ПЛАСКО КОМПЮТЪРС–ЕООД",
+      "eik": "148019777",
+      "vat_number": "BG148019777",
+      "address": "ВАРНА, ул Радост 8",
+      "city": "Варна",
+      "country": "BG",
+      "mol": "Пламен Драгнев"
+    },
+    "customer": {
+      "name": "Дигитален Хамелеон - ЕООД",
+      "eik": "207498356",
+      "vat_number": "BG207498356",
+      "address": "жк Манастирски ливади бл.176 вх.Ж ап.23, обл.СОФИЯ, гр.СОФИЯ 1404",
+      "city": "София",
+      "country": "BG",
+      "mol": "Габриела Петрова"
+    },
+    "totals": {
+      "net": "103.32",
+      "vat": "20.67",
+      "gross": "123.99",
+      "discount": null,
+      "rounding": null,
+      "amount_due": "123.99"
+    },
+    "vat_breakdown": [
+      {
+        "rate": "20.00",
+        "net": "103.32",
+        "vat": "20.67",
+        "gross": "123.99",
+        "reason": null
+      }
+    ],
+    "payments": [
+      {
+        "method": "card",
+        "amount": "123.99",
+        "currency": "BGN",
+        "iban": "BG18UBBS81551064228519",
+        "bic": "UBBSBGSF",
+        "bank_name": "ОББ банк"
+      }
+    ],
+    "line_items": [
+      {
+        "description": "Logitech Lift Vertical Ergonomic Mouse - GRAPHITE / BLACK - EMEA | 910-006473 | 5099206099784",
+        "quantity": "1.000",
+        "unit": null,
+        "unit_price": "103.32",
+        "discount_pct": null,
+        "vat_rate": "20.00",
+        "net": "103.32",
+        "vat": "20.67",
+        "gross": "123.99",
+        "includes_vat": false
+      }
+    ],
+    "fiscal": {
+      "fiscal_receipt_number": null,
+      "fiscal_device_number": null,
+      "operator": "Александър Василев",
+      "qr_code": null
+    }
+  },
+  "validation": {
+    "needs_review": true,
+    "checks": [
+      {
+        "code": "supplier_eik_checksum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "customer_eik_checksum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "supplier_vat_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "customer_vat_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "iban_mod97",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "bic_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "currency_iso",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "document_type_enum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "date_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "due_date_after_issue",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "totals_match",
+        "status": "pass",
+        "message": "103.32 + 20.67 = 123.99"
+      },
+      {
+        "code": "vat_breakdown_match",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "line_items_sum",
+        "status": "pass",
+        "message": "all populated component sums match totals"
+      },
+      {
+        "code": "image_quality_issue",
+        "status": "warning",
+        "message": "issues: fold_obscures_data"
+      }
+    ],
+    "errors": [],
+    "warnings": [
+      "image_quality_issue"
+    ]
+  },
+  "model_assessment": {
+    "confidence": {
+      "overall": 0.98,
+      "document": 0.99,
+      "supplier": 0.99,
+      "customer": 0.99,
+      "totals": 0.99,
+      "line_items": 0.98
+    },
+    "extraction_warnings": [
+      "VAT total appears arithmetic-consistent from shown amounts."
+    ]
+  },
+  "evidence": {},
+  "provider": {
+    "engine": "open_ai",
+    "model": "gpt-5.4-mini",
+    "pipeline": "vision_direct",
+    "ocr_used": false,
+    "prompt_version": "codex-unified-v2-r13-2026-05-09-csharp",
+    "created_at": "2026-05-09T15:20:01Z",
+    "duration_ms": 5362,
+    "input_tokens": 4921,
+    "output_tokens": 629,
+    "cost_estimate_usd": "0.0065"
+  }
+}

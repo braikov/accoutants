@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\Accountant.Contracts\Accountant.Contracts.csproj" />
+    <ProjectReference Include="..\Accountant.Claude\Accountant.Claude.csproj" />
+    <ProjectReference Include="..\Accountant.Codex\Accountant.Codex.csproj" />
+    <ProjectReference Include="..\Accountant.Gemini\Accountant.Gemini.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="10.0.7" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.7" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="10.0.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <UserSecretsId>653d6b93-e4b4-41f4-8cad-cc3a87ea976d</UserSecretsId>
+  </PropertyGroup>
+
+</Project>

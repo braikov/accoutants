@@ -1,0 +1,309 @@
+{
+  "schema_version": "accountant.document.v2",
+  "source": {
+    "file_name": "20260327_164052.jpg",
+    "file_path": "../docs/facturi/20260327_164052.jpg",
+    "page_count": 1,
+    "page_index": 0,
+    "detected_document_count": 1,
+    "extracted_document_index": 0,
+    "image_quality": {
+      "readability": "good",
+      "issues": [
+        "stamp_obscures_data"
+      ]
+    }
+  },
+  "extraction": {
+    "document_type": "invoice",
+    "language": "bg",
+    "country": "BG",
+    "document": {
+      "number": "0000150465",
+      "date": "2026-03-27",
+      "tax_event_date": "2026-03-27",
+      "due_date": null,
+      "currency": "EUR",
+      "exchange_rate": null,
+      "place": "гр. Варна",
+      "notes": "Словом: сто осемдесет и четири евро и 20 ец."
+    },
+    "supplier": {
+      "name": "КЛАСИК МЕТАЛ ЕООД",
+      "eik": "103908351",
+      "vat_number": "BG103908351",
+      "address": "жк Възраждане 1",
+      "city": "Варна",
+      "country": "BG",
+      "mol": "Владимир Бодуров"
+    },
+    "customer": {
+      "name": "ИНКО ТРЕЙД ЕООД",
+      "eik": "206802564",
+      "vat_number": "BG206802564",
+      "address": "ул. Рошок 9",
+      "city": "Варна",
+      "country": "BG",
+      "mol": "Мариана Петрова"
+    },
+    "totals": {
+      "net": "153.50",
+      "vat": "30.70",
+      "gross": "184.20",
+      "discount": null,
+      "rounding": null,
+      "amount_due": "184.20"
+    },
+    "vat_breakdown": [
+      {
+        "rate": "20.00",
+        "net": "153.50",
+        "vat": "30.70",
+        "gross": "184.20",
+        "reason": null
+      }
+    ],
+    "payments": [
+      {
+        "method": "bank_transfer",
+        "amount": "184.20",
+        "currency": "EUR",
+        "iban": "BG98STSA93001506003157",
+        "bic": "STSABGSF",
+        "bank_name": "БАНКА ДСК"
+      }
+    ],
+    "line_items": [
+      {
+        "description": "100030-Лазерно рязане – детайл",
+        "quantity": "1.000",
+        "unit": "бр",
+        "unit_price": "153.5000",
+        "discount_pct": null,
+        "vat_rate": "20.00",
+        "net": "153.50",
+        "vat": "30.70",
+        "gross": "184.20",
+        "includes_vat": false
+      }
+    ],
+    "fiscal": {
+      "fiscal_receipt_number": null,
+      "fiscal_device_number": null,
+      "operator": null,
+      "qr_code": null
+    }
+  },
+  "validation": {
+    "needs_review": true,
+    "checks": [
+      {
+        "code": "supplier_eik_checksum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "customer_eik_checksum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "supplier_vat_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "customer_vat_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "iban_mod97",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "bic_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "currency_iso",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "document_type_enum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "date_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "due_date_after_issue",
+        "status": "skipped",
+        "message": "issue or due date missing/malformed"
+      },
+      {
+        "code": "totals_match",
+        "status": "pass",
+        "message": "153.50 + 30.70 = 184.20"
+      },
+      {
+        "code": "vat_breakdown_match",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "line_items_sum",
+        "status": "pass",
+        "message": "all populated component sums match totals"
+      },
+      {
+        "code": "image_quality_issue",
+        "status": "warning",
+        "message": "issues: stamp_obscures_data"
+      }
+    ],
+    "errors": [],
+    "warnings": [
+      "image_quality_issue"
+    ]
+  },
+  "model_assessment": {
+    "confidence": {
+      "overall": 0.94,
+      "document": 0.97,
+      "supplier": 0.96,
+      "customer": 0.96,
+      "totals": 0.97,
+      "line_items": 0.95
+    },
+    "extraction_warnings": [
+      "Currency is EUR; the printed 'Сума ЛВ.: 360.26' appears to be the BGN equivalent (360.26 BGN ≈ 184.20 EUR at fixed rate 1.95583), but no explicit exchange rate field is printed on the document — exchange_rate left null.",
+      "Company stamp partially obscures the 'Съставил' name area; name read as Касимирова Василева but confidence is reduced.",
+      "UНП DT521447-0003-0084296 printed as payment reference; stored in notes/payment method context only."
+    ]
+  },
+  "evidence": {
+    "document.number": {
+      "text": "ФАКТУРА 0000150465 / 27.03.2026г.",
+      "confidence": 0.98
+    },
+    "document.date": {
+      "text": "27.03.2026г.",
+      "confidence": 0.98
+    },
+    "document.tax_event_date": {
+      "text": "Данъчно събитие/плащане на: 27.03.2026г.",
+      "confidence": 0.97
+    },
+    "document.currency": {
+      "text": "Стойност евро",
+      "confidence": 0.97
+    },
+    "document.place": {
+      "text": "Място: e-mail: klasikmetal@abv.bg, гр. Варна",
+      "confidence": 0.92
+    },
+    "supplier.name": {
+      "text": "Д-к: КЛАСИК МЕТАЛ ЕООД",
+      "confidence": 0.97
+    },
+    "supplier.address": {
+      "text": "Адрес: гр. Варна жк Възраждане 1",
+      "confidence": 0.95
+    },
+    "supplier.eik": {
+      "text": "ИН (ЕИК): 103908351",
+      "confidence": 0.98
+    },
+    "supplier.vat_number": {
+      "text": "ИН ДДС: BG103908351",
+      "confidence": 0.98
+    },
+    "supplier.mol": {
+      "text": "МОЛ: Владимир Бодуров",
+      "confidence": 0.95
+    },
+    "customer.name": {
+      "text": "П-л: ИНКО ТРЕЙД ЕООД",
+      "confidence": 0.97
+    },
+    "customer.address": {
+      "text": "Адрес: гр. Варна ул. Рошок 9",
+      "confidence": 0.95
+    },
+    "customer.eik": {
+      "text": "ИН (ЕИК): 206802564",
+      "confidence": 0.98
+    },
+    "customer.vat_number": {
+      "text": "ИН ДДС: BG206802564",
+      "confidence": 0.98
+    },
+    "customer.mol": {
+      "text": "МОЛ: Мариана Петрова",
+      "confidence": 0.95
+    },
+    "line_items[0].description": {
+      "text": "100030-Лазерно рязане – детайл",
+      "confidence": 0.96
+    },
+    "line_items[0].quantity": {
+      "text": "1",
+      "confidence": 0.99
+    },
+    "line_items[0].unit_price": {
+      "text": "153.5000",
+      "confidence": 0.97
+    },
+    "line_items[0].net": {
+      "text": "153.50",
+      "confidence": 0.97
+    },
+    "totals.net": {
+      "text": "Дан. Основа: 153.50",
+      "confidence": 0.97
+    },
+    "totals.vat": {
+      "text": "ДДС 20%: 30.70",
+      "confidence": 0.97
+    },
+    "totals.gross": {
+      "text": "Обща сума: 184.20",
+      "confidence": 0.97
+    },
+    "payments[0].iban": {
+      "text": "IBAN: BG98 STSA 9300 1506 0031 57",
+      "confidence": 0.96
+    },
+    "payments[0].bic": {
+      "text": "BIC: STSABGSF",
+      "confidence": 0.97
+    },
+    "payments[0].bank_name": {
+      "text": "Банка: БАНКА ДСК",
+      "confidence": 0.97
+    },
+    "document.notes": {
+      "text": "Словом: сто осемдесет и четири евро и 20 ец.",
+      "confidence": 0.95
+    }
+  },
+  "provider": {
+    "engine": "anthropic",
+    "model": "claude-sonnet-4-6",
+    "pipeline": "vision_direct",
+    "ocr_used": false,
+    "prompt_version": "claude-unified-v2-2026-05-09-csharp",
+    "created_at": "2026-05-09T15:30:32Z",
+    "duration_ms": 29036,
+    "input_tokens": 6747,
+    "output_tokens": 2047,
+    "cost_estimate_usd": "0.0509"
+  }
+}

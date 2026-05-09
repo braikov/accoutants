@@ -1,0 +1,297 @@
+{
+  "schema_version": "accountant.document.v2",
+  "source": {
+    "file_name": "IMG-fb7be744b80e5e1a7206d649a40ed1fb-V.jpg",
+    "file_path": "../docs/facturi/IMG-fb7be744b80e5e1a7206d649a40ed1fb-V.jpg",
+    "page_count": 1,
+    "page_index": 0,
+    "detected_document_count": 1,
+    "extracted_document_index": 0,
+    "image_quality": {
+      "readability": "good",
+      "issues": [
+        "stamp_obscures_data"
+      ]
+    }
+  },
+  "extraction": {
+    "document_type": "invoice",
+    "language": "bg",
+    "country": "BG",
+    "document": {
+      "number": "0000312361",
+      "date": "2024-12-07",
+      "tax_event_date": "2024-12-07",
+      "due_date": null,
+      "currency": "BGN",
+      "exchange_rate": null,
+      "place": null,
+      "notes": "Словом: сто шестдесет и четири лева и осем стотинки"
+    },
+    "supplier": {
+      "name": "\"НИКСМЕТАЛ ОИЛ\" ЕООД",
+      "eik": "205318980",
+      "vat_number": "BG205318980",
+      "address": "\"Цар Ив. Шишман\" 43",
+      "city": "Ботевград",
+      "country": "BG",
+      "mol": "Станислав Геровски"
+    },
+    "customer": {
+      "name": "ИнкоТрейд ЕООД",
+      "eik": "206802564",
+      "vat_number": "BG206802564",
+      "address": null,
+      "city": "Варна",
+      "country": "BG",
+      "mol": "Мариана Кинчова Петрова"
+    },
+    "totals": {
+      "net": "136.73",
+      "vat": "27.35",
+      "gross": "164.08",
+      "discount": null,
+      "rounding": null,
+      "amount_due": "164.08"
+    },
+    "vat_breakdown": [
+      {
+        "rate": "20.00",
+        "net": "136.73",
+        "vat": "27.35",
+        "gross": "164.08",
+        "reason": null
+      }
+    ],
+    "payments": [
+      {
+        "method": "card",
+        "amount": "164.08",
+        "currency": "BGN",
+        "iban": null,
+        "bic": null,
+        "bank_name": null
+      }
+    ],
+    "line_items": [
+      {
+        "description": "ДИЗ. ГОРИВО Б-6",
+        "quantity": "72.600",
+        "unit": "л",
+        "unit_price": "1.88333",
+        "discount_pct": null,
+        "vat_rate": "20.00",
+        "net": "136.73",
+        "vat": "27.35",
+        "gross": "164.08",
+        "includes_vat": false
+      }
+    ],
+    "fiscal": {
+      "fiscal_receipt_number": null,
+      "fiscal_device_number": null,
+      "operator": "Митко Драганов",
+      "qr_code": null
+    }
+  },
+  "validation": {
+    "needs_review": true,
+    "checks": [
+      {
+        "code": "supplier_eik_checksum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "customer_eik_checksum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "supplier_vat_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "customer_vat_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "iban_mod97",
+        "status": "skipped",
+        "message": "IBAN is null"
+      },
+      {
+        "code": "bic_format",
+        "status": "skipped",
+        "message": "BIC is null"
+      },
+      {
+        "code": "currency_iso",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "document_type_enum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "date_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "due_date_after_issue",
+        "status": "skipped",
+        "message": "issue or due date missing/malformed"
+      },
+      {
+        "code": "totals_match",
+        "status": "pass",
+        "message": "136.73 + 27.35 = 164.08"
+      },
+      {
+        "code": "vat_breakdown_match",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "line_items_sum",
+        "status": "pass",
+        "message": "all populated component sums match totals"
+      },
+      {
+        "code": "image_quality_issue",
+        "status": "warning",
+        "message": "issues: stamp_obscures_data"
+      }
+    ],
+    "errors": [],
+    "warnings": [
+      "image_quality_issue"
+    ]
+  },
+  "model_assessment": {
+    "confidence": {
+      "overall": 0.95,
+      "document": 0.97,
+      "supplier": 0.96,
+      "customer": 0.95,
+      "totals": 0.97,
+      "line_items": 0.95
+    },
+    "extraction_warnings": [
+      "A company stamp partially obscures portions of the customer section, but key fields (name, EIK, VAT number, MOL) remain readable.",
+      "Line item unit (л/litre) inferred from product description 'ДИЗ. ГОРИВО Б-6'; not explicitly printed.",
+      "Quantity 72.600 × unit_price 1.88333 = 136.72, which is 0.01 off from printed net 136.73 — within rounding tolerance; printed value retained."
+    ]
+  },
+  "evidence": {
+    "document.number": {
+      "text": "ФАКТУРА N: 0000312361",
+      "confidence": 0.97
+    },
+    "document.date": {
+      "text": "Дата:07.12.2024",
+      "confidence": 0.97
+    },
+    "document.tax_event_date": {
+      "text": "Дата на данъчното събитие/дата на плащане: 2024-12-07",
+      "confidence": 0.97
+    },
+    "supplier.name": {
+      "text": "\"НИКСМЕТАЛ ОИЛ\" ЕООД",
+      "confidence": 0.97
+    },
+    "supplier.address": {
+      "text": "Ботевград, \"Цар Ив. Шишман\" 43",
+      "confidence": 0.95
+    },
+    "supplier.eik": {
+      "text": "ИН: 205318980",
+      "confidence": 0.97
+    },
+    "supplier.vat_number": {
+      "text": "ИН по ЗДДС: BG205318980",
+      "confidence": 0.97
+    },
+    "supplier.mol": {
+      "text": "МОЛ: Станислав Геровски",
+      "confidence": 0.95
+    },
+    "customer.name": {
+      "text": "ИнкоТрейд ЕООД",
+      "confidence": 0.97
+    },
+    "customer.city": {
+      "text": "гр. Варна",
+      "confidence": 0.97
+    },
+    "customer.eik": {
+      "text": "ИН: 206802564",
+      "confidence": 0.97
+    },
+    "customer.vat_number": {
+      "text": "ИН по ЗДДС: BG206802564",
+      "confidence": 0.97
+    },
+    "customer.mol": {
+      "text": "МОЛ: Мариана Кинчова Петрова",
+      "confidence": 0.97
+    },
+    "line_items[0].description": {
+      "text": "ДИЗ. ГОРИВО Б-6",
+      "confidence": 0.97
+    },
+    "line_items[0].quantity": {
+      "text": "Количество...72.600",
+      "confidence": 0.97
+    },
+    "line_items[0].unit_price": {
+      "text": "Ед.цена...1.88333",
+      "confidence": 0.97
+    },
+    "line_items[0].net": {
+      "text": "Стойност...136.73 В",
+      "confidence": 0.95
+    },
+    "totals.net": {
+      "text": "Нето ст-ст...136.73",
+      "confidence": 0.97
+    },
+    "totals.vat": {
+      "text": "ДДС В (20.00%)...27.35",
+      "confidence": 0.97
+    },
+    "totals.gross": {
+      "text": "Общо, лв....164.08",
+      "confidence": 0.97
+    },
+    "vat_breakdown[0].rate": {
+      "text": "Данъчна основа 20.00%...136.73",
+      "confidence": 0.97
+    },
+    "payments[0].method": {
+      "text": "Плащане: с карта",
+      "confidence": 0.97
+    },
+    "fiscal.operator": {
+      "text": "Съставител: Митко Драганов",
+      "confidence": 0.95
+    }
+  },
+  "provider": {
+    "engine": "anthropic",
+    "model": "claude-sonnet-4-6",
+    "pipeline": "vision_direct",
+    "ocr_used": false,
+    "prompt_version": "claude-unified-v2-2026-05-09-csharp",
+    "created_at": "2026-05-09T15:31:29Z",
+    "duration_ms": 27197,
+    "input_tokens": 6756,
+    "output_tokens": 1900,
+    "cost_estimate_usd": "0.0488"
+  }
+}

@@ -1,0 +1,254 @@
+{
+  "schema_version": "accountant.document.v2",
+  "source": {
+    "file_name": "20250422_162926.jpg",
+    "file_path": "../docs/facturi/20250422_162926.jpg",
+    "page_count": 1,
+    "page_index": 0,
+    "detected_document_count": 1,
+    "extracted_document_index": 0,
+    "image_quality": {
+      "readability": "good",
+      "issues": [
+        "low_contrast"
+      ]
+    }
+  },
+  "extraction": {
+    "document_type": "receipt",
+    "language": "bg",
+    "country": "BG",
+    "document": {
+      "number": "4404045459",
+      "date": "2025-04-22",
+      "tax_event_date": "2025-04-22",
+      "due_date": null,
+      "currency": "BGN",
+      "exchange_rate": null,
+      "place": "София",
+      "notes": "Фискален бон. Payment by debit card."
+    },
+    "supplier": {
+      "name": "БАУХАУС БЪЛГАРИЯ ЕООД",
+      "eik": "201611345",
+      "vat_number": "BG201611345",
+      "address": "гр. София, бул. История Славяновългарска N:17",
+      "city": "София",
+      "country": "BG",
+      "mol": null
+    },
+    "customer": {
+      "name": "Инко Трейд - ЕООД",
+      "eik": "206802564",
+      "vat_number": "BG206802564",
+      "address": "ул. Рощок 9, обл. Варна, гр. Варна 9010",
+      "city": "Варна",
+      "country": "BG",
+      "mol": null
+    },
+    "totals": {
+      "net": "37.73",
+      "vat": "7.55",
+      "gross": "45.28",
+      "discount": null,
+      "rounding": null,
+      "amount_due": "45.28"
+    },
+    "vat_breakdown": [
+      {
+        "rate": "20.00",
+        "net": "37.73",
+        "vat": "7.55",
+        "gross": "45.28",
+        "reason": null
+      }
+    ],
+    "payments": [
+      {
+        "method": "card",
+        "amount": "45.28",
+        "currency": "BGN",
+        "iban": null,
+        "bic": null,
+        "bank_name": null
+      }
+    ],
+    "line_items": [
+      {
+        "description": "ГАЙКА 14X40 F70",
+        "quantity": "0.063",
+        "unit": "кг",
+        "unit_price": "43.91",
+        "discount_pct": null,
+        "vat_rate": "20.00",
+        "net": "2.77",
+        "vat": "0.55",
+        "gross": "3.32",
+        "includes_vat": false
+      },
+      {
+        "description": "СФЕРИЧЕН КРАН М-Ж 1 ЦОЛ",
+        "quantity": "1.000",
+        "unit": "бр",
+        "unit_price": "19.90",
+        "discount_pct": null,
+        "vat_rate": "20.00",
+        "net": "19.90",
+        "vat": "3.98",
+        "gross": "23.88",
+        "includes_vat": false
+      },
+      {
+        "description": "ТЕФЛОНОВА ЛЕНТА ПРОФЕСИОНАЛНА",
+        "quantity": "1.000",
+        "unit": "бр",
+        "unit_price": "3.99",
+        "discount_pct": null,
+        "vat_rate": "20.00",
+        "net": "3.99",
+        "vat": "0.80",
+        "gross": "4.79",
+        "includes_vat": false
+      },
+      {
+        "description": "МЕСИНГОВ НИПЕЛ 1 ЦОЛ FERRO",
+        "quantity": "2.000",
+        "unit": "бр",
+        "unit_price": "5.41",
+        "discount_pct": null,
+        "vat_rate": "20.00",
+        "net": "10.82",
+        "vat": "2.16",
+        "gross": "12.98",
+        "includes_vat": false
+      },
+      {
+        "description": "СВРЕДЛО BOSCH EXPERT HEX-9 MS",
+        "quantity": "1.000",
+        "unit": "бр",
+        "unit_price": "7.80",
+        "discount_pct": null,
+        "vat_rate": "20.00",
+        "net": "7.80",
+        "vat": "1.56",
+        "gross": "9.36",
+        "includes_vat": false
+      }
+    ],
+    "fiscal": {
+      "fiscal_receipt_number": null,
+      "fiscal_device_number": null,
+      "operator": null,
+      "qr_code": null
+    }
+  },
+  "validation": {
+    "needs_review": true,
+    "checks": [
+      {
+        "code": "supplier_eik_checksum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "customer_eik_checksum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "supplier_vat_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "customer_vat_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "iban_mod97",
+        "status": "skipped",
+        "message": "IBAN is null"
+      },
+      {
+        "code": "bic_format",
+        "status": "skipped",
+        "message": "BIC is null"
+      },
+      {
+        "code": "currency_iso",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "document_type_enum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "date_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "due_date_after_issue",
+        "status": "skipped",
+        "message": "issue or due date missing/malformed"
+      },
+      {
+        "code": "totals_match",
+        "status": "pass",
+        "message": "37.73 + 7.55 = 45.28"
+      },
+      {
+        "code": "vat_breakdown_match",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "line_items_sum",
+        "status": "fail",
+        "message": "sum(net)=45.28, totals.net=37.73; sum(vat)=9.05, totals.vat=7.55; sum(gross)=54.33, totals.gross=45.28"
+      },
+      {
+        "code": "image_quality_issue",
+        "status": "warning",
+        "message": "issues: low_contrast"
+      }
+    ],
+    "errors": [
+      "line_items_sum"
+    ],
+    "warnings": [
+      "image_quality_issue"
+    ]
+  },
+  "model_assessment": {
+    "confidence": {
+      "overall": 0.91,
+      "document": 0.98,
+      "supplier": 0.96,
+      "customer": 0.92,
+      "totals": 0.97,
+      "line_items": 0.88
+    },
+    "extraction_warnings": [
+      "Receipt values are line-printed and some arithmetic was derived from the VAT rate.",
+      "Customer name is partially softened but readable.",
+      "This image contains a single visible document."
+    ]
+  },
+  "evidence": {},
+  "provider": {
+    "engine": "open_ai",
+    "model": "gpt-5.4-mini",
+    "pipeline": "vision_direct",
+    "ocr_used": false,
+    "prompt_version": "codex-unified-v2-r13-2026-05-09-csharp",
+    "created_at": "2026-05-09T15:19:06Z",
+    "duration_ms": 7091,
+    "input_tokens": 3744,
+    "output_tokens": 783,
+    "cost_estimate_usd": "0.0063"
+  }
+}

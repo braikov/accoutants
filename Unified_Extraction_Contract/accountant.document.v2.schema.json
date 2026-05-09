@@ -1,0 +1,309 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://miro.local/accountant/accountant.document.v2.schema.json",
+  "title": "AccountantDocumentV2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "source",
+    "extraction",
+    "validation",
+    "model_assessment",
+    "evidence",
+    "provider"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "const": "accountant.document.v2" },
+
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "file_name",
+        "file_path",
+        "page_count",
+        "page_index",
+        "detected_document_count",
+        "extracted_document_index",
+        "image_quality"
+      ],
+      "properties": {
+        "file_name": { "type": "string" },
+        "file_path": { "type": "string" },
+        "page_count": { "type": ["integer", "null"], "minimum": 1 },
+        "page_index": { "type": ["integer", "null"], "minimum": 0 },
+        "detected_document_count": { "type": ["integer", "null"], "minimum": 0 },
+        "extracted_document_index": { "type": ["integer", "null"], "minimum": 0 },
+        "image_quality": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["readability", "issues"],
+          "properties": {
+            "readability": {
+              "type": ["string", "null"],
+              "enum": ["excellent", "good", "fair", "poor", "unreadable", null]
+            },
+            "issues": { "type": "array", "items": { "type": "string" } }
+          }
+        }
+      }
+    },
+
+    "extraction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "document_type",
+        "language",
+        "country",
+        "document",
+        "supplier",
+        "customer",
+        "totals",
+        "vat_breakdown",
+        "payments",
+        "line_items",
+        "fiscal"
+      ],
+      "properties": {
+        "document_type": {
+          "type": "string",
+          "enum": ["invoice", "receipt", "proforma", "protocol", "credit_note", "debit_note", "unknown"]
+        },
+        "language": { "type": ["string", "null"] },
+        "country": { "type": ["string", "null"] },
+
+        "document": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["number", "date", "tax_event_date", "due_date", "currency", "exchange_rate", "place", "notes"],
+          "properties": {
+            "number":         { "type": ["string", "null"] },
+            "date":           { "type": ["string", "null"], "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+            "tax_event_date": { "type": ["string", "null"], "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+            "due_date":       { "type": ["string", "null"], "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+            "currency":       { "type": ["string", "null"], "pattern": "^[A-Z]{3}$" },
+            "exchange_rate":  { "$ref": "#/$defs/decimal_string" },
+            "place":          { "type": ["string", "null"] },
+            "notes":          { "type": ["string", "null"] }
+          }
+        },
+
+        "supplier": { "$ref": "#/$defs/party" },
+        "customer": { "$ref": "#/$defs/party" },
+
+        "totals": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["net", "vat", "gross", "discount", "rounding", "amount_due"],
+          "properties": {
+            "net":        { "$ref": "#/$defs/decimal_string" },
+            "vat":        { "$ref": "#/$defs/decimal_string" },
+            "gross":      { "$ref": "#/$defs/decimal_string" },
+            "discount":   { "$ref": "#/$defs/decimal_string" },
+            "rounding":   { "$ref": "#/$defs/decimal_string" },
+            "amount_due": { "$ref": "#/$defs/decimal_string" }
+          }
+        },
+
+        "vat_breakdown": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["rate", "net", "vat", "gross", "reason"],
+            "properties": {
+              "rate":   { "$ref": "#/$defs/decimal_string" },
+              "net":    { "$ref": "#/$defs/decimal_string" },
+              "vat":    { "$ref": "#/$defs/decimal_string" },
+              "gross":  { "$ref": "#/$defs/decimal_string" },
+              "reason": { "type": ["string", "null"] }
+            }
+          }
+        },
+
+        "payments": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["method", "amount", "currency", "iban", "bic", "bank_name"],
+            "properties": {
+              "method": {
+                "type": ["string", "null"],
+                "enum": ["cash", "card", "bank_transfer", "mixed", "unknown", null]
+              },
+              "amount":    { "$ref": "#/$defs/decimal_string" },
+              "currency":  { "type": ["string", "null"], "pattern": "^[A-Z]{3}$" },
+              "iban":      { "type": ["string", "null"] },
+              "bic":       { "type": ["string", "null"] },
+              "bank_name": { "type": ["string", "null"] }
+            }
+          }
+        },
+
+        "line_items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "description",
+              "quantity",
+              "unit",
+              "unit_price",
+              "discount_pct",
+              "vat_rate",
+              "net",
+              "vat",
+              "gross",
+              "includes_vat"
+            ],
+            "properties": {
+              "description":  { "type": ["string", "null"] },
+              "quantity":     { "$ref": "#/$defs/decimal_string" },
+              "unit":         { "type": ["string", "null"] },
+              "unit_price":   { "$ref": "#/$defs/decimal_string" },
+              "discount_pct": { "$ref": "#/$defs/decimal_string" },
+              "vat_rate":     { "$ref": "#/$defs/decimal_string" },
+              "net":          { "$ref": "#/$defs/decimal_string" },
+              "vat":          { "$ref": "#/$defs/decimal_string" },
+              "gross":        { "$ref": "#/$defs/decimal_string" },
+              "includes_vat": { "type": ["boolean", "null"] }
+            }
+          }
+        },
+
+        "fiscal": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["fiscal_receipt_number", "fiscal_device_number", "operator", "qr_code"],
+          "properties": {
+            "fiscal_receipt_number": { "type": ["string", "null"] },
+            "fiscal_device_number":  { "type": ["string", "null"] },
+            "operator":              { "type": ["string", "null"] },
+            "qr_code":               { "type": ["string", "null"] }
+          }
+        }
+      }
+    },
+
+    "validation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["needs_review", "checks", "errors", "warnings"],
+      "properties": {
+        "needs_review": { "type": "boolean" },
+        "checks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["code", "status", "message"],
+            "properties": {
+              "code":    { "type": "string" },
+              "status":  { "type": "string", "enum": ["pass", "warning", "fail", "skipped"] },
+              "message": { "type": "string" }
+            }
+          }
+        },
+        "errors":   { "type": "array", "items": { "type": "string" } },
+        "warnings": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+
+    "model_assessment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["confidence", "extraction_warnings"],
+      "properties": {
+        "confidence": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["overall", "document", "supplier", "customer", "totals", "line_items"],
+          "properties": {
+            "overall":    { "$ref": "#/$defs/confidence" },
+            "document":   { "$ref": "#/$defs/confidence" },
+            "supplier":   { "$ref": "#/$defs/confidence" },
+            "customer":   { "$ref": "#/$defs/confidence" },
+            "totals":     { "$ref": "#/$defs/confidence" },
+            "line_items": { "$ref": "#/$defs/confidence" }
+          }
+        },
+        "extraction_warnings": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+
+    "evidence": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["text", "confidence"],
+        "properties": {
+          "text":       { "type": ["string", "null"] },
+          "confidence": { "$ref": "#/$defs/confidence" }
+        }
+      }
+    },
+
+    "provider": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "engine",
+        "model",
+        "pipeline",
+        "ocr_used",
+        "prompt_version",
+        "created_at",
+        "duration_ms",
+        "input_tokens",
+        "output_tokens",
+        "cost_estimate_usd"
+      ],
+      "properties": {
+        "engine":            { "type": "string", "enum": ["anthropic", "openai", "google", "other"] },
+        "model":             { "type": "string" },
+        "pipeline":          { "type": "string", "enum": ["vision_direct", "ocr_then_llm", "hybrid", "manual", "other"] },
+        "ocr_used":          { "type": "boolean" },
+        "prompt_version":    { "type": ["string", "null"] },
+        "created_at":        { "type": "string" },
+        "duration_ms":       { "type": ["integer", "null"], "minimum": 0 },
+        "input_tokens":      { "type": ["integer", "null"], "minimum": 0 },
+        "output_tokens":     { "type": ["integer", "null"], "minimum": 0 },
+        "cost_estimate_usd": { "$ref": "#/$defs/decimal_string" }
+      }
+    }
+  },
+
+  "$defs": {
+    "party": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "eik", "vat_number", "address", "city", "country", "mol"],
+      "properties": {
+        "name":       { "type": ["string", "null"] },
+        "eik":        { "type": ["string", "null"], "pattern": "^(\\d{9}|\\d{13})$" },
+        "vat_number": { "type": ["string", "null"], "pattern": "^[A-Z]{2}\\d{8,12}$" },
+        "address":    { "type": ["string", "null"] },
+        "city":       { "type": ["string", "null"] },
+        "country":    { "type": ["string", "null"] },
+        "mol":        { "type": ["string", "null"] }
+      }
+    },
+    "decimal_string": {
+      "type": ["string", "null"],
+      "pattern": "^-?\\d+(\\.\\d+)?$"
+    },
+    "confidence": {
+      "type": ["number", "null"],
+      "minimum": 0,
+      "maximum": 1
+    }
+  }
+}

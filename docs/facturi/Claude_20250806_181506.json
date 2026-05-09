@@ -1,0 +1,376 @@
+{
+  "schema_version": "accountant.document.v2",
+  "source": {
+    "file_name": "20250806_181506.jpg",
+    "file_path": "../docs/facturi/20250806_181506.jpg",
+    "page_count": 1,
+    "page_index": 0,
+    "detected_document_count": 2,
+    "extracted_document_index": 0,
+    "image_quality": {
+      "readability": "good",
+      "issues": [
+        "slight_wrinkle_over_text",
+        "two_documents_in_frame"
+      ]
+    }
+  },
+  "extraction": {
+    "document_type": "invoice",
+    "language": "bg",
+    "country": "BG",
+    "document": {
+      "number": "0320040582",
+      "date": "2025-08-02",
+      "tax_event_date": "2025-08-02",
+      "due_date": null,
+      "currency": "BGN",
+      "exchange_rate": null,
+      "place": "гр. Варна, ж.к. Младост, ул. Яра 3",
+      "notes": null
+    },
+    "supplier": {
+      "name": "ДОВЕРИЕ - БРИКО АД",
+      "eik": "130006992",
+      "vat_number": "BG130006992",
+      "address": "бул. Цариградско шосе 115",
+      "city": "София",
+      "country": "BG",
+      "mol": null
+    },
+    "customer": {
+      "name": "ИНКО ТРЕИ ЕООД",
+      "eik": "206802564",
+      "vat_number": "BG206802564",
+      "address": null,
+      "city": "Варна",
+      "country": "BG",
+      "mol": null
+    },
+    "totals": {
+      "net": "77.95",
+      "vat": "15.59",
+      "gross": "93.54",
+      "discount": null,
+      "rounding": null,
+      "amount_due": "93.54"
+    },
+    "vat_breakdown": [
+      {
+        "rate": "20.00",
+        "net": "77.95",
+        "vat": "15.59",
+        "gross": "93.54",
+        "reason": null
+      }
+    ],
+    "payments": [
+      {
+        "method": "card",
+        "amount": "93.54",
+        "currency": "BGN",
+        "iban": null,
+        "bic": null,
+        "bank_name": "Пощенска банка"
+      }
+    ],
+    "line_items": [
+      {
+        "description": "РЪКАВИЦИ PINTO PU/ПОЛИЕСТЕР ЗЕЛЕНИ",
+        "quantity": "1.000",
+        "unit": "бр",
+        "unit_price": "1.99",
+        "discount_pct": null,
+        "vat_rate": "20.00",
+        "net": "1.99",
+        "vat": "0.40",
+        "gross": "2.39",
+        "includes_vat": false
+      },
+      {
+        "description": "РЪКАВИЦИ ОТ ТЕЛЕШКИ ВЕЛУР С МАНШЕТ 15 СМ",
+        "quantity": "1.000",
+        "unit": "бр",
+        "unit_price": "7.99",
+        "discount_pct": null,
+        "vat_rate": "20.00",
+        "net": "7.99",
+        "vat": "1.60",
+        "gross": "9.59",
+        "includes_vat": false
+      },
+      {
+        "description": "СТРОИТЕЛНИ РЪКАВИЦИ ТМР-Р",
+        "quantity": "1.000",
+        "unit": "бр",
+        "unit_price": "3.99",
+        "discount_pct": null,
+        "vat_rate": "20.00",
+        "net": "3.99",
+        "vat": "0.80",
+        "gross": "4.79",
+        "includes_vat": false
+      },
+      {
+        "description": "РЪКАВИЦИ ОТ ТЕЛЕШКИ ВЕЛУР С МАНШЕТ 7 СМ",
+        "quantity": "1.000",
+        "unit": "бр",
+        "unit_price": "6.99",
+        "discount_pct": null,
+        "vat_rate": "20.00",
+        "net": "6.99",
+        "vat": "1.40",
+        "gross": "8.39",
+        "includes_vat": false
+      },
+      {
+        "description": "РЪКАВИЦИ ОТ ТЕЛЕШКИ ВЕЛУР",
+        "quantity": "1.000",
+        "unit": "бр",
+        "unit_price": "6.99",
+        "discount_pct": null,
+        "vat_rate": "20.00",
+        "net": "6.99",
+        "vat": "1.40",
+        "gross": "8.39",
+        "includes_vat": false
+      },
+      {
+        "description": "ПОЛИПРОПИЛЕНОВО ВЪЖЕ ПЛЕТЕНО ШАРЕН Д 10ММ",
+        "quantity": "40.000",
+        "unit": "бр",
+        "unit_price": "1.59",
+        "discount_pct": null,
+        "vat_rate": "20.00",
+        "net": "63.60",
+        "vat": "12.72",
+        "gross": "76.32",
+        "includes_vat": false
+      },
+      {
+        "description": "РЪКАВИЦИ PINTO PU/ПОЛИЕСТЕР ЖЪЛТИ",
+        "quantity": "1.000",
+        "unit": "бр",
+        "unit_price": "1.99",
+        "discount_pct": null,
+        "vat_rate": "20.00",
+        "net": "1.99",
+        "vat": "0.40",
+        "gross": "2.39",
+        "includes_vat": false
+      }
+    ],
+    "fiscal": {
+      "fiscal_receipt_number": "0000156549",
+      "fiscal_device_number": "51018372",
+      "operator": "Галина Бонева",
+      "qr_code": "0DE590875337CBEDFB7C56EB802EC63B54113942"
+    }
+  },
+  "validation": {
+    "needs_review": true,
+    "checks": [
+      {
+        "code": "supplier_eik_checksum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "customer_eik_checksum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "supplier_vat_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "customer_vat_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "iban_mod97",
+        "status": "skipped",
+        "message": "IBAN is null"
+      },
+      {
+        "code": "bic_format",
+        "status": "skipped",
+        "message": "BIC is null"
+      },
+      {
+        "code": "currency_iso",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "document_type_enum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "date_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "due_date_after_issue",
+        "status": "skipped",
+        "message": "issue or due date missing/malformed"
+      },
+      {
+        "code": "totals_match",
+        "status": "pass",
+        "message": "77.95 + 15.59 = 93.54"
+      },
+      {
+        "code": "vat_breakdown_match",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "line_items_sum",
+        "status": "fail",
+        "message": "sum(net)=93.54, totals.net=77.95; sum(vat)=18.72, totals.vat=15.59; sum(gross)=112.26, totals.gross=93.54"
+      },
+      {
+        "code": "multiple_documents_detected",
+        "status": "warning",
+        "message": "detected 2 documents; only index 0 extracted."
+      },
+      {
+        "code": "image_quality_issue",
+        "status": "warning",
+        "message": "issues: slight_wrinkle_over_text, two_documents_in_frame"
+      }
+    ],
+    "errors": [
+      "line_items_sum"
+    ],
+    "warnings": [
+      "multiple_documents_detected",
+      "image_quality_issue"
+    ]
+  },
+  "model_assessment": {
+    "confidence": {
+      "overall": 0.88,
+      "document": 0.95,
+      "supplier": 0.97,
+      "customer": 0.96,
+      "totals": 0.96,
+      "line_items": 0.82
+    },
+    "extraction_warnings": [
+      "Image contains two receipts/invoices side by side; the left (larger) document — ФАКТУРА №0320040582 for 93.54 BGN — was extracted. The right document — ФАКТУРА №0320040621 for 54.99 BGN to the same customer (ИНКО ТРЕИ ЕООД) — was not extracted.",
+      "Line item descriptions partially obscured or cut; 'ПОЛИПРОПИЛЕНОВО ВЪЖЕ ПЛЕТЕНО ШАРЕН Д 10ММ' diameter character read as '10ММ' but image shows 'Д 10' — confidence moderate.",
+      "Line-item gross values printed with 'Б' suffix (likely 'Без ДДС' = net) on the receipt; individual line gross values are derived from net × 1.20.",
+      "Some article/barcode numbers visible on receipt lines but not extracted as they are not invoice line item fields.",
+      "Exchange rate for EUR shown on receipt (1 ЕВРО = 1.95583 ЛВ) but invoice currency is BGN; exchange_rate set to null per R8."
+    ]
+  },
+  "evidence": {
+    "document.number": {
+      "text": "ФАКТУРА №: 0320040582",
+      "confidence": 0.97
+    },
+    "document.date": {
+      "text": "ДАТА НА ДАНЪЧНО СЪБИТИЕ: 02.08.2025",
+      "confidence": 0.97
+    },
+    "document.tax_event_date": {
+      "text": "ДАТА НА ДАНЪЧНО СЪБИТИЕ: 02.08.2025",
+      "confidence": 0.97
+    },
+    "document.place": {
+      "text": "МЯСТО НА СДЕЛКАТА: гр. Варна, ж.к. Младост, ул. Яра 3",
+      "confidence": 0.95
+    },
+    "supplier.name": {
+      "text": "ДОВЕРИЕ – БРИКО АД",
+      "confidence": 0.97
+    },
+    "supplier.eik": {
+      "text": "ЕИК: 130006992",
+      "confidence": 0.97
+    },
+    "supplier.vat_number": {
+      "text": "ЗДДС Номер: BG130006992",
+      "confidence": 0.97
+    },
+    "supplier.address": {
+      "text": "гр. София, бул. Цариградско шосе 115",
+      "confidence": 0.97
+    },
+    "customer.name": {
+      "text": "КУПУВАЧ: ИНКО ТРЕИ ЕООД",
+      "confidence": 0.97
+    },
+    "customer.eik": {
+      "text": "ЕИК: 206802564",
+      "confidence": 0.97
+    },
+    "customer.vat_number": {
+      "text": "ЗДДС Номер: BG206802564",
+      "confidence": 0.97
+    },
+    "customer.city": {
+      "text": "ГРАД: ГР. ВАРНА",
+      "confidence": 0.95
+    },
+    "totals.net": {
+      "text": "Данъчна основа 77.95",
+      "confidence": 0.97
+    },
+    "totals.vat": {
+      "text": "ДДС 20.00%: 15.59",
+      "confidence": 0.97
+    },
+    "totals.gross": {
+      "text": "Всичко: 93.54 / ОБЩА СУМА ЛВ 93.54",
+      "confidence": 0.97
+    },
+    "payments[0].method": {
+      "text": "КРЕДИТНА/ДЕБИТНА КАРТА 93.54 #Пощенска банка",
+      "confidence": 0.95
+    },
+    "fiscal.operator": {
+      "text": "#Оператор: Галина Бонева",
+      "confidence": 0.95
+    },
+    "fiscal.fiscal_receipt_number": {
+      "text": "0000156549",
+      "confidence": 0.95
+    },
+    "fiscal.fiscal_device_number": {
+      "text": "51018372",
+      "confidence": 0.95
+    },
+    "line_items[5].description": {
+      "text": "ПОЛИПРОПИЛЕНОВО ВЪЖЕ ПЛЕТЕНО ШАРЕН Д 10ММ",
+      "confidence": 0.9
+    },
+    "line_items[5].quantity": {
+      "text": "Количество 40.000",
+      "confidence": 0.95
+    },
+    "line_items[5].net": {
+      "text": "63.60 Б",
+      "confidence": 0.95
+    }
+  },
+  "provider": {
+    "engine": "anthropic",
+    "model": "claude-sonnet-4-6",
+    "pipeline": "vision_direct",
+    "ocr_used": false,
+    "prompt_version": "claude-unified-v2-2026-05-09-csharp",
+    "created_at": "2026-05-09T15:26:19Z",
+    "duration_ms": 39009,
+    "input_tokens": 6533,
+    "output_tokens": 2841,
+    "cost_estimate_usd": "0.0622"
+  }
+}

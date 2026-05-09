@@ -1,0 +1,205 @@
+{
+  "schema_version": "accountant.document.v2",
+  "source": {
+    "file_name": "IMG-fb7be744b80e5e1a7206d649a40ed1fb-V.jpg",
+    "file_path": "../docs/facturi/IMG-fb7be744b80e5e1a7206d649a40ed1fb-V.jpg",
+    "page_count": 1,
+    "page_index": 0,
+    "detected_document_count": 1,
+    "extracted_document_index": 0,
+    "image_quality": {
+      "readability": "good",
+      "issues": [
+        "low_contrast"
+      ]
+    }
+  },
+  "extraction": {
+    "document_type": "invoice",
+    "language": "bg",
+    "country": "BG",
+    "document": {
+      "number": "0000312361",
+      "date": "2024-12-07",
+      "tax_event_date": "2024-12-07",
+      "due_date": null,
+      "currency": "BGN",
+      "exchange_rate": null,
+      "place": null,
+      "notes": null
+    },
+    "supplier": {
+      "name": "НИКСМЕТАЛ ООД",
+      "eik": "205318988",
+      "vat_number": "BG205318988",
+      "address": "Ботевград, „Цар Иван Шишман“ 43",
+      "city": "Ботевград",
+      "country": "BG",
+      "mol": "Станислав Геровски"
+    },
+    "customer": {
+      "name": "ИнкоТрейд ЕООД",
+      "eik": "206802564",
+      "vat_number": "BG206802564",
+      "address": "гр. Варна",
+      "city": "Варна",
+      "country": "BG",
+      "mol": "Мариана Кинчова Петрова"
+    },
+    "totals": {
+      "net": "136.73",
+      "vat": "27.35",
+      "gross": "164.08",
+      "discount": null,
+      "rounding": null,
+      "amount_due": null
+    },
+    "vat_breakdown": [
+      {
+        "rate": "20.00",
+        "net": "136.73",
+        "vat": "27.35",
+        "gross": "164.08",
+        "reason": null
+      }
+    ],
+    "payments": [
+      {
+        "method": "card",
+        "amount": "164.08",
+        "currency": "BGN",
+        "iban": "BG37STSA93001528411158",
+        "bic": "STSABGSF",
+        "bank_name": "Банка ДСК"
+      }
+    ],
+    "line_items": [
+      {
+        "description": "ДИЗ. ГОРИВО Б-Б",
+        "quantity": "72.600",
+        "unit": null,
+        "unit_price": "1.88333",
+        "discount_pct": null,
+        "vat_rate": "20.00",
+        "net": "136.73",
+        "vat": "27.35",
+        "gross": "164.08",
+        "includes_vat": false
+      }
+    ],
+    "fiscal": {
+      "fiscal_receipt_number": null,
+      "fiscal_device_number": null,
+      "operator": "Митко Драганов",
+      "qr_code": null
+    }
+  },
+  "validation": {
+    "needs_review": true,
+    "checks": [
+      {
+        "code": "supplier_eik_checksum",
+        "status": "fail",
+        "message": "EIK '205318988' fails Bulgarian checksum."
+      },
+      {
+        "code": "customer_eik_checksum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "supplier_vat_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "customer_vat_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "iban_mod97",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "bic_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "currency_iso",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "document_type_enum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "date_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "due_date_after_issue",
+        "status": "skipped",
+        "message": "issue or due date missing/malformed"
+      },
+      {
+        "code": "totals_match",
+        "status": "pass",
+        "message": "136.73 + 27.35 = 164.08"
+      },
+      {
+        "code": "vat_breakdown_match",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "line_items_sum",
+        "status": "pass",
+        "message": "all populated component sums match totals"
+      },
+      {
+        "code": "image_quality_issue",
+        "status": "warning",
+        "message": "issues: low_contrast"
+      }
+    ],
+    "errors": [
+      "supplier_eik_checksum"
+    ],
+    "warnings": [
+      "image_quality_issue"
+    ]
+  },
+  "model_assessment": {
+    "confidence": {
+      "overall": 0.93,
+      "document": 0.98,
+      "supplier": 0.95,
+      "customer": 0.93,
+      "totals": 0.98,
+      "line_items": 0.9
+    },
+    "extraction_warnings": [
+      "The image is a printed fiscal invoice/receipt hybrid and some fields are faint.",
+      "Supplier bank name and account are partially inferred from the payment block."
+    ]
+  },
+  "evidence": {},
+  "provider": {
+    "engine": "open_ai",
+    "model": "gpt-5.4-mini",
+    "pipeline": "vision_direct",
+    "ocr_used": false,
+    "prompt_version": "codex-unified-v2-r13-2026-05-09-csharp",
+    "created_at": "2026-05-09T15:20:52Z",
+    "duration_ms": 4199,
+    "input_tokens": 3736,
+    "output_tokens": 515,
+    "cost_estimate_usd": "0.0051"
+  }
+}

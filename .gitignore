@@ -1,0 +1,54 @@
+# --- .NET build outputs ---
+[Bb]in/
+[Oo]bj/
+[Oo]ut/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# --- IDE / tool state ---
+.vs/
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# --- Claude Code session state ---
+.claude/
+
+# --- Python research artefacts (frozen reference, not part of C# repo) ---
+Claude/
+Codex/
+Gemini/
+*.pyc
+__pycache__/
+venv/
+.env
+
+# --- ReviewSite folder leftover (project moved to Source/Accountant.ReviewSite) ---
+/ReviewSite/
+
+# --- Local extraction runs (timestamped, regeneratable) ---
+Source/Accountant.Processors/runs/
+
+# --- Backup snapshots from post-process normalization scripts ---
+*.bak
+*.bak[0-9]*
+
+# --- Test artefacts / coverage ---
+[Tt]est[Rr]esult*/
+*.coverage
+*.coveragexml
+coverage/
+
+# --- NuGet local cache ---
+.nuget/
+project.lock.json
+
+# --- Files with secrets that should never be in git ---
+appsettings.*.local.json
+*.pubxml.user
+secrets.json

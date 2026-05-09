@@ -1,0 +1,275 @@
+{
+  "schema_version": "accountant.document.v2",
+  "source": {
+    "file_name": "20250806_181506.jpg",
+    "file_path": "../docs/facturi/20250806_181506.jpg",
+    "page_count": 1,
+    "page_index": 0,
+    "detected_document_count": 2,
+    "extracted_document_index": 0,
+    "image_quality": {
+      "readability": "good",
+      "issues": []
+    }
+  },
+  "extraction": {
+    "document_type": "receipt",
+    "language": "bg",
+    "country": "BG",
+    "document": {
+      "number": "0320040582",
+      "date": "2025-08-02",
+      "tax_event_date": "2025-08-02",
+      "due_date": null,
+      "currency": "BGN",
+      "exchange_rate": null,
+      "place": "гр. Варна, ж.к. Младост, ул. Вяра 3",
+      "notes": "Two fiscal receipts are visible in the image; extracted the larger left receipt. The right receipt was not extracted."
+    },
+    "supplier": {
+      "name": "ДОВЕРИЕ - БРИКО АД",
+      "eik": "130006992",
+      "vat_number": "BG130006992",
+      "address": "гр. София, бул. Цариградско шосе 115",
+      "city": "София",
+      "country": "BG",
+      "mol": null
+    },
+    "customer": {
+      "name": "ИНКО ТРЕЙ ЕООД",
+      "eik": "206802564",
+      "vat_number": "BG206802564",
+      "address": "гр. Варна",
+      "city": "Варна",
+      "country": "BG",
+      "mol": null
+    },
+    "totals": {
+      "net": "77.95",
+      "vat": "15.59",
+      "gross": "93.54",
+      "discount": null,
+      "rounding": null,
+      "amount_due": "93.54"
+    },
+    "vat_breakdown": [
+      {
+        "rate": "20.00",
+        "net": "77.95",
+        "vat": "15.59",
+        "gross": "93.54",
+        "reason": null
+      }
+    ],
+    "payments": [
+      {
+        "method": "card",
+        "amount": "93.54",
+        "currency": "BGN",
+        "iban": "BG14BPBI79421092676704",
+        "bic": "BPBIGBSF",
+        "bank_name": "Юробанк България АД"
+      }
+    ],
+    "line_items": [
+      {
+        "description": "РЪКАВИЦИ PINTO PU/ПОЛИЕСТЕР ЗЕЛЕНИ",
+        "quantity": "1.000",
+        "unit": "бр",
+        "unit_price": "1.99",
+        "discount_pct": null,
+        "vat_rate": "20.00",
+        "net": "1.99",
+        "vat": "0.40",
+        "gross": "2.39",
+        "includes_vat": false
+      },
+      {
+        "description": "РЪКАВИЦИ ОТ ТЕЛЕШКИ ВЕЛУР С МАНШЕТ 15 СМ",
+        "quantity": "1.000",
+        "unit": "бр",
+        "unit_price": "7.99",
+        "discount_pct": null,
+        "vat_rate": "20.00",
+        "net": "7.99",
+        "vat": "1.60",
+        "gross": "9.59",
+        "includes_vat": false
+      },
+      {
+        "description": "СТРОИТЕЛНИ РЪКАВИЦИ TMP-P",
+        "quantity": "1.000",
+        "unit": "бр",
+        "unit_price": "3.99",
+        "discount_pct": null,
+        "vat_rate": "20.00",
+        "net": "3.99",
+        "vat": "0.80",
+        "gross": "4.79",
+        "includes_vat": false
+      },
+      {
+        "description": "РЪКАВИЦИ ОТ ТЕЛЕШКИ ВЕЛУР С МАНШЕТ 7 СМ",
+        "quantity": "1.000",
+        "unit": "бр",
+        "unit_price": "6.99",
+        "discount_pct": null,
+        "vat_rate": "20.00",
+        "net": "6.99",
+        "vat": "1.40",
+        "gross": "8.39",
+        "includes_vat": false
+      },
+      {
+        "description": "РЪКАВИЦИ ОТ ТЕЛЕШКИ ВЕЛУР",
+        "quantity": "1.000",
+        "unit": "бр",
+        "unit_price": "6.99",
+        "discount_pct": null,
+        "vat_rate": "20.00",
+        "net": "6.99",
+        "vat": "1.40",
+        "gross": "8.39",
+        "includes_vat": false
+      },
+      {
+        "description": "ПОЛИПРОПИЛЕНОВО ВЪЖЕ ПЛЕТЕНО ШАРЕН 10 ММ",
+        "quantity": "40.000",
+        "unit": "бр",
+        "unit_price": "1.59",
+        "discount_pct": null,
+        "vat_rate": "20.00",
+        "net": "63.60",
+        "vat": "12.72",
+        "gross": "76.32",
+        "includes_vat": false
+      },
+      {
+        "description": "РЪКАВИЦИ PINTO PU/ПОЛИЕСТЕР ЖЪЛТИ",
+        "quantity": "1.000",
+        "unit": "бр",
+        "unit_price": "1.99",
+        "discount_pct": null,
+        "vat_rate": "20.00",
+        "net": "1.99",
+        "vat": "0.40",
+        "gross": "2.39",
+        "includes_vat": false
+      }
+    ],
+    "fiscal": {
+      "fiscal_receipt_number": "0000156549",
+      "fiscal_device_number": "BN017314",
+      "operator": "Оператор 1",
+      "qr_code": "0DE590B75337CBEDFB7C55EBB002EC63654113942"
+    }
+  },
+  "validation": {
+    "needs_review": true,
+    "checks": [
+      {
+        "code": "supplier_eik_checksum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "customer_eik_checksum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "supplier_vat_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "customer_vat_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "iban_mod97",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "bic_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "currency_iso",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "document_type_enum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "date_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "due_date_after_issue",
+        "status": "skipped",
+        "message": "issue or due date missing/malformed"
+      },
+      {
+        "code": "totals_match",
+        "status": "pass",
+        "message": "77.95 + 15.59 = 93.54"
+      },
+      {
+        "code": "vat_breakdown_match",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "line_items_sum",
+        "status": "fail",
+        "message": "sum(net)=93.54, totals.net=77.95; sum(vat)=18.72, totals.vat=15.59; sum(gross)=112.26, totals.gross=93.54"
+      },
+      {
+        "code": "multiple_documents_detected",
+        "status": "warning",
+        "message": "detected 2 documents; only index 0 extracted."
+      }
+    ],
+    "errors": [
+      "line_items_sum"
+    ],
+    "warnings": [
+      "multiple_documents_detected"
+    ]
+  },
+  "model_assessment": {
+    "confidence": {
+      "overall": 0.78,
+      "document": 0.93,
+      "supplier": 0.96,
+      "customer": 0.94,
+      "totals": 0.98,
+      "line_items": 0.9
+    },
+    "extraction_warnings": [
+      "Two receipts are visible; extracted the larger left receipt.",
+      "Some line-item VAT amounts were derived from the printed 20% rate."
+    ]
+  },
+  "evidence": {},
+  "provider": {
+    "engine": "open_ai",
+    "model": "gpt-5.4-mini",
+    "pipeline": "vision_direct",
+    "ocr_used": false,
+    "prompt_version": "codex-unified-v2-r13-2026-05-09-csharp",
+    "created_at": "2026-05-09T15:19:53Z",
+    "duration_ms": 7841,
+    "input_tokens": 4295,
+    "output_tokens": 1056,
+    "cost_estimate_usd": "0.0080"
+  }
+}

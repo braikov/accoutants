@@ -1,0 +1,254 @@
+{
+  "schema_version": "accountant.document.v2",
+  "source": {
+    "file_name": "20250402_210847.jpg",
+    "file_path": "../docs/facturi/20250402_210847.jpg",
+    "page_count": 1,
+    "page_index": 0,
+    "detected_document_count": 1,
+    "extracted_document_index": 0,
+    "image_quality": {
+      "readability": "good",
+      "issues": [
+        "heavy_shadow_over_text"
+      ]
+    }
+  },
+  "extraction": {
+    "document_type": "invoice",
+    "language": "bg",
+    "country": "BG",
+    "document": {
+      "number": "6000411991",
+      "date": "2025-04-01",
+      "tax_event_date": "2025-04-01",
+      "due_date": "2025-04-01",
+      "currency": "BGN",
+      "exchange_rate": null,
+      "place": null,
+      "notes": "Original; payment method: card; total amount in words: хиляда осемстотин тридесет и две и 0.77 лева"
+    },
+    "supplier": {
+      "name": "ДИАНА ООД",
+      "eik": "81187662",
+      "vat_number": "BG811187662",
+      "address": "гр. Благоевград, ул. \"Георги Измирлиев\" №15, ет. 1",
+      "city": "Благоевград",
+      "country": "BG",
+      "mol": "Диана Яръмова"
+    },
+    "customer": {
+      "name": "МедТекЛаб - ЕООД",
+      "eik": "201556176",
+      "vat_number": "BG201556176",
+      "address": "жк ВАСИЛ ЛЕВСКИ ул. РОЩОК №9 обл. ВАРНА",
+      "city": "Варна",
+      "country": "BG",
+      "mol": null
+    },
+    "totals": {
+      "net": "1527.31",
+      "vat": "305.46",
+      "gross": "1832.77",
+      "discount": null,
+      "rounding": null,
+      "amount_due": "1832.77"
+    },
+    "vat_breakdown": [
+      {
+        "rate": "20.00",
+        "net": "1527.31",
+        "vat": "305.46",
+        "gross": "1832.77",
+        "reason": null
+      }
+    ],
+    "payments": [
+      {
+        "method": "card",
+        "amount": "1832.77",
+        "currency": "BGN",
+        "iban": "BG79PRCB92301029788414",
+        "bic": "PRCBBGSF",
+        "bank_name": "ПРОКРЕДИТ БАНК БЪЛГАРИЯ ЕАД"
+      }
+    ],
+    "line_items": [
+      {
+        "description": "GOODYEAR EAGLE F1 ASYMM 6",
+        "quantity": "4.000",
+        "unit": "бр",
+        "unit_price": "346.59",
+        "discount_pct": "0.00",
+        "vat_rate": "0.00",
+        "net": "1386.36",
+        "vat": "0.00",
+        "gross": "1386.36",
+        "includes_vat": false
+      },
+      {
+        "description": "ТР.УСЛУГА ДО СЕРВИЗ НА ДИАНА",
+        "quantity": "4.000",
+        "unit": "бр",
+        "unit_price": "0.00",
+        "discount_pct": "0.00",
+        "vat_rate": "0.00",
+        "net": "0.00",
+        "vat": "0.00",
+        "gross": "0.00",
+        "includes_vat": false
+      },
+      {
+        "description": "МОНТАЖ И ДЕМОНТАЖ-ДЖИП, SUV",
+        "quantity": "4.000",
+        "unit": "бр",
+        "unit_price": "27.70",
+        "discount_pct": "20.00",
+        "vat_rate": "20.00",
+        "net": "88.64",
+        "vat": "17.73",
+        "gross": "106.37",
+        "includes_vat": false
+      },
+      {
+        "description": "ОПТИМИЗИРАН БАЛАНС",
+        "quantity": "4.000",
+        "unit": "бр",
+        "unit_price": "12.22",
+        "discount_pct": "20.00",
+        "vat_rate": "20.00",
+        "net": "39.10",
+        "vat": "7.82",
+        "gross": "46.92",
+        "includes_vat": false
+      },
+      {
+        "description": "ТЕЖЕСТИ 17\"18\"19\"20\"21\"22-24\"",
+        "quantity": "4.000",
+        "unit": "бр",
+        "unit_price": "3.30",
+        "discount_pct": "0.00",
+        "vat_rate": "0.00",
+        "net": "13.20",
+        "vat": "0.00",
+        "gross": "13.20",
+        "includes_vat": false
+      }
+    ],
+    "fiscal": {
+      "fiscal_receipt_number": null,
+      "fiscal_device_number": null,
+      "operator": null,
+      "qr_code": null
+    }
+  },
+  "validation": {
+    "needs_review": true,
+    "checks": [
+      {
+        "code": "supplier_eik_checksum",
+        "status": "fail",
+        "message": "EIK '81187662' is malformed (not 9 or 13 digits)."
+      },
+      {
+        "code": "customer_eik_checksum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "supplier_vat_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "customer_vat_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "iban_mod97",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "bic_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "currency_iso",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "document_type_enum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "date_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "due_date_after_issue",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "totals_match",
+        "status": "pass",
+        "message": "1527.31 + 305.46 = 1832.77"
+      },
+      {
+        "code": "vat_breakdown_match",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "line_items_sum",
+        "status": "fail",
+        "message": "sum(vat)=25.55, totals.vat=305.46; sum(gross)=1552.85, totals.gross=1832.77"
+      },
+      {
+        "code": "image_quality_issue",
+        "status": "warning",
+        "message": "issues: heavy_shadow_over_text"
+      }
+    ],
+    "errors": [
+      "supplier_eik_checksum",
+      "line_items_sum"
+    ],
+    "warnings": [
+      "image_quality_issue"
+    ]
+  },
+  "model_assessment": {
+    "confidence": {
+      "overall": 0.89,
+      "document": 0.98,
+      "supplier": 0.98,
+      "customer": 0.97,
+      "totals": 0.94,
+      "line_items": 0.81
+    },
+    "extraction_warnings": [
+      "Line item VAT rates are inferred from totals and printed amounts.",
+      "Printed total for line 1 appears to use no VAT, but arithmetic is slightly ambiguous from the photo."
+    ]
+  },
+  "evidence": {},
+  "provider": {
+    "engine": "open_ai",
+    "model": "gpt-5.4-mini",
+    "pipeline": "vision_direct",
+    "ocr_used": false,
+    "prompt_version": "codex-unified-v2-r13-2026-05-09-csharp",
+    "created_at": "2026-05-09T15:18:59Z",
+    "duration_ms": 7319,
+    "input_tokens": 4964,
+    "output_tokens": 898,
+    "cost_estimate_usd": "0.0078"
+  }
+}

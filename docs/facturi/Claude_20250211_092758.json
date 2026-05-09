@@ -1,0 +1,309 @@
+{
+  "schema_version": "accountant.document.v2",
+  "source": {
+    "file_name": "20250211_092758.jpg",
+    "file_path": "../docs/facturi/20250211_092758.jpg",
+    "page_count": 1,
+    "page_index": 0,
+    "detected_document_count": 1,
+    "extracted_document_index": 0,
+    "image_quality": {
+      "readability": "good",
+      "issues": [
+        "stamp_obscures_data"
+      ]
+    }
+  },
+  "extraction": {
+    "document_type": "invoice",
+    "language": "bg",
+    "country": "BG",
+    "document": {
+      "number": "0000006137",
+      "date": "2025-02-07",
+      "tax_event_date": null,
+      "due_date": "2025-02-07",
+      "currency": "BGN",
+      "exchange_rate": null,
+      "place": "гр. София",
+      "notes": null
+    },
+    "supplier": {
+      "name": "НОКСЕС ЕООД",
+      "eik": "202549149",
+      "vat_number": "BG202549149",
+      "address": "кв. Лозенец, ул. Люботрън 76, вх. А, ет.2, ап.4",
+      "city": "София",
+      "country": "BG",
+      "mol": "Диан Жилиев"
+    },
+    "customer": {
+      "name": "Инко трейд ЕООД",
+      "eik": "206802564",
+      "vat_number": "BG206802564",
+      "address": "р-н Приморски, ул. Рощок, 9",
+      "city": "Варна",
+      "country": "BG",
+      "mol": "Мариана Кинчова Петрова"
+    },
+    "totals": {
+      "net": "66.67",
+      "vat": "13.33",
+      "gross": "80.00",
+      "discount": null,
+      "rounding": null,
+      "amount_due": "80.00"
+    },
+    "vat_breakdown": [
+      {
+        "rate": "20.00",
+        "net": "66.67",
+        "vat": "13.33",
+        "gross": "80.00",
+        "reason": null
+      }
+    ],
+    "payments": [
+      {
+        "method": "bank_transfer",
+        "amount": "80.00",
+        "currency": "BGN",
+        "iban": "BG69FINV91501015880757",
+        "bic": "FINVBGSF",
+        "bank_name": "ПИБАД"
+      }
+    ],
+    "line_items": [
+      {
+        "description": "Софтуерни ремонти РС",
+        "quantity": "1.000",
+        "unit": "бр",
+        "unit_price": "66.667",
+        "discount_pct": "0.00",
+        "vat_rate": "20.00",
+        "net": "66.67",
+        "vat": "13.33",
+        "gross": "80.00",
+        "includes_vat": false
+      }
+    ],
+    "fiscal": {
+      "fiscal_receipt_number": null,
+      "fiscal_device_number": null,
+      "operator": null,
+      "qr_code": null
+    }
+  },
+  "validation": {
+    "needs_review": true,
+    "checks": [
+      {
+        "code": "supplier_eik_checksum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "customer_eik_checksum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "supplier_vat_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "customer_vat_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "iban_mod97",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "bic_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "currency_iso",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "document_type_enum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "date_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "due_date_after_issue",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "totals_match",
+        "status": "pass",
+        "message": "66.67 + 13.33 = 80.00"
+      },
+      {
+        "code": "vat_breakdown_match",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "line_items_sum",
+        "status": "pass",
+        "message": "all populated component sums match totals"
+      },
+      {
+        "code": "image_quality_issue",
+        "status": "warning",
+        "message": "issues: stamp_obscures_data"
+      }
+    ],
+    "errors": [],
+    "warnings": [
+      "image_quality_issue"
+    ]
+  },
+  "model_assessment": {
+    "confidence": {
+      "overall": 0.95,
+      "document": 0.99,
+      "supplier": 0.98,
+      "customer": 0.98,
+      "totals": 0.99,
+      "line_items": 0.97
+    },
+    "extraction_warnings": [
+      "The company stamp partially obscures the IBAN and bank details area; IBAN BG69FINV91501015880757 read with moderate confidence — last few digits may be affected by stamp overlay.",
+      "Line item has a TO (discount) column showing 0.00; discount_pct set to 0.00 accordingly.",
+      "Bank name 'ПИБАД' may be 'ПИББАД' or another abbreviation — partially obscured by stamp."
+    ]
+  },
+  "evidence": {
+    "document.number": {
+      "text": "№ 0000006137",
+      "confidence": 0.99
+    },
+    "document.date": {
+      "text": "Дата на издаване 07.02.2025",
+      "confidence": 0.99
+    },
+    "document.due_date": {
+      "text": "Дата на плащане: 07.02.2025",
+      "confidence": 0.99
+    },
+    "document.place": {
+      "text": "Място на сделката: гр. София",
+      "confidence": 0.99
+    },
+    "supplier.name": {
+      "text": "НОКСЕС ЕООД",
+      "confidence": 0.99
+    },
+    "supplier.address": {
+      "text": "гр. София, кв. Лозенец, ул. Люботрън 76, вх. А, ет.2, ап.4",
+      "confidence": 0.97
+    },
+    "supplier.eik": {
+      "text": "ИН/ЕГН: 202549149",
+      "confidence": 0.99
+    },
+    "supplier.vat_number": {
+      "text": "ДДС No: BG202549149",
+      "confidence": 0.99
+    },
+    "supplier.mol": {
+      "text": "МОЛ: Диан Жилиев",
+      "confidence": 0.98
+    },
+    "customer.name": {
+      "text": "Инко трейд ЕООД",
+      "confidence": 0.99
+    },
+    "customer.address": {
+      "text": "гр. Варна, р-н Приморски, ул. Рощок, 9",
+      "confidence": 0.97
+    },
+    "customer.eik": {
+      "text": "ИН/ЕГН: 206802564",
+      "confidence": 0.99
+    },
+    "customer.vat_number": {
+      "text": "ДДС No: BG206802564",
+      "confidence": 0.99
+    },
+    "customer.mol": {
+      "text": "МОЛ: Мариана Кинчова Петрова",
+      "confidence": 0.99
+    },
+    "line_items[0].description": {
+      "text": "Софтуерни ремонти РС",
+      "confidence": 0.99
+    },
+    "line_items[0].unit": {
+      "text": "бр.",
+      "confidence": 0.99
+    },
+    "line_items[0].quantity": {
+      "text": "1",
+      "confidence": 0.99
+    },
+    "line_items[0].unit_price": {
+      "text": "66.667",
+      "confidence": 0.98
+    },
+    "line_items[0].net": {
+      "text": "66.67",
+      "confidence": 0.99
+    },
+    "totals.net": {
+      "text": "Данъчна основа 66.67",
+      "confidence": 0.99
+    },
+    "totals.vat": {
+      "text": "Ставка 20% ДДС: 13.33",
+      "confidence": 0.99
+    },
+    "totals.gross": {
+      "text": "Сума за плащане 80.00",
+      "confidence": 0.99
+    },
+    "payments[0].method": {
+      "text": "Начин на плащане: ПО СМЕТКА",
+      "confidence": 0.99
+    },
+    "payments[0].bank_name": {
+      "text": "Банка ПИБАД",
+      "confidence": 0.95
+    },
+    "payments[0].bic": {
+      "text": "BIC: FINVBGSF",
+      "confidence": 0.97
+    },
+    "payments[0].iban": {
+      "text": "IBAN: BG69FINV91501015880757",
+      "confidence": 0.9
+    }
+  },
+  "provider": {
+    "engine": "anthropic",
+    "model": "claude-sonnet-4-6",
+    "pipeline": "vision_direct",
+    "ocr_used": false,
+    "prompt_version": "claude-unified-v2-2026-05-09-csharp",
+    "created_at": "2026-05-09T15:20:54Z",
+    "duration_ms": 30045,
+    "input_tokens": 6743,
+    "output_tokens": 1993,
+    "cost_estimate_usd": "0.0501"
+  }
+}

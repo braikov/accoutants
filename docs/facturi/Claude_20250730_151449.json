@@ -1,0 +1,327 @@
+{
+  "schema_version": "accountant.document.v2",
+  "source": {
+    "file_name": "20250730_151449.jpg",
+    "file_path": "../docs/facturi/20250730_151449.jpg",
+    "page_count": 1,
+    "page_index": 0,
+    "detected_document_count": 1,
+    "extracted_document_index": 0,
+    "image_quality": {
+      "readability": "good",
+      "issues": [
+        "slight_fold_shadow",
+        "stamp_partially_obscures_signatory_name"
+      ]
+    }
+  },
+  "extraction": {
+    "document_type": "invoice",
+    "language": "bg",
+    "country": "BG",
+    "document": {
+      "number": "0002677991",
+      "date": "2025-07-30",
+      "tax_event_date": "2025-07-30",
+      "due_date": null,
+      "currency": "BGN",
+      "exchange_rate": null,
+      "place": null,
+      "notes": "Счетоводна статия номер: 14286696"
+    },
+    "supplier": {
+      "name": "Ташев - Галвинг ООД",
+      "eik": "130358417",
+      "vat_number": "BG130358417",
+      "address": "Бул. Климент Охридски 68",
+      "city": "София",
+      "country": "BG",
+      "mol": "Христофор Ташев"
+    },
+    "customer": {
+      "name": "Инко Трейд ЕООД",
+      "eik": "206802564",
+      "vat_number": "BG206802564",
+      "address": "ул. Рошок 9",
+      "city": "Варна",
+      "country": "BG",
+      "mol": "Мариана Петрова"
+    },
+    "totals": {
+      "net": "72.50",
+      "vat": "14.50",
+      "gross": "87.00",
+      "discount": null,
+      "rounding": null,
+      "amount_due": "87.00"
+    },
+    "vat_breakdown": [
+      {
+        "rate": "20.00",
+        "net": "72.50",
+        "vat": "14.50",
+        "gross": "87.00",
+        "reason": null
+      }
+    ],
+    "payments": [
+      {
+        "method": "card",
+        "amount": "87.00",
+        "currency": "BGN",
+        "iban": null,
+        "bic": null,
+        "bank_name": null
+      },
+      {
+        "method": "bank_transfer",
+        "amount": null,
+        "currency": "BGN",
+        "iban": "BG33UNCR76301075613440",
+        "bic": "UNCRBGSF",
+        "bank_name": "Уникредит Булбанк АД"
+      }
+    ],
+    "line_items": [
+      {
+        "description": "096 RTH 454. Диска конусна за развалцоване на тръби. ф 4-16 мм",
+        "quantity": "1.000",
+        "unit": "бр",
+        "unit_price": "72.50000",
+        "discount_pct": null,
+        "vat_rate": "20.00",
+        "net": "72.50",
+        "vat": "14.50",
+        "gross": "87.00",
+        "includes_vat": false
+      }
+    ],
+    "fiscal": {
+      "fiscal_receipt_number": null,
+      "fiscal_device_number": null,
+      "operator": null,
+      "qr_code": null
+    }
+  },
+  "validation": {
+    "needs_review": true,
+    "checks": [
+      {
+        "code": "supplier_eik_checksum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "customer_eik_checksum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "supplier_vat_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "customer_vat_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "iban_mod97",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "bic_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "currency_iso",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "document_type_enum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "date_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "due_date_after_issue",
+        "status": "skipped",
+        "message": "issue or due date missing/malformed"
+      },
+      {
+        "code": "totals_match",
+        "status": "pass",
+        "message": "72.50 + 14.50 = 87.00"
+      },
+      {
+        "code": "vat_breakdown_match",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "line_items_sum",
+        "status": "pass",
+        "message": "all populated component sums match totals"
+      },
+      {
+        "code": "image_quality_issue",
+        "status": "warning",
+        "message": "issues: slight_fold_shadow, stamp_partially_obscures_signatory_name"
+      }
+    ],
+    "errors": [],
+    "warnings": [
+      "image_quality_issue"
+    ]
+  },
+  "model_assessment": {
+    "confidence": {
+      "overall": 0.93,
+      "document": 0.98,
+      "supplier": 0.97,
+      "customer": 0.96,
+      "totals": 0.97,
+      "line_items": 0.93
+    },
+    "extraction_warnings": [
+      "The line item number prefix '1' appears to be a row index; the actual product code starts with '096 RTH 454'.",
+      "Document also states the equivalent amount in EUR (44.48 EUR at 1 EUR = 1.95583 BGN) but invoice currency is BGN; exchange_rate set to null per R8 since the invoice is denominated in BGN.",
+      "Stamp partially obscures the full name of the signatory (Кремена ... нова); read as 'Кремена Стоенова КолаDинова' — exact surname uncertain.",
+      "Street name 'ул. Рошок 9' for customer address may be a slight OCR misread; transcribed verbatim from document."
+    ]
+  },
+  "evidence": {
+    "document.number": {
+      "text": "N: 0002677991 от 30.07.2025",
+      "confidence": 0.99
+    },
+    "document.date": {
+      "text": "от 30.07.2025",
+      "confidence": 0.99
+    },
+    "document.tax_event_date": {
+      "text": "Дата на данъчното събитие/Дата на плащане 30.07.2025",
+      "confidence": 0.98
+    },
+    "document.notes": {
+      "text": "Счетоводна статия номер: 14286696",
+      "confidence": 0.97
+    },
+    "supplier.name": {
+      "text": "Ташев – Галвинг ООД",
+      "confidence": 0.97
+    },
+    "supplier.address": {
+      "text": "Бул. Климент Охридски 68",
+      "confidence": 0.97
+    },
+    "supplier.city": {
+      "text": "Град: София",
+      "confidence": 0.99
+    },
+    "supplier.eik": {
+      "text": "Ид. No:130358417",
+      "confidence": 0.98
+    },
+    "supplier.vat_number": {
+      "text": "ДДС No:BG130358417",
+      "confidence": 0.98
+    },
+    "supplier.mol": {
+      "text": "Мат.отг.лице: Христофор Ташев",
+      "confidence": 0.97
+    },
+    "customer.name": {
+      "text": "Инко Трейд ЕООД",
+      "confidence": 0.97
+    },
+    "customer.address": {
+      "text": "ул. Рошок 9",
+      "confidence": 0.92
+    },
+    "customer.city": {
+      "text": "Град: Варна",
+      "confidence": 0.99
+    },
+    "customer.eik": {
+      "text": "Ид. No: 206802564",
+      "confidence": 0.97
+    },
+    "customer.vat_number": {
+      "text": "ДДС No: BG206802564",
+      "confidence": 0.97
+    },
+    "customer.mol": {
+      "text": "Мат.отг.лице: Мариана Петрова",
+      "confidence": 0.97
+    },
+    "line_items[0].description": {
+      "text": "096 RTH 454.Диска конусна за развалцоване на тръби. ф 4-16 мм",
+      "confidence": 0.93
+    },
+    "line_items[0].quantity": {
+      "text": "1,0000 бр",
+      "confidence": 0.97
+    },
+    "line_items[0].unit_price": {
+      "text": "72,50000",
+      "confidence": 0.97
+    },
+    "line_items[0].net": {
+      "text": "Сума %Отст 72,50000",
+      "confidence": 0.97
+    },
+    "line_items[0].gross": {
+      "text": "Общо 72,50",
+      "confidence": 0.97
+    },
+    "totals.net": {
+      "text": "Данъчна основа: 72,50",
+      "confidence": 0.98
+    },
+    "totals.vat": {
+      "text": "Размер на данъка: 14,50",
+      "confidence": 0.97
+    },
+    "totals.gross": {
+      "text": "Сума за плащане в лева: 87,00",
+      "confidence": 0.98
+    },
+    "payments[0].method": {
+      "text": "Плащане: с карта",
+      "confidence": 0.98
+    },
+    "payments[1].iban": {
+      "text": "IBAN: BG33UNCR76301075613440",
+      "confidence": 0.95
+    },
+    "payments[1].bic": {
+      "text": "BIC: UNCRBGSF",
+      "confidence": 0.97
+    },
+    "payments[1].bank_name": {
+      "text": "Банка: Уникредит Булбанк АД",
+      "confidence": 0.97
+    }
+  },
+  "provider": {
+    "engine": "anthropic",
+    "model": "claude-sonnet-4-6",
+    "pipeline": "vision_direct",
+    "ocr_used": false,
+    "prompt_version": "claude-unified-v2-2026-05-09-csharp",
+    "created_at": "2026-05-09T15:25:48Z",
+    "duration_ms": 30507,
+    "input_tokens": 6719,
+    "output_tokens": 2164,
+    "cost_estimate_usd": "0.0526"
+  }
+}

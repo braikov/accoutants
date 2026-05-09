@@ -1,0 +1,228 @@
+{
+  "schema_version": "accountant.document.v2",
+  "source": {
+    "file_name": "20241111_153839.jpg",
+    "file_path": "../docs/facturi/20241111_153839.jpg",
+    "page_count": 1,
+    "page_index": 0,
+    "detected_document_count": 2,
+    "extracted_document_index": 0,
+    "image_quality": {
+      "readability": "good",
+      "issues": [
+        "stamp_obscures_data"
+      ]
+    }
+  },
+  "extraction": {
+    "document_type": "invoice",
+    "language": "bg",
+    "country": "BG",
+    "document": {
+      "number": "0656479304",
+      "date": "2024-11-11",
+      "tax_event_date": "2024-11-11",
+      "due_date": "2024-11-11",
+      "currency": "BGN",
+      "exchange_rate": null,
+      "place": null,
+      "notes": "Attached fiscal receipt visible; total shown in BGN and EUR. Payment by card."
+    },
+    "supplier": {
+      "name": "А1 България ЕАД",
+      "eik": "131468980",
+      "vat_number": "BG131468980",
+      "address": "София 1309, ул. Кукуш 1",
+      "city": "София",
+      "country": "BG",
+      "mol": null
+    },
+    "customer": {
+      "name": "Инко трейд ЕООД",
+      "eik": "206802564",
+      "vat_number": "BG206802564",
+      "address": "гр. Варна, кв. 23-ти Микрорайон (Китайската стена",
+      "city": "Варна",
+      "country": "BG",
+      "mol": "Мариана Кинчова Петрова"
+    },
+    "totals": {
+      "net": "1416.65",
+      "vat": "283.33",
+      "gross": "1699.98",
+      "discount": "0.00",
+      "rounding": null,
+      "amount_due": "1699.98"
+    },
+    "vat_breakdown": [],
+    "payments": [
+      {
+        "method": "card",
+        "amount": "1699.98",
+        "currency": "BGN",
+        "iban": null,
+        "bic": null,
+        "bank_name": null
+      }
+    ],
+    "line_items": [
+      {
+        "description": "Апарат Sam Gal S24 Ultra 256GB Bla+Mode MAT 40",
+        "quantity": "1.000",
+        "unit": "бр",
+        "unit_price": "1769.99",
+        "discount_pct": "0.00",
+        "vat_rate": "20.00",
+        "net": "1416.65",
+        "vat": "283.33",
+        "gross": "1699.98",
+        "includes_vat": true
+      },
+      {
+        "description": "Ваучер за отстъпка от устройство 50лв.",
+        "quantity": "1.000",
+        "unit": "бр",
+        "unit_price": "-50.00",
+        "discount_pct": "null",
+        "vat_rate": "20.00",
+        "net": "-50.00",
+        "vat": "-10.00",
+        "gross": "-60.00",
+        "includes_vat": true
+      },
+      {
+        "description": "Отстъпка 20 лв. за устройство в брой",
+        "quantity": "1.000",
+        "unit": "бр",
+        "unit_price": "-20.00",
+        "discount_pct": "null",
+        "vat_rate": "20.00",
+        "net": "-20.00",
+        "vat": "-4.00",
+        "gross": "-24.00",
+        "includes_vat": true
+      }
+    ],
+    "fiscal": {
+      "fiscal_receipt_number": "A1BG4323",
+      "fiscal_device_number": "4323000000312287",
+      "operator": "Nikolou",
+      "qr_code": "8CE9DE3343EAA44DEA0DC85F4A3080BAE8374E96"
+    }
+  },
+  "validation": {
+    "needs_review": true,
+    "checks": [
+      {
+        "code": "supplier_eik_checksum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "customer_eik_checksum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "supplier_vat_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "customer_vat_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "iban_mod97",
+        "status": "skipped",
+        "message": "IBAN is null"
+      },
+      {
+        "code": "bic_format",
+        "status": "skipped",
+        "message": "BIC is null"
+      },
+      {
+        "code": "currency_iso",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "document_type_enum",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "date_format",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "due_date_after_issue",
+        "status": "pass",
+        "message": ""
+      },
+      {
+        "code": "totals_match",
+        "status": "pass",
+        "message": "1416.65 + 283.33 = 1699.98"
+      },
+      {
+        "code": "vat_breakdown_match",
+        "status": "skipped",
+        "message": "vat_breakdown is empty"
+      },
+      {
+        "code": "line_items_sum",
+        "status": "fail",
+        "message": "sum(net)=1346.65, totals.net=1416.65; sum(vat)=269.33, totals.vat=283.33; sum(gross)=1615.98, totals.gross=1699.98"
+      },
+      {
+        "code": "multiple_documents_detected",
+        "status": "warning",
+        "message": "detected 2 documents; only index 0 extracted."
+      },
+      {
+        "code": "image_quality_issue",
+        "status": "warning",
+        "message": "issues: stamp_obscures_data"
+      }
+    ],
+    "errors": [
+      "line_items_sum"
+    ],
+    "warnings": [
+      "multiple_documents_detected",
+      "image_quality_issue"
+    ]
+  },
+  "model_assessment": {
+    "confidence": {
+      "overall": 0.86,
+      "document": 0.99,
+      "supplier": 0.97,
+      "customer": 0.9,
+      "totals": 0.95,
+      "line_items": 0.81
+    },
+    "extraction_warnings": [
+      "Fiscal receipt is attached and partly overlaps the invoice.",
+      "Customer address is partially cropped.",
+      "Line-level discount arithmetic is inferred from visible totals."
+    ]
+  },
+  "evidence": {},
+  "provider": {
+    "engine": "open_ai",
+    "model": "gpt-5.4-mini",
+    "pipeline": "vision_direct",
+    "ocr_used": false,
+    "prompt_version": "codex-unified-v2-r13-2026-05-09-csharp",
+    "created_at": "2026-05-09T15:18:40Z",
+    "duration_ms": 6833,
+    "input_tokens": 4947,
+    "output_tokens": 722,
+    "cost_estimate_usd": "0.0070"
+  }
+}

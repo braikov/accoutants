@@ -1,0 +1,172 @@
+@model Accountant.Web.Areas.App.ViewModels.EditDocumentViewModel
+@using Accountant.Contracts
+@{
+    ViewData["Title"] = $"Редакция · {Model.OriginalFileName}";
+    Layout = "_AppLayout";
+}
+
+<form method="post" asp-action="Edit" asp-route-id="@Model.Id" class="detail edit-form">
+    @Html.AntiForgeryToken()
+    <header class="detail-head">
+        <div>
+            <nav class="breadcrumbs">
+                <a asp-action="Detail" asp-route-id="@Model.Id">← Назад към преглед</a>
+            </nav>
+            <h1 title="@Model.OriginalFileName">Редакция: @Model.OriginalFileName</h1>
+        </div>
+        <div class="detail-actions">
+            <a class="btn-secondary" asp-action="Detail" asp-route-id="@Model.Id">Отказ</a>
+            <button type="submit" class="btn-primary">Запази корекциите</button>
+        </div>
+    </header>
+
+    <div asp-validation-summary="ModelOnly" class="validation-summary"></div>
+
+    <div class="detail-grid">
+        <aside class="detail-viewer">
+            @if (Model.IsImage)
+            {
+                <img src="@Url.Action("File", new { id = Model.Id })" alt="@Model.OriginalFileName" />
+            }
+            else
+            {
+                <iframe src="@Url.Action("File", new { id = Model.Id })" title="@Model.OriginalFileName"></iframe>
+            }
+        </aside>
+
+        <div class="detail-body">
+            <section class="detail-section">
+                <h2>Документ</h2>
+                <div class="form-grid">
+                    <label>Тип
+                        <select asp-for="DocumentType" asp-items="Html.GetEnumSelectList<DocumentType>()"></select>
+                    </label>
+                    <label>Номер
+                        <input asp-for="Number" />
+                        <span asp-validation-for="Number" class="error"></span>
+                    </label>
+                    <label>Дата (YYYY-MM-DD)
+                        <input asp-for="Date" placeholder="2026-05-11" />
+                        <span asp-validation-for="Date" class="error"></span>
+                    </label>
+                    <label>Данъчно събитие
+                        <input asp-for="TaxEventDate" placeholder="2026-05-11" />
+                        <span asp-validation-for="TaxEventDate" class="error"></span>
+                    </label>
+                    <label>Падеж
+                        <input asp-for="DueDate" placeholder="2026-05-11" />
+                        <span asp-validation-for="DueDate" class="error"></span>
+                    </label>
+                    <label>Валута
+                        <input asp-for="Currency" placeholder="BGN" maxlength="3" />
+                        <span asp-validation-for="Currency" class="error"></span>
+                    </label>
+                    <label>Курс
+                        <input asp-for="ExchangeRate" />
+                        <span asp-validation-for="ExchangeRate" class="error"></span>
+                    </label>
+                    <label>Място
+                        <input asp-for="Place" />
+                    </label>
+                </div>
+                <label class="form-full">Бележки
+                    <textarea asp-for="Notes" rows="2"></textarea>
+                </label>
+            </section>
+
+            <div class="detail-columns">
+                @{
+                    var supplierVd = new ViewDataDictionary(ViewData);
+                    supplierVd["Prefix"] = "Supplier";
+                    supplierVd["Title"] = "Доставчик";
+                    var customerVd = new ViewDataDictionary(ViewData);
+                    customerVd["Prefix"] = "Customer";
+                    customerVd["Title"] = "Получател";
+                }
+                @await Html.PartialAsync("_PartyForm", Model.Supplier, supplierVd)
+                @await Html.PartialAsync("_PartyForm", Model.Customer, customerVd)
+            </div>
+
+            <section class="detail-section">
+                <h2>Стоки и услуги</h2>
+                <table class="lines-table edit-lines" data-role="lines-table">
+                    <thead>
+                        <tr>
+                            <th>Описание</th>
+                            <th class="num">Кол.</th>
+                            <th>Ед.</th>
+                            <th class="num">Ед. цена</th>
+                            <th class="num">% отст.</th>
+                            <th class="num">% ДДС</th>
+                            <th class="num">Нето</th>
+                            <th class="num">ДДС</th>
+                            <th class="num">Бруто</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody data-role="lines-body">
+                        @for (var i = 0; i < Model.Lines.Count; i++)
+                        {
+                            var rowVd = new ViewDataDictionary(ViewData);
+                            rowVd["Index"] = i;
+                            @await Html.PartialAsync("_LineItemRow", Model.Lines[i], rowVd)
+                        }
+                    </tbody>
+                </table>
+                <button type="button" class="btn-secondary" data-action="add-line">+ Нов ред</button>
+            </section>
+
+            <section class="detail-section">
+                <h2>Суми</h2>
+                <div class="form-grid">
+                    <label>Нето <input asp-for="TotalsNet" /><span asp-validation-for="TotalsNet" class="error"></span></label>
+                    <label>ДДС <input asp-for="TotalsVat" /><span asp-validation-for="TotalsVat" class="error"></span></label>
+                    <label>Бруто <input asp-for="TotalsGross" /><span asp-validation-for="TotalsGross" class="error"></span></label>
+                    <label>Отстъпка <input asp-for="TotalsDiscount" /><span asp-validation-for="TotalsDiscount" class="error"></span></label>
+                    <label>Закръгляне <input asp-for="TotalsRounding" /><span asp-validation-for="TotalsRounding" class="error"></span></label>
+                    <label>За плащане <input asp-for="TotalsAmountDue" /><span asp-validation-for="TotalsAmountDue" class="error"></span></label>
+                </div>
+            </section>
+
+            <section class="detail-section">
+                <h2>Плащане</h2>
+                <div class="form-grid">
+                    <label>Метод
+                        <select asp-for="Payment.Method" asp-items="Html.GetEnumSelectList<PaymentMethod>()">
+                            <option value="">—</option>
+                        </select>
+                    </label>
+                    <label>Сума <input asp-for="Payment.Amount" /><span asp-validation-for="Payment.Amount" class="error"></span></label>
+                    <label>Валута <input asp-for="Payment.Currency" maxlength="3" /><span asp-validation-for="Payment.Currency" class="error"></span></label>
+                    <label>IBAN <input asp-for="Payment.Iban" /><span asp-validation-for="Payment.Iban" class="error"></span></label>
+                    <label>BIC <input asp-for="Payment.Bic" /><span asp-validation-for="Payment.Bic" class="error"></span></label>
+                    <label>Банка <input asp-for="Payment.BankName" /></label>
+                </div>
+            </section>
+
+            <section class="detail-section">
+                <h2>Фискална информация</h2>
+                <div class="form-grid">
+                    <label>Касова бележка № <input asp-for="Fiscal.FiscalReceiptNumber" /></label>
+                    <label>Фискално у-во № <input asp-for="Fiscal.FiscalDeviceNumber" /></label>
+                    <label>Оператор <input asp-for="Fiscal.Operator" /></label>
+                </div>
+            </section>
+        </div>
+    </div>
+</form>
+
+<template id="line-template">
+    @{
+        var tplVd = new ViewDataDictionary(ViewData);
+        tplVd["Index"] = "__INDEX__";
+    }
+    @await Html.PartialAsync("_LineItemRow", new Accountant.Web.Areas.App.ViewModels.LineItemForm(), tplVd)
+</template>
+
+@section Scripts {
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/app/js/edit-document.js" asp-append-version="true"></script>
+}

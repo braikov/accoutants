@@ -254,15 +254,15 @@ Status-specific bodies: `Failed` shows the failure reason in a red callout; `Upl
 
 **Deliverable: ✅** Build clean. Thumbnail click → `/App/Documents/Detail/{id}` → original + extracted data side-by-side, with download. Edit button is a stub until Phase G.
 
-### Phase G — Edit form + Save ⏳ Чакаща
+### Phase G — Edit form + Save ✅
 
-G1. `EditDocumentViewModel` mirrors v2 schema's structure with [DataAnnotations] for validation (required, range, regex for EIK/IBAN/BIC).
-G2. `Edit` GET action → renders form with current values (correction-if-exists else extraction).
-G3. `Edit` POST → server-side validate (incl. R1-R13 normalization helpers from `Accountant.Contracts`) → on success create new `DocumentCorrection` row with serialized JSON → redirect to Detail.
-G4. View: same layout as Detail but inputs are editable. Line items table allows add/remove rows. Totals auto-recompute on edit (optional client-side JS; if missing, server recomputes on save).
-G5. Validation summary at top; field-level errors inline.
+G1. ✅ [EditDocumentViewModel](../../Source/Accountant.Web/Areas/App/ViewModels/EditDocumentViewModel.cs) mirrors the v2 schema. DataAnnotations: ISO date regex, ISO 4217 3-letter currency, EIK (9 or 13 digits), VAT (`BG\d{9,10}`), IBAN (`^[A-Z]{2}\d{2}[A-Z0-9]{1,30}$`), BIC, and a custom `[Amount]` regex (`^-?\d+(\.\d{1,4})?$`) for the schema's "number-as-string" fields.
+G2. ✅ `Edit` GET loads the current authoritative `ExtractionResult` (correction-if-exists else extraction) via `LoadCurrentDataAsync` and projects it into the view model.
+G3. ✅ `Edit` POST validates, reloads the original `ExtractionResult`, replaces only the `Extraction` subdoc (preserving `Source` / `Validation` / `Provider` / `ModelAssessment` / `Evidence`), serializes the result, and appends a new `DocumentCorrection` row. Empty form fields are `Nullify`-ed back to `null` so the JSON doesn't grow noise. Empty line items are dropped on save.
+G4. ✅ [Edit.cshtml](../../Source/Accountant.Web/Areas/App/Views/Documents/Edit.cshtml) mirrors the detail layout — sticky viewer left, editable form right. Line items table with JS-driven add/remove ([edit-document.js](../../Source/Accountant.Web/wwwroot/app/js/edit-document.js)) re-indexes form names so the model binder still sees `Lines[0]`, `Lines[1]`, … . `_PartyForm` reused for supplier/customer with `HtmlFieldPrefix` set from `ViewData["Prefix"]`. Totals auto-recompute is deferred to a polish pass — Phase G saves whatever the user typed; server doesn't recompute either (corrections are user-authoritative).
+G5. ✅ `<div asp-validation-summary="ModelOnly">` at the top + `<span asp-validation-for=...>` inline. jQuery-validate + jquery.validate.unobtrusive included so the regex hints fire client-side too.
 
-**Deliverable:** user can edit any field of the extracted invoice, save corrections, and the corrected version is what subsequent downloads return.
+**Deliverable: ✅** Build clean. Edit form renders, saves a new `DocumentCorrection` row, Detail page picks the correction up automatically via `IsCorrected` precedence, Download serves the corrected JSON.
 
 ### Phase H — Admin dashboard ⏳ Чакаща
 

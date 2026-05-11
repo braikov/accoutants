@@ -1,0 +1,37 @@
+@model Accountant.Web.Areas.App.ViewModels.PartyForm
+@{
+    var prefix = (string)ViewData["Prefix"]!;
+    var title = (string)ViewData["Title"]!;
+    ViewData.TemplateInfo.HtmlFieldPrefix = prefix;
+}
+
+<section class="detail-section">
+    <h2>@title</h2>
+    <div class="form-grid">
+        <label class="form-full">Име
+            <input asp-for="Name" />
+            <span asp-validation-for="Name" class="error"></span>
+        </label>
+        <label>ЕИК
+            <input asp-for="Eik" />
+            <span asp-validation-for="Eik" class="error"></span>
+        </label>
+        <label>ДДС №
+            <input asp-for="VatNumber" placeholder="BG..." />
+            <span asp-validation-for="VatNumber" class="error"></span>
+        </label>
+        <label class="form-full">Адрес
+            <input asp-for="Address" />
+            <span asp-validation-for="Address" class="error"></span>
+        </label>
+        <label>Град
+            <input asp-for="City" />
+        </label>
+        <label>Държава
+            <input asp-for="Country" maxlength="2" placeholder="BG" />
+        </label>
+        <label class="form-full">МОЛ
+            <input asp-for="Mol" />
+        </label>
+    </div>
+</section>

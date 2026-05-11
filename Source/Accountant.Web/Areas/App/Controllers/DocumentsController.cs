@@ -300,6 +300,65 @@ public sealed class DocumentsController : Controller
         return View(model);
     }
 
+    [HttpGet]
+    public async Task<IActionResult> Edit(int id, CancellationToken cancellationToken)
+    {
+        var tenant = _activeTenant.Current ?? throw new InvalidOperationException("No active tenant.");
+        var (doc, data) = await LoadCurrentDataAsync(tenant.Id, id, cancellationToken);
+        if (doc is null)
+        {
+            return NotFound();
+        }
+        if (data is null)
+        {
+            // Cannot edit a doc that never produced JSON. Bounce to detail.
+            return RedirectToAction(nameof(Detail), new { id });
+        }
+        var model = BuildEditViewModel(doc, data);
+        return View(model);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Edit(int id, EditDocumentViewModel model, CancellationToken cancellationToken)
+    {
+        var tenant = _activeTenant.Current ?? throw new InvalidOperationException("No active tenant.");
+        var (doc, currentData) = await LoadCurrentDataAsync(tenant.Id, id, cancellationToken);
+        if (doc is null)
+        {
+            return NotFound();
+        }
+        if (currentData is null)
+        {
+            return RedirectToAction(nameof(Detail), new { id });
+        }
+
+        // Re-stamp non-form fields onto the model so a re-render after a
+        // validation failure shows the right header info.
+        model.Id = doc.Id;
+        model.OriginalFileName = doc.OriginalFileName;
+        model.ContentType = doc.ContentType;
+        model.IsImage = doc.ContentType.StartsWith("image/", StringComparison.OrdinalIgnoreCase);
+
+        if (!ModelState.IsValid)
+        {
+            return View(model);
+        }
+
+        var updated = ApplyEdits(currentData, model);
+        var json = JsonSerializer.Serialize(updated, SerializerOptions);
+
+        _db.DocumentCorrections.Add(new DocumentCorrection
+        {
+            DocumentId = doc.Id,
+            EditedByUserId = CurrentUserId(),
+            EditedAtUtc = DateTime.UtcNow,
+            CorrectedJson = json,
+        });
+        await _db.SaveChangesAsync(cancellationToken);
+        return RedirectToAction(nameof(Detail), new { id });
+    }
+
     /// Returns the latest correction-or-extraction JSON as a download.
     [HttpGet]
     public async Task<IActionResult> Download(int id, CancellationToken cancellationToken)
@@ -357,6 +416,185 @@ public sealed class DocumentsController : Controller
     {
         PropertyNameCaseInsensitive = true,
     };
+
+    private static readonly JsonSerializerOptions SerializerOptions = new()
+    {
+        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+        WriteIndented = false,
+    };
+
+    /// Loads the document + the currently authoritative `ExtractionResult`
+    /// (correction-if-exists else extraction). Returns nulls when the doc
+    /// doesn't exist or has no JSON yet.
+    private async Task<(DocumentRow? Row, ExtractionResult? Data)> LoadCurrentDataAsync(
+        int tenantId, int id, CancellationToken cancellationToken)
+    {
+        var row = await _db.Documents
+            .AsNoTracking()
+            .Where(d => d.Id == id && d.TenantId == tenantId)
+            .Select(d => new DocumentRow(
+                d.Id,
+                d.OriginalFileName,
+                d.ContentType,
+                d.Extraction != null ? d.Extraction.JsonResult : null,
+                d.Corrections
+                    .OrderByDescending(c => c.EditedAtUtc)
+                    .Select(c => c.CorrectedJson)
+                    .FirstOrDefault()))
+            .FirstOrDefaultAsync(cancellationToken);
+        if (row is null) return (null, null);
+        var data = DeserializeOrNull(row.CorrectionJson) ?? DeserializeOrNull(row.ExtractionJson);
+        return (row, data);
+    }
+
+    private sealed record DocumentRow(
+        int Id,
+        string OriginalFileName,
+        string ContentType,
+        string? ExtractionJson,
+        string? CorrectionJson);
+
+    private static EditDocumentViewModel BuildEditViewModel(DocumentRow doc, ExtractionResult data)
+    {
+        var e = data.Extraction;
+        return new EditDocumentViewModel
+        {
+            Id = doc.Id,
+            OriginalFileName = doc.OriginalFileName,
+            ContentType = doc.ContentType,
+            IsImage = doc.ContentType.StartsWith("image/", StringComparison.OrdinalIgnoreCase),
+            DocumentType = e.DocumentType,
+            Number = e.Document.Number,
+            Date = e.Document.Date,
+            TaxEventDate = e.Document.TaxEventDate,
+            DueDate = e.Document.DueDate,
+            Currency = e.Document.Currency,
+            ExchangeRate = e.Document.ExchangeRate,
+            Place = e.Document.Place,
+            Notes = e.Document.Notes,
+            Supplier = PartyToForm(e.Supplier),
+            Customer = PartyToForm(e.Customer),
+            TotalsNet = e.Totals.Net,
+            TotalsVat = e.Totals.Vat,
+            TotalsGross = e.Totals.Gross,
+            TotalsDiscount = e.Totals.Discount,
+            TotalsRounding = e.Totals.Rounding,
+            TotalsAmountDue = e.Totals.AmountDue,
+            Lines = e.LineItems.Select(LineToForm).ToList(),
+            Payment = e.Payments.Count > 0 ? PaymentToForm(e.Payments[0]) : new PaymentForm(),
+            Fiscal = new FiscalForm
+            {
+                FiscalReceiptNumber = e.Fiscal.FiscalReceiptNumber,
+                FiscalDeviceNumber = e.Fiscal.FiscalDeviceNumber,
+                Operator = e.Fiscal.Operator,
+                QrCode = e.Fiscal.QrCode,
+            },
+        };
+    }
+
+    private static PartyForm PartyToForm(Party p) => new()
+    {
+        Name = p.Name, Eik = p.Eik, VatNumber = p.VatNumber, Address = p.Address,
+        City = p.City, Country = p.Country, Mol = p.Mol,
+    };
+
+    private static LineItemForm LineToForm(LineItem l) => new()
+    {
+        Description = l.Description, Quantity = l.Quantity, Unit = l.Unit,
+        UnitPrice = l.UnitPrice, DiscountPct = l.DiscountPct, VatRate = l.VatRate,
+        Net = l.Net, Vat = l.Vat, Gross = l.Gross, IncludesVat = l.IncludesVat,
+    };
+
+    private static PaymentForm PaymentToForm(Payment p) => new()
+    {
+        Method = p.Method, Amount = p.Amount, Currency = p.Currency,
+        Iban = p.Iban, Bic = p.Bic, BankName = p.BankName,
+    };
+
+    /// Overwrites the `Extraction` subdocument with values from the form
+    /// while preserving `Source`, `Validation`, `Provider`, `ModelAssessment`,
+    /// and `Evidence` from the original.
+    private static ExtractionResult ApplyEdits(ExtractionResult original, EditDocumentViewModel m)
+    {
+        return original with
+        {
+            Extraction = new Extraction
+            {
+                DocumentType = m.DocumentType,
+                Language = original.Extraction.Language,
+                Country = original.Extraction.Country,
+                Document = new Accountant.Contracts.Document
+                {
+                    Number = Nullify(m.Number),
+                    Date = Nullify(m.Date),
+                    TaxEventDate = Nullify(m.TaxEventDate),
+                    DueDate = Nullify(m.DueDate),
+                    Currency = Nullify(m.Currency),
+                    ExchangeRate = Nullify(m.ExchangeRate),
+                    Place = Nullify(m.Place),
+                    Notes = Nullify(m.Notes),
+                },
+                Supplier = FormToParty(m.Supplier),
+                Customer = FormToParty(m.Customer),
+                Totals = new Totals
+                {
+                    Net = Nullify(m.TotalsNet),
+                    Vat = Nullify(m.TotalsVat),
+                    Gross = Nullify(m.TotalsGross),
+                    Discount = Nullify(m.TotalsDiscount),
+                    Rounding = Nullify(m.TotalsRounding),
+                    AmountDue = Nullify(m.TotalsAmountDue),
+                },
+                VatBreakdown = original.Extraction.VatBreakdown,
+                Payments = HasPayment(m.Payment)
+                    ? new List<Payment> { FormToPayment(m.Payment) }
+                    : new List<Payment>(),
+                LineItems = m.Lines
+                    .Where(l => !string.IsNullOrWhiteSpace(l.Description)
+                        || !string.IsNullOrWhiteSpace(l.Net)
+                        || !string.IsNullOrWhiteSpace(l.Gross))
+                    .Select(FormToLine)
+                    .ToList(),
+                Fiscal = new Fiscal
+                {
+                    FiscalReceiptNumber = Nullify(m.Fiscal.FiscalReceiptNumber),
+                    FiscalDeviceNumber = Nullify(m.Fiscal.FiscalDeviceNumber),
+                    Operator = Nullify(m.Fiscal.Operator),
+                    QrCode = Nullify(m.Fiscal.QrCode),
+                },
+            },
+        };
+    }
+
+    private static Party FormToParty(PartyForm f) => new()
+    {
+        Name = Nullify(f.Name), Eik = Nullify(f.Eik), VatNumber = Nullify(f.VatNumber),
+        Address = Nullify(f.Address), City = Nullify(f.City), Country = Nullify(f.Country),
+        Mol = Nullify(f.Mol),
+    };
+
+    private static LineItem FormToLine(LineItemForm f) => new()
+    {
+        Description = Nullify(f.Description), Quantity = Nullify(f.Quantity), Unit = Nullify(f.Unit),
+        UnitPrice = Nullify(f.UnitPrice), DiscountPct = Nullify(f.DiscountPct), VatRate = Nullify(f.VatRate),
+        Net = Nullify(f.Net), Vat = Nullify(f.Vat), Gross = Nullify(f.Gross), IncludesVat = f.IncludesVat,
+    };
+
+    private static Payment FormToPayment(PaymentForm f) => new()
+    {
+        Method = f.Method, Amount = Nullify(f.Amount), Currency = Nullify(f.Currency),
+        Iban = Nullify(f.Iban), Bic = Nullify(f.Bic), BankName = Nullify(f.BankName),
+    };
+
+    private static bool HasPayment(PaymentForm p) =>
+        !string.IsNullOrWhiteSpace(p.Amount)
+        || !string.IsNullOrWhiteSpace(p.Iban)
+        || !string.IsNullOrWhiteSpace(p.Bic)
+        || !string.IsNullOrWhiteSpace(p.BankName)
+        || p.Method.HasValue;
+
+    private static string? Nullify(string? value) =>
+        string.IsNullOrWhiteSpace(value) ? null : value.Trim();
 
     private static ExtractionResult? DeserializeOrNull(string? json)
     {

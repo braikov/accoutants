@@ -478,3 +478,38 @@ body {
   .detail-viewer img { max-height: 600px; }
   .detail-columns { grid-template-columns: 1fr; }
 }
+
+/* --- Edit form --- */
+.edit-form { display: flex; flex-direction: column; gap: 16px; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 16px; }
+.form-grid label, .edit-form .form-full { display: flex; flex-direction: column; gap: 4px; font-size: 13px; color: var(--ink-muted); }
+.form-grid input, .form-grid select, .form-grid textarea,
+.edit-form .form-full input, .edit-form .form-full textarea {
+  font: inherit; color: var(--ink, #0f172a);
+  padding: 7px 10px; border: 1px solid var(--line); border-radius: 6px;
+  background: #fff;
+}
+.form-grid input:focus, .form-grid select:focus, .form-grid textarea:focus,
+.edit-form .form-full input:focus, .edit-form .form-full textarea:focus {
+  outline: 2px solid var(--primary, #4f46e5); outline-offset: -1px; border-color: transparent;
+}
+.form-full { grid-column: 1 / -1; }
+.form-full textarea { resize: vertical; }
+
+.edit-lines input { width: 100%; padding: 4px 6px; border: 1px solid var(--line); border-radius: 4px; font: inherit; }
+.edit-lines input.num { text-align: right; }
+.edit-lines td { padding: 4px 6px; vertical-align: top; }
+.link-danger { background: none; border: 0; color: #dc2626; font-size: 18px; cursor: pointer; padding: 0 8px; }
+.link-danger:hover { color: #991b1b; }
+
+.validation-summary { background: #fef2f2; color: #991b1b; padding: 10px 14px; border-radius: 6px; }
+.validation-summary ul { margin: 0; padding-left: 20px; }
+.validation-summary:empty { display: none; }
+
+.field-validation-error, .input-validation-error + .error,
+.error[data-valmsg-replace="true"] { color: #dc2626; font-size: 12px; }
+.input-validation-error { border-color: #dc2626 !important; }
+
+@media (max-width: 800px) {
+  .form-grid { grid-template-columns: 1fr; }
+}

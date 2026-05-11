@@ -1,0 +1,17 @@
+@model Accountant.Web.Areas.App.ViewModels.LineItemForm
+@{
+    var index = ViewData["Index"]?.ToString() ?? "0";
+    ViewData.TemplateInfo.HtmlFieldPrefix = $"Lines[{index}]";
+}
+<tr data-role="line-row">
+    <td><input asp-for="Description" /><span asp-validation-for="Description" class="error"></span></td>
+    <td class="num"><input class="num" asp-for="Quantity" /></td>
+    <td><input asp-for="Unit" maxlength="20" /></td>
+    <td class="num"><input class="num" asp-for="UnitPrice" /></td>
+    <td class="num"><input class="num" asp-for="DiscountPct" /></td>
+    <td class="num"><input class="num" asp-for="VatRate" /></td>
+    <td class="num"><input class="num" asp-for="Net" /></td>
+    <td class="num"><input class="num" asp-for="Vat" /></td>
+    <td class="num"><input class="num" asp-for="Gross" /></td>
+    <td><button type="button" class="link-danger" data-action="remove-line" title="Премахни">×</button></td>
+</tr>

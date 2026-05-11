@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Accountant.Claude\Accountant.Claude.csproj" />
+    <ProjectReference Include="..\Accountant.Codex\Accountant.Codex.csproj" />
+    <ProjectReference Include="..\Accountant.Contracts\Accountant.Contracts.csproj" />
+    <ProjectReference Include="..\Accountant.DataAccess\Accountant.DataAccess.csproj" />
+    <ProjectReference Include="..\Accountant.Gemini\Accountant.Gemini.csproj" />
+    <ProjectReference Include="..\Accountant.Storage\Accountant.Storage.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Hangfire.AspNetCore" Version="1.8.23" />
+    <PackageReference Include="Hangfire.MySqlStorage" Version="2.0.3" />
+    <!-- Overrides to address NU1902/NU1903 vulnerabilities in Hangfire.MySqlStorage transitive deps. -->
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.9.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="10.0.3" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.3" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="10.0.3" />
+  </ItemGroup>
+
+</Project>

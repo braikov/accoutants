@@ -2,9 +2,12 @@ using System.Globalization;
 using Accountant.DataAccess;
 using Accountant.Email;
 using Accountant.Identity.Models;
+using Accountant.Jobs;
 using Accountant.MySql;
 using Accountant.Notifications;
 using Accountant.Storage;
+using Hangfire;
+using Microsoft.Extensions.Options;
 using Braikov.Identity.Core;
 using Braikov.Identity.Core.Resources;
 using Braikov.Identity.Events.MySql;
@@ -75,6 +78,11 @@ builder.Services.AddBraikovIdentityShortCodesMySql(builder.Configuration, connec
 // also wired here.
 builder.Services.AddAccountantStorage(builder.Configuration);
 
+// Background jobs (Hangfire) — MySQL storage in the same `accountant` DB
+// using `Hangfire_*` table prefix. Dashboard mounted at /Administration/Hangfire
+// (admin role only — see AdminDashboardAuthorizationFilter).
+builder.Services.AddAccountantJobs(builder.Configuration, connectionString);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -90,6 +98,13 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+// Hangfire dashboard. Auth filter rejects anonymous / non-Admin requests with 401.
+var hangfireOptions = app.Services.GetRequiredService<IOptions<HangfireOptions>>().Value;
+app.UseHangfireDashboard(hangfireOptions.DashboardPath, new DashboardOptions
+{
+    Authorization = new[] { app.Services.GetRequiredService<AdminDashboardAuthorizationFilter>() },
+});
 
 app.MapStaticAssets();
 

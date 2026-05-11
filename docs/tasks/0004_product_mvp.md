@@ -192,27 +192,26 @@ A5. ✅ Applied to `dev_accountant`. 6 new tables present: `tenants`, `tenant_me
 
 **Deliverable: ✅** schema in dev DB. Empty tables. DataAccess builds clean. Existing research / Identity / Notifications tables undisturbed.
 
-### Phase B — `IFileStore` abstraction ⏳ Чакаща
+### Phase B — `Accountant.Storage` (IFileStore + thumbnails) ✅
 
-B1. Define `IFileStore` interface in `Accountant.Contracts` (or new `Accountant.Storage` project):
-   - `Task<string> SaveAsync(Stream content, string contentType, CancellationToken ct)` → returns storage key
-   - `Task<Stream> OpenReadAsync(string key, CancellationToken ct)`
-   - `Task DeleteAsync(string key, CancellationToken ct)`
-B2. `LocalFileStore` impl. Root: `App_Data/uploads/` (configurable). Keys: random GUID + extension. Subfolder structure: `yyyy/MM/` to avoid too-many-files-per-dir.
-B3. DI: `services.AddAccountantStorage(builder.Configuration)` reads `Storage:Root` from config; default to `App_Data/uploads`.
-B4. Thumbnail strategy: separate `IThumbnailRenderer` (or method on FileStore). Импл-и: `ImageSharpThumbnailRenderer` for image; `PdfToImageThumbnailRenderer` for PDF (using PDFtoImage / Docnet / similar).
+B1. ✅ `IFileStore` interface in [Accountant.Storage/Abstractions/IFileStore.cs](../../Source/Accountant.Storage/Abstractions/IFileStore.cs) — `SaveAsync` / `OpenReadAsync` / `DeleteAsync` / `ExistsAsync`.
+B2. ✅ [LocalFileStore](../../Source/Accountant.Storage/Local/LocalFileStore.cs) — root configurable (`Storage:Root`, default `App_Data/uploads`); keys `yyyy/MM/{guid}{ext}`; key validation rejects absolute / `..` traversal paths.
+B3. ✅ DI via [AddAccountantStorage](../../Source/Accountant.Storage/StorageDependencyInjection.cs) registers `IFileStore` (singleton), both renderers, and `ThumbnailDispatcher`.
+B4. ✅ [ImageThumbnailRenderer](../../Source/Accountant.Storage/Thumbnails/ImageThumbnailRenderer.cs) (SixLabors.ImageSharp 3.1.12) + [PdfThumbnailRenderer](../../Source/Accountant.Storage/Thumbnails/PdfThumbnailRenderer.cs) (PDFtoImage 4.1.1 → page 0 → resize via ImageSharp) + [ThumbnailDispatcher](../../Source/Accountant.Storage/Thumbnails/ThumbnailDispatcher.cs) for content-type routing.
 
-**Deliverable:** programmatically save a file, read it back, generate + retrieve thumbnail. Unit test in `Accountant.Tests`.
+**Deliverable: ✅** Build clean. Unit-test in `Accountant.Tests` deferred to Phase L smoke pass.
 
-### Phase C — Hangfire wiring ⏳ Чакаща
+### Phase C — Hangfire wiring ✅
 
-C1. Add NuGet packages: `Hangfire.AspNetCore`, `Hangfire.MySqlStorage` (or community Pomelo-friendly variant — pin compatible with EF Core 9).
-C2. Configure storage against `accountant` DB. Migration history table: `__HangfireMigrationsHistory` (or whatever the package uses).
-C3. Wire dashboard at `/Administration/Hangfire` — `[Authorize(Roles="Admin")]`. Add `IDashboardAuthorizationFilter` impl.
-C4. First job: `ExtractDocumentJob.RunAsync(int documentId)` — loads document, picks vendor (from app settings), calls `IAccountingDocumentExtractor`, persists `DocumentExtraction`.
-C5. Retry policy: 3 attempts with exponential backoff. After exhaust → status=Failed, FailureReason stored.
+C1. ✅ New project `Accountant.Jobs` with `Hangfire.AspNetCore 1.8.23` + `Hangfire.MySqlStorage 2.0.3` (Newtonsoft.Json 13.0.3 + System.Data.SqlClient 4.9.0 directly pinned to clear NU1902/NU1903 vulnerabilities from Hangfire transitives).
+C2. ✅ MySQL storage uses the existing `accountant` connection string with `Hangfire_*` table prefix; `PrepareSchemaIfNecessary=true` lets Hangfire create its own tables on first run.
+C3. ✅ Dashboard mounted at `/Administration/Hangfire` (configurable via `Hangfire:DashboardPath`). [AdminDashboardAuthorizationFilter](../../Source/Accountant.Jobs/AdminDashboardAuthorizationFilter.cs) rejects anonymous + non-Admin users.
+C4. ✅ [ExtractDocumentJob.RunAsync(int documentId, CancellationToken)](../../Source/Accountant.Jobs/ExtractDocumentJob.cs) loads the document, copies the blob to a temp file (extractor API takes paths), picks vendor via [IExtractorFactory](../../Source/Accountant.Jobs/Extraction/IExtractorFactory.cs) (reads `Extraction:DefaultVendor`), persists `DocumentExtraction`, and flips status to Extracted/Failed.
+C5. ✅ `[AutomaticRetry(Attempts=3, DelaysInSeconds={30,120,300})]` on the job class. Each attempt re-throws; failure row is written on every attempt (last write wins).
 
-**Deliverable:** can enqueue a job programmatically; visible in dashboard; on success persists Extraction row.
+**Deliverable: ✅** Web builds with Hangfire wired. Real-job smoke deferred to Phase E when upload + enqueue paths exist.
+
+**Follow-up (Phase J):** vendor selection currently reads `Extraction:DefaultVendor` from configuration. Replace with DB-backed `ApplicationSettings` when admin model picker lands.
 
 ### Phase D — Tenant + membership + active-tenant switcher ⏳ Чакаща
 

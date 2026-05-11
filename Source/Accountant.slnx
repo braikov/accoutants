@@ -6,6 +6,7 @@
   <Project Path="Accountant.Email/Accountant.Email.csproj" />
   <Project Path="Accountant.Gemini/Accountant.Gemini.csproj" />
   <Project Path="Accountant.Identity/Accountant.Identity.csproj" />
+  <Project Path="Accountant.Jobs/Accountant.Jobs.csproj" />
   <Project Path="Accountant.MySql/Accountant.MySql.csproj" />
   <Project Path="Accountant.Notifications/Accountant.Notifications.csproj" />
   <Project Path="Accountant.Processors/Accountant.Processors.csproj" />

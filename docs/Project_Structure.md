@@ -257,9 +257,47 @@ ASP.NET Core Identity foundation е изваден от Accountant в standalone
 - **CI/CD:** GitHub Secrets (когато се добави CI).
 - **Production:** Environment variables на хост сървъра.
 
-## 13. Отворени въпроси (deferred)
+## 13. Product MVP (task 0004)
+
+Продуктовият surface е активен — Web host вече не е placeholder.
+
+**Нови проекти:**
+
+- `Accountant.Storage` (Class Library) — `IFileStore` (LocalFileStore impl, root `App_Data/uploads/yyyy/MM/{guid}{ext}`), `IThumbnailRenderer` + `ImageThumbnailRenderer` (ImageSharp 3.1.12) + `PdfThumbnailRenderer` (PDFtoImage 4.1.1 → page 0 → resize), `ThumbnailDispatcher`. DI: `AddAccountantStorage`.
+- `Accountant.Jobs` (Class Library) — Hangfire.AspNetCore 1.8.23 + Hangfire.MySqlStorage 2.0.3 storage (`Hangfire_*` table prefix), `IExtractorFactory` (Claude/Codex/Gemini), `ExtractDocumentJob.RunAsync(int)` с `[AutomaticRetry(Attempts=3)]`, `AdminDashboardAuthorizationFilter`, `StuckJobRecoveryService` (IHostedService — re-enqueues Processing docs at startup, single-instance assumption). DI: `AddAccountantJobs`.
+
+**Нови продуктови entities (всички в `AccountantDbContext` под `Accountant.DataAccess/Entities/Product/`):**
+
+- `Tenant` — `Name`, `OwnerUserId?`, `CreatedAtUtc`. Един user → много tenants.
+- `TenantMembership` — n:n `User × Tenant` с `TenantRole` enum (Owner / Member). Unique (UserId, TenantId).
+- `Folder` — tenant-scoped дървовидна структура (`ParentFolderId` self-ref). Unique (TenantId, ParentFolderId, Name).
+- `Document` — `(TenantId, FolderId?)`, `OriginalFileName`, `ContentType`, `ByteSize`, `StorageKey` (opaque IFileStore key), `ThumbnailKey?`, `DocumentStatus` enum (Uploaded → Queued → Processing → Extracted | Failed).
+- `DocumentExtraction` — AI run (Vendor, ModelName, PromptVersion, LatencyMs, TokensIn/Out, EstimatedCostUsd, JsonResult longtext, FailureReason).
+- `DocumentCorrection` — append-only user edits върху JSON-а. Latest correction wins.
+- `ApplicationSetting` — key/value bag за admin-tweakable настройки (`Extraction.DefaultVendor` сега; останалото идва по нужда).
+
+**Web surface (`Accountant.Web/Areas/`):**
+
+- `App/` — клиентски surface. `WorkspaceController` (folder tree + drop zone + grid + polling), `TenantsController` (list/create/switch с активен tenant в `.Accountant.ActiveTenant` HttpOnly cookie), `FoldersController` (create/rename/delete JSON endpoints), `DocumentsController` (upload multipart, EnqueueExtraction, Thumbnail/File streams, Detail/Edit, Download JSON).
+- `Administration/` — admin surface (`[Authorize(Roles="Admin")]`). `HomeController` (dashboard: 5 metric cards + 3 Chart.js charts), `DocumentsController` / `UsersController` / `TenantsController` (server-paginated lists), `SettingsController` (vendor picker), `ChartsController` (JSON endpoints за dashboard).
+- `App/Middleware/ActiveTenantMiddleware` — след auth, преди controllers. Чете cookie, validate-ва membership, при липса създава default tenant `<email>'s firm`. Експозва `IActiveTenantAccessor.Current` като scoped.
+- `Administration/AdminRoleBootstrapService` (IHostedService) — създава `Admin` role + promote-ва най-ниският UserId ако няма admin. Idempotent.
+
+**Routing:**
+
+- `/App` → `Workspace.Index` (area-specific default route в `Program.cs`).
+- `/Administration/Hangfire` → CoreUI dashboard през `AdminDashboardAuthorizationFilter`.
+- `/Public` → marketing landing, redirect-ва logged-in users към `/App`.
+
+**Localization:**
+
+- Auth strings → `Braikov.Identity.Core.Resources.SharedResource` (от пакета).
+- Product strings → `Accountant.Web.Resources.ProductResource` (host-defined). `IStringLocalizer<ProductResource>` injected като `L` в _ViewImports на App и Administration. `ProductResource.bg.resx` seeded — `ProductResource.en-GB.resx` за EN.
+
+## 14. Отворени въпроси (deferred)
 
 - **Persistence модел за extractions:** MySQL entities (`SourceDocument`, `Extraction`, `GroundTruth`, `EvaluationRun`, `EvaluationDocument`) вече стоят в `AccountantDbContext`. Дали Web ще пише в тях директно или ще има service слой — решава се при първата feature.
-- **Roles / multi-tenant:** Identity вдигнат с базова user table (`ApplicationUser : IdentityUser<int>`). Admin vs client роли, multi-tenant boundary, registration approval flow — решават се при първата feature task която ги изисква.
-- **Hangfire / scheduled jobs:** не е добавен. Ще влезе с първата нужда (scheduled batch extraction, retry queue, periodic eval run).
-- **Web feature surface:** `Areas/App` е placeholder. Конкретните feature views (Documents, Extractions, Settings) — определят се по продуктовия roadmap.
+- **Per-tenant model picker:** `Settings.DefaultVendor` сега е глобална. Per-tenant override е v1.1.
+- **Multiple Hangfire instances:** `StuckJobRecoveryService` приема single-instance Web. При scaling нагоре → leader election.
+- **JS localization:** `workspace.js` има status labels hard-coded BG. Превод чрез data-attributes на server-rendered template.
+- **Full localization conversion:** `Documents/Detail` + `Edit` partials + Administration views са hard-coded BG (структурата позволява инкрементално мигриране).

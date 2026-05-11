@@ -312,16 +312,16 @@ K4. ✅ (partial) Converted: `_AppLayout` (header + footer + tenant switcher), `
 
 **Deliverable: ✅ infrastructure** — adding `ProductResource.en-GB.resx` would translate everything that has already been converted. The remaining views can be migrated incrementally without further wiring.
 
-### Phase L — Polish + smoke ⏳ Чакаща
+### Phase L — Polish + smoke ✅ (docs) / 🟡 (manual smoke pending)
 
-L1. End-to-end manual smoke: register → login → upload 3 docs (different vendors potentially) → process → review each → edit one → download.
-L2. Admin smoke: login as admin → dashboard renders → tables drilldown works.
-L3. Error paths: oversized file rejected, unsupported file type rejected, extraction failure shows nicely, missing model setting fallback.
-L4. Performance smoke: 50 docs in one folder doesn't break the workspace.
-L5. Update `docs/Project_Structure.md` with the new entities + the surface map.
-L6. Update `useful_commands.md` with migrations + Hangfire dashboard URL + admin role bootstrap recipe.
+L1. 🟡 End-to-end manual smoke — за изпълнение от потребителя. Прав: register → login → upload 3 docs → process → review each → edit one → download.
+L2. 🟡 Admin smoke — login as admin → dashboard renders → tables drilldown works → settings vendor switch.
+L3. 🟡 Error paths — oversized file (>25 MB) rejected, unsupported MIME rejected, extraction failure shows red callout, missing model setting → falls back to `appsettings.json`.
+L4. 🟡 Performance smoke — 50 docs в една папка не чупи workspace-а.
+L5. ✅ [Project_Structure.md](../Project_Structure.md) обновен: нов раздел "13. Product MVP (task 0004)" с проектите (Storage, Jobs), entities, Web surface (Areas/App + Administration), routing, localization. Старият "Отворени въпроси" → "14. Отворени въпроси".
+L6. ✅ [docs/useful_commands.md](../useful_commands.md) създаден: build/run, EF migrations recipe (с правилния connection string env var), Hangfire dashboard URL, admin role bootstrap, user-secrets за vendor keys, quick links.
 
-**Deliverable:** v1 MVP shippable.
+**Deliverable:** инфраструктурата + документацията shippable. Manual smoke остава да го изпълни потребителят.
 
 ## Open implementation questions (resolve as phases hit them)
 

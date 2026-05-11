@@ -301,14 +301,16 @@ J6. ✅ Sidebar nav entry "Настройки" added to `_AdminLayout`.
 
 **Deliverable: ✅** Admin can switch the default vendor through `/Administration/Settings` and the next extraction job picks up the new value without redeploying.
 
-### Phase K — Localization scaffolding ⏳ Чакаща
+### Phase K — Localization scaffolding ✅ (infrastructure) / ⏳ (full conversion in-progress)
 
-K1. Add `Resources/SharedResource.bg.resx` to the Web project — auth strings already come from Braikov.Identity.Core; this is for product-specific labels (folder tree, drop zone, invoice section headers, admin metrics).
-K2. `Resources/SharedResource.cs` marker class.
-K3. Wire `AddDataAnnotationsLocalization` with marker (already done for Identity — extend to cover product VMs).
-K4. Every user-facing string in product views goes through `@Localizer["Workspace.DropZone.Hint"]` etc. Initial pass: BG only. Adding EN later = new `.en-GB.resx` file.
+K1. ✅ [Resources/ProductResource.bg.resx](../../Source/Accountant.Web/Resources/ProductResource.bg.resx) seeded with ~50 keys (Common.*, Layout.*, Workspace.*, DocStatus.*, Tenants.*, Doc.Section.*).
+K2. ✅ [Resources/ProductResource.cs](../../Source/Accountant.Web/Resources/ProductResource.cs) marker. Separate from Braikov.Identity's `SharedResource` (which still handles auth + DataAnnotations on the Braikov VMs).
+K3. ✅ `IStringLocalizer<ProductResource>` injected as `L` in both [App _ViewImports](../../Source/Accountant.Web/Areas/App/Views/_ViewImports.cshtml) and [Administration _ViewImports](../../Source/Accountant.Web/Areas/Administration/Views/_ViewImports.cshtml) — available everywhere via `@L["Key"]`. `Program.cs` already wires `AddLocalization` + culture cookie middleware.
+K4. ✅ (partial) Converted: `_AppLayout` (header + footer + tenant switcher), `Workspace/Index` (folder tree, drop zone, process button, empty state, new-folder modal), `_DocumentCard` (status badges), `Tenants/Index` + `Tenants/Create`.
 
-**Deliverable:** every user-visible string in the product surface is resource-keyed. Switching to EN is a matter of adding one more `.resx` file.
+**Follow-up (still hard-coded BG):** `Documents/Detail.cshtml` + `Edit.cshtml` + edit partials (~100 field labels), full Administration views (5 controllers), `Identity/*` already comes from Braikov.Identity.Core localization. JS string maps in `workspace.js` (status labels) — convert via data-attributes when EN translation is actually needed.
+
+**Deliverable: ✅ infrastructure** — adding `ProductResource.en-GB.resx` would translate everything that has already been converted. The remaining views can be migrated incrementally without further wiring.
 
 ### Phase L — Polish + smoke ⏳ Чакаща
 

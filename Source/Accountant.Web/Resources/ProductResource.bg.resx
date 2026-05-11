@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+
+  <!-- Common -->
+  <data name="Common.Cancel"><value>Отказ</value></data>
+  <data name="Common.Save"><value>Запази</value></data>
+  <data name="Common.Back"><value>Назад</value></data>
+  <data name="Common.Edit"><value>Редактирай</value></data>
+  <data name="Common.Delete"><value>Изтрий</value></data>
+  <data name="Common.Yes"><value>Да</value></data>
+  <data name="Common.No"><value>Не</value></data>
+  <data name="Common.All"><value>Всички</value></data>
+  <data name="Common.None"><value>—</value></data>
+  <data name="Common.Apply"><value>Прилагане</value></data>
+  <data name="Common.Clear"><value>Изчистване</value></data>
+
+  <!-- App / layout -->
+  <data name="Layout.Brand"><value>accountant</value></data>
+  <data name="Layout.Tagline"><value>AI автоматизация за счетоводни офиси</value></data>
+  <data name="Layout.ChangePassword"><value>Смяна на парола</value></data>
+  <data name="Layout.Logout"><value>Изход</value></data>
+  <data name="Layout.GoToAdmin"><value>Администрация</value></data>
+  <data name="Layout.NewTenant"><value>+ Нова фирма</value></data>
+
+  <!-- Workspace -->
+  <data name="Workspace.Title"><value>Работен плот</value></data>
+  <data name="Workspace.AllDocuments"><value>Всички документи</value></data>
+  <data name="Workspace.Folders"><value>Папки</value></data>
+  <data name="Workspace.NewFolderShort"><value>+ Нова</value></data>
+  <data name="Workspace.NewSubfolder"><value>+ Подпапка</value></data>
+  <data name="Workspace.ProcessSelected"><value>Обработи избраните</value></data>
+  <data name="Workspace.DropZone.Hint"><value>Пуснете файлове тук</value></data>
+  <data name="Workspace.DropZone.Or"><value>или</value></data>
+  <data name="Workspace.DropZone.Browse"><value>изберете от диска</value></data>
+  <data name="Workspace.Empty"><value>Все още няма документи в тази папка.</value></data>
+  <data name="Workspace.NewFolder.Title"><value>Нова папка</value></data>
+  <data name="Workspace.NewFolder.NameLabel"><value>Име</value></data>
+  <data name="Workspace.NewFolder.Submit"><value>Създай</value></data>
+
+  <!-- Document status -->
+  <data name="DocStatus.Uploaded"><value>Качен</value></data>
+  <data name="DocStatus.Queued"><value>В опашка</value></data>
+  <data name="DocStatus.Processing"><value>Обработва се</value></data>
+  <data name="DocStatus.Extracted"><value>Готов</value></data>
+  <data name="DocStatus.Failed"><value>Грешка</value></data>
+
+  <!-- Tenants -->
+  <data name="Tenants.Title"><value>Фирми</value></data>
+  <data name="Tenants.NewTitle"><value>Нова фирма</value></data>
+  <data name="Tenants.Name"><value>Име</value></data>
+  <data name="Tenants.Role"><value>Роля</value></data>
+  <data name="Tenants.Role.Owner"><value>Собственик</value></data>
+  <data name="Tenants.Role.Member"><value>Член</value></data>
+  <data name="Tenants.Activate"><value>Активирай</value></data>
+  <data name="Tenants.Create"><value>Създай</value></data>
+
+  <!-- Document detail / edit -->
+  <data name="Doc.Section.Document"><value>Документ</value></data>
+  <data name="Doc.Section.Supplier"><value>Доставчик</value></data>
+  <data name="Doc.Section.Customer"><value>Получател</value></data>
+  <data name="Doc.Section.Lines"><value>Стоки и услуги</value></data>
+  <data name="Doc.Section.Totals"><value>Суми</value></data>
+  <data name="Doc.Section.Payment"><value>Плащане</value></data>
+  <data name="Doc.Section.Fiscal"><value>Фискална информация</value></data>
+  <data name="Doc.Section.Processing"><value>Обработка</value></data>
+  <data name="Doc.DownloadJson"><value>Сваляне JSON</value></data>
+  <data name="Doc.Edit.Save"><value>Запази корекциите</value></data>
+  <data name="Doc.Edit.NewLine"><value>+ Нов ред</value></data>
+</root>

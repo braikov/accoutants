@@ -44,18 +44,18 @@
                                     <button type="submit" class="tenant-switcher-item @(m.Id == active.Id ? "is-active" : "")">@m.Name</button>
                                 </form>
                             }
-                            <a asp-area="App" asp-controller="Tenants" asp-action="Create" class="tenant-switcher-item tenant-switcher-create">+ Нова фирма</a>
+                            <a asp-area="App" asp-controller="Tenants" asp-action="Create" class="tenant-switcher-item tenant-switcher-create">@L["Layout.NewTenant"]</a>
                         </div>
                     </details>
                 }
                 @if (User.IsInRole("Admin"))
                 {
-                    <a class="head-nav-link" asp-area="Administration" asp-controller="Home" asp-action="Index">Администрация</a>
+                    <a class="head-nav-link" asp-area="Administration" asp-controller="Home" asp-action="Index">@L["Layout.GoToAdmin"]</a>
                 }
                 <span class="head-nav-user" title="@User.Identity!.Name">@User.Identity!.Name</span>
-                <a class="head-nav-link" asp-area="Identity" asp-controller="Account" asp-action="ChangePassword">Смяна на парола</a>
+                <a class="head-nav-link" asp-area="Identity" asp-controller="Account" asp-action="ChangePassword">@L["Layout.ChangePassword"]</a>
                 <form asp-area="Identity" asp-controller="Account" asp-action="Logout" method="post" class="head-nav-form">
-                    <button type="submit" class="head-nav-link">Изход</button>
+                    <button type="submit" class="head-nav-link">@L["Layout.Logout"]</button>
                 </form>
             </nav>
         </div>
@@ -69,8 +69,8 @@
 
     <footer class="app-foot">
         <div class="app-container foot-inner">
-            <span>© @DateTime.Now.Year accountant</span>
-            <span class="muted">AI автоматизация за счетоводни офиси</span>
+            <span>© @DateTime.Now.Year @L["Layout.Brand"]</span>
+            <span class="muted">@L["Layout.Tagline"]</span>
         </div>
     </footer>
     @await RenderSectionAsync("Scripts", required: false)

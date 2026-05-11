@@ -1,21 +1,21 @@
 @model Accountant.Web.Areas.App.Controllers.CreateTenantViewModel
 @{
-    ViewData["Title"] = "Нова фирма";
+    ViewData["Title"] = L["Tenants.NewTitle"].Value;
 }
 
 <section class="page-head">
-    <h1>Нова фирма</h1>
+    <h1>@L["Tenants.NewTitle"]</h1>
 </section>
 
 <form asp-action="Create" method="post" class="stacked-form">
     @Html.AntiForgeryToken()
     <div class="form-row">
-        <label asp-for="Name">Име на фирмата</label>
+        <label asp-for="Name">@L["Tenants.Name"]</label>
         <input asp-for="Name" class="text-input" autocomplete="organization" autofocus />
         <span asp-validation-for="Name" class="error"></span>
     </div>
     <div class="form-actions">
-        <a asp-action="Index" class="link">Назад</a>
-        <button type="submit" class="btn-primary">Създай</button>
+        <a asp-action="Index" class="link">@L["Common.Back"]</a>
+        <button type="submit" class="btn-primary">@L["Tenants.Create"]</button>
     </div>
 </form>

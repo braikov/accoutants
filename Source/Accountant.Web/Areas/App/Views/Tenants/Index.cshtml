@@ -1,18 +1,18 @@
 @model IReadOnlyList<Accountant.Web.Areas.App.Services.TenantSummary>
 @{
-    ViewData["Title"] = "Фирми";
+    ViewData["Title"] = L["Tenants.Title"].Value;
 }
 
 <section class="page-head">
-    <h1>Фирми</h1>
-    <a class="btn-primary" asp-action="Create">+ Нова фирма</a>
+    <h1>@L["Tenants.Title"]</h1>
+    <a class="btn-primary" asp-action="Create">@L["Layout.NewTenant"]</a>
 </section>
 
 <table class="data-table">
     <thead>
         <tr>
-            <th>Име</th>
-            <th>Роля</th>
+            <th>@L["Tenants.Name"]</th>
+            <th>@L["Tenants.Role"]</th>
             <th></th>
         </tr>
     </thead>
@@ -21,12 +21,12 @@
         {
             <tr>
                 <td>@m.Name</td>
-                <td>@(m.Role == Accountant.DataAccess.Entities.Product.TenantRole.Owner ? "Собственик" : "Член")</td>
+                <td>@(m.Role == Accountant.DataAccess.Entities.Product.TenantRole.Owner ? L["Tenants.Role.Owner"] : L["Tenants.Role.Member"])</td>
                 <td>
                     <form asp-action="Switch" method="post" class="inline-form">
                         @Html.AntiForgeryToken()
                         <input type="hidden" name="tenantId" value="@m.Id" />
-                        <button type="submit" class="link">Активирай</button>
+                        <button type="submit" class="link">@L["Tenants.Activate"]</button>
                     </form>
                 </td>
             </tr>

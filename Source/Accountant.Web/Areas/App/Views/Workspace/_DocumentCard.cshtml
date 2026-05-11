@@ -2,11 +2,11 @@
 @{
     string StatusBadge(Accountant.DataAccess.Entities.Product.DocumentStatus s) => s switch
     {
-        Accountant.DataAccess.Entities.Product.DocumentStatus.Uploaded => "Качен",
-        Accountant.DataAccess.Entities.Product.DocumentStatus.Queued => "В опашка",
-        Accountant.DataAccess.Entities.Product.DocumentStatus.Processing => "Обработва се",
-        Accountant.DataAccess.Entities.Product.DocumentStatus.Extracted => "Готов",
-        Accountant.DataAccess.Entities.Product.DocumentStatus.Failed => "Грешка",
+        Accountant.DataAccess.Entities.Product.DocumentStatus.Uploaded => L["DocStatus.Uploaded"].Value,
+        Accountant.DataAccess.Entities.Product.DocumentStatus.Queued => L["DocStatus.Queued"].Value,
+        Accountant.DataAccess.Entities.Product.DocumentStatus.Processing => L["DocStatus.Processing"].Value,
+        Accountant.DataAccess.Entities.Product.DocumentStatus.Extracted => L["DocStatus.Extracted"].Value,
+        Accountant.DataAccess.Entities.Product.DocumentStatus.Failed => L["DocStatus.Failed"].Value,
         _ => s.ToString(),
     };
     var statusClass = "status-" + Model.Status.ToString().ToLowerInvariant();

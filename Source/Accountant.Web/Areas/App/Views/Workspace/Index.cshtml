@@ -1,6 +1,6 @@
 @model Accountant.Web.Areas.App.ViewModels.WorkspaceViewModel
 @{
-    ViewData["Title"] = "Работен плот";
+    ViewData["Title"] = L["Workspace.Title"].Value;
     Layout = "_AppLayout";
 }
 
@@ -8,8 +8,8 @@
          data-folder-id="@(Model.CurrentFolderId?.ToString() ?? "")">
     <aside class="workspace-sidebar">
         <div class="sidebar-head">
-            <span class="sidebar-title">Папки</span>
-            <button type="button" class="link" data-action="new-folder" data-parent="">+ Нова</button>
+            <span class="sidebar-title">@L["Workspace.Folders"]</span>
+            <button type="button" class="link" data-action="new-folder" data-parent="">@L["Workspace.NewFolderShort"]</button>
         </div>
         <ul class="folder-tree">
             <li>
@@ -34,16 +34,16 @@
             </nav>
             <h1>@Model.CurrentFolderName</h1>
             <div class="workspace-actions">
-                <button type="button" class="btn-secondary" data-action="new-folder" data-parent="@(Model.CurrentFolderId?.ToString() ?? "")">+ Подпапка</button>
-                <button type="button" class="btn-primary" data-action="process" disabled>Обработи избраните</button>
+                <button type="button" class="btn-secondary" data-action="new-folder" data-parent="@(Model.CurrentFolderId?.ToString() ?? "")">@L["Workspace.NewSubfolder"]</button>
+                <button type="button" class="btn-primary" data-action="process" disabled>@L["Workspace.ProcessSelected"]</button>
             </div>
         </header>
 
-        <div class="drop-zone" data-role="drop-zone" tabindex="0" aria-label="Зона за качване на файлове">
+        <div class="drop-zone" data-role="drop-zone" tabindex="0" aria-label="@L["Workspace.DropZone.Hint"]">
             <p class="drop-zone-hint">
-                Пуснете файлове тук
-                <span class="muted">или</span>
-                <label class="link" for="file-input">изберете от диска</label>
+                @L["Workspace.DropZone.Hint"]
+                <span class="muted">@L["Workspace.DropZone.Or"]</span>
+                <label class="link" for="file-input">@L["Workspace.DropZone.Browse"]</label>
                 <input id="file-input" type="file" multiple accept=".pdf,image/*" hidden />
             </p>
         </div>
@@ -53,7 +53,7 @@
         <div class="documents-grid" data-role="documents-grid">
             @if (Model.Documents.Count == 0)
             {
-                <p class="empty-state muted">Все още няма документи в тази папка.</p>
+                <p class="empty-state muted">@L["Workspace.Empty"]</p>
             }
             else
             {
@@ -68,15 +68,15 @@
 
 <dialog id="new-folder-dialog" class="modal">
     <form method="dialog" class="modal-form" data-role="new-folder-form">
-        <h2>Нова папка</h2>
+        <h2>@L["Workspace.NewFolder.Title"]</h2>
         <label>
-            Име
+            @L["Workspace.NewFolder.NameLabel"]
             <input type="text" name="Name" maxlength="120" required autocomplete="off" />
         </label>
         <input type="hidden" name="ParentFolderId" />
         <div class="modal-actions">
-            <button type="button" value="cancel" data-action="cancel">Отказ</button>
-            <button type="submit" class="btn-primary">Създай</button>
+            <button type="button" value="cancel" data-action="cancel">@L["Common.Cancel"]</button>
+            <button type="submit" class="btn-primary">@L["Workspace.NewFolder.Submit"]</button>
         </div>
         <p class="error" data-role="new-folder-error" hidden></p>
     </form>

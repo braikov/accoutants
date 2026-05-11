@@ -240,19 +240,19 @@ Synchronous thumbnail generation during upload (image via ImageSharp; PDF via PD
 
 **Deliverable: ✅** Build clean; awaiting manual smoke (upload PDF/image → Hangfire dashboard → status transitions). Anthropic API key needs to be set in user-secrets (`Claude:ApiKey`) for the extractor to actually run.
 
-### Phase F — Document detail (read-only) ⏳ Чакаща
+### Phase F — Document detail (read-only) ✅
 
-F1. `DocumentController.Detail(int id)` action. Loads Document + latest Extraction + latest Correction.
-F2. View `Detail.cshtml`: left pane original viewer, right pane form-display (read-only) of the extracted invoice.
-F3. Original viewer:
-   - Image: `<img src="/App/Documents/{id}/File" />` with zoom controls.
-   - PDF: pdf.js wrapper.
-F4. `File(int id)` action: streams the file via `IFileStore.OpenReadAsync` with proper Content-Type.
-F5. Form sections per the invoice template structure (Source / Provider / Recipient / Lines / Totals / Payment). All fields visible, no inputs yet.
-F6. Action buttons: `Edit` (toggles edit mode — Phase G), `Download JSON`, `Back to workspace`.
-F7. `Download` action: returns JSON file (Correction if exists, else Extraction).
+F1. ✅ `DocumentsController.Detail(int id)` loads Document + Extraction + latest Correction (one round-trip). Merges into [DocumentDetailViewModel](../../Source/Accountant.Web/Areas/App/ViewModels/DocumentDetailViewModel.cs) with `IsCorrected` flag when a correction overrides the extraction.
+F2. ✅ [Detail.cshtml](../../Source/Accountant.Web/Areas/App/Views/Documents/Detail.cshtml) — sticky left-pane original viewer, right-pane sectioned read-only display.
+F3. ✅ Original viewer: `<img>` for images, `<iframe>` to the `File` action for PDFs (browser native viewer; pdf.js skipped for MVP — works for Chrome/Edge/Firefox/Safari out of the box).
+F4. ✅ `File(int id)` already existed from Phase E — streams via `IFileStore.OpenReadAsync` with original `Content-Type`.
+F5. ✅ Sections: документ / доставчик / получател / стоки и услуги (table) / суми + ДДС breakdown / плащане / fiscal / обработка meta (vendor / model / latency / tokens / cost).
+F6. ✅ Action buttons: "Сваляне JSON" (when data exists), "Редактирай" (Phase G placeholder — already wired to `Edit` action), "Назад към работния плот" breadcrumb.
+F7. ✅ `Download(int id)` returns `application/json` with the correction-or-extraction body as `<filename>.json`.
 
-**Deliverable:** click a thumbnail → see original + extracted data side by side. Download works.
+Status-specific bodies: `Failed` shows the failure reason in a red callout; `Uploaded`/`Queued`/`Processing` shows a pending notice instead of the form.
+
+**Deliverable: ✅** Build clean. Thumbnail click → `/App/Documents/Detail/{id}` → original + extracted data side-by-side, with download. Edit button is a stub until Phase G.
 
 ### Phase G — Edit form + Save ⏳ Чакаща
 

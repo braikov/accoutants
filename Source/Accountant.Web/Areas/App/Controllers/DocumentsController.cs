@@ -1,5 +1,8 @@
 using System.Globalization;
 using System.Security.Claims;
+using System.Text;
+using System.Text.Json;
+using Accountant.Contracts;
 using Accountant.DataAccess;
 using Accountant.DataAccess.Entities.Product;
 using Accountant.Jobs;
@@ -7,6 +10,7 @@ using Accountant.Storage;
 using Accountant.Storage.Abstractions;
 using Accountant.Storage.Thumbnails;
 using Accountant.Web.Areas.App.Services;
+using Accountant.Web.Areas.App.ViewModels;
 using Hangfire;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -132,7 +136,7 @@ public sealed class DocumentsController : Controller
                 errors.Add(new { file = file.FileName, warning = $"Thumbnail рендирането се провали: {ex.Message}" });
             }
 
-            var document = new Document
+            var document = new Accountant.DataAccess.Entities.Product.Document
             {
                 TenantId = tenant.Id,
                 FolderId = folderId,
@@ -219,6 +223,115 @@ public sealed class DocumentsController : Controller
         return File(stream, "image/jpeg");
     }
 
+    /// Document detail page (read-only). Loads the document + latest
+    /// extraction + latest correction in one round trip and merges them
+    /// into a `DocumentDetailViewModel`.
+    [HttpGet]
+    public async Task<IActionResult> Detail(int id, CancellationToken cancellationToken)
+    {
+        var tenant = _activeTenant.Current ?? throw new InvalidOperationException("No active tenant.");
+        var doc = await _db.Documents
+            .AsNoTracking()
+            .Where(d => d.Id == id && d.TenantId == tenant.Id)
+            .Select(d => new
+            {
+                d.Id,
+                d.OriginalFileName,
+                d.ContentType,
+                d.ByteSize,
+                d.Status,
+                d.CreatedAtUtc,
+                d.ProcessedAtUtc,
+                d.FolderId,
+                Extraction = d.Extraction,
+                LatestCorrection = d.Corrections
+                    .OrderByDescending(c => c.EditedAtUtc)
+                    .Select(c => new { c.CorrectedJson, c.EditedAtUtc })
+                    .FirstOrDefault(),
+            })
+            .FirstOrDefaultAsync(cancellationToken);
+        if (doc is null)
+        {
+            return NotFound();
+        }
+
+        ExtractionMeta? extractionMeta = null;
+        ExtractionResult? data = null;
+        bool isCorrected = false;
+        string? failureReason = null;
+
+        if (doc.Extraction is { } e)
+        {
+            extractionMeta = new ExtractionMeta(
+                e.Vendor, e.ModelName, e.PromptVersion, e.LatencyMs,
+                e.TokensIn, e.TokensOut, e.EstimatedCostUsd);
+            if (e.Status == DocumentExtractionStatus.Failed)
+            {
+                failureReason = e.FailureReason;
+            }
+            if (doc.LatestCorrection is { } c)
+            {
+                data = DeserializeOrNull(c.CorrectedJson);
+                isCorrected = data is not null;
+            }
+            if (data is null && !string.IsNullOrEmpty(e.JsonResult))
+            {
+                data = DeserializeOrNull(e.JsonResult);
+            }
+        }
+
+        var model = new DocumentDetailViewModel
+        {
+            Id = doc.Id,
+            OriginalFileName = doc.OriginalFileName,
+            ContentType = doc.ContentType,
+            ByteSize = doc.ByteSize,
+            Status = doc.Status,
+            CreatedAtUtc = doc.CreatedAtUtc,
+            ProcessedAtUtc = doc.ProcessedAtUtc,
+            FolderId = doc.FolderId,
+            IsImage = doc.ContentType.StartsWith("image/", StringComparison.OrdinalIgnoreCase),
+            Extraction = extractionMeta,
+            Data = data,
+            IsCorrected = isCorrected,
+            LastEditedAtUtc = doc.LatestCorrection?.EditedAtUtc,
+            FailureReason = failureReason,
+        };
+        return View(model);
+    }
+
+    /// Returns the latest correction-or-extraction JSON as a download.
+    [HttpGet]
+    public async Task<IActionResult> Download(int id, CancellationToken cancellationToken)
+    {
+        var tenant = _activeTenant.Current ?? throw new InvalidOperationException("No active tenant.");
+        var doc = await _db.Documents
+            .AsNoTracking()
+            .Where(d => d.Id == id && d.TenantId == tenant.Id)
+            .Select(d => new
+            {
+                d.OriginalFileName,
+                ExtractionJson = d.Extraction != null ? d.Extraction.JsonResult : null,
+                CorrectionJson = d.Corrections
+                    .OrderByDescending(c => c.EditedAtUtc)
+                    .Select(c => c.CorrectedJson)
+                    .FirstOrDefault(),
+            })
+            .FirstOrDefaultAsync(cancellationToken);
+        if (doc is null)
+        {
+            return NotFound();
+        }
+        var json = doc.CorrectionJson ?? doc.ExtractionJson;
+        if (string.IsNullOrEmpty(json))
+        {
+            return NotFound();
+        }
+        var baseName = Path.GetFileNameWithoutExtension(doc.OriginalFileName);
+        var bytes = Encoding.UTF8.GetBytes(json);
+        return File(bytes, "application/json", $"{baseName}.json");
+    }
+
     /// Streams the original document blob for the inline viewer in Phase F.
     [HttpGet]
     public async Task<IActionResult> File(int id, CancellationToken cancellationToken)
@@ -239,4 +352,22 @@ public sealed class DocumentsController : Controller
 
     private int CurrentUserId() =>
         int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!, CultureInfo.InvariantCulture);
+
+    private static readonly JsonSerializerOptions DeserializerOptions = new()
+    {
+        PropertyNameCaseInsensitive = true,
+    };
+
+    private static ExtractionResult? DeserializeOrNull(string? json)
+    {
+        if (string.IsNullOrWhiteSpace(json)) return null;
+        try
+        {
+            return JsonSerializer.Deserialize<ExtractionResult>(json, DeserializerOptions);
+        }
+        catch (JsonException)
+        {
+            return null;
+        }
+    }
 }

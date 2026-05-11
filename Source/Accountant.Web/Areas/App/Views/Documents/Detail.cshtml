@@ -1,0 +1,279 @@
+@model Accountant.Web.Areas.App.ViewModels.DocumentDetailViewModel
+@using Accountant.Contracts
+@using Accountant.DataAccess.Entities.Product
+@{
+    ViewData["Title"] = Model.OriginalFileName;
+    Layout = "_AppLayout";
+    string F(string? v) => string.IsNullOrWhiteSpace(v) ? "—" : v;
+    string DocType(DocumentType t) => t switch
+    {
+        DocumentType.Invoice => "Фактура",
+        DocumentType.Receipt => "Касова бележка",
+        DocumentType.Proforma => "Проформа",
+        DocumentType.Protocol => "Протокол",
+        DocumentType.CreditNote => "Кредитно известие",
+        DocumentType.DebitNote => "Дебитно известие",
+        _ => "Неизвестен",
+    };
+    string PayMethod(PaymentMethod? m) => m switch
+    {
+        PaymentMethod.Cash => "В брой",
+        PaymentMethod.BankTransfer => "Банков превод",
+        PaymentMethod.Card => "Карта",
+        PaymentMethod.Mixed => "Смесено",
+        PaymentMethod.Unknown => "Неуточнено",
+        _ => "—",
+    };
+    string StatusText(DocumentStatus s) => s switch
+    {
+        DocumentStatus.Uploaded => "Качен",
+        DocumentStatus.Queued => "В опашка",
+        DocumentStatus.Processing => "Обработва се",
+        DocumentStatus.Extracted => "Готов",
+        DocumentStatus.Failed => "Грешка",
+        _ => s.ToString(),
+    };
+}
+
+<section class="detail">
+    <header class="detail-head">
+        <div>
+            <nav class="breadcrumbs">
+                <a asp-controller="Workspace" asp-action="Index" asp-route-folderId="@Model.FolderId">← Назад към работния плот</a>
+            </nav>
+            <h1 title="@Model.OriginalFileName">@Model.OriginalFileName</h1>
+            <p class="muted detail-sub">
+                <span class="document-badge status-@Model.Status.ToString().ToLowerInvariant()">@StatusText(Model.Status)</span>
+                <span>· @((Model.ByteSize / 1024.0).ToString("0.#")) KB</span>
+                <span>· качен @Model.CreatedAtUtc.ToLocalTime().ToString("dd.MM.yyyy HH:mm")</span>
+                @if (Model.IsCorrected)
+                {
+                    <span class="badge-edited">редактиран @Model.LastEditedAtUtc?.ToLocalTime().ToString("dd.MM.yyyy HH:mm")</span>
+                }
+            </p>
+        </div>
+        <div class="detail-actions">
+            @if (Model.Data is not null)
+            {
+                <a class="btn-secondary" asp-action="Download" asp-route-id="@Model.Id">Сваляне JSON</a>
+            }
+            @if (Model.Status == DocumentStatus.Extracted || Model.Status == DocumentStatus.Failed)
+            {
+                <a class="btn-primary" asp-action="Edit" asp-route-id="@Model.Id">Редактирай</a>
+            }
+        </div>
+    </header>
+
+    <div class="detail-grid">
+        <aside class="detail-viewer">
+            @if (Model.IsImage)
+            {
+                <img src="@Url.Action("File", new { id = Model.Id })" alt="@Model.OriginalFileName" />
+            }
+            else
+            {
+                <iframe src="@Url.Action("File", new { id = Model.Id })" title="@Model.OriginalFileName"></iframe>
+            }
+        </aside>
+
+        <article class="detail-body">
+            @if (Model.Status == DocumentStatus.Failed && !string.IsNullOrEmpty(Model.FailureReason))
+            {
+                <section class="detail-failure">
+                    <h2>Грешка при обработка</h2>
+                    <pre>@Model.FailureReason</pre>
+                </section>
+            }
+            else if (Model.Status is DocumentStatus.Uploaded or DocumentStatus.Queued or DocumentStatus.Processing)
+            {
+                <section class="detail-pending">
+                    <p>Документът все още не е обработен. Статус: <strong>@StatusText(Model.Status)</strong>.</p>
+                </section>
+            }
+            else if (Model.Data is { } data)
+            {
+                <section class="detail-section">
+                    <h2>Документ</h2>
+                    <dl class="kv">
+                        <dt>Тип</dt><dd>@DocType(data.Extraction.DocumentType)</dd>
+                        <dt>Номер</dt><dd>@F(data.Extraction.Document.Number)</dd>
+                        <dt>Дата</dt><dd>@F(data.Extraction.Document.Date)</dd>
+                        <dt>Данъчно събитие</dt><dd>@F(data.Extraction.Document.TaxEventDate)</dd>
+                        <dt>Падеж</dt><dd>@F(data.Extraction.Document.DueDate)</dd>
+                        <dt>Валута</dt><dd>@F(data.Extraction.Document.Currency)</dd>
+                        <dt>Курс</dt><dd>@F(data.Extraction.Document.ExchangeRate)</dd>
+                        <dt>Място</dt><dd>@F(data.Extraction.Document.Place)</dd>
+                        @if (!string.IsNullOrWhiteSpace(data.Extraction.Document.Notes))
+                        {
+                            <dt>Бележки</dt><dd>@data.Extraction.Document.Notes</dd>
+                        }
+                    </dl>
+                </section>
+
+                <div class="detail-columns">
+                    <section class="detail-section">
+                        <h2>Доставчик</h2>
+                        @{ var s = data.Extraction.Supplier; }
+                        <dl class="kv">
+                            <dt>Име</dt><dd>@F(s.Name)</dd>
+                            <dt>ЕИК</dt><dd>@F(s.Eik)</dd>
+                            <dt>ДДС №</dt><dd>@F(s.VatNumber)</dd>
+                            <dt>Адрес</dt><dd>@F(s.Address)</dd>
+                            <dt>Град</dt><dd>@F(s.City)</dd>
+                            <dt>МОЛ</dt><dd>@F(s.Mol)</dd>
+                        </dl>
+                    </section>
+
+                    <section class="detail-section">
+                        <h2>Получател</h2>
+                        @{ var c = data.Extraction.Customer; }
+                        <dl class="kv">
+                            <dt>Име</dt><dd>@F(c.Name)</dd>
+                            <dt>ЕИК</dt><dd>@F(c.Eik)</dd>
+                            <dt>ДДС №</dt><dd>@F(c.VatNumber)</dd>
+                            <dt>Адрес</dt><dd>@F(c.Address)</dd>
+                            <dt>Град</dt><dd>@F(c.City)</dd>
+                            <dt>МОЛ</dt><dd>@F(c.Mol)</dd>
+                        </dl>
+                    </section>
+                </div>
+
+                @if (data.Extraction.LineItems.Count > 0)
+                {
+                    <section class="detail-section">
+                        <h2>Стоки и услуги</h2>
+                        <table class="lines-table">
+                            <thead>
+                                <tr>
+                                    <th>Описание</th>
+                                    <th class="num">Кол.</th>
+                                    <th>Ед.</th>
+                                    <th class="num">Ед. цена</th>
+                                    <th class="num">% отст.</th>
+                                    <th class="num">% ДДС</th>
+                                    <th class="num">Нето</th>
+                                    <th class="num">ДДС</th>
+                                    <th class="num">Бруто</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var line in data.Extraction.LineItems)
+                                {
+                                    <tr>
+                                        <td>@F(line.Description)</td>
+                                        <td class="num">@F(line.Quantity)</td>
+                                        <td>@F(line.Unit)</td>
+                                        <td class="num">@F(line.UnitPrice)</td>
+                                        <td class="num">@F(line.DiscountPct)</td>
+                                        <td class="num">@F(line.VatRate)</td>
+                                        <td class="num">@F(line.Net)</td>
+                                        <td class="num">@F(line.Vat)</td>
+                                        <td class="num">@F(line.Gross)</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </section>
+                }
+
+                <section class="detail-section">
+                    <h2>Суми</h2>
+                    @{ var t = data.Extraction.Totals; }
+                    <dl class="kv">
+                        <dt>Нето</dt><dd>@F(t.Net)</dd>
+                        <dt>ДДС</dt><dd>@F(t.Vat)</dd>
+                        <dt>Бруто</dt><dd>@F(t.Gross)</dd>
+                        @if (!string.IsNullOrWhiteSpace(t.Discount))
+                        {
+                            <dt>Отстъпка</dt><dd>@t.Discount</dd>
+                        }
+                        @if (!string.IsNullOrWhiteSpace(t.Rounding))
+                        {
+                            <dt>Закръгляне</dt><dd>@t.Rounding</dd>
+                        }
+                        @if (!string.IsNullOrWhiteSpace(t.AmountDue))
+                        {
+                            <dt>За плащане</dt><dd>@t.AmountDue</dd>
+                        }
+                    </dl>
+
+                    @if (data.Extraction.VatBreakdown.Count > 0)
+                    {
+                        <table class="lines-table compact">
+                            <thead>
+                                <tr><th>% ДДС</th><th class="num">Нето</th><th class="num">ДДС</th><th class="num">Бруто</th></tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var v in data.Extraction.VatBreakdown)
+                                {
+                                    <tr>
+                                        <td>@F(v.Rate)</td>
+                                        <td class="num">@F(v.Net)</td>
+                                        <td class="num">@F(v.Vat)</td>
+                                        <td class="num">@F(v.Gross)</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                </section>
+
+                @if (data.Extraction.Payments.Count > 0)
+                {
+                    <section class="detail-section">
+                        <h2>Плащане</h2>
+                        @foreach (var p in data.Extraction.Payments)
+                        {
+                            <dl class="kv">
+                                <dt>Метод</dt><dd>@PayMethod(p.Method)</dd>
+                                <dt>Сума</dt><dd>@F(p.Amount) @F(p.Currency)</dd>
+                                @if (!string.IsNullOrWhiteSpace(p.Iban))
+                                {
+                                    <dt>IBAN</dt><dd>@p.Iban</dd>
+                                }
+                                @if (!string.IsNullOrWhiteSpace(p.Bic))
+                                {
+                                    <dt>BIC</dt><dd>@p.Bic</dd>
+                                }
+                                @if (!string.IsNullOrWhiteSpace(p.BankName))
+                                {
+                                    <dt>Банка</dt><dd>@p.BankName</dd>
+                                }
+                            </dl>
+                        }
+                    </section>
+                }
+
+                @if (!string.IsNullOrWhiteSpace(data.Extraction.Fiscal.FiscalReceiptNumber)
+                    || !string.IsNullOrWhiteSpace(data.Extraction.Fiscal.FiscalDeviceNumber))
+                {
+                    <section class="detail-section">
+                        <h2>Фискална информация</h2>
+                        @{ var f = data.Extraction.Fiscal; }
+                        <dl class="kv">
+                            <dt>Касова бележка №</dt><dd>@F(f.FiscalReceiptNumber)</dd>
+                            <dt>Фискално у-во №</dt><dd>@F(f.FiscalDeviceNumber)</dd>
+                            @if (!string.IsNullOrWhiteSpace(f.Operator))
+                            {
+                                <dt>Оператор</dt><dd>@f.Operator</dd>
+                            }
+                        </dl>
+                    </section>
+                }
+
+                @if (Model.Extraction is { } meta)
+                {
+                    <section class="detail-section detail-meta">
+                        <h2>Обработка</h2>
+                        <dl class="kv">
+                            <dt>AI</dt><dd>@meta.Vendor / @meta.ModelName</dd>
+                            <dt>Време</dt><dd>@(meta.LatencyMs.HasValue ? $"{meta.LatencyMs} ms" : "—")</dd>
+                            <dt>Tokens</dt><dd>@meta.TokensIn → @meta.TokensOut</dd>
+                            <dt>Цена</dt><dd>@meta.EstimatedCostUsd.ToString("0.0000") USD</dd>
+                        </dl>
+                    </section>
+                }
+            }
+        </article>
+    </div>
+</section>

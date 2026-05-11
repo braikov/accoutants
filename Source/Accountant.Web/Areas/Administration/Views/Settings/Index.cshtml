@@ -1,0 +1,44 @@
+@model Accountant.Web.Areas.Administration.Controllers.SettingsViewModel
+@{
+    ViewData["Title"] = "Настройки";
+    var vendors = new[]
+    {
+        ("claude", "Claude (Anthropic)"),
+        ("codex", "Codex (OpenAI)"),
+        ("gemini", "Gemini (Google)"),
+    };
+    var savedAt = TempData["SavedAt"] as string;
+}
+
+<h1 class="h4 mb-3">Настройки</h1>
+
+@if (!string.IsNullOrEmpty(savedAt))
+{
+    <div class="alert alert-success py-2 small">Запазено.</div>
+}
+
+<form method="post" asp-action="Index">
+    @Html.AntiForgeryToken()
+    <div class="card">
+        <div class="card-body">
+            <h2 class="h6">AI vendor по подразбиране</h2>
+            <p class="small text-body-secondary">
+                Vendor-ът се ползва за всички нови извличания. Промяната не засяга вече обработени документи.
+            </p>
+            <div class="row g-2 align-items-end">
+                <div class="col-md-4">
+                    <label class="form-label small">Vendor</label>
+                    <select asp-for="DefaultVendor" class="form-select">
+                        @foreach (var v in vendors)
+                        {
+                            <option value="@v.Item1" selected="@(Model.DefaultVendor == v.Item1)">@v.Item2</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <button type="submit" class="btn btn-primary">Запази</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

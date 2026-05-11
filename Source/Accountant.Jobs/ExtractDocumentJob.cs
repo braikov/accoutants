@@ -2,6 +2,7 @@ using System.Globalization;
 using System.Text.Json;
 using Accountant.DataAccess;
 using Accountant.DataAccess.Entities.Product;
+using Accountant.DataAccess.Services;
 using Accountant.Jobs.Extraction;
 using Accountant.Storage.Abstractions;
 using Hangfire;
@@ -27,17 +28,20 @@ public sealed class ExtractDocumentJob
     private readonly AccountantDbContext _db;
     private readonly IFileStore _fileStore;
     private readonly IExtractorFactory _factory;
+    private readonly IAppSettingsService _settings;
     private readonly ILogger<ExtractDocumentJob> _logger;
 
     public ExtractDocumentJob(
         AccountantDbContext db,
         IFileStore fileStore,
         IExtractorFactory factory,
+        IAppSettingsService settings,
         ILogger<ExtractDocumentJob> logger)
     {
         _db = db;
         _fileStore = fileStore;
         _factory = factory;
+        _settings = settings;
         _logger = logger;
     }
 
@@ -63,7 +67,15 @@ public sealed class ExtractDocumentJob
         document.Status = DocumentStatus.Processing;
         await _db.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
-        var vendor = _factory.DefaultVendor;
+        // Vendor selection: DB-backed setting (admin UI) overrides the
+        // factory's config-based default. Falls back when admin hasn't
+        // picked one yet.
+        var configuredVendor = await _settings
+            .GetAsync(AppSettingKeys.ExtractionDefaultVendor, cancellationToken)
+            .ConfigureAwait(false);
+        var vendor = !string.IsNullOrWhiteSpace(configuredVendor)
+            ? configuredVendor
+            : _factory.DefaultVendor;
         var extractor = _factory.Create(vendor);
         var startedAt = DateTime.UtcNow;
 

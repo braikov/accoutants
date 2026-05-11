@@ -40,6 +40,7 @@ public class AccountantDbContext : IdentityDbContext<ApplicationUser, IdentityRo
     public DbSet<Document> Documents => Set<Document>();
     public DbSet<DocumentExtraction> DocumentExtractions => Set<DocumentExtraction>();
     public DbSet<DocumentCorrection> DocumentCorrections => Set<DocumentCorrection>();
+    public DbSet<ApplicationSetting> ApplicationSettings => Set<ApplicationSetting>();
 
     protected override void OnModelCreating(ModelBuilder mb)
     {

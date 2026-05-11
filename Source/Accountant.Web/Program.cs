@@ -1,5 +1,6 @@
 using System.Globalization;
 using Accountant.DataAccess;
+using Accountant.DataAccess.Services;
 using Accountant.Email;
 using Accountant.Identity.Models;
 using Accountant.Jobs;
@@ -102,6 +103,7 @@ builder.Services.AddScoped<IActiveTenantAccessor, ActiveTenantAccessor>();
 builder.Services.AddScoped<WorkspaceService>();
 builder.Services.AddScoped<AdminDashboardService>();
 builder.Services.AddScoped<AdminCatalogService>();
+builder.Services.AddScoped<IAppSettingsService, AppSettingsService>();
 builder.Services.AddHostedService<AdminRoleBootstrapService>();
 
 var app = builder.Build();

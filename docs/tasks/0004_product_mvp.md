@@ -290,13 +290,16 @@ I4. ✅ All three views use `_AdminLayout` with new sidebar nav entries. Shared 
 
 **Deliverable:** admin can drill into any document / user / tenant.
 
-### Phase J — Admin Settings + model default ⏳ Чакаща
+### Phase J — Admin Settings + model default ✅
 
-J1. `ApplicationSettings` entity OR `Identity:Vendor:Default` in `appsettings.json`. Decision: app settings DB row keyed by setting name. Allows admin to edit through UI without redeploy.
-J2. `Administration/Settings/Index` view: dropdown of available vendors, `Save` button.
-J3. `ExtractDocumentJob` reads the setting at run time.
+J1. ✅ [ApplicationSetting](../../Source/Accountant.DataAccess/Entities/Product/ApplicationSetting.cs) entity — key/value pair with `UpdatedAt` + `UpdatedByUserId` audit. Unique index on Key. Migration `20260511191701_AddApplicationSettings` applied.
+J2. ✅ [IAppSettingsService](../../Source/Accountant.DataAccess/Services/IAppSettingsService.cs) + impl in `Accountant.DataAccess.Services` (so `Accountant.Jobs` can reuse it without referencing Web). `AppSettingKeys.ExtractionDefaultVendor` constant.
+J3. ✅ [SettingsController](../../Source/Accountant.Web/Areas/Administration/Controllers/SettingsController.cs) — `Index` GET (load current setting), POST (validate vendor is one of claude/codex/gemini, save with `UpdatedByUserId`). `TempData["SavedAt"]` toast on success.
+J4. ✅ [Settings/Index.cshtml](../../Source/Accountant.Web/Areas/Administration/Views/Settings/Index.cshtml) — vendor dropdown + Save button, CoreUI card layout.
+J5. ✅ `ExtractDocumentJob` injects `IAppSettingsService` and reads `Extraction.DefaultVendor` at run time; falls back to `IExtractorFactory.DefaultVendor` (which reads `appsettings.json:Extraction:DefaultVendor`) when no admin override is set.
+J6. ✅ Sidebar nav entry "Настройки" added to `_AdminLayout`.
 
-**Deliverable:** admin can pick `Claude` vs `Codex` vs `Gemini` from a UI dropdown; new extractions use the chosen vendor.
+**Deliverable: ✅** Admin can switch the default vendor through `/Administration/Settings` and the next extraction job picks up the new value without redeploying.
 
 ### Phase K — Localization scaffolding ⏳ Чакаща
 

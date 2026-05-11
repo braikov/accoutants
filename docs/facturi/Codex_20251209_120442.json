@@ -10,7 +10,7 @@
     "image_quality": {
       "readability": "good",
       "issues": [
-        "low_contrast"
+        "stamp_obscures_data"
       ]
     }
   },
@@ -26,13 +26,13 @@
       "currency": "BGN",
       "exchange_rate": null,
       "place": null,
-      "notes": "Фактура generated from website request. Payment method: наложен платеж. ID document: 1630116. Proforma invoice ID field is blank."
+      "notes": "Документ генериран от заявка от сайта"
     },
     "supplier": {
       "name": "ЗОРА М.М.С. ООД",
       "eik": "121839316",
       "vat_number": "BG121839316",
-      "address": "Божурище, ул Летец Радул Милков 2 Индустриална зона",
+      "address": "Божурище, ул Летец Радул Милков 2 Индустриална зона\nБожурище код 2227",
       "city": "Божурище",
       "country": "BG",
       "mol": null
@@ -65,12 +65,12 @@
     ],
     "payments": [
       {
-        "method": "cash",
+        "method": "unknown",
         "amount": "655.99",
         "currency": "BGN",
-        "iban": null,
-        "bic": null,
-        "bank_name": null
+        "iban": "BG11UNCR966010ZORAMMS1",
+        "bic": "UNCRBGSF",
+        "bank_name": "УниКредит Булбанк-АД"
       }
     ],
     "line_items": [
@@ -90,7 +90,7 @@
     "fiscal": {
       "fiscal_receipt_number": null,
       "fiscal_device_number": null,
-      "operator": "Електронен магазин /1291",
+      "operator": "Електронен магазин / 1291",
       "qr_code": null
     }
   },
@@ -119,13 +119,13 @@
       },
       {
         "code": "iban_mod97",
-        "status": "skipped",
-        "message": "IBAN is null"
+        "status": "pass",
+        "message": ""
       },
       {
         "code": "bic_format",
-        "status": "skipped",
-        "message": "BIC is null"
+        "status": "pass",
+        "message": ""
       },
       {
         "code": "currency_iso",
@@ -165,7 +165,7 @@
       {
         "code": "image_quality_issue",
         "status": "warning",
-        "message": "issues: low_contrast"
+        "message": "issues: stamp_obscures_data"
       }
     ],
     "errors": [],
@@ -180,12 +180,12 @@
       "supplier": 0.98,
       "customer": 0.98,
       "totals": 0.99,
-      "line_items": 0.96
+      "line_items": 0.94
     },
     "extraction_warnings": [
-      "Document title and structure indicate invoice.",
-      "Payment method text is partially obscured but readable as наложен платеж.",
-      "Bottom-right handwritten digits are unclear; ID document captured from printed text only."
+      "The document is an invoice with receipt-style payment section; totals are consistent with net plus VAT.",
+      "Due date inferred from printed payment due date line.",
+      "One handwritten date mark at the bottom is partially unclear."
     ]
   },
   "evidence": {},
@@ -194,11 +194,11 @@
     "model": "gpt-5.4-mini",
     "pipeline": "vision_direct",
     "ocr_used": false,
-    "prompt_version": "codex-unified-v2-r13-2026-05-09-csharp",
-    "created_at": "2026-05-09T15:20:31Z",
-    "duration_ms": 5326,
-    "input_tokens": 4989,
-    "output_tokens": 607,
-    "cost_estimate_usd": "0.0065"
+    "prompt_version": "codex-unified-v2-r13-2026-05-10-csharp-targeted-fixes",
+    "created_at": "2026-05-10T08:21:54Z",
+    "duration_ms": 4742,
+    "input_tokens": 7238,
+    "output_tokens": 622,
+    "cost_estimate_usd": "0.0082"
   }
 }

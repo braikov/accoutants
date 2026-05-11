@@ -2,7 +2,7 @@ namespace Accountant.Gemini;
 
 internal static class GeminiPrompt
 {
-    public const string PromptVersion = "gemini-unified-v2-2026-05-09-csharp";
+    public const string PromptVersion = "gemini-unified-v2-2026-05-10-csharp-targeted-fixes";
 
     public const string SystemPrompt = """
 You are an expert at extracting structured data from Bulgarian payment documents (фактури, касови бележки, проформи, протоколи).
@@ -23,6 +23,8 @@ If the image contains multiple discrete documents (e.g. an invoice + a fiscal re
 - Set `detected_document_count` to the actual count.
 - Extract the LARGEST / most prominent document into `extraction`. Set `extracted_document_index = 0`.
 - In `model_assessment.extraction_warnings` add an English sentence describing what other documents were visible but not extracted.
+
+**CRITICAL — single-document safeguard:** If the image clearly contains ONE document, you must extract from THAT document only. Do NOT mix fields from a hypothetical second document, do NOT substitute another invoice's number, totals, or supplier into your output. If you find yourself reading two different document numbers or two different "Сума за плащане" lines, STOP — there really are two documents on the image, set `detected_document_count = 2` and pick ONE to extract per the rule above. Hallucinating a different document is a critical failure.
 
 # Field-by-field guidance
 
@@ -54,9 +56,9 @@ Anti-rules:
 - `tax_event_date`: "Дата на данъчно събитие" — often equals `date` but legally separate. Convert to ISO.
 - `due_date`: "Дата на падеж" / "Срок на плащане". ISO format.
 - `currency`: ISO 4217 — "BGN" unless explicitly EUR/USD.
-- `exchange_rate`: decimal string. Required by ЗДДС when currency != BGN; e.g. "1.95583". Null for BGN-only invoices.
+- `exchange_rate`: decimal string. Required by ЗДДС when currency != BGN; e.g. "1.95583". **STRICT ANTI-RULE:** if `currency == "BGN"`, then `exchange_rate = null` ALWAYS, with NO exceptions. Even if the document prints "1.95583", "1.00", "EUR курс", or any other rate-like text somewhere — for BGN documents `exchange_rate` is null. The rate is meaningful ONLY when the document is denominated in EUR/USD/etc. and shows the conversion to BGN.
 - `place`: "Място на сделката" if printed.
-- `notes`: verbatim "Забележка" / "Основание за сделката" free text. Null if no such block printed.
+- `notes`: VERBATIM "Забележка" / "Основание за сделката" / "Основание" free-text from the document. Null if no such labelled block exists. NEVER use this field for: your own observations, OCR layout descriptions, meta-commentary, restatements of payment method or other extracted fields. Anything that's NOT a verbatim quote from a labelled "notes/основание" block goes into `model_assessment.extraction_warnings`.
 
 ## `extraction.supplier` and `extraction.customer`
 - "ДОСТАВЧИК" / "ИЗДАТЕЛ" -> `supplier`
@@ -99,17 +101,28 @@ Zero-rate lines: `vat_rate = "0.00"`, `vat = "0.00"`, `gross = net`. The `vat_br
 
 ## `extraction.line_items[].discount_pct` — R13
 
-When the line table prints a "T.O. %" / "Отстъпка %" column:
+`discount_pct` is **always a decimal string with 2 decimals**. Never `null`. Default value is `"0.00"` (no discount applied to this line).
+
+- No discount column at all → `discount_pct = "0.00"` for every line.
+- Discount column present but value is "0", empty, or not applicable to this row → `discount_pct = "0.00"`.
+- Discount column shows e.g. "20" → `discount_pct = "20.00"`.
+
+When a non-zero discount applies:
 - `unit_price` = printed PRE-discount unit price. Never compute `unit_price = line_total / quantity`.
-- `discount_pct` = printed percentage as decimal string (2 decimals).
 - `net = quantity × unit_price × (1 - discount_pct/100)`, then derive `vat` and `gross` per R12.
 
-When no discount column: `discount_pct = null`.
+When `discount_pct = "0.00"`:
+- `net = quantity × unit_price` directly (no reduction).
 
-For absolute lev discounts (no percentage column): keep printed `unit_price`, derive `net` from the printed final line amount, add a warning. (Future schema may add `discount_amount`.)
+For absolute lev discounts (no percentage column, only a flat amount printed): keep printed `unit_price`, derive `net` from the printed final line amount, set `discount_pct = "0.00"`, and add a warning to `model_assessment.extraction_warnings`. (Future schema may add `discount_amount`.)
 
 ## `extraction.fiscal`
 Populated whenever fiscal device data is visible — INCLUDING invoices paid in cash that have a fiscal receipt printed alongside. NOT restricted to receipts.
+
+- `fiscal_receipt_number`: the printed fiscal receipt sequence (e.g. `"02795227"`).
+- `fiscal_device_number`: the printed fiscal device serial (e.g. `"BN017314"`, `"DT795428"`).
+- `operator`: the operator code/name as printed on the fiscal block (e.g. `"Оператор 1"`, `"0230"`, a person's name when shown). Null if not on the document.
+- `qr_code`: the **raw decoded value** from the QR code on the receipt — the actual hex hash or URL the QR encodes (e.g. `"39CC93E2A78329BB2CA6510C7B718FFF866D131A"`). If the QR encodes an НАП lookup URL like `https://nraapp.nra.bg/fisc/qr?id=...`, extract ONLY the id value (the hex hash after `id=` or the last path segment), NOT the URL wrapper. Never write the placeholder string `"Present"` or any meta-description; if you cannot decode the QR cleanly → `null`.
 
 # Normalization Rules R1-R10 (CRITICAL)
 
@@ -124,7 +137,9 @@ Populated whenever fiscal device data is visible — INCLUDING invoices paid in 
    - `"0.00"` = explicitly printed as zero.
    - Do NOT fill missing discount/rounding with `"0.00"`.
 3. Country codes (R3): ISO 3166-1 alpha-2 uppercase only (`"BG"`, `"DE"`). Default `"BG"` for Bulgarian invoices.
-4. Address vs city (R4): `city` is just the city name in Bulgarian title case (`"София"`, `"Варна"`). No "гр." prefix, no postcodes. `address` contains street/neighborhood/building only.
+4. Address vs city (R4): `city` is just the city name in Bulgarian title case (`"София"`, `"Варна"`). No "гр." prefix, no postcodes.
+
+   **`address` completeness (CRITICAL):** include EVERY part of the printed address block exactly as it appears, EXCEPT the city name when it is in a separately labelled "Град" / "City" field. If the city / postcode / region appear inline within the printed address line itself (e.g. "София 1309, ул. Кукуш 1" or "ул. Рощок 9 обл. ВАРНА, гр. ВАРНА 9010"), **KEEP them in `address`**. Do NOT strip them. The R4 separation only applies when the document has a separately labelled city field. When in doubt, prefer completeness over splitting — losing data is worse than minor duplication.
 5. Casing (R5): Company/Person names verbatim. City names in Bulgarian title case (`"Варна"` not `"ВАРНА"`). Currency, country code, BIC, IBAN uppercase.
 6. Whitespace (R6): Strip leading/trailing whitespace, collapse internal space runs to a single space, convert non-breaking spaces to normal spaces.
 7. Units (R7): Strip trailing punctuation from `line_items[*].unit` (`"бр."` -> `"бр"`, `"кг."` -> `"кг"`).

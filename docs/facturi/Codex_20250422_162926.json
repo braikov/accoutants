@@ -8,10 +8,8 @@
     "detected_document_count": 1,
     "extracted_document_index": 0,
     "image_quality": {
-      "readability": "good",
-      "issues": [
-        "low_contrast"
-      ]
+      "readability": null,
+      "issues": []
     }
   },
   "extraction": {
@@ -26,22 +24,22 @@
       "currency": "BGN",
       "exchange_rate": null,
       "place": "София",
-      "notes": "Фискален бон. Payment by debit card."
+      "notes": null
     },
     "supplier": {
-      "name": "БАУХАУС БЪЛГАРИЯ ЕООД",
-      "eik": "201611345",
-      "vat_number": "BG201611345",
+      "name": "БАУХАУС БЪЛГАРИЯ ЕООД ПЦ ЗА РДГ КД",
+      "eik": "201613145",
+      "vat_number": "BG201613145",
       "address": "гр. София, бул. История Славяновългарска N:17",
       "city": "София",
       "country": "BG",
       "mol": null
     },
     "customer": {
-      "name": "Инко Трейд - ЕООД",
+      "name": "Инко трейд - ЕООД",
       "eik": "206802564",
       "vat_number": "BG206802564",
-      "address": "ул. Рощок 9, обл. Варна, гр. Варна 9010",
+      "address": "ул. Рощок 9 обл. ВАРНА, гр. ВАРНА 9010",
       "city": "Варна",
       "country": "BG",
       "mol": null
@@ -60,7 +58,7 @@
         "net": "37.73",
         "vat": "7.55",
         "gross": "45.28",
-        "reason": null
+        "reason": "Данъчна група Б"
       }
     ],
     "payments": [
@@ -79,67 +77,67 @@
         "quantity": "0.063",
         "unit": "кг",
         "unit_price": "43.91",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
         "net": "2.77",
         "vat": "0.55",
-        "gross": "3.32",
-        "includes_vat": false
+        "gross": "2.77",
+        "includes_vat": true
       },
       {
         "description": "СФЕРИЧЕН КРАН М-Ж 1 ЦОЛ",
         "quantity": "1.000",
         "unit": "бр",
-        "unit_price": "19.90",
-        "discount_pct": null,
+        "unit_price": "19.99",
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
-        "net": "19.90",
-        "vat": "3.98",
-        "gross": "23.88",
-        "includes_vat": false
+        "net": "19.99",
+        "vat": "3.33",
+        "gross": "19.99",
+        "includes_vat": true
       },
       {
         "description": "ТЕФЛОНОВА ЛЕНТА ПРОФЕСИОНАЛНА",
         "quantity": "1.000",
         "unit": "бр",
         "unit_price": "3.99",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
         "net": "3.99",
-        "vat": "0.80",
-        "gross": "4.79",
-        "includes_vat": false
+        "vat": "0.67",
+        "gross": "3.99",
+        "includes_vat": true
       },
       {
         "description": "МЕСИНГОВ НИПЕЛ 1 ЦОЛ FERRO",
         "quantity": "2.000",
         "unit": "бр",
         "unit_price": "5.41",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
         "net": "10.82",
-        "vat": "2.16",
-        "gross": "12.98",
-        "includes_vat": false
+        "vat": "1.80",
+        "gross": "10.82",
+        "includes_vat": true
       },
       {
-        "description": "СВРЕДЛО BOSCH EXPERT HEX-9 MS",
+        "description": "СВРЕДЛО BOSCH EXPERT HEX-9 МС",
         "quantity": "1.000",
         "unit": "бр",
         "unit_price": "7.80",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
         "net": "7.80",
-        "vat": "1.56",
-        "gross": "9.36",
-        "includes_vat": false
+        "vat": "1.30",
+        "gross": "7.80",
+        "includes_vat": true
       }
     ],
     "fiscal": {
-      "fiscal_receipt_number": null,
-      "fiscal_device_number": null,
-      "operator": null,
-      "qr_code": null
+      "fiscal_receipt_number": "02977927",
+      "fiscal_device_number": "DT795428",
+      "operator": "D7795428-0241-0720591",
+      "qr_code": "39CC93E2A78329BB2CA510C7B718FFF866D131A"
     }
   },
   "validation": {
@@ -147,8 +145,8 @@
     "checks": [
       {
         "code": "supplier_eik_checksum",
-        "status": "pass",
-        "message": ""
+        "status": "fail",
+        "message": "EIK '201613145' fails Bulgarian checksum."
       },
       {
         "code": "customer_eik_checksum",
@@ -208,35 +206,25 @@
       {
         "code": "line_items_sum",
         "status": "fail",
-        "message": "sum(net)=45.28, totals.net=37.73; sum(vat)=9.05, totals.vat=7.55; sum(gross)=54.33, totals.gross=45.28"
-      },
-      {
-        "code": "image_quality_issue",
-        "status": "warning",
-        "message": "issues: low_contrast"
+        "message": "sum(net)=45.37, totals.net=37.73; sum(vat)=7.65, totals.vat=7.55; sum(gross)=45.37, totals.gross=45.28"
       }
     ],
     "errors": [
+      "supplier_eik_checksum",
       "line_items_sum"
     ],
-    "warnings": [
-      "image_quality_issue"
-    ]
+    "warnings": []
   },
   "model_assessment": {
     "confidence": {
-      "overall": 0.91,
-      "document": 0.98,
-      "supplier": 0.96,
-      "customer": 0.92,
-      "totals": 0.97,
-      "line_items": 0.88
+      "overall": null,
+      "document": null,
+      "supplier": null,
+      "customer": null,
+      "totals": null,
+      "line_items": null
     },
-    "extraction_warnings": [
-      "Receipt values are line-printed and some arithmetic was derived from the VAT rate.",
-      "Customer name is partially softened but readable.",
-      "This image contains a single visible document."
-    ]
+    "extraction_warnings": []
   },
   "evidence": {},
   "provider": {
@@ -244,11 +232,11 @@
     "model": "gpt-5.4-mini",
     "pipeline": "vision_direct",
     "ocr_used": false,
-    "prompt_version": "codex-unified-v2-r13-2026-05-09-csharp",
-    "created_at": "2026-05-09T15:19:06Z",
-    "duration_ms": 7091,
-    "input_tokens": 3744,
-    "output_tokens": 783,
-    "cost_estimate_usd": "0.0063"
+    "prompt_version": "codex-unified-v2-r13-2026-05-10-csharp-targeted-fixes",
+    "created_at": "2026-05-10T08:20:35Z",
+    "duration_ms": 5837,
+    "input_tokens": 5993,
+    "output_tokens": 844,
+    "cost_estimate_usd": "0.0083"
   }
 }

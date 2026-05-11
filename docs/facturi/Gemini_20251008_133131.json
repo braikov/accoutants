@@ -30,7 +30,7 @@
       "name": "КОРПАРТС ЕООД",
       "eik": "204644699",
       "vat_number": "BG204644699",
-      "address": "ж.к. \"Белите брези\" бл.10",
+      "address": "ж.к.\"Белите брези\" бл.10",
       "city": "София",
       "country": "BG",
       "mol": "НИКОЛАЙ ГЕОРГИЕВ"
@@ -39,7 +39,7 @@
       "name": "МЕД ТЕК ЛАБ ЕООД",
       "eik": "201556176",
       "vat_number": "BG201556176",
-      "address": "ул. Рощок № 9",
+      "address": "ул.Рощок № 9",
       "city": "Варна",
       "country": "BG",
       "mol": "Габриела Петрова"
@@ -77,7 +77,7 @@
         "quantity": "1.000",
         "unit": "Компл",
         "unit_price": "1541.667",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
         "net": "1541.67",
         "vat": "308.33",
@@ -181,11 +181,11 @@
     "model": "gemini-flash-latest",
     "pipeline": "vision_direct",
     "ocr_used": false,
-    "prompt_version": "gemini-unified-v2-2026-05-09-csharp",
-    "created_at": "2026-05-09T15:32:44Z",
-    "duration_ms": 13723,
-    "input_tokens": 4469,
-    "output_tokens": 1004,
-    "cost_estimate_usd": "0.0006"
+    "prompt_version": "gemini-unified-v2-2026-05-10-csharp-targeted-fixes",
+    "created_at": "2026-05-10T08:30:11Z",
+    "duration_ms": 13706,
+    "input_tokens": 5180,
+    "output_tokens": 1002,
+    "cost_estimate_usd": "0.0056"
   }
 }

@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Braikov.Identity.Core" Version="0.1.0" />
+    <PackageReference Include="MailKit" Version="4.16.0" />
+    <PackageReference Include="RazorLight" Version="2.3.1" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="9.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.0" />
+    <!-- Override transitive vulnerable Microsoft.Extensions.Caching.Memory 6.0.0 pulled by RazorLight (NU1903). -->
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="9.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Templates\**\*.cshtml" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+</Project>

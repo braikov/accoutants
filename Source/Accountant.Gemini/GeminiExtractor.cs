@@ -13,8 +13,13 @@ public sealed class GeminiExtractorOptions
 {
     public string ApiKey { get; init; } = "";
     public string Model { get; init; } = "gemini-flash-latest";
-    public decimal CostInputPerMtok { get; init; } = 0.075m;
-    public decimal CostOutputPerMtok { get; init; } = 0.30m;
+    // Published rates per 1M tokens for Gemini 3 Flash. The `gemini-flash-latest` alias
+    // currently resolves to Gemini 3 Flash (released Dec 2025; verified 2026-05-10).
+    // If the alias migrates to a newer Flash family member, update these rates.
+    // Override via Gemini:CostInputPerMtok / Gemini:CostOutputPerMtok in user-secrets
+    // when switching to Pro, Flash-Lite, or pinning an older Flash version.
+    public decimal CostInputPerMtok { get; init; } = 0.50m;
+    public decimal CostOutputPerMtok { get; init; } = 3.00m;
 }
 
 public sealed class GeminiExtractor : IAccountingDocumentExtractor
@@ -88,10 +93,14 @@ public sealed class GeminiExtractor : IAccountingDocumentExtractor
 
         var inputTokens = response.UsageMetadata?.PromptTokenCount ?? 0;
         var outputTokens = response.UsageMetadata?.CandidatesTokenCount ?? 0;
+        // Capture the actual model that ran. `gemini-flash-latest` is an alias that
+        // resolves to the current Flash version (e.g. Gemini 3 Flash); pin the actual
+        // version returned for the audit trail.
+        var actualModel = response.ModelVersion ?? _options.Model;
 
         var jsonText = response.Text ?? throw new InvalidOperationException("Gemini returned empty text.");
         
-        var modelInput = DeserializeModelInput(jsonText);
+        var modelInput = ModelInputSanitizer.Sanitize(DeserializeModelInput(jsonText));
 
         var source = new Accountant.Contracts.Source
         {
@@ -109,7 +118,7 @@ public sealed class GeminiExtractor : IAccountingDocumentExtractor
         var provider = new Provider
         {
             Engine = Engine.Google,
-            Model = _options.Model,
+            Model = actualModel,
             Pipeline = Pipeline.VisionDirect,
             OcrUsed = false,
             PromptVersion = GeminiPrompt.PromptVersion,

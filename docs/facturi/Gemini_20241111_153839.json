@@ -23,14 +23,14 @@
       "due_date": "2024-11-11",
       "currency": "BGN",
       "exchange_rate": null,
-      "place": "София",
-      "notes": "Плащане по документ N 656479304 / 11.11.2024"
+      "place": null,
+      "notes": null
     },
     "supplier": {
       "name": "А1 България ЕАД",
       "eik": "131468980",
       "vat_number": "BG131468980",
-      "address": "ул. Кукуш 1",
+      "address": "София 1309, ул. Кукуш 1",
       "city": "София",
       "country": "BG",
       "mol": null
@@ -39,7 +39,7 @@
       "name": "Инко трейд ЕООД",
       "eik": "206802564",
       "vat_number": "BG206802564",
-      "address": "кв. 23-ти Микрорайон (Китайската стена)",
+      "address": "гр. Варна, кв. 23-ти Микрорайон (Китайската стена",
       "city": "Варна",
       "country": "BG",
       "mol": "Мариана Кинчова Петрова"
@@ -49,7 +49,7 @@
       "vat": "283.33",
       "gross": "1699.98",
       "discount": null,
-      "rounding": null,
+      "rounding": "-0.01",
       "amount_due": "1699.98"
     },
     "vat_breakdown": [
@@ -77,7 +77,7 @@
         "quantity": "1.000",
         "unit": "бр",
         "unit_price": "1769.99",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
         "net": "1474.99",
         "vat": "295.00",
@@ -89,7 +89,7 @@
         "quantity": "1.000",
         "unit": "бр",
         "unit_price": "-50.00",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
         "net": "-41.67",
         "vat": "-8.33",
@@ -101,7 +101,7 @@
         "quantity": "1.000",
         "unit": "бр",
         "unit_price": "-20.00",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
         "net": "-16.67",
         "vat": "-3.33",
@@ -110,10 +110,10 @@
       }
     ],
     "fiscal": {
-      "fiscal_receipt_number": "00000312287",
-      "fiscal_device_number": "A1BG4323",
-      "operator": "Nikolov",
-      "qr_code": "Present"
+      "fiscal_receipt_number": "4323",
+      "fiscal_device_number": null,
+      "operator": "Nikolou",
+      "qr_code": "8CE9DE3343EA440EA0DC85F4A3080BAE8374E96"
     }
   },
   "validation": {
@@ -197,16 +197,17 @@
   },
   "model_assessment": {
     "confidence": {
-      "overall": 0.98,
+      "overall": 0.97,
       "document": 1,
-      "supplier": 1,
-      "customer": 1,
-      "totals": 1,
+      "supplier": 0.98,
+      "customer": 0.98,
+      "totals": 0.98,
       "line_items": 0.95
     },
     "extraction_warnings": [
-      "Image contains a fiscal receipt stapled to the invoice; data from both was used to reconcile line item prices and payment method.",
-      "Sum of line item VAT (283.34) differs from total VAT (283.33) by 0.01 due to rounding."
+      "The image contains an invoice and an attached fiscal receipt. Data was extracted from the invoice, with fiscal details from the receipt included in the fiscal block.",
+      "Line item prices were derived from the attached fiscal receipt as they were obscured on the invoice body.",
+      "A rounding of -0.01 was applied to match the final gross amount printed on the receipt."
     ]
   },
   "evidence": {},
@@ -215,11 +216,11 @@
     "model": "gemini-flash-latest",
     "pipeline": "vision_direct",
     "ocr_used": false,
-    "prompt_version": "gemini-unified-v2-2026-05-09-csharp",
-    "created_at": "2026-05-09T15:21:59Z",
-    "duration_ms": 14668,
-    "input_tokens": 4445,
-    "output_tokens": 1320,
-    "cost_estimate_usd": "0.0007"
+    "prompt_version": "gemini-unified-v2-2026-05-10-csharp-targeted-fixes",
+    "created_at": "2026-05-10T08:22:42Z",
+    "duration_ms": 28540,
+    "input_tokens": 5156,
+    "output_tokens": 1341,
+    "cost_estimate_usd": "0.0066"
   }
 }

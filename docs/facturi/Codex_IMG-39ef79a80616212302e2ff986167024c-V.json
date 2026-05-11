@@ -25,23 +25,23 @@
       "due_date": null,
       "currency": "BGN",
       "exchange_rate": null,
-      "place": "Варна",
-      "notes": null
+      "place": "ВАРНА",
+      "notes": "ДОСТАВЧИКЪТ има право да изисква от КЛИЕНТА авансово плащане за доставка на резервна част, която не е налична в складовете на ДОСТАВЧИКА. Доставчикът има право да изисква авансово плащане в размер на 50% за индивидуална поръчка като капаро. Ако клиентът, след като е бил надлежно уведомен, не потърси частите или аксесоарите в срок от 30 дни от тяхното пристигане в склада, или желае да анулира сделката по причини некасаещи и без вина на доставчика, авансът не подлежи на връщане."
     },
     "supplier": {
       "name": "ЕКСПЕРТ СЕРВИЗ ЕООД",
       "eik": "202683671",
       "vat_number": "BG202683671",
-      "address": "гр. Варна, бул. Владислав Варненчик №277",
+      "address": "гр. Варна, бул. Владислав Варненчик №277, тел:052/554040, 052/554045, e-mail:sales_varr",
       "city": "Варна",
       "country": "BG",
-      "mol": "СВИЛЕН КО"
+      "mol": "СВИЛЕН КОЛ"
     },
     "customer": {
       "name": "МЕДТЕКЛАБ ЕООД",
       "eik": "201556176",
       "vat_number": "BG201556176",
-      "address": "ВАРНА, УЛ. РОЩОК №9",
+      "address": "ВАРНА  УЛ. РОЩОК №9",
       "city": "Варна",
       "country": "BG",
       "mol": "ГАБРИЕЛА ПЕТРОВА"
@@ -79,7 +79,7 @@
         "quantity": "1.000",
         "unit": "часа",
         "unit_price": "100.00",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
         "net": "100.00",
         "vat": "20.00",
@@ -91,7 +91,7 @@
         "quantity": "1.000",
         "unit": "бр",
         "unit_price": "61.31",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
         "net": "61.31",
         "vat": "12.26",
@@ -100,10 +100,10 @@
       }
     ],
     "fiscal": {
-      "fiscal_receipt_number": "005830",
+      "fiscal_receipt_number": "00058130",
       "fiscal_device_number": "DV432107",
-      "operator": "01",
-      "qr_code": "BG 005830 25.03.2025 14:13:58"
+      "operator": "СЕРВИЗ 2",
+      "qr_code": "BG  DV432107  37?0H-90555-150C0-B0B80  C413H-C0B91-0B3D4-97804"
     }
   },
   "validation": {
@@ -195,15 +195,15 @@
     "confidence": {
       "overall": 0.92,
       "document": 0.99,
-      "supplier": 0.94,
+      "supplier": 0.95,
       "customer": 0.94,
-      "totals": 0.98,
+      "totals": 0.99,
       "line_items": 0.88
     },
     "extraction_warnings": [
-      "A fiscal receipt is attached to the invoice.",
-      "The supplier name is partially obscured by the receipt.",
-      "The stamp obscures some text at the bottom."
+      "Fiscal receipt visible on top of invoice; retail receipt economics may apply to the printed receipt, but extracted document is the main invoice.",
+      "Supplier VAT number and EIK are clearly readable.",
+      "Customer EIK is clearly readable."
     ]
   },
   "evidence": {},
@@ -212,11 +212,11 @@
     "model": "gpt-5.4-mini",
     "pipeline": "vision_direct",
     "ocr_used": false,
-    "prompt_version": "codex-unified-v2-r13-2026-05-09-csharp",
-    "created_at": "2026-05-09T15:20:47Z",
-    "duration_ms": 4700,
-    "input_tokens": 4380,
-    "output_tokens": 612,
-    "cost_estimate_usd": "0.0060"
+    "prompt_version": "codex-unified-v2-r13-2026-05-10-csharp-targeted-fixes",
+    "created_at": "2026-05-10T08:22:09Z",
+    "duration_ms": 6139,
+    "input_tokens": 6629,
+    "output_tokens": 835,
+    "cost_estimate_usd": "0.0087"
   }
 }

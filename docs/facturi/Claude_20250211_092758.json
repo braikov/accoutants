@@ -21,7 +21,7 @@
     "document": {
       "number": "0000006137",
       "date": "2025-02-07",
-      "tax_event_date": null,
+      "tax_event_date": "2025-02-07",
       "due_date": "2025-02-07",
       "currency": "BGN",
       "exchange_rate": null,
@@ -32,7 +32,7 @@
       "name": "НОКСЕС ЕООД",
       "eik": "202549149",
       "vat_number": "BG202549149",
-      "address": "кв. Лозенец, ул. Люботрън 76, вх. А, ет.2, ап.4",
+      "address": "гр. София, кв. Лозенец, ул. Люботрън 76, вх. А, ет.2, ап.4",
       "city": "София",
       "country": "BG",
       "mol": "Диан Жилиев"
@@ -41,7 +41,7 @@
       "name": "Инко трейд ЕООД",
       "eik": "206802564",
       "vat_number": "BG206802564",
-      "address": "р-н Приморски, ул. Рощок, 9",
+      "address": "гр. Варна, р-н Приморски, ул. Рощок, 9",
       "city": "Варна",
       "country": "BG",
       "mol": "Мариана Кинчова Петрова"
@@ -70,7 +70,7 @@
         "currency": "BGN",
         "iban": "BG69FINV91501015880757",
         "bic": "FINVBGSF",
-        "bank_name": "ПИБАД"
+        "bank_name": "ПИБ АД"
       }
     ],
     "line_items": [
@@ -177,15 +177,14 @@
     "confidence": {
       "overall": 0.95,
       "document": 0.99,
-      "supplier": 0.98,
+      "supplier": 0.97,
       "customer": 0.98,
       "totals": 0.99,
       "line_items": 0.97
     },
     "extraction_warnings": [
-      "The company stamp partially obscures the IBAN and bank details area; IBAN BG69FINV91501015880757 read with moderate confidence — last few digits may be affected by stamp overlay.",
-      "Line item has a TO (discount) column showing 0.00; discount_pct set to 0.00 accordingly.",
-      "Bank name 'ПИБАД' may be 'ПИББАД' or another abbreviation — partially obscured by stamp."
+      "Company stamp partially obscures the bottom-right area including parts of the IBAN; last digits of IBAN read as BG69FINV91501015880757 but a couple of digits may be uncertain due to stamp overlap.",
+      "Bank name printed as 'ПИБАД' (no space); interpreted as 'ПИБ АД' (First Investment Bank)."
     ]
   },
   "evidence": {
@@ -210,7 +209,7 @@
       "confidence": 0.99
     },
     "supplier.address": {
-      "text": "гр. София, кв. Лозенец, ул. Люботрън 76, вх. А, ет.2, ап.4",
+      "text": "гр. София, кв. Лозенец, ул. Люботрън 76, вх. А , ет.2, ап.4",
       "confidence": 0.97
     },
     "supplier.eik": {
@@ -230,8 +229,8 @@
       "confidence": 0.99
     },
     "customer.address": {
-      "text": "гр. Варна, р-н Приморски, ул. Рощок, 9",
-      "confidence": 0.97
+      "text": "Адрес: гр. Варна, р-н Приморски, ул. Рощок, 9",
+      "confidence": 0.98
     },
     "customer.eik": {
       "text": "ИН/ЕГН: 206802564",
@@ -243,27 +242,23 @@
     },
     "customer.mol": {
       "text": "МОЛ: Мариана Кинчова Петрова",
-      "confidence": 0.99
+      "confidence": 0.98
     },
     "line_items[0].description": {
       "text": "Софтуерни ремонти РС",
       "confidence": 0.99
     },
-    "line_items[0].unit": {
-      "text": "бр.",
-      "confidence": 0.99
-    },
     "line_items[0].quantity": {
-      "text": "1",
+      "text": "Кол. 1",
       "confidence": 0.99
     },
     "line_items[0].unit_price": {
-      "text": "66.667",
+      "text": "Цена 66.667",
       "confidence": 0.98
     },
     "line_items[0].net": {
-      "text": "66.67",
-      "confidence": 0.99
+      "text": "Стойност 66.67",
+      "confidence": 0.98
     },
     "totals.net": {
       "text": "Данъчна основа 66.67",
@@ -282,16 +277,16 @@
       "confidence": 0.99
     },
     "payments[0].bank_name": {
-      "text": "Банка ПИБАД",
+      "text": "Банка ПИБ АД",
       "confidence": 0.95
     },
     "payments[0].bic": {
       "text": "BIC: FINVBGSF",
-      "confidence": 0.97
+      "confidence": 0.98
     },
     "payments[0].iban": {
       "text": "IBAN: BG69FINV91501015880757",
-      "confidence": 0.9
+      "confidence": 0.93
     }
   },
   "provider": {
@@ -299,11 +294,11 @@
     "model": "claude-sonnet-4-6",
     "pipeline": "vision_direct",
     "ocr_used": false,
-    "prompt_version": "claude-unified-v2-2026-05-09-csharp",
-    "created_at": "2026-05-09T15:20:54Z",
-    "duration_ms": 30045,
-    "input_tokens": 6743,
-    "output_tokens": 1993,
-    "cost_estimate_usd": "0.0501"
+    "prompt_version": "claude-unified-v2-2026-05-10-csharp-targeted-fixes",
+    "created_at": "2026-05-10T08:16:01Z",
+    "duration_ms": 30309,
+    "input_tokens": 9844,
+    "output_tokens": 1988,
+    "cost_estimate_usd": "0.0594"
   }
 }

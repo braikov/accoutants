@@ -1,0 +1,26 @@
+@model ResendConfirmationViewModel
+@{
+    ViewData["Title"] = "Изпрати наново имейл за потвърждение";
+}
+
+<div class="auth-card">
+    <h1>Не получи имейл за потвърждение?</h1>
+    <p class="lead">Въведете адреса си — ще ви изпратим нов линк и код.</p>
+
+    <form asp-action="ResendConfirmation" method="post">
+        <input type="hidden" asp-for="ReturnUrl" />
+        <div asp-validation-summary="ModelOnly" class="validation-summary-errors"></div>
+
+        <div class="field">
+            <label asp-for="Email"></label>
+            <input asp-for="Email" autocomplete="email" autofocus />
+            <span asp-validation-for="Email" class="field-validation-error"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Изпрати наново</button>
+    </form>
+
+    <div class="auth-meta">
+        <a asp-action="Login">Назад към вход</a>
+    </div>
+</div>

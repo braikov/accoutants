@@ -9,7 +9,9 @@
     "extracted_document_index": 0,
     "image_quality": {
       "readability": "good",
-      "issues": []
+      "issues": [
+        "heavy_shadow_over_text"
+      ]
     }
   },
   "extraction": {
@@ -24,13 +26,13 @@
       "currency": "BGN",
       "exchange_rate": null,
       "place": "Варна",
-      "notes": "Основание: УНП: ZK143176-0205-0102740 пос обб. Начин на плащане: Чрез ПОС терминал; Банка (Банка: ОББ, IBAN: BG28UBBS80021009349550)"
+      "notes": "УНП: ZK143176-0205-0102740 пос обб"
     },
     "supplier": {
       "name": "Ардес Информационни Технологии ЕООД",
       "eik": "103857070",
       "vat_number": "BG103857070",
-      "address": "гр. Варна, бул. Сливница 118, ет.1, ап.1, Варна, 9000",
+      "address": "гр. Варна, бул. Сливница 118, ет.1, ап.1, Варна 9000",
       "city": "Варна",
       "country": "BG",
       "mol": "Димитър Димитров"
@@ -63,21 +65,21 @@
     ],
     "payments": [
       {
-        "method": "card",
+        "method": "bank_transfer",
         "amount": "44.00",
         "currency": "BGN",
         "iban": "BG28UBBS80021009349550",
-        "bic": "UBBSBGSF",
+        "bic": null,
         "bank_name": "ОББ"
       }
     ],
     "line_items": [
       {
-        "description": "Мрежови продукти ASUS USB-BT500 Bluetooth 5.0 U - 90IG05J0-MOOR00 - SN: SCIG43306687CEG",
+        "description": "Мрежови продукти ASUS USB-BT500 Bluetooth 5.0 U - 90IG05J0-MO0R00 - SN: SCIG43306687CEG",
         "quantity": "1.000",
         "unit": "бр",
         "unit_price": "26.6667",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
         "net": "26.67",
         "vat": "5.33",
@@ -89,7 +91,7 @@
         "quantity": "1.000",
         "unit": "бр",
         "unit_price": "10.0000",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
         "net": "10.00",
         "vat": "2.00",
@@ -105,7 +107,7 @@
     }
   },
   "validation": {
-    "needs_review": false,
+    "needs_review": true,
     "checks": [
       {
         "code": "supplier_eik_checksum",
@@ -134,8 +136,8 @@
       },
       {
         "code": "bic_format",
-        "status": "pass",
-        "message": ""
+        "status": "skipped",
+        "message": "BIC is null"
       },
       {
         "code": "currency_iso",
@@ -171,21 +173,31 @@
         "code": "line_items_sum",
         "status": "pass",
         "message": "all populated component sums match totals"
+      },
+      {
+        "code": "image_quality_issue",
+        "status": "warning",
+        "message": "issues: heavy_shadow_over_text"
       }
     ],
     "errors": [],
-    "warnings": []
+    "warnings": [
+      "image_quality_issue"
+    ]
   },
   "model_assessment": {
     "confidence": {
       "overall": 0.95,
       "document": 0.99,
-      "supplier": 0.99,
-      "customer": 0.99,
-      "totals": 0.98,
-      "line_items": 0.92
+      "supplier": 0.98,
+      "customer": 0.97,
+      "totals": 0.99,
+      "line_items": 0.94
     },
-    "extraction_warnings": []
+    "extraction_warnings": [
+      "Line items set as net prices because this is a standard invoice layout.",
+      "Payment method inferred from bank/IBAN line."
+    ]
   },
   "evidence": {},
   "provider": {
@@ -193,11 +205,11 @@
     "model": "gpt-5.4-mini",
     "pipeline": "vision_direct",
     "ocr_used": false,
-    "prompt_version": "codex-unified-v2-r13-2026-05-09-csharp",
-    "created_at": "2026-05-09T15:19:29Z",
-    "duration_ms": 7688,
-    "input_tokens": 4921,
-    "output_tokens": 681,
-    "cost_estimate_usd": "0.0068"
+    "prompt_version": "codex-unified-v2-r13-2026-05-10-csharp-targeted-fixes",
+    "created_at": "2026-05-10T08:20:54Z",
+    "duration_ms": 6870,
+    "input_tokens": 7170,
+    "output_tokens": 670,
+    "cost_estimate_usd": "0.0084"
   }
 }

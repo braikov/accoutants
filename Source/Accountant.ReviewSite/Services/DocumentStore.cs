@@ -88,6 +88,240 @@ public sealed class DocumentStore
             differences);
     }
 
+    public GroundTruthEditDetail? GetGroundTruthEdit(string fileName)
+    {
+        var imagePath = ResolveImagePath(fileName);
+        if (imagePath is null) return null;
+
+        var stem = Path.GetFileNameWithoutExtension(imagePath);
+        var docs = GetDocuments();
+        var idx = docs.ToList().FindIndex(d => d.FileName.Equals(fileName, StringComparison.OrdinalIgnoreCase));
+
+        var groundTruthPath = GetGroundTruthFilePath(stem);
+        var gtRoot = File.Exists(groundTruthPath) ? JsonNode.Parse(File.ReadAllText(groundTruthPath)) : null;
+
+        var vendorExtractions = AiNames.ToDictionary(
+            ai => ai,
+            ai =>
+            {
+                var path = GetResultPath(stem, ai);
+                if (!File.Exists(path)) return null;
+                try
+                {
+                    var root = JsonNode.Parse(File.ReadAllText(path));
+                    return root?["extraction"];
+                }
+                catch (JsonException) { return (JsonNode?)null; }
+            });
+
+        // Collect every leaf path that appears in any source.
+        var paths = new SortedSet<string>(StringComparer.Ordinal);
+        CollectLeafPaths(gtRoot, "extraction", paths);
+        foreach (var (_, node) in vendorExtractions)
+            CollectLeafPaths(node, "extraction", paths);
+
+        var rows = paths
+            .OrderBy(EditRowPriority)
+            .ThenBy(p => p, StringComparer.Ordinal)
+            .Select(p =>
+            {
+                var rel = p[("extraction.".Length)..];
+                var gt = ValueAsString(WalkPath(gtRoot, rel));
+                var vendors = AiNames.ToDictionary(
+                    ai => ai,
+                    ai => ValueAsString(WalkPath(vendorExtractions[ai], rel)));
+                var canonValues = vendors.Values.Append(gt)
+                    .Select(CanonicalForComparison)
+                    .Distinct(StringComparer.OrdinalIgnoreCase);
+                return new EditRow(p, gt, vendors, canonValues.Count() > 1);
+            })
+            .ToList();
+
+        return new GroundTruthEditDetail(
+            fileName,
+            stem,
+            idx > 0 ? docs[idx - 1].FileName : null,
+            idx >= 0 && idx < docs.Count - 1 ? docs[idx + 1].FileName : null,
+            File.Exists(groundTruthPath),
+            rows);
+    }
+
+    public bool SaveGroundTruth(string stem, IReadOnlyDictionary<string, string?> updates)
+    {
+        var groundTruthPath = GetGroundTruthFilePath(stem);
+        Directory.CreateDirectory(Path.GetDirectoryName(groundTruthPath)!);
+
+        JsonNode root = File.Exists(groundTruthPath)
+            ? JsonNode.Parse(File.ReadAllText(groundTruthPath)) ?? new JsonObject()
+            : new JsonObject();
+
+        foreach (var (rawPath, rawValue) in updates)
+        {
+            var path = rawPath.StartsWith("extraction.") ? rawPath["extraction.".Length..] : rawPath;
+            SetPath(root, path, rawValue);
+        }
+
+        // Backup once
+        var bak = groundTruthPath + ".bak";
+        if (File.Exists(groundTruthPath) && !File.Exists(bak))
+            File.Copy(groundTruthPath, bak);
+
+        File.WriteAllText(groundTruthPath, root.ToJsonString(GroundTruthWriteOptions) + "\n");
+        return true;
+    }
+
+    private string GetGroundTruthFilePath(string stem) =>
+        Path.Combine(ImageFolder, "ground_truth", $"{stem}.ground_truth.json");
+
+    private static readonly JsonSerializerOptions GroundTruthWriteOptions = new()
+    {
+        WriteIndented = true,
+        Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+    };
+
+    private static void CollectLeafPaths(JsonNode? node, string path, ICollection<string> paths)
+    {
+        if (node is JsonObject obj)
+        {
+            foreach (var kvp in obj)
+            {
+                if (kvp.Value is JsonObject || kvp.Value is JsonArray)
+                    CollectLeafPaths(kvp.Value, $"{path}.{kvp.Key}", paths);
+                else
+                    paths.Add($"{path}.{kvp.Key}");
+            }
+        }
+        else if (node is JsonArray arr)
+        {
+            for (var i = 0; i < arr.Count; i++)
+            {
+                var child = arr[i];
+                if (child is JsonObject || child is JsonArray)
+                    CollectLeafPaths(child, $"{path}[{i}]", paths);
+                else
+                    paths.Add($"{path}[{i}]");
+            }
+        }
+        else
+        {
+            paths.Add(path);
+        }
+    }
+
+    private static JsonNode? WalkPath(JsonNode? root, string relativePath)
+    {
+        if (root is null) return null;
+        JsonNode? cur = root;
+        foreach (var seg in SplitJsonPath(relativePath))
+        {
+            if (cur is null) return null;
+            if (seg.StartsWith('['))
+            {
+                var idx = int.Parse(seg[1..^1]);
+                if (cur is JsonArray arr && idx < arr.Count) cur = arr[idx];
+                else return null;
+            }
+            else
+            {
+                if (cur is JsonObject obj && obj.ContainsKey(seg)) cur = obj[seg];
+                else return null;
+            }
+        }
+        return cur;
+    }
+
+    private static void SetPath(JsonNode root, string relativePath, string? value)
+    {
+        var segments = SplitJsonPath(relativePath).ToList();
+        if (segments.Count == 0) return;
+
+        JsonNode cur = root;
+        for (var i = 0; i < segments.Count - 1; i++)
+        {
+            var seg = segments[i];
+            if (seg.StartsWith('['))
+            {
+                var idx = int.Parse(seg[1..^1]);
+                if (cur is not JsonArray arr || idx >= arr.Count) return;
+                cur = arr[idx]!;
+            }
+            else
+            {
+                if (cur is not JsonObject obj) return;
+                if (!obj.ContainsKey(seg)) obj[seg] = new JsonObject();
+                cur = obj[seg]!;
+            }
+        }
+
+        var last = segments[^1];
+        var newValue = ParseValue(value);
+        if (last.StartsWith('['))
+        {
+            var idx = int.Parse(last[1..^1]);
+            if (cur is JsonArray arr && idx < arr.Count) arr[idx] = newValue;
+        }
+        else
+        {
+            if (cur is JsonObject obj) obj[last] = newValue;
+        }
+    }
+
+    private static JsonNode? ParseValue(string? input)
+    {
+        if (input is null) return null;
+        var trimmed = input.Trim();
+        if (string.IsNullOrEmpty(trimmed)) return null;
+        if (string.Equals(trimmed, "null", StringComparison.OrdinalIgnoreCase)) return null;
+        if (string.Equals(trimmed, "true", StringComparison.OrdinalIgnoreCase)) return JsonValue.Create(true);
+        if (string.Equals(trimmed, "false", StringComparison.OrdinalIgnoreCase)) return JsonValue.Create(false);
+        // Everything else is preserved as a string (decimal_string fields, names, etc.)
+        return JsonValue.Create(input);
+    }
+
+    private static string? ValueAsString(JsonNode? node)
+    {
+        if (node is null) return null;
+        if (node.GetValueKind() == JsonValueKind.Null) return null;
+        if (node.GetValueKind() == JsonValueKind.String) return node.GetValue<string>();
+        return node.ToJsonString();
+    }
+
+    private static IEnumerable<string> SplitJsonPath(string path)
+    {
+        var current = new System.Text.StringBuilder();
+        foreach (var c in path)
+        {
+            if (c == '.') { if (current.Length > 0) { yield return current.ToString(); current.Clear(); } }
+            else if (c == '[') { if (current.Length > 0) { yield return current.ToString(); current.Clear(); } current.Append(c); }
+            else if (c == ']') { current.Append(c); yield return current.ToString(); current.Clear(); }
+            else current.Append(c);
+        }
+        if (current.Length > 0) yield return current.ToString();
+    }
+
+    private static int EditRowPriority(string path)
+    {
+        string[] order =
+        [
+            "extraction.document_type",
+            "extraction.language",
+            "extraction.country",
+            "extraction.document.",
+            "extraction.supplier.",
+            "extraction.customer.",
+            "extraction.totals.",
+            "extraction.vat_breakdown",
+            "extraction.payments",
+            "extraction.line_items",
+            "extraction.fiscal.",
+        ];
+        for (var i = 0; i < order.Length; i++)
+        {
+            if (path.StartsWith(order[i], StringComparison.Ordinal)) return i;
+        }
+        return order.Length;
+    }
+
     public string? ResolveImagePath(string fileName)
     {
         if (string.IsNullOrWhiteSpace(fileName) || fileName != Path.GetFileName(fileName))
@@ -322,6 +556,23 @@ public sealed class DocumentStore
     private static readonly Regex SpaceAfterPunct = new(@"([.,:;])(?=\S)", RegexOptions.Compiled);
     private static readonly Regex CollapseWhitespace = new(@"\s+", RegexOptions.Compiled);
 
+    /// Same canonical form used by HasDifference, exposed so the editor can highlight diffs.
+    public static string CanonicalForComparison(string? value)
+    {
+        if (value is null) return "null";
+        return CanonicalForComparisonImpl(value);
+    }
+
+    private static string CanonicalForComparisonImpl(string value)
+    {
+        if (value is "null" or "∅") return value;
+        var trimmed = value.Trim();
+        if (trimmed.Length == 0) return trimmed;
+        var withSpaces = SpaceAfterPunct.Replace(trimmed, "$1 ");
+        var collapsed = CollapseWhitespace.Replace(withSpaces, " ");
+        return MapConfusables(collapsed);
+    }
+
     /// Cyrillic letters that look identical to their Latin counterparts. Vendors disagree
     /// at random which script they use ("PC" vs "РС"). For diff purposes treat as same.
     private static readonly Dictionary<char, char> CyrillicToLatinConfusables = new()
@@ -332,21 +583,6 @@ public sealed class DocumentStore
         ['а'] = 'a', ['е'] = 'e', ['о'] = 'o', ['р'] = 'p', ['с'] = 'c',
         ['у'] = 'y', ['х'] = 'x', ['і'] = 'i',
     };
-
-    /// Canonical form used only for diff equality. Stored values stay as the vendor produced them.
-    /// Normalizes:
-    ///   - whitespace around punctuation ("ул.Рощок" == "ул. Рощок")
-    ///   - whitespace runs ("Варна  9010" == "Варна 9010")
-    ///   - Cyrillic/Latin look-alikes ("PC" == "РС")
-    private static string CanonicalForComparison(string value)
-    {
-        if (value is "null" or "∅") return value;
-        var trimmed = value.Trim();
-        if (trimmed.Length == 0) return trimmed;
-        var withSpaces = SpaceAfterPunct.Replace(trimmed, "$1 ");
-        var collapsed = CollapseWhitespace.Replace(withSpaces, " ");
-        return MapConfusables(collapsed);
-    }
 
     private static string MapConfusables(string s)
     {
@@ -430,3 +666,17 @@ public sealed record ResultSummary(
 public sealed record FieldDifference(
     string Path,
     IReadOnlyDictionary<string, string> Values);
+
+public sealed record EditRow(
+    string Path,
+    string? GroundTruth,
+    IReadOnlyDictionary<string, string?> PerVendor,
+    bool HasDisagreement);
+
+public sealed record GroundTruthEditDetail(
+    string FileName,
+    string Stem,
+    string? PreviousFileName,
+    string? NextFileName,
+    bool Exists,
+    IReadOnlyList<EditRow> Rows);

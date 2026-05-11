@@ -10,7 +10,7 @@
     "image_quality": {
       "readability": "good",
       "issues": [
-        "fold_obscures_data"
+        "heavy_shadow_over_text"
       ]
     }
   },
@@ -26,10 +26,10 @@
       "currency": "BGN",
       "exchange_rate": null,
       "place": null,
-      "notes": "Оригинал. Договор: първоначална вноска: 0. Начин на плащане: Дебитна/Кредитна карта. Срок за плащане до: 07.08.2025."
+      "notes": "Договор: първоначална вноска: 0"
     },
     "supplier": {
-      "name": "ПЛАСКО КОМПЮТЪРС–ЕООД",
+      "name": "ПЛАСИКО КОМПЮТЪРС-ЕООД",
       "eik": "148019777",
       "vat_number": "BG148019777",
       "address": "ВАРНА, ул Радост 8",
@@ -41,7 +41,7 @@
       "name": "Дигитален Хамелеон - ЕООД",
       "eik": "207498356",
       "vat_number": "BG207498356",
-      "address": "жк Манастирски ливади бл.176 вх.Ж ап.23, обл.СОФИЯ, гр.СОФИЯ 1404",
+      "address": "жк Манастирски ливади бл.176 вх.Ж ап.23 обл.СОФИЯ, гр.СОФИЯ 1404",
       "city": "София",
       "country": "BG",
       "mol": "Габриела Петрова"
@@ -77,9 +77,9 @@
       {
         "description": "Logitech Lift Vertical Ergonomic Mouse - GRAPHITE / BLACK - EMEA | 910-006473 | 5099206099784",
         "quantity": "1.000",
-        "unit": null,
+        "unit": "бр",
         "unit_price": "103.32",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
         "net": "103.32",
         "vat": "20.67",
@@ -165,7 +165,7 @@
       {
         "code": "image_quality_issue",
         "status": "warning",
-        "message": "issues: fold_obscures_data"
+        "message": "issues: heavy_shadow_over_text"
       }
     ],
     "errors": [],
@@ -175,15 +175,16 @@
   },
   "model_assessment": {
     "confidence": {
-      "overall": 0.98,
+      "overall": 0.96,
       "document": 0.99,
-      "supplier": 0.99,
-      "customer": 0.99,
+      "supplier": 0.98,
+      "customer": 0.97,
       "totals": 0.99,
-      "line_items": 0.98
+      "line_items": 0.94
     },
     "extraction_warnings": [
-      "VAT total appears arithmetic-consistent from shown amounts."
+      "Printed title is invoice; not a retail fiscal receipt.",
+      "Payment method is stated as debit/credit card."
     ]
   },
   "evidence": {},
@@ -192,11 +193,11 @@
     "model": "gpt-5.4-mini",
     "pipeline": "vision_direct",
     "ocr_used": false,
-    "prompt_version": "codex-unified-v2-r13-2026-05-09-csharp",
-    "created_at": "2026-05-09T15:20:01Z",
-    "duration_ms": 5362,
-    "input_tokens": 4921,
-    "output_tokens": 629,
-    "cost_estimate_usd": "0.0065"
+    "prompt_version": "codex-unified-v2-r13-2026-05-10-csharp-targeted-fixes",
+    "created_at": "2026-05-10T08:21:23Z",
+    "duration_ms": 5613,
+    "input_tokens": 7170,
+    "output_tokens": 603,
+    "cost_estimate_usd": "0.0081"
   }
 }

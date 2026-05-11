@@ -8,7 +8,7 @@
     "detected_document_count": 1,
     "extracted_document_index": 0,
     "image_quality": {
-      "readability": "excellent",
+      "readability": null,
       "issues": []
     }
   },
@@ -30,7 +30,7 @@
       "name": "НОКСЕС ЕООД",
       "eik": "202549149",
       "vat_number": "BG202549149",
-      "address": "кв. Лозенец, ул. Люботрън 76, вх. А , ет.2, ап.4",
+      "address": "гр. София, кв. Лозенец, ул. Люботрън 76, вх. А , ет.2, ап.4",
       "city": "София",
       "country": "BG",
       "mol": "Диан Жилиев"
@@ -39,7 +39,7 @@
       "name": "Инко трейд ЕООД",
       "eik": "206802564",
       "vat_number": "BG206802564",
-      "address": "р-н Приморски, ул. Рощок, 9",
+      "address": "гр. Варна, р-н Приморски, ул. Рощок, 9",
       "city": "Варна",
       "country": "BG",
       "mol": "Мариана Кинчова Петрова"
@@ -166,12 +166,12 @@
   },
   "model_assessment": {
     "confidence": {
-      "overall": 1,
-      "document": 1,
-      "supplier": 1,
-      "customer": 1,
-      "totals": 1,
-      "line_items": 1
+      "overall": null,
+      "document": null,
+      "supplier": null,
+      "customer": null,
+      "totals": null,
+      "line_items": null
     },
     "extraction_warnings": []
   },
@@ -181,11 +181,11 @@
     "model": "gemini-flash-latest",
     "pipeline": "vision_direct",
     "ocr_used": false,
-    "prompt_version": "gemini-unified-v2-2026-05-09-csharp",
-    "created_at": "2026-05-09T15:22:14Z",
-    "duration_ms": 9492,
-    "input_tokens": 4438,
-    "output_tokens": 972,
-    "cost_estimate_usd": "0.0006"
+    "prompt_version": "gemini-unified-v2-2026-05-10-csharp-targeted-fixes",
+    "created_at": "2026-05-10T08:23:10Z",
+    "duration_ms": 155982,
+    "input_tokens": 5149,
+    "output_tokens": 10522,
+    "cost_estimate_usd": "0.0341"
   }
 }

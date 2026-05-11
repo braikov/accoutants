@@ -94,6 +94,9 @@ public sealed class ClaudeExtractor : IAccountingDocumentExtractor
 
         var inputTokens = response.Usage?.InputTokens ?? 0;
         var outputTokens = response.Usage?.OutputTokens ?? 0;
+        // Capture the actual model that ran. Anthropic returns this on the response;
+        // it normally matches what we requested but pin it for the audit trail.
+        var actualModel = response.Model ?? _options.Model;
 
         var toolBlock = response.Content?.OfType<ToolUseContent>().FirstOrDefault()
             ?? throw new InvalidOperationException(
@@ -117,7 +120,7 @@ public sealed class ClaudeExtractor : IAccountingDocumentExtractor
         var provider = new Provider
         {
             Engine = Engine.Anthropic,
-            Model = _options.Model,
+            Model = actualModel,
             Pipeline = Pipeline.VisionDirect,
             OcrUsed = false,
             PromptVersion = ClaudePrompt.PromptVersion,

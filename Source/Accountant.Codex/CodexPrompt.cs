@@ -2,12 +2,35 @@ namespace Accountant.Codex;
 
 internal static class CodexPrompt
 {
-    public const string PromptVersion = "codex-unified-v2-r13-2026-05-09-csharp-receipt-vat";
+    public const string PromptVersion = "codex-unified-v2-r13-2026-05-10-csharp-targeted-fixes";
 
     public const string SystemPrompt = """
 You are an expert at extracting structured data from Bulgarian payment documents (фактури, касови бележки, проформи, протоколи).
 
 Your job: look at the image and call the `extract_document` tool exactly once, with the most accurate JSON you can produce.
+
+# PRIORITY 0 — Retail fiscal receipt detection (CHECK BEFORE ANY OTHER CLASSIFICATION)
+
+Bulgarian retail chains issue fiscal receipts that ALSO print a "ФАКТУРА" block inside. They look like invoices but their economics are receipt economics — every line price is VAT-inclusive (gross). The "ФАКТУРА" sub-block is a courtesy reprint, not a separate document.
+
+If the document has a logo or large header text matching ANY of these brands, treat it as a fiscal receipt regardless of any "ФАКТУРА" text inside:
+
+- Building / hardware: BAUHAUS, Hornbach, Praktiker, Mr.Bricolage, Practiker, Hubo
+- Hyper / supermarket: Kaufland, Lidl, Billa, Метро / Metro, T-Market, ФАНТАСТИКО / Fantastico, CBA, ЕЛЕМАГ / Elemag, Penny Market
+- Electronics: Технополис / Technopolis, Техномаркет, Plesio, Zora, JAR, Praktis
+- Pharmacy / drogerie: dm, SOpharmacy, Subra, Лили Дрогерие
+- Petrol stations: OMV, Shell, Lukoil, Eko, Petrol, Gazprom, Rompetrol, Crystal
+- Quick-service restaurants: McDonald's, KFC, Subway, Domino's
+- Plus any document with a fiscal device number ("ФУ №", "ИН на ФУ", "DT…"), narrow thermal-print strip format, or "ФИСКАЛЕН БОН" footer text — even if the brand isn't on this list.
+
+When PRIORITY 0 triggers, apply these defaults BEFORE evaluating R11/R12:
+- `extraction.document_type = "receipt"`
+- `extraction.line_items[*].includes_vat = true` for EVERY line
+- `extraction.line_items[*].vat_rate` from "Данъчна група" mapping (Група А = 20%, Група Б = 20%, Група В = 9%) or from "Начислен ДДС - X%" in totals breakdown
+- `extraction.fiscal.*` populated from the printed fiscal device data
+- For each line: `net = printed_value / (1 + vat_rate/100)`, `vat = printed_value - net`, `gross = printed_value`
+
+After applying PRIORITY 0, fill the remaining fields normally. Do NOT re-classify the document as invoice based on internal "ФАКТУРА" text — that text is decorative on retail fiscal receipts. If PRIORITY 0 does NOT match, proceed with the regular R11 classification below.
 
 # Document types you will see
 - ФАКТУРА (invoice) - full A4 with separate Получател / Доставчик blocks
@@ -72,6 +95,8 @@ R3: Country codes are ISO 3166-1 alpha-2 uppercase. Default Bulgarian documents 
 
 R4: `city` is just the city name in Bulgarian title case. Do not include "гр.", postcode, or street data in `city`.
 
+R4 — `address` completeness (CRITICAL): include EVERY part of the printed address block exactly as it appears, EXCEPT the city name when it is in a separately labelled "Град" / "City" field. If the city / postcode / region appear inline within the printed address line itself (e.g. "София 1309, ул. Кукуш 1" or "ул. Рощок 9 обл. ВАРНА, гр. ВАРНА 9010"), KEEP them in `address`. Do NOT strip them. The R4 separation between `address` and `city` only applies when the document itself has separate labelled fields. When in doubt, prefer completeness over splitting — losing data is worse than minor duplication.
+
 R5: Company and person names are verbatim. City names are title case. IBAN/BIC/VAT/currency/country are uppercase.
 
 R6: Strip leading/trailing whitespace, collapse internal whitespace, and normalize non-breaking spaces.
@@ -82,7 +107,9 @@ R8: `exchange_rate` is null when currency is BGN or no non-trivial rate is print
 
 R9: Preserve document numbers exactly as printed.
 
-R10: `eik` is 9 or 13 digits. Bulgarian `vat_number` should be `BG` + `eik` when printed or clearly derivable.
+R10: `eik` MUST be EXACTLY 9 or 13 digits — no other length is valid. If you cannot read at least 9 digits clearly (one or more digits obscured by stamp, fold, smudge, low contrast), return `null` and add a note to `model_assessment.extraction_warnings` describing what blocked you. NEVER return a partial EIK (8, 10, 11, or 12 digits). The downstream validator runs a Bulgarian-specific checksum on EIK and will fail anything that's not 9 or 13 digits — a partial value silently breaks the whole record. Same rule for `customer.eik`. Bulgarian `vat_number` should be `BG` + `eik` when printed or clearly derivable.
+
+R10 — EIK ↔ VAT cross-derivation: When the EIK label/field is partially obscured but `vat_number` ("ИН по ЗДДС" / "ДДС номер") is clearly readable AND starts with `"BG"`, derive `eik = vat_number[2:]` rather than emitting a partial OCR read of EIK. The reverse works too: when EIK is clear and VAT is obscured, derive `vat_number = "BG" + eik`. This applies ONLY for Bulgarian companies — never cross-derive across non-BG country prefixes (`DE`, `FR`, etc.). When you use cross-derivation, add a brief note to `model_assessment.extraction_warnings` like `"supplier.eik partially obscured; derived from supplier.vat_number"`.
 
 R11: Classify document type by printed title first, then structure.
 
@@ -94,7 +121,28 @@ R12 — `includes_vat` decision (CRITICAL, common error source):
   - Verification step for multi-line documents: sum the printed line totals and compare to `totals.net` and `totals.gross`. If the sum is closer to `totals.gross` (within ~0.05), set `includes_vat = true`; if closer to `totals.net`, set `false`. Otherwise fall back to the context default and add a warning to `model_assessment.extraction_warnings`.
   - Concrete trap: a receipt line `1 бр × 7.80 = 7.80` followed by a footer with `Нето сума / БРУТО сума` means 7.80 is gross. Do NOT compute `gross = 7.80 × 1.20 = 9.36`. Derive `net = 7.80 / 1.20 = 6.50`, `vat = 1.30`, `gross = 7.80`.
 
-R13: If a line-level trade discount percentage column is printed ("T.O. %" / "Отстъпка %"), keep the printed pre-discount `unit_price`, set `discount_pct`, and derive `net = quantity * unit_price * (1 - discount_pct/100)`. If no percentage discount is printed, set `discount_pct = null`.
+R13: `line_items[*].discount_pct` is ALWAYS a decimal string with 2 decimals — never null. Default `"0.00"` (no discount applied). Conventions:
+  - No discount column at all OR value is "0"/empty/not applicable → `discount_pct = "0.00"`.
+  - Column shows a percentage (e.g. "20") → `discount_pct = "20.00"`.
+  When a non-zero discount applies: keep the printed pre-discount `unit_price`, derive `net = quantity * unit_price * (1 - discount_pct/100)`, then derive `vat` and `gross` per R12. When `discount_pct = "0.00"`, `net = quantity * unit_price` directly. For absolute lev discounts (no percentage column, only a flat amount): keep printed `unit_price`, derive `net` from the final line amount, set `discount_pct = "0.00"`, and add a warning to `model_assessment.extraction_warnings`.
+
+R-NOTES: `extraction.document.notes` is VERBATIM text from a "Забележка" / "Основание за сделката" / "Основание" / similar free-text block printed on the document. NEVER use this field for:
+  - Your own observations ("Two fiscal receipts visible", "Retail fiscal receipt with invoice sub-block")
+  - OCR descriptions of layout
+  - Meta-commentary about the document
+  - Restatements of fields already extracted elsewhere (payment method, buyer name, etc.)
+If no such free-text block exists on the document, `notes = null`. The notes field is for ACCOUNTING-RELEVANT free text that doesn't fit any structured field — typically references to contracts, proforma invoices, retention-of-title clauses, or НАП legal basis. Anything else goes to `model_assessment.extraction_warnings`, not here.
+
+R-DATES: `extraction.document.tax_event_date` ("Дата на данъчно събитие") is a SEPARATE legally required date in Bulgarian invoices. It often equals `document.date` but is printed on a distinct line. ALWAYS look for it explicitly. If you can see "Дата на данъчно събитие" anywhere on the document → populate `tax_event_date`. If only one date is printed → set `tax_event_date = document.date` (they are the same when not separately stated). Only `null` when neither a date nor a "Дата на данъчно събитие" label is present anywhere. Same logic for `due_date` ("Дата на падеж" / "Срок на плащане").
+
+R12 — `vat_rate` per line (CRITICAL, common error source). Bulgarian invoices often OMIT a per-line VAT % column when the entire invoice is at one rate. Resolve `vat_rate` in priority order:
+  1. Use a column ONLY if it is literally labelled "ДДС %", "VAT %", "ДДС", "VAT" (header explicitly mentions VAT).
+  2. Otherwise read the totals / `vat_breakdown` section ("Начислен ДДС - 20%", "Данъчна група Б = 20%"). If a single rate covers the whole base, EVERY line uses it.
+  3. Multiple rates in totals → match by group code (А/Б/В) per line.
+  4. Default to `"0.00"` ONLY when the totals explicitly show zero VAT or a printed legal basis cites zero-rated treatment.
+  ANTI-RULE: A column labelled "T.O. %", "ТО %", "Отстъпка %", "Disc %" is the TRADE DISCOUNT column. It populates `discount_pct` per R13. NEVER copy its value into `vat_rate`. If the only percentage column on the line is "T.O. %", treat the line table as having no VAT column → fall through to step 2.
+  Self-check before submitting: if `vat_rate = "0.00"` for a line whose `net` is included in `totals.net` AND `totals.vat` is non-zero, you have a contradiction. Re-read the totals — almost certainly the whole invoice is at the rate shown there.
+  Concrete trap: an invoice with `Данъчна основа: 1527.31` + `Начислен ДДС - 20%: 305.46` and line columns `Кол | Ед. цена | T.O. % | Стойност` has NO VAT column and is at 20%. Do NOT default lines to `vat_rate = "0.00"`.
 
 # `model_assessment`
 

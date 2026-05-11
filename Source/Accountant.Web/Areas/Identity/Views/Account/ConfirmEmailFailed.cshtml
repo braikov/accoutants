@@ -1,0 +1,17 @@
+@{
+    ViewData["Title"] = "Линкът е невалиден";
+}
+
+<div class="auth-card auth-status">
+    <div class="auth-status-icon error">@(Html.Raw("&#x2715;"))</div>
+    <h1>Линкът е невалиден или е изтекъл</h1>
+    <p class="lead">
+        Не успяхме да потвърдим имейла ви. Възможно е линкът да е изтекъл,
+        вече да е използван, или да е бил повреден при копиране.
+    </p>
+
+    <div class="auth-meta">
+        Опитайте се да <a asp-action="Register">регистрирате отново</a>
+        или <a asp-action="Login">влезте</a>, ако вече сте потвърдили имейла си.
+    </div>
+</div>

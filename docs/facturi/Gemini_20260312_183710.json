@@ -22,15 +22,15 @@
       "tax_event_date": "2025-12-13",
       "due_date": null,
       "currency": "BGN",
-      "exchange_rate": "1.95583",
-      "place": "София, бул. Никола Мушанов 149Б",
-      "notes": "УНП: DT973905-0013-0151501"
+      "exchange_rate": null,
+      "place": "София",
+      "notes": null
     },
     "supplier": {
       "name": "\"ПРАКТИКЕР РИТЕЙЛ\" ЕООД",
       "eik": "200525782",
       "vat_number": "BG200525782",
-      "address": "ул. Околовръстен път 265",
+      "address": "ул. \"Околовръстен път\" 265",
       "city": "София",
       "country": "BG",
       "mol": null
@@ -76,7 +76,7 @@
       "fiscal_receipt_number": "02973905",
       "fiscal_device_number": "DT973905",
       "operator": "0013",
-      "qr_code": null
+      "qr_code": "4FDFF13D7DE293F44E2C90EBCCE428B7096"
     }
   },
   "validation": {
@@ -161,7 +161,7 @@
       "line_items": 0
     },
     "extraction_warnings": [
-      "Line items are obscured by the overlapping parts of the receipt and could not be extracted."
+      "Line items are not visible on the document; only the total count (6 items) is mentioned."
     ]
   },
   "evidence": {},
@@ -170,11 +170,11 @@
     "model": "gemini-flash-latest",
     "pipeline": "vision_direct",
     "ocr_used": false,
-    "prompt_version": "gemini-unified-v2-2026-05-09-csharp",
-    "created_at": "2026-05-09T15:33:34Z",
-    "duration_ms": 16636,
-    "input_tokens": 4455,
-    "output_tokens": 862,
-    "cost_estimate_usd": "0.0006"
+    "prompt_version": "gemini-unified-v2-2026-05-10-csharp-targeted-fixes",
+    "created_at": "2026-05-10T08:30:59Z",
+    "duration_ms": 13472,
+    "input_tokens": 5166,
+    "output_tokens": 855,
+    "cost_estimate_usd": "0.0051"
   }
 }

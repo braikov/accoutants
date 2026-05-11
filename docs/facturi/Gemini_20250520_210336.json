@@ -30,7 +30,7 @@
       "name": "Инекс Трейд ЕООД",
       "eik": "106610986",
       "vat_number": "BG106610986",
-      "address": "бул. Васил Кънчов № 120",
+      "address": "гр. Враца, бул. Васил Кънчов № 120",
       "city": "Враца",
       "country": "BG",
       "mol": "Илиан Цветков"
@@ -39,7 +39,7 @@
       "name": "Инко Трейд - ЕООД",
       "eik": "206802564",
       "vat_number": "BG206802564",
-      "address": "ул. Рощок №9 обл.ВАРНА",
+      "address": "ул. Рощок №9 обл.ВАРНА, гр.ВАРНА 9010",
       "city": "Варна",
       "country": "BG",
       "mol": "Мариана Петрова"
@@ -66,9 +66,9 @@
         "method": "cash",
         "amount": "108.00",
         "currency": "BGN",
-        "iban": "BG42UNCR76301077969699",
-        "bic": "UNCRBGSF",
-        "bank_name": "УНИКРЕДИТ БУЛБАНК"
+        "iban": null,
+        "bic": null,
+        "bank_name": null
       }
     ],
     "line_items": [
@@ -77,7 +77,7 @@
         "quantity": "1.000",
         "unit": "бр",
         "unit_price": "90.00",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
         "net": "90.00",
         "vat": "18.00",
@@ -117,13 +117,13 @@
       },
       {
         "code": "iban_mod97",
-        "status": "pass",
-        "message": ""
+        "status": "skipped",
+        "message": "IBAN is null"
       },
       {
         "code": "bic_format",
-        "status": "pass",
-        "message": ""
+        "status": "skipped",
+        "message": "BIC is null"
       },
       {
         "code": "currency_iso",
@@ -181,11 +181,11 @@
     "model": "gemini-flash-latest",
     "pipeline": "vision_direct",
     "ocr_used": false,
-    "prompt_version": "gemini-unified-v2-2026-05-09-csharp",
-    "created_at": "2026-05-09T15:23:03Z",
-    "duration_ms": 10630,
-    "input_tokens": 4445,
-    "output_tokens": 968,
-    "cost_estimate_usd": "0.0006"
+    "prompt_version": "gemini-unified-v2-2026-05-10-csharp-targeted-fixes",
+    "created_at": "2026-05-10T08:26:38Z",
+    "duration_ms": 14118,
+    "input_tokens": 5156,
+    "output_tokens": 606,
+    "cost_estimate_usd": "0.0044"
   }
 }

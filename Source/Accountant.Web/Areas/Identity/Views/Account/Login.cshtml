@@ -1,0 +1,40 @@
+@model LoginViewModel
+@{
+    ViewData["Title"] = "Вход";
+}
+
+<div class="auth-card">
+    <h1>Вход в акаунта</h1>
+    <p class="lead">Въведете имейла и паролата, с които сте се регистрирали.</p>
+
+    <form asp-action="Login" method="post">
+        <input type="hidden" asp-for="ReturnUrl" />
+        <div asp-validation-summary="ModelOnly" class="validation-summary-errors"></div>
+
+        <div class="field">
+            <label asp-for="Email"></label>
+            <input asp-for="Email" autocomplete="username" autofocus />
+            <span asp-validation-for="Email" class="field-validation-error"></span>
+        </div>
+
+        <div class="field">
+            <label asp-for="Password"></label>
+            <input asp-for="Password" autocomplete="current-password" />
+            <span asp-validation-for="Password" class="field-validation-error"></span>
+        </div>
+
+        <div class="auth-row-between">
+            <label class="field-checkbox" style="margin: 0;">
+                <input asp-for="RememberMe" />
+                <span>@Html.DisplayNameFor(m => m.RememberMe)</span>
+            </label>
+            <a asp-action="ForgotPassword">Забравена парола?</a>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Вход</button>
+    </form>
+
+    <div class="auth-meta">
+        Нямате акаунт? <a asp-action="Register" asp-route-returnUrl="@Model.ReturnUrl">Регистрирайте се</a>
+    </div>
+</div>

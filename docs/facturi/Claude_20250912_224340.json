@@ -82,7 +82,7 @@
         "quantity": "6.750",
         "unit": "л",
         "unit_price": "0.74162",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
         "net": "5.01",
         "vat": "1.00",

@@ -8,11 +8,10 @@
     "detected_document_count": 2,
     "extracted_document_index": 0,
     "image_quality": {
-      "readability": "fair",
+      "readability": "good",
       "issues": [
-        "partial_occlusion_of_supplier_block",
-        "overlapping_documents",
-        "right_side_text_cut_off"
+        "partial_text_occlusion_on_invoice_right_side",
+        "two_documents_overlapping"
       ]
     }
   },
@@ -28,13 +27,13 @@
       "currency": "BGN",
       "exchange_rate": null,
       "place": null,
-      "notes": "ДОГОВОР: 506380566"
+      "notes": null
     },
     "supplier": {
       "name": "А1 България ЕАД",
       "eik": "131468980",
       "vat_number": "BG131468980",
-      "address": "ул. Кукуш 1",
+      "address": "София 1309, ул. Кукуш 1",
       "city": "София",
       "country": "BG",
       "mol": null
@@ -43,20 +42,28 @@
       "name": "Инко трейд ЕООД",
       "eik": "206802564",
       "vat_number": "BG206802564",
-      "address": "гр. Варна, кв. 23-ти Микрорайон ( Китайската стена",
+      "address": "гр. Варна, кв. 23-ти Микрорайон ( Китайската стена)",
       "city": "Варна",
       "country": "BG",
       "mol": "Мариана Кинчова Петрова"
     },
     "totals": {
-      "net": null,
-      "vat": null,
+      "net": "1416.65",
+      "vat": "283.33",
       "gross": "1699.98",
       "discount": null,
       "rounding": null,
       "amount_due": "1699.98"
     },
-    "vat_breakdown": [],
+    "vat_breakdown": [
+      {
+        "rate": "20.00",
+        "net": "1416.65",
+        "vat": "283.33",
+        "gross": "1699.98",
+        "reason": null
+      }
+    ],
     "payments": [
       {
         "method": "card",
@@ -73,10 +80,10 @@
         "quantity": "1.000",
         "unit": "бр",
         "unit_price": "1769.99",
-        "discount_pct": null,
-        "vat_rate": null,
-        "net": null,
-        "vat": null,
+        "discount_pct": "0.00",
+        "vat_rate": "20.00",
+        "net": "1474.99",
+        "vat": "295.00",
         "gross": "1769.99",
         "includes_vat": true
       },
@@ -85,29 +92,29 @@
         "quantity": "1.000",
         "unit": "бр",
         "unit_price": "-50.00",
-        "discount_pct": null,
-        "vat_rate": null,
-        "net": null,
-        "vat": null,
+        "discount_pct": "0.00",
+        "vat_rate": "20.00",
+        "net": "-41.67",
+        "vat": "-8.33",
         "gross": "-50.00",
         "includes_vat": true
       },
       {
-        "description": "Отстъпка 20 лв. за устройство в брой",
+        "description": "Отстъпка 20 лв. за устройство 8 брой",
         "quantity": "1.000",
         "unit": "бр",
         "unit_price": "-20.00",
-        "discount_pct": null,
-        "vat_rate": null,
-        "net": null,
-        "vat": null,
+        "discount_pct": "0.00",
+        "vat_rate": "20.00",
+        "net": "-16.67",
+        "vat": "-3.33",
         "gross": "-20.00",
         "includes_vat": true
       }
     ],
     "fiscal": {
-      "fiscal_receipt_number": "4323",
-      "fiscal_device_number": "A1BG4323",
+      "fiscal_receipt_number": "A1BG4323",
+      "fiscal_device_number": "4323000000312287",
       "operator": "Nikolov",
       "qr_code": "8CE9DE3343EAA440EA0DC85F4A3080BAE8374E96"
     }
@@ -167,23 +174,18 @@
       },
       {
         "code": "totals_match",
-        "status": "skipped",
-        "message": "net/vat/gross not all populated"
+        "status": "pass",
+        "message": "1416.65 + 283.33 = 1699.98"
       },
       {
         "code": "vat_breakdown_match",
-        "status": "skipped",
-        "message": "vat_breakdown is empty"
+        "status": "pass",
+        "message": ""
       },
       {
         "code": "line_items_sum",
         "status": "pass",
         "message": "all populated component sums match totals"
-      },
-      {
-        "code": "line_items_incomplete",
-        "status": "warning",
-        "message": "line items missing component(s): net, vat"
       },
       {
         "code": "multiple_documents_detected",
@@ -193,12 +195,11 @@
       {
         "code": "image_quality_issue",
         "status": "warning",
-        "message": "issues: partial_occlusion_of_supplier_block, overlapping_documents, right_side_text_cut_off"
+        "message": "issues: partial_text_occlusion_on_invoice_right_side, two_documents_overlapping"
       }
     ],
     "errors": [],
     "warnings": [
-      "line_items_incomplete",
       "multiple_documents_detected",
       "image_quality_issue"
     ]
@@ -206,19 +207,20 @@
   "model_assessment": {
     "confidence": {
       "overall": 0.85,
-      "document": 0.93,
-      "supplier": 0.9,
-      "customer": 0.93,
-      "totals": 0.92,
-      "line_items": 0.78
+      "document": 0.95,
+      "supplier": 0.94,
+      "customer": 0.92,
+      "totals": 0.8,
+      "line_items": 0.82
     },
     "extraction_warnings": [
-      "A second document (fiscal/system receipt from A1 България ЕАД) is visible in the upper right of the image; only the main ФАКТУРА was extracted.",
-      "The invoice's supplier block (right side, 'Изпълнител') is partially cut off — supplier EIK on the invoice itself is not fully legible; supplier data taken from the fiscal receipt header.",
-      "VAT breakdown is not printed separately on the invoice; net and vat totals could not be extracted — only gross total of 1699.98 BGN is available.",
-      "Line items on the invoice lack individual price/quantity/VAT columns — amounts taken from the accompanying fiscal receipt.",
-      "Fiscal device number read as A1BG4323 but partially obscured; the number 4323 appears both as operator cash register ID and receipt number.",
-      "Exchange rate 1 EUR = 1.95583 лв. is printed on the fiscal receipt but the invoice currency appears to be BGN; exchange rate not applied to invoice."
+      "Image contains two overlapping documents: a formal A1 България ЕООД invoice (ФАКТУРА №0656479304) on the left/foreground and a fiscal receipt (СИСТЕМЕН БОН) on the right. The invoice is the primary/larger document and was extracted.",
+      "The right portion of the invoice (Изпълнител section with supplier store address and EIK) is partially obscured by the overlapping fiscal receipt; supplier store details 'А1 м-н София, МОЛ Парадайз, бул. Черни връх 100' read from the fiscal receipt header.",
+      "Totals net and vat were derived arithmetically from the printed gross 1699.98 BGN at 20% VAT since the invoice's own net/vat breakdown totals section is partially obscured.",
+      "Line item net/vat values were derived from printed gross amounts using 20% VAT rate (includes_vat=true), consistent with the fiscal receipt context and 'ОБЩА СУМА ЛВ.' total.",
+      "Fiscal device number '4323000000312287' read from the barcode/number on the fiscal receipt; partial digits may be uncertain.",
+      "Customer ДОГОВОР field shows '506380566' — not extracted into schema as no field is available.",
+      "The fiscal receipt shows '1 EUR = 1.95583 лв.' and 'ОБЩА СУМА EUR 869.19' for informational purposes only; invoice currency is BGN."
     ]
   },
   "evidence": {
@@ -232,27 +234,31 @@
     },
     "document.due_date": {
       "text": "Срок за плащане: 11/11/2024",
-      "confidence": 0.93
+      "confidence": 0.95
     },
     "supplier.name": {
       "text": "А1 България ЕАД",
-      "confidence": 0.98
-    },
-    "supplier.eik": {
-      "text": "ЕИК: 131468980",
-      "confidence": 0.92
-    },
-    "supplier.vat_number": {
-      "text": "ЗДДС №: BG 131468980",
-      "confidence": 0.92
+      "confidence": 0.99
     },
     "supplier.address": {
       "text": "София 1309, ул. Кукуш 1",
-      "confidence": 0.9
+      "confidence": 0.97
+    },
+    "supplier.eik": {
+      "text": "ЕИК: 131468980",
+      "confidence": 0.95
+    },
+    "supplier.vat_number": {
+      "text": "ЗДДС №: BG 131468980",
+      "confidence": 0.95
     },
     "customer.name": {
       "text": "Инко трейд ЕООД",
       "confidence": 0.97
+    },
+    "customer.address": {
+      "text": "гр. Варна, кв. 23-ти Микрорайон ( Китайската стена)",
+      "confidence": 0.9
     },
     "customer.eik": {
       "text": "ЕИК: 206802564",
@@ -266,21 +272,37 @@
       "text": "МОЛ: Мариана Кинчова Петрова",
       "confidence": 0.95
     },
-    "customer.city": {
-      "text": "Град: Варна",
-      "confidence": 0.98
-    },
-    "customer.address": {
-      "text": "гр. Варна, кв. 23-ти Микрорайон ( Китайската стена",
-      "confidence": 0.9
-    },
     "totals.gross": {
-      "text": "ОБЩА СУМА ЛВ. 1699,98",
-      "confidence": 0.97
+      "text": "ОБЩА СУМА ЛВ. 1699.98",
+      "confidence": 0.99
     },
-    "totals.amount_due": {
+    "totals.net": {
+      "text": "derived from gross/1.20",
+      "confidence": 0.8
+    },
+    "totals.vat": {
+      "text": "derived from gross - net",
+      "confidence": 0.8
+    },
+    "payments[0].method": {
       "text": "С КАРТА ЛВ. 1699,98",
       "confidence": 0.97
+    },
+    "fiscal.operator": {
+      "text": "Оператор Nikolov",
+      "confidence": 0.95
+    },
+    "fiscal.fiscal_device_number": {
+      "text": "4323000000312287",
+      "confidence": 0.88
+    },
+    "fiscal.fiscal_receipt_number": {
+      "text": "A1BG4323",
+      "confidence": 0.85
+    },
+    "fiscal.qr_code": {
+      "text": "8CE9DE3343EAA440EA0DC85F4A3080BAE8374E96",
+      "confidence": 0.82
     },
     "line_items[0].description": {
       "text": "Апарат Sam Gal S24 Ultra 256GB Bla+Mode MAT 40",
@@ -288,39 +310,23 @@
     },
     "line_items[0].gross": {
       "text": "#1 x 1769.99 1769.99",
-      "confidence": 0.93
+      "confidence": 0.95
     },
     "line_items[1].description": {
       "text": "Ваучер за отстъпка от устройство 50лв.",
-      "confidence": 0.93
+      "confidence": 0.92
     },
     "line_items[1].gross": {
       "text": "#1 x -50.00 -50.00",
-      "confidence": 0.93
+      "confidence": 0.95
     },
     "line_items[2].description": {
-      "text": "Отстъпка 20 лв. за устройство в брой",
-      "confidence": 0.93
+      "text": "Отстъпка 20 лв. за устройство 8 брой",
+      "confidence": 0.9
     },
     "line_items[2].gross": {
       "text": "#Отстъпка 20 лв. за устройств #1 x -20.00 -20.00",
       "confidence": 0.92
-    },
-    "fiscal.operator": {
-      "text": "Оператор Nikolov",
-      "confidence": 0.95
-    },
-    "fiscal.fiscal_device_number": {
-      "text": "A1BG4323",
-      "confidence": 0.88
-    },
-    "fiscal.qr_code": {
-      "text": "8CE9DE3343EAA440EA0DC85F4A3080BAE8374E96",
-      "confidence": 0.85
-    },
-    "payments[0].method": {
-      "text": "С КАРТА ЛВ. 1699,98",
-      "confidence": 0.97
     }
   },
   "provider": {
@@ -328,11 +334,11 @@
     "model": "claude-sonnet-4-6",
     "pipeline": "vision_direct",
     "ocr_used": false,
-    "prompt_version": "claude-unified-v2-2026-05-09-csharp",
-    "created_at": "2026-05-09T15:20:16Z",
-    "duration_ms": 37310,
-    "input_tokens": 6753,
-    "output_tokens": 2355,
-    "cost_estimate_usd": "0.0556"
+    "prompt_version": "claude-unified-v2-2026-05-10-csharp-targeted-fixes",
+    "created_at": "2026-05-10T08:15:19Z",
+    "duration_ms": 42165,
+    "input_tokens": 9854,
+    "output_tokens": 2597,
+    "cost_estimate_usd": "0.0685"
   }
 }

@@ -1,0 +1,21 @@
+@{
+    ViewData["Title"] = "Грешка";
+    var requestId = Context.TraceIdentifier;
+}
+
+<section class="hero">
+    <div class="container hero-inner">
+        <span class="eyebrow">Възникна грешка</span>
+        <h1 class="hero-title">Нещо не сработи</h1>
+        <p class="hero-lead">
+            Опитайте отново след малко. Ако проблемът продължава, споделете кода по-долу когато се свържете с нас.
+        </p>
+        @if (!string.IsNullOrEmpty(requestId))
+        {
+            <p class="muted small"><strong>Request ID:</strong> <code>@requestId</code></p>
+        }
+        <div class="cta-row">
+            <a class="cta-secondary" href="/">Към началната страница</a>
+        </div>
+    </div>
+</section>

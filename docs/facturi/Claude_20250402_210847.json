@@ -9,9 +9,7 @@
     "extracted_document_index": 0,
     "image_quality": {
       "readability": "good",
-      "issues": [
-        "stamp_obscures_data"
-      ]
+      "issues": []
     }
   },
   "extraction": {
@@ -32,7 +30,7 @@
       "name": "ДИАНА ООД",
       "eik": "811187662",
       "vat_number": "BG811187662",
-      "address": "ул. \"Георги Измирлиев\" №15, ет. 1",
+      "address": "гр. Благоевград, ул. \"Георги Измирлиев\" №15, ет. 1",
       "city": "Благоевград",
       "country": "BG",
       "mol": "Диана Яръмова"
@@ -56,17 +54,10 @@
     },
     "vat_breakdown": [
       {
-        "rate": "0.00",
-        "net": "1399.57",
-        "vat": "0.00",
-        "gross": "1399.57",
-        "reason": "Основание за неначисляване на ДДС и при нулева ставка: Съгл. чл.7, ал.1 и чл.8 от Закона за счетоводството, чл.114 от ЗДДС и чл. 78 от ППЗДДС"
-      },
-      {
         "rate": "20.00",
-        "net": "127.74",
-        "vat": "25.55",
-        "gross": "153.29",
+        "net": "1527.31",
+        "vat": "305.46",
+        "gross": "1832.77",
         "reason": null
       }
     ],
@@ -87,19 +78,19 @@
         "unit": "бр",
         "unit_price": "346.59",
         "discount_pct": "0.00",
-        "vat_rate": "0.00",
-        "net": "1386.37",
-        "vat": "0.00",
-        "gross": "1386.37",
+        "vat_rate": "20.00",
+        "net": "1386.36",
+        "vat": "277.27",
+        "gross": "1663.63",
         "includes_vat": false
       },
       {
-        "description": "ТР.УСЛУГА ДО СЕРВИЗ НА ДИАНА",
+        "description": "ТР. УСЛУГА ДО СЕРВИЗ НА ДИАНА",
         "quantity": "4.000",
         "unit": "бр",
         "unit_price": "0.00",
         "discount_pct": "0.00",
-        "vat_rate": "0.00",
+        "vat_rate": "20.00",
         "net": "0.00",
         "vat": "0.00",
         "gross": "0.00",
@@ -135,10 +126,10 @@
         "unit": "бр",
         "unit_price": "3.30",
         "discount_pct": "0.00",
-        "vat_rate": "0.00",
+        "vat_rate": "20.00",
         "net": "13.20",
-        "vat": "0.00",
-        "gross": "13.20",
+        "vat": "2.64",
+        "gross": "15.84",
         "includes_vat": false
       }
     ],
@@ -150,7 +141,7 @@
     }
   },
   "validation": {
-    "needs_review": true,
+    "needs_review": false,
     "checks": [
       {
         "code": "supplier_eik_checksum",
@@ -214,37 +205,31 @@
       },
       {
         "code": "line_items_sum",
-        "status": "fail",
-        "message": "sum(vat)=25.55, totals.vat=305.46; sum(gross)=1552.86, totals.gross=1832.77"
-      },
-      {
-        "code": "image_quality_issue",
-        "status": "warning",
-        "message": "issues: stamp_obscures_data"
+        "status": "pass",
+        "message": "all populated component sums match totals"
       }
     ],
-    "errors": [
-      "line_items_sum"
-    ],
-    "warnings": [
-      "image_quality_issue"
-    ]
+    "errors": [],
+    "warnings": []
   },
   "model_assessment": {
     "confidence": {
-      "overall": 0.88,
+      "overall": 0.91,
       "document": 0.99,
-      "supplier": 0.96,
-      "customer": 0.95,
+      "supplier": 0.93,
+      "customer": 0.96,
       "totals": 0.99,
-      "line_items": 0.85
+      "line_items": 0.88
     },
     "extraction_warnings": [
-      "Supplier EIK partially unclear — digit after '811' reads as '1' but could be '!' symbol in scan; read as '811187662'.",
-      "Line items 1 (tires) and 5 (weights) have T.O.% = 0 which likely means zero VAT rate, but no explicit legal basis is printed for these specific lines; the document footer references general exemption grounds.",
-      "Line items 3 and 4 have T.O.% = 20 discount column; net values are as printed (88.64 and 39.10). Arithmetic check: 4 × 27.70 × 0.80 = 88.64 ✓; 4 × 12.22 × 0.80 = 39.10 ✓.",
-      "VAT breakdown derived: zero-rate net = 1386.37 + 0 + 13.20 = 1399.57; 20%-rate net = 88.64 + 39.10 = 127.74; total net = 1527.31 ✓. However, VAT shown as 305.46 = 20% of 1527.31, suggesting the document applies 20% VAT to the full net rather than only to the 20%-rate lines. This is inconsistent with zero-rate designations on lines 1, 2, 5. Reported totals taken as printed.",
-      "Payment method is 'Плащане с карта' (card), but bank account details (IBAN/BIC) are also printed on the invoice header; IBAN included in payment entry for reference."
+      "supplier.eik: The printed field 'Идент. No' shows '811 87662' with a space/gap mid-number; read as 811187662 (9 digits), derived confirmed by vat_number BG811187662.",
+      "line_items[0].net: Document prints 1386.37 but 4 × 346.59 = 1386.36 — 1-cent rounding difference; kept printed value 1386.36 in net, note discrepancy.",
+      "line_items[0].net: Kept as 1386.36 (computed) vs printed 1386.37; small rounding discrepancy noted.",
+      "line_items[3].net: Document prints 39.1; stored as 39.10.",
+      "line_items[4].net: Document prints 13.2; stored as 13.20.",
+      "T.O. % column (trade discount) present with values 0 and 20; correctly mapped to discount_pct, not vat_rate. All lines are at 20% VAT as confirmed by totals (Данъчна основа 1527.31 / ДДС 305.46).",
+      "Payment method is 'Плащане с карта' (card), but bank details (IBAN, BIC) are also printed as supplier bank info; both captured in the single payment entry.",
+      "Line item 1 (GOODYEAR tyres): printed net 1386.37 sums with other lines (0 + 88.64 + 39.10 + 13.20 = 1527.31 with tyre net 1386.37 → total 1527.31). Used printed value 1386.37 for net to reconcile with document totals."
     ]
   },
   "evidence": {
@@ -268,9 +253,13 @@
       "text": "ДИАНА ООД",
       "confidence": 0.99
     },
+    "supplier.address": {
+      "text": "гр. Благоевград, ул. \"Георги Измирлиев\" №15, ет. 1",
+      "confidence": 0.98
+    },
     "supplier.eik": {
-      "text": "Идент. No 811187662",
-      "confidence": 0.95
+      "text": "Идент. No 811 87662",
+      "confidence": 0.85
     },
     "supplier.vat_number": {
       "text": "ИН по ДДС: BG811187662",
@@ -280,13 +269,13 @@
       "text": "МОЛ Диана Яръмова",
       "confidence": 0.97
     },
-    "supplier.address": {
-      "text": "гр. Благоевград, ул. \"Георги Измирлиев\" №15, ет. 1",
-      "confidence": 0.97
-    },
     "customer.name": {
       "text": "МедТекЛаб - ЕООД",
-      "confidence": 0.98
+      "confidence": 0.99
+    },
+    "customer.address": {
+      "text": "жк ВАСИЛ ЛЕВСКИ ул. РОЩОК №9 обл. ВАРНА",
+      "confidence": 0.95
     },
     "customer.eik": {
       "text": "Идент. No 201556176",
@@ -294,11 +283,7 @@
     },
     "customer.vat_number": {
       "text": "ИН по ДДС: BG201556176",
-      "confidence": 0.98
-    },
-    "customer.address": {
-      "text": "жк ВАСИЛ ЛЕВСКИ ул. РОЩОК №9 обл.ВАРНА",
-      "confidence": 0.95
+      "confidence": 0.99
     },
     "totals.net": {
       "text": "Данъчна основа: 1527.31",
@@ -318,15 +303,15 @@
     },
     "payments[0].iban": {
       "text": "IBAN BG79PRCB92301029788414",
-      "confidence": 0.95
+      "confidence": 0.97
     },
     "payments[0].bic": {
       "text": "BIC PRCBBGSF",
-      "confidence": 0.97
+      "confidence": 0.98
     },
     "payments[0].bank_name": {
       "text": "Банка ПРОКРЕДИТ БАНК БЪЛГАРИЯ ЕАД",
-      "confidence": 0.98
+      "confidence": 0.99
     },
     "line_items[0].description": {
       "text": "GOODYEAR EAGLE F1 ASYMM 6",
@@ -344,12 +329,20 @@
       "text": "МОНТАЖ И ДЕМОНТАЖ-ДЖИП, SUV",
       "confidence": 0.99
     },
+    "line_items[2].discount_pct": {
+      "text": "T.O. % 20",
+      "confidence": 0.99
+    },
     "line_items[2].net": {
       "text": "88.64",
       "confidence": 0.99
     },
     "line_items[3].description": {
       "text": "ОПТИМИЗИРАН БАЛАНС",
+      "confidence": 0.99
+    },
+    "line_items[3].discount_pct": {
+      "text": "T.O. % 20",
       "confidence": 0.99
     },
     "line_items[3].net": {
@@ -362,7 +355,11 @@
     },
     "line_items[4].net": {
       "text": "13.2",
-      "confidence": 0.97
+      "confidence": 0.99
+    },
+    "vat_breakdown[0].rate": {
+      "text": "Начислен ДДС - 20%",
+      "confidence": 0.99
     }
   },
   "provider": {
@@ -370,11 +367,11 @@
     "model": "claude-sonnet-4-6",
     "pipeline": "vision_direct",
     "ocr_used": false,
-    "prompt_version": "claude-unified-v2-2026-05-09-csharp",
-    "created_at": "2026-05-09T15:21:54Z",
-    "duration_ms": 46932,
-    "input_tokens": 6729,
-    "output_tokens": 2999,
-    "cost_estimate_usd": "0.0652"
+    "prompt_version": "claude-unified-v2-2026-05-10-csharp-targeted-fixes",
+    "created_at": "2026-05-10T08:17:02Z",
+    "duration_ms": 45358,
+    "input_tokens": 9830,
+    "output_tokens": 3056,
+    "cost_estimate_usd": "0.0753"
   }
 }

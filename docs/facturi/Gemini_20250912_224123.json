@@ -8,7 +8,7 @@
     "detected_document_count": 1,
     "extracted_document_index": 0,
     "image_quality": {
-      "readability": null,
+      "readability": "excellent",
       "issues": []
     }
   },
@@ -24,13 +24,13 @@
       "currency": "BGN",
       "exchange_rate": null,
       "place": null,
-      "notes": "Договор: първоначална вноска: 0"
+      "notes": null
     },
     "supplier": {
       "name": "ПЛАСИКО КОМПЮТЪРС-ЕООД",
       "eik": "148019777",
       "vat_number": "BG148019777",
-      "address": "ул Радост 8",
+      "address": "ВАРНА, ул Радост 8",
       "city": "Варна",
       "country": "BG",
       "mol": "Пламен Драгнев"
@@ -39,7 +39,7 @@
       "name": "Дигитален Хамелеон - ЕООД",
       "eik": "207498356",
       "vat_number": "BG207498356",
-      "address": "жк Манастирски ливади бл.176 вх.Ж ап.23",
+      "address": "жк Манастирски ливади бл.176 вх.Ж ап.23 обл.СОФИЯ, гр.СОФИЯ 1404",
       "city": "София",
       "country": "BG",
       "mol": "Габриела Петрова"
@@ -66,9 +66,9 @@
         "method": "card",
         "amount": "123.99",
         "currency": "BGN",
-        "iban": null,
-        "bic": null,
-        "bank_name": null
+        "iban": "BG18UBBS81551064228519",
+        "bic": "UBBSBGSF",
+        "bank_name": "ОББ банк"
       }
     ],
     "line_items": [
@@ -77,7 +77,7 @@
         "quantity": "1.000",
         "unit": null,
         "unit_price": "103.32",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
         "net": "103.32",
         "vat": "20.67",
@@ -117,13 +117,13 @@
       },
       {
         "code": "iban_mod97",
-        "status": "skipped",
-        "message": "IBAN is null"
+        "status": "pass",
+        "message": ""
       },
       {
         "code": "bic_format",
-        "status": "skipped",
-        "message": "BIC is null"
+        "status": "pass",
+        "message": ""
       },
       {
         "code": "currency_iso",
@@ -166,12 +166,12 @@
   },
   "model_assessment": {
     "confidence": {
-      "overall": null,
-      "document": null,
-      "supplier": null,
-      "customer": null,
-      "totals": null,
-      "line_items": null
+      "overall": 0.99,
+      "document": 0.99,
+      "supplier": 0.99,
+      "customer": 0.99,
+      "totals": 0.99,
+      "line_items": 0.99
     },
     "extraction_warnings": []
   },
@@ -181,11 +181,11 @@
     "model": "gemini-flash-latest",
     "pipeline": "vision_direct",
     "ocr_used": false,
-    "prompt_version": "gemini-unified-v2-2026-05-09-csharp",
-    "created_at": "2026-05-09T15:29:03Z",
-    "duration_ms": 179920,
-    "input_tokens": 4433,
-    "output_tokens": 11700,
-    "cost_estimate_usd": "0.0038"
+    "prompt_version": "gemini-unified-v2-2026-05-10-csharp-targeted-fixes",
+    "created_at": "2026-05-10T08:29:10Z",
+    "duration_ms": 10794,
+    "input_tokens": 5144,
+    "output_tokens": 1027,
+    "cost_estimate_usd": "0.0057"
   }
 }

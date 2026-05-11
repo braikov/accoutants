@@ -1,0 +1,33 @@
+@{
+    ViewData["Title"] = "Проверете имейла си";
+    var email = ViewBag.Email as string;
+}
+
+<div class="auth-card">
+    <div class="auth-status-icon info" style="margin: 0 auto 16px;">@(Html.Raw("&#x2709;"))</div>
+    <h1 style="text-align:center;">Проверете имейла си</h1>
+    <p class="lead" style="text-align:center;">
+        Изпратихме линк за потвърждение на <strong>@email</strong>.<br />
+        Кликнете линка ИЛИ въведете 6-цифрения код от имейла:
+    </p>
+
+    <form asp-action="ConfirmEmail" method="get">
+        <input type="hidden" name="email" value="@email" />
+
+        <div class="field">
+            <label for="code">Код от имейла</label>
+            <input id="code" name="code" type="text" inputmode="numeric" pattern="[0-9]*"
+                   autocomplete="one-time-code" maxlength="6"
+                   placeholder="123456" autofocus
+                   style="text-align:center;letter-spacing:6px;font-size:18px;" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Потвърди акаунт</button>
+    </form>
+
+    <div class="auth-meta">
+        Не получихте имейл? <a asp-action="ResendConfirmation" asp-route-email="@email">Изпрати наново</a>
+        <br />
+        Грешен имейл? <a asp-action="Register">Регистрирайте се отново</a>
+    </div>
+</div>

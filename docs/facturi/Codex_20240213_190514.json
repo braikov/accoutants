@@ -2,7 +2,7 @@
   "schema_version": "accountant.document.v2",
   "source": {
     "file_name": "20240213_190514.jpg",
-    "file_path": "docs/facturi/20240213_190514.jpg",
+    "file_path": "../docs/facturi/20240213_190514.jpg",
     "page_count": 1,
     "page_index": 0,
     "detected_document_count": 1,
@@ -10,8 +10,9 @@
     "image_quality": {
       "readability": "good",
       "issues": [
-        "low_contrast",
-        "stamp_obscures_data"
+        "heavy_shadow_over_text",
+        "stamp_obscures_data",
+        "fold_obscures_data"
       ]
     }
   },
@@ -27,7 +28,7 @@
       "currency": "BGN",
       "exchange_rate": null,
       "place": null,
-      "notes": "Оригинал"
+      "notes": null
     },
     "supplier": {
       "name": "АВАНС ТРЕЙД ООД",
@@ -43,7 +44,7 @@
       "eik": "206802564",
       "vat_number": "BG206802564",
       "address": "УЛ.РОЩОК 9",
-      "city": "Варна",
+      "city": "ВАРНА",
       "country": "BG",
       "mol": null
     },
@@ -76,11 +77,11 @@
     ],
     "line_items": [
       {
-        "description": "М.К. 120 КАПАК КЕЪР СОФТx24",
+        "description": "М.К. I20 КАПАК КЕБЪР СОФТx24",
         "quantity": "240.000",
         "unit": "бр",
         "unit_price": "0.958",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
         "net": "230.00",
         "vat": "46.00",
@@ -91,7 +92,7 @@
     "fiscal": {
       "fiscal_receipt_number": null,
       "fiscal_device_number": null,
-      "operator": null,
+      "operator": "РАДОСЛАВ НЕНОВ",
       "qr_code": null
     }
   },
@@ -166,7 +167,7 @@
       {
         "code": "image_quality_issue",
         "status": "warning",
-        "message": "issues: low_contrast, stamp_obscures_data"
+        "message": "issues: heavy_shadow_over_text, stamp_obscures_data, fold_obscures_data"
       }
     ],
     "errors": [],
@@ -176,16 +177,16 @@
   },
   "model_assessment": {
     "confidence": {
-      "overall": 0.94,
+      "overall": 0.93,
       "document": 0.99,
-      "supplier": 0.98,
-      "customer": 0.97,
+      "supplier": 0.95,
+      "customer": 0.95,
       "totals": 0.98,
-      "line_items": 0.91
+      "line_items": 0.9
     },
     "extraction_warnings": [
-      "Low contrast in the lower section.",
-      "Bank details are partially obscured by the stamp."
+      "Line prices are treated as net because this is a standard invoice.",
+      "Bank details partially obscured at bottom; IBAN/BIC inferred from visible text."
     ]
   },
   "evidence": {},
@@ -194,11 +195,11 @@
     "model": "gpt-5.4-mini",
     "pipeline": "vision_direct",
     "ocr_used": false,
-    "prompt_version": "codex-unified-v2-r13-2026-05-09-csharp",
-    "created_at": "2026-05-09T14:57:20Z",
-    "duration_ms": 6774,
-    "input_tokens": 4939,
-    "output_tokens": 513,
-    "cost_estimate_usd": "0.0060"
+    "prompt_version": "codex-unified-v2-r13-2026-05-10-csharp-targeted-fixes",
+    "created_at": "2026-05-10T08:20:09Z",
+    "duration_ms": 5541,
+    "input_tokens": 7188,
+    "output_tokens": 570,
+    "cost_estimate_usd": "0.0080"
   }
 }

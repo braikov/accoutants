@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Accountant.DataAccess\Accountant.DataAccess.csproj" />
+    <ProjectReference Include="..\Accountant.Email\Accountant.Email.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Braikov.Identity.Notifications" Version="0.1.0" />
+    <PackageReference Include="Braikov.Notifications.Core" Version="0.1.0" />
+    <PackageReference Include="Braikov.Notifications.DataAccess" Version="0.1.0" />
+    <PackageReference Include="Braikov.Notifications.Email" Version="0.1.0" />
+    <PackageReference Include="Braikov.Notifications.MySql" Version="0.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="9.0.0" />
+  </ItemGroup>
+
+</Project>

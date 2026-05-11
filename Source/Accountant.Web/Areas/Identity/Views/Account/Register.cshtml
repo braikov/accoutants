@@ -1,0 +1,38 @@
+@model RegisterViewModel
+@{
+    ViewData["Title"] = "Регистрация";
+}
+
+<div class="auth-card">
+    <h1>Създаване на акаунт</h1>
+    <p class="lead">Безплатна регистрация. Ще ви изпратим имейл за потвърждение.</p>
+
+    <form asp-action="Register" method="post">
+        <input type="hidden" asp-for="ReturnUrl" />
+        <div asp-validation-summary="ModelOnly" class="validation-summary-errors"></div>
+
+        <div class="field">
+            <label asp-for="Email"></label>
+            <input asp-for="Email" autocomplete="email" autofocus />
+            <span asp-validation-for="Email" class="field-validation-error"></span>
+        </div>
+
+        <div class="field">
+            <label asp-for="Password"></label>
+            <input asp-for="Password" autocomplete="new-password" />
+            <span asp-validation-for="Password" class="field-validation-error"></span>
+        </div>
+
+        <div class="field">
+            <label asp-for="ConfirmPassword"></label>
+            <input asp-for="ConfirmPassword" autocomplete="new-password" />
+            <span asp-validation-for="ConfirmPassword" class="field-validation-error"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Регистрация</button>
+    </form>
+
+    <div class="auth-meta">
+        Вече имате акаунт? <a asp-action="Login" asp-route-returnUrl="@Model.ReturnUrl">Влезте</a>
+    </div>
+</div>

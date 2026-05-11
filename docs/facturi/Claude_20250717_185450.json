@@ -80,7 +80,7 @@
         "quantity": "1.000",
         "unit": "БР",
         "unit_price": "416.58",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
         "net": "416.58",
         "vat": "83.32",

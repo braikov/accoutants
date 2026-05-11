@@ -1,0 +1,31 @@
+@*
+    Shared shell for transactional emails. Used by templates via:
+        @{ Layout = "_EmailLayout"; }
+    Inlined styles only — most mail clients strip <head><style>.
+*@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>accountant</title>
+</head>
+<body style="margin:0;padding:0;background:#fafaf9;font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;color:#0f172a;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#fafaf9;padding:32px 16px;">
+  <tr><td align="center">
+    <table role="presentation" width="560" cellpadding="0" cellspacing="0" style="max-width:560px;background:#ffffff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;">
+      <tr><td style="padding:24px 32px 16px;border-bottom:1px solid #e5e7eb;">
+        <span style="display:inline-block;width:32px;height:32px;background:#0f172a;color:#fff;font-weight:800;text-align:center;line-height:32px;border-radius:6px;vertical-align:middle;">a.</span>
+        <span style="font-weight:700;font-size:18px;letter-spacing:-.01em;margin-left:10px;vertical-align:middle;">accountant</span>
+      </td></tr>
+      <tr><td style="padding:28px 32px;font-size:15px;line-height:1.55;">
+        @RenderBody()
+      </td></tr>
+      <tr><td style="padding:16px 32px 24px;border-top:1px solid #e5e7eb;background:#fafaf9;font-size:12px;color:#64748b;">
+        © @DateTime.UtcNow.Year accountant. AI автоматизация за счетоводни офиси.
+      </td></tr>
+    </table>
+  </td></tr>
+</table>
+</body>
+</html>

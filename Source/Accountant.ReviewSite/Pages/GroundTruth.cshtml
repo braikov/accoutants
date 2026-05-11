@@ -1,0 +1,85 @@
+@page
+@model GroundTruthModel
+@{
+    var detail = Model.Detail!;
+    ViewData["Title"] = "Edit ground truth — " + detail.FileName;
+}
+
+<section class="detail-head compact">
+    <a class="back-link" asp-page="/Index">Back</a>
+    <div>
+        <p class="eyebrow">Ground truth editor @(detail.Exists ? "" : "(new file)")</p>
+        <h1>@detail.FileName</h1>
+    </div>
+    <nav class="detail-nav">
+        <a asp-page="/Document" asp-route-file="@detail.FileName">Compare view</a>
+        @if (detail.PreviousFileName is not null)
+        {
+            <a asp-page="/GroundTruth" asp-route-file="@detail.PreviousFileName">Previous</a>
+        }
+        @if (detail.NextFileName is not null)
+        {
+            <a asp-page="/GroundTruth" asp-route-file="@detail.NextFileName">Next</a>
+        }
+    </nav>
+</section>
+
+@if (Model.FlashMessage is not null)
+{
+    <div class="auth-notice" role="status">@Model.FlashMessage</div>
+}
+
+<section class="gt-grid" aria-label="Ground truth editor">
+    <article class="compare-panel image-panel">
+        <header class="panel-head">
+            <h2>Image</h2>
+            <span>@detail.FileName</span>
+        </header>
+        <div class="panel-body image-stage">
+            <img src="/document-image?file=@Uri.EscapeDataString(detail.FileName)" alt="@detail.FileName" />
+        </div>
+    </article>
+
+    <article class="compare-panel">
+        <header class="panel-head">
+            <h2>Fields</h2>
+            <span>@detail.Rows.Count rows</span>
+        </header>
+        <form method="post" asp-route-file="@detail.FileName" class="gt-form">
+            <div class="diff-table-wrap">
+                <table class="diff-table gt-table">
+                    <thead>
+                        <tr>
+                            <th>Field</th>
+                            <th>ground_truth</th>
+                            <th>Codex</th>
+                            <th>Claude</th>
+                            <th>Gemini</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var row in detail.Rows)
+                    {
+                        var codex = row.PerVendor.GetValueOrDefault("Codex");
+                        var claude = row.PerVendor.GetValueOrDefault("Claude");
+                        var gemini = row.PerVendor.GetValueOrDefault("Gemini");
+                        <tr class="@(row.HasDisagreement ? "gt-row-diff" : "")">
+                            <td title="@row.Path"><code>@row.Path</code></td>
+                            <td>
+                                <input type="text" name="row[@row.Path]" value="@row.GroundTruth" class="gt-input" title="@row.GroundTruth" />
+                            </td>
+                            <td><span class="vendor-cell" title="@codex">@(codex ?? "—")</span></td>
+                            <td><span class="vendor-cell" title="@claude">@(claude ?? "—")</span></td>
+                            <td><span class="vendor-cell" title="@gemini">@(gemini ?? "—")</span></td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+            <div class="gt-actions">
+                <button type="submit" class="primary">Save</button>
+                <span class="gt-hint">Empty value or <code>null</code> writes JSON null. <code>true</code>/<code>false</code> write boolean. Anything else is stored as string.</span>
+            </div>
+        </form>
+    </article>
+</section>

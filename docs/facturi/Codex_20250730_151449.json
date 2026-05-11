@@ -8,10 +8,10 @@
     "detected_document_count": 1,
     "extracted_document_index": 0,
     "image_quality": {
-      "readability": "fair",
+      "readability": "good",
       "issues": [
-        "low_contrast",
-        "heavy_shadow_over_text"
+        "slight_fade",
+        "fold_obscures_data"
       ]
     }
   },
@@ -25,24 +25,24 @@
       "tax_event_date": "2025-07-30",
       "due_date": null,
       "currency": "BGN",
-      "exchange_rate": "null",
-      "place": "София",
-      "notes": "Оригинал. Клиентски № 211585. Счетоводна статия номер: 14286696. Плащане: с карта. Стоката е получена от: Мариана Петрова."
+      "exchange_rate": "1.95583",
+      "place": null,
+      "notes": null
     },
     "supplier": {
-      "name": "Ташев - Галвинг ООД",
+      "name": "Ташев – Галвинг ООД",
       "eik": "130358417",
       "vat_number": "BG130358417",
       "address": "бул. Климент Охридски 68",
       "city": "София",
       "country": "BG",
-      "mol": "Христофо Ташев"
+      "mol": "Христофор Ташев"
     },
     "customer": {
-      "name": "Инко Трейд ЕООД",
+      "name": "Нико Трейд ЕООД",
       "eik": "206802564",
       "vat_number": "BG206802564",
-      "address": "ул. Ропот 9",
+      "address": "ул. Рощок 9",
       "city": "Варна",
       "country": "BG",
       "mol": "Мариана Петрова"
@@ -69,18 +69,18 @@
         "method": "card",
         "amount": "87.00",
         "currency": "BGN",
-        "iban": "BG33UNCR76301075613740",
+        "iban": "BG31UNCR76301076137440",
         "bic": "UNCRBGSF",
         "bank_name": "УниКредит Булбанк АД"
       }
     ],
     "line_items": [
       {
-        "description": "0% КТП 45А, Дека конусна за развальцоване на тръби, Ф 4-16 мм",
+        "description": "0% КПН 454, Деца конусна за развалячване на тръби, Ф 4-16 мм",
         "quantity": "1.000",
         "unit": "бр",
         "unit_price": "72.5000",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
         "net": "72.50",
         "vat": "14.50",
@@ -91,7 +91,7 @@
     "fiscal": {
       "fiscal_receipt_number": null,
       "fiscal_device_number": null,
-      "operator": null,
+      "operator": "Христофор Ташев",
       "qr_code": null
     }
   },
@@ -121,7 +121,7 @@
       {
         "code": "iban_mod97",
         "status": "fail",
-        "message": "IBAN 'BG33UNCR76301075613740' fails mod-97 checksum."
+        "message": "IBAN 'BG31UNCR76301076137440' fails mod-97 checksum."
       },
       {
         "code": "bic_format",
@@ -166,7 +166,7 @@
       {
         "code": "image_quality_issue",
         "status": "warning",
-        "message": "issues: low_contrast, heavy_shadow_over_text"
+        "message": "issues: slight_fade, fold_obscures_data"
       }
     ],
     "errors": [
@@ -178,17 +178,16 @@
   },
   "model_assessment": {
     "confidence": {
-      "overall": 0.87,
+      "overall": 0.96,
       "document": 0.99,
-      "supplier": 0.92,
+      "supplier": 0.98,
       "customer": 0.95,
-      "totals": 0.97,
-      "line_items": 0.84
+      "totals": 0.98,
+      "line_items": 0.94
     },
     "extraction_warnings": [
-      "The paper is faint and slightly blurred.",
-      "A top-right slip obscures a small area.",
-      "Exchange rate text is printed but not needed for BGN document."
+      "Payment is by card but document is a formal invoice.",
+      "EIKs derived from clearly printed VAT numbers."
     ]
   },
   "evidence": {},
@@ -197,11 +196,11 @@
     "model": "gpt-5.4-mini",
     "pipeline": "vision_direct",
     "ocr_used": false,
-    "prompt_version": "codex-unified-v2-r13-2026-05-09-csharp",
-    "created_at": "2026-05-09T15:19:47Z",
-    "duration_ms": 5495,
-    "input_tokens": 4958,
-    "output_tokens": 584,
-    "cost_estimate_usd": "0.0063"
+    "prompt_version": "codex-unified-v2-r13-2026-05-10-csharp-targeted-fixes",
+    "created_at": "2026-05-10T08:21:10Z",
+    "duration_ms": 5971,
+    "input_tokens": 7207,
+    "output_tokens": 554,
+    "cost_estimate_usd": "0.0079"
   }
 }

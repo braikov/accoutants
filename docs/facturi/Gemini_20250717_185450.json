@@ -8,7 +8,7 @@
     "detected_document_count": 1,
     "extracted_document_index": 0,
     "image_quality": {
-      "readability": null,
+      "readability": "excellent",
       "issues": []
     }
   },
@@ -30,7 +30,7 @@
       "name": "Кауфланд България ЕООД енд Ко.КД",
       "eik": "131129282",
       "vat_number": "BG131129282",
-      "address": "ул. Скопие 1А",
+      "address": "1233 София, ул. Скопие 1А",
       "city": "София",
       "country": "BG",
       "mol": null
@@ -39,7 +39,7 @@
       "name": "ИНКО ТРЕЙД ЕООД",
       "eik": "206802564",
       "vat_number": "BG206802564",
-      "address": "УЛ РОЩОК 9",
+      "address": "ВАРНА, УЛ РОЩОК 9, BG",
       "city": "Варна",
       "country": "BG",
       "mol": null
@@ -77,7 +77,7 @@
         "quantity": "1.000",
         "unit": "бр",
         "unit_price": "416.58",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
         "net": "416.58",
         "vat": "83.32",
@@ -166,12 +166,12 @@
   },
   "model_assessment": {
     "confidence": {
-      "overall": null,
-      "document": null,
-      "supplier": null,
-      "customer": null,
-      "totals": null,
-      "line_items": null
+      "overall": 1,
+      "document": 1,
+      "supplier": 1,
+      "customer": 1,
+      "totals": 1,
+      "line_items": 1
     },
     "extraction_warnings": []
   },
@@ -181,11 +181,11 @@
     "model": "gemini-flash-latest",
     "pipeline": "vision_direct",
     "ocr_used": false,
-    "prompt_version": "gemini-unified-v2-2026-05-09-csharp",
-    "created_at": "2026-05-09T15:27:25Z",
-    "duration_ms": 61156,
-    "input_tokens": 4445,
-    "output_tokens": 4212,
-    "cost_estimate_usd": "0.0016"
+    "prompt_version": "gemini-unified-v2-2026-05-10-csharp-targeted-fixes",
+    "created_at": "2026-05-10T08:27:41Z",
+    "duration_ms": 35846,
+    "input_tokens": 5156,
+    "output_tokens": 914,
+    "cost_estimate_usd": "0.0053"
   }
 }

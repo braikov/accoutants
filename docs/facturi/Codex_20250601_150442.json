@@ -9,9 +9,7 @@
     "extracted_document_index": 0,
     "image_quality": {
       "readability": "good",
-      "issues": [
-        "low_contrast"
-      ]
+      "issues": []
     }
   },
   "extraction": {
@@ -19,26 +17,26 @@
     "language": "bg",
     "country": "BG",
     "document": {
-      "number": null,
+      "number": "4405064123",
       "date": "2025-06-01",
       "tax_event_date": "2025-06-01",
       "due_date": null,
       "currency": "BGN",
       "exchange_rate": null,
       "place": "София",
-      "notes": "Фискален бон; payment by debit card. Printed fiscal receipt details and QR present."
+      "notes": null
     },
     "supplier": {
-      "name": "БАУХАУС БЪЛГАРИЯ ЕООД ТЦ за РДГ КД",
+      "name": "БАУХАУС БЪЛГАРИЯ ЕООД, ПЦ за РДГ КЛ",
       "eik": "201611345",
       "vat_number": "BG201611345",
-      "address": "бул. История Славянобългарска №17",
+      "address": "гр. София, бул. История славянобългарска N:17",
       "city": "София",
       "country": "BG",
       "mol": null
     },
     "customer": {
-      "name": "Инко Трейд - ЕООД",
+      "name": "Инко трейд - ЕООД",
       "eik": "206802564",
       "vat_number": "BG206802564",
       "address": "ул. Рощок 9 обл.ВАРНА, гр.ВАРНА 9010",
@@ -60,7 +58,7 @@
         "net": "66.13",
         "vat": "13.22",
         "gross": "79.35",
-        "reason": null
+        "reason": "Данъчна група Б"
       }
     ],
     "payments": [
@@ -75,57 +73,52 @@
     ],
     "line_items": [
       {
-        "description": "ДЕКОРАТИВНА ТОПКА ЧЕШМЪР",
+        "description": "ДЕКОРАТИВНА ТОПКА ЧЕМИШ",
         "quantity": "1.000",
         "unit": "бр",
         "unit_price": "26.90",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
-        "net": "26.90",
-        "vat": "5.38",
-        "gross": "32.28",
-        "includes_vat": false
+        "net": "22.42",
+        "vat": "4.48",
+        "gross": "26.90",
+        "includes_vat": true
       },
       {
         "description": "КАШПА DALLAS ESPRIT, 14X13CM",
         "quantity": "3.000",
         "unit": "бр",
         "unit_price": "7.50",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
-        "net": "22.50",
-        "vat": "4.50",
-        "gross": "27.00",
-        "includes_vat": false
+        "net": "18.75",
+        "vat": "3.75",
+        "gross": "22.50",
+        "includes_vat": true
       },
       {
         "description": "МОП ПЕПЕРУДА VILEDA PVA",
         "quantity": "1.000",
         "unit": "бр",
         "unit_price": "29.95",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
-        "net": "29.95",
-        "vat": "5.99",
-        "gross": "35.94",
-        "includes_vat": false
+        "net": "24.96",
+        "vat": "4.99",
+        "gross": "29.95",
+        "includes_vat": true
       }
     ],
     "fiscal": {
-      "fiscal_receipt_number": "0795227",
-      "fiscal_device_number": "DT795227",
+      "fiscal_receipt_number": null,
+      "fiscal_device_number": null,
       "operator": null,
-      "qr_code": "F8EB20E6AC215C3990CE3FC51DF8AACE38136E19"
+      "qr_code": null
     }
   },
   "validation": {
-    "needs_review": true,
+    "needs_review": false,
     "checks": [
-      {
-        "code": "missing_document_number",
-        "status": "fail",
-        "message": "document_number is missing"
-      },
       {
         "code": "supplier_eik_checksum",
         "status": "pass",
@@ -188,37 +181,23 @@
       },
       {
         "code": "line_items_sum",
-        "status": "fail",
-        "message": "sum(net)=79.35, totals.net=66.13; sum(vat)=15.87, totals.vat=13.22; sum(gross)=95.22, totals.gross=79.35"
-      },
-      {
-        "code": "image_quality_issue",
-        "status": "warning",
-        "message": "issues: low_contrast"
+        "status": "pass",
+        "message": "all populated component sums match totals"
       }
     ],
-    "errors": [
-      "missing_document_number",
-      "line_items_sum"
-    ],
-    "warnings": [
-      "image_quality_issue"
-    ]
+    "errors": [],
+    "warnings": []
   },
   "model_assessment": {
     "confidence": {
-      "overall": 0.93,
-      "document": 0.98,
-      "supplier": 0.96,
-      "customer": 0.93,
+      "overall": 0.98,
+      "document": 0.99,
+      "supplier": 0.98,
+      "customer": 0.95,
       "totals": 0.99,
-      "line_items": 0.92
+      "line_items": 0.97
     },
-    "extraction_warnings": [
-      "Document number is not clearly printed as a standalone invoice number.",
-      "Line item names are partially low-resolution but readable.",
-      "Fiscal receipt appears to be the only document visible."
-    ]
+    "extraction_warnings": []
   },
   "evidence": {},
   "provider": {
@@ -226,11 +205,11 @@
     "model": "gpt-5.4-mini",
     "pipeline": "vision_direct",
     "ocr_used": false,
-    "prompt_version": "codex-unified-v2-r13-2026-05-09-csharp",
-    "created_at": "2026-05-09T15:19:21Z",
-    "duration_ms": 8048,
-    "input_tokens": 3820,
-    "output_tokens": 723,
-    "cost_estimate_usd": "0.0061"
+    "prompt_version": "codex-unified-v2-r13-2026-05-10-csharp-targeted-fixes",
+    "created_at": "2026-05-10T08:20:47Z",
+    "duration_ms": 6397,
+    "input_tokens": 6069,
+    "output_tokens": 630,
+    "cost_estimate_usd": "0.0074"
   }
 }

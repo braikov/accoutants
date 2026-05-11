@@ -14,6 +14,8 @@ internal static class CliRunner
         {
             "extract" => await ExtractCommand.RunAsync(args[1..]),
             "normalize" => NormalizeCommand.Run(args[1..]),
+            "bootstrap-ground-truth" => BootstrapGroundTruthCommand.Run(args[1..]),
+            "evaluate" => EvaluateCommand.Run(args[1..]),
             _ => UnknownCommand(args[0]),
         };
     }
@@ -35,8 +37,10 @@ internal static class CliRunner
               dotnet run --project Accountant.Processors -- <command> [options]
 
             COMMANDS:
-              extract     Run a vendor extractor over an image folder.
-              normalize   Coerce null nested objects in existing extraction JSONs (no API calls).
+              extract                  Run a vendor extractor over an image folder.
+              normalize                Coerce null nested objects in existing extraction JSONs (no API calls).
+              bootstrap-ground-truth   Seed `<stem>.ground_truth.json` from vendor consensus.
+              evaluate                 Score each vendor against ground truth, write Markdown report.
 
             Run a command with --help for command-specific options.
             """);

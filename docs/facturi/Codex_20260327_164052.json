@@ -10,8 +10,9 @@
     "image_quality": {
       "readability": "fair",
       "issues": [
-        "stamp_obscures_data",
-        "heavy_shadow_over_text"
+        "low_contrast",
+        "heavy_shadow_over_text",
+        "stamp_obscures_data"
       ]
     }
   },
@@ -22,30 +23,30 @@
     "document": {
       "number": "0000150465",
       "date": "2026-03-27",
-      "tax_event_date": null,
+      "tax_event_date": "2026-03-27",
       "due_date": null,
       "currency": "EUR",
-      "exchange_rate": "1.95583",
+      "exchange_rate": null,
       "place": null,
-      "notes": "Оригинал; Вид плащане: БАНКА; УНП: DT521447-0003-0084296; Място на издаване: Варна."
+      "notes": null
     },
     "supplier": {
-      "name": "КЛАСИК МЕТАЛ ЕООД",
-      "eik": "1039008331",
-      "vat_number": "BG1039008331",
-      "address": "гр. Варна, жк Възраждане 1",
-      "city": "Варна",
-      "country": "BG",
-      "mol": "Владимир Бодугов"
-    },
-    "customer": {
-      "name": "ЛЕЙКО ТРЕЙД ЕООД",
+      "name": "П-п ЛИККО ТРЕЙД ЕООД",
       "eik": "206802564",
       "vat_number": "BG206802564",
-      "address": "гр. Въз. ул. Рошок 9",
+      "address": "гр. Варна, ул. Рощок 9",
       "city": "Варна",
       "country": "BG",
       "mol": "Марина Петрова"
+    },
+    "customer": {
+      "name": "Д-к КЛАСИК МЕТАЛ ЕООД",
+      "eik": "1039008331",
+      "vat_number": "BG1039008331",
+      "address": "гр. Варна, жк. Възраждане 1",
+      "city": "Варна",
+      "country": "BG",
+      "mol": "Владимир Бодуров"
     },
     "totals": {
       "net": "153.50",
@@ -61,7 +62,7 @@
         "net": "153.50",
         "vat": "30.70",
         "gross": "184.20",
-        "reason": null
+        "reason": "Начислен ДДС 20%"
       }
     ],
     "payments": [
@@ -71,7 +72,7 @@
         "currency": "EUR",
         "iban": "BG98STSA973001506003157",
         "bic": "STSABGSF",
-        "bank_name": "Банка ДСК"
+        "bank_name": "БАНКА ДСК"
       }
     ],
     "line_items": [
@@ -80,7 +81,7 @@
         "quantity": "1.000",
         "unit": "бр",
         "unit_price": "153.5000",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
         "net": "153.50",
         "vat": "30.70",
@@ -100,13 +101,13 @@
     "checks": [
       {
         "code": "supplier_eik_checksum",
-        "status": "fail",
-        "message": "EIK '1039008331' is malformed (not 9 or 13 digits)."
+        "status": "pass",
+        "message": ""
       },
       {
         "code": "customer_eik_checksum",
-        "status": "pass",
-        "message": ""
+        "status": "fail",
+        "message": "EIK '1039008331' is malformed (not 9 or 13 digits)."
       },
       {
         "code": "supplier_vat_format",
@@ -166,11 +167,11 @@
       {
         "code": "image_quality_issue",
         "status": "warning",
-        "message": "issues: stamp_obscures_data, heavy_shadow_over_text"
+        "message": "issues: low_contrast, heavy_shadow_over_text, stamp_obscures_data"
       }
     ],
     "errors": [
-      "supplier_eik_checksum",
+      "customer_eik_checksum",
       "iban_mod97"
     ],
     "warnings": [
@@ -179,16 +180,17 @@
   },
   "model_assessment": {
     "confidence": {
-      "overall": 0.94,
-      "document": 0.98,
-      "supplier": 0.97,
-      "customer": 0.96,
+      "overall": 0.86,
+      "document": 0.99,
+      "supplier": 0.9,
+      "customer": 0.9,
       "totals": 0.98,
-      "line_items": 0.9
+      "line_items": 0.94
     },
     "extraction_warnings": [
-      "Document is visually a protocol-style invoice with stamp and signature overlap.",
-      "Some fields are inferred from context where print is faint."
+      "Document is a standard invoice with gross amount shown; line item includes_vat set to false by invoice context may conflict with displayed totals if interpreted differently.",
+      "Customer EIK was read from printed EIK field.",
+      "Supplier and customer roles inferred from layout."
     ]
   },
   "evidence": {},
@@ -197,11 +199,11 @@
     "model": "gpt-5.4-mini",
     "pipeline": "vision_direct",
     "ocr_used": false,
-    "prompt_version": "codex-unified-v2-r13-2026-05-09-csharp",
-    "created_at": "2026-05-09T15:20:42Z",
-    "duration_ms": 5511,
-    "input_tokens": 4952,
-    "output_tokens": 536,
-    "cost_estimate_usd": "0.0061"
+    "prompt_version": "codex-unified-v2-r13-2026-05-10-csharp-targeted-fixes",
+    "created_at": "2026-05-10T08:22:04Z",
+    "duration_ms": 4744,
+    "input_tokens": 7201,
+    "output_tokens": 558,
+    "cost_estimate_usd": "0.0079"
   }
 }

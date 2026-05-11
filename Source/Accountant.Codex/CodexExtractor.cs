@@ -14,6 +14,11 @@ public sealed class CodexExtractorOptions
     public string ApiKey { get; init; } = "";
     public string Model { get; init; } = "gpt-5.4-mini";
     public int MaxOutputTokens { get; init; } = 4096;
+    // Published rates per 1M tokens for OpenAI gpt-5.4-mini (verified 2026-05-10 from
+    // OpenAI pricing aggregators). Note: gpt-5 family produces invisible reasoning tokens
+    // billed as output; those may not appear in our `output_tokens` counter, so the
+    // computed cost can under-report actual billing. Override via Codex:CostInputPerMtok
+    // / Codex:CostOutputPerMtok in user-secrets when switching to a different model.
     public decimal CostInputPerMtok { get; init; } = 0.75m;
     public decimal CostOutputPerMtok { get; init; } = 4.50m;
 }
@@ -79,12 +84,16 @@ public sealed class CodexExtractor : IAccountingDocumentExtractor
 
         var inputTokens = completion.Usage?.InputTokenCount ?? 0;
         var outputTokens = completion.Usage?.OutputTokenCount ?? 0;
+        // OpenAI returns the actual model that ran (may differ from what we requested
+        // if the alias auto-routes or falls back). Capture it so the cost calculation
+        // and the audit trail reflect reality, not what we configured.
+        var actualModel = completion.Model ?? _options.Model;
 
         var toolCall = completion.ToolCalls.FirstOrDefault(t => t.FunctionName == "extract_document")
             ?? throw new InvalidOperationException(
                 $"OpenAI did not call extract_document for '{fileName}'. Finish reason: {completion.FinishReason}");
 
-        var modelInput = DeserializeModelInput(toolCall.FunctionArguments);
+        var modelInput = ModelInputSanitizer.Sanitize(DeserializeModelInput(toolCall.FunctionArguments));
 
         var source = new Source
         {
@@ -102,7 +111,7 @@ public sealed class CodexExtractor : IAccountingDocumentExtractor
         var provider = new Provider
         {
             Engine = Engine.OpenAi,
-            Model = _options.Model,
+            Model = actualModel,
             Pipeline = Pipeline.VisionDirect,
             OcrUsed = false,
             PromptVersion = CodexPrompt.PromptVersion,

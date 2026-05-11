@@ -10,7 +10,7 @@
     "image_quality": {
       "readability": "good",
       "issues": [
-        "slight_fold_top_left_corner"
+        "left_edge_slightly_cropped"
       ]
     }
   },
@@ -165,7 +165,7 @@
       {
         "code": "image_quality_issue",
         "status": "warning",
-        "message": "issues: slight_fold_top_left_corner"
+        "message": "issues: left_edge_slightly_cropped"
       }
     ],
     "errors": [],
@@ -178,14 +178,15 @@
       "overall": 0.97,
       "document": 0.99,
       "supplier": 0.99,
-      "customer": 0.97,
+      "customer": 0.98,
       "totals": 0.99,
       "line_items": 0.97
     },
     "extraction_warnings": [
-      "Customer address partially unclear — 'жк ВАСИЛ ЛЕВСКИ ул. РОЩОК №9' read as printed but spacing between 'ЛЕВСКИ' and 'ул.' may be run-together in the original.",
-      "The invoice also states the gross amount in EUR (603.32 euro) but the invoice currency is BGN; EUR amount noted for reference only.",
-      "Discount column 'ТО (лв.)' shows 0.00, confirming 0% discount applied."
+      "Document also states the total as 603.32 EUR; BGN is the primary currency used throughout and no explicit exchange rate is printed on the document.",
+      "Supplier MOL field appears blank on the document.",
+      "Customer MOL field appears blank on the document.",
+      "Left edge of image is slightly cropped by the Yettel logo but no data appears lost."
     ]
   },
   "evidence": {
@@ -219,7 +220,7 @@
     },
     "supplier.address": {
       "text": "кв. МЛАДОСТ 4, Бизнес Парк София, сграда 6",
-      "confidence": 0.97
+      "confidence": 0.98
     },
     "supplier.city": {
       "text": "София",
@@ -239,7 +240,7 @@
     },
     "customer.address": {
       "text": "жк ВАСИЛ ЛЕВСКИ ул. РОЩОК №9",
-      "confidence": 0.95
+      "confidence": 0.97
     },
     "customer.city": {
       "text": "Варна",
@@ -258,27 +259,27 @@
       "confidence": 0.99
     },
     "line_items[0].discount_pct": {
-      "text": "ТО %: 0%",
+      "text": "ТО 0%",
       "confidence": 0.99
     },
     "line_items[0].net": {
-      "text": "Стойност в лв.: 983.32",
+      "text": "Стойност в лв. 983.32",
       "confidence": 0.99
     },
     "line_items[0].vat_rate": {
-      "text": "ДДС: 20%",
+      "text": "ДДС 20%",
       "confidence": 0.99
     },
     "line_items[0].vat": {
-      "text": "ДДС (лв.): 196.66",
+      "text": "ДДС (лв.) 196.66",
       "confidence": 0.99
     },
     "totals.net": {
-      "text": "Данъчна основа с 20% лв. 983.32",
+      "text": "Данъчна основа с 20%: лв. 983.32",
       "confidence": 0.99
     },
     "totals.vat": {
-      "text": "Начислен ДДС 20% лв. 196.66",
+      "text": "Начислен ДДС 20%: лв. 196.66",
       "confidence": 0.99
     },
     "totals.gross": {
@@ -303,11 +304,11 @@
     "model": "claude-sonnet-4-6",
     "pipeline": "vision_direct",
     "ocr_used": false,
-    "prompt_version": "claude-unified-v2-2026-05-09-csharp",
-    "created_at": "2026-05-09T15:21:24Z",
-    "duration_ms": 30484,
-    "input_tokens": 6749,
-    "output_tokens": 2044,
-    "cost_estimate_usd": "0.0509"
+    "prompt_version": "claude-unified-v2-2026-05-10-csharp-targeted-fixes",
+    "created_at": "2026-05-10T08:16:32Z",
+    "duration_ms": 30589,
+    "input_tokens": 9850,
+    "output_tokens": 2008,
+    "cost_estimate_usd": "0.0597"
   }
 }

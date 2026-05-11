@@ -1,0 +1,55 @@
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="row g-4">
+    <div class="col-sm-6 col-lg-3">
+        <div class="card text-bg-primary">
+            <div class="card-body">
+                <div class="fs-6 fw-semibold opacity-75">Total users</div>
+                <div class="fs-2 fw-bold">—</div>
+                <small class="opacity-75">Replace with real metric</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+        <div class="card text-bg-info">
+            <div class="card-body">
+                <div class="fs-6 fw-semibold opacity-75">Sign-ups today</div>
+                <div class="fs-2 fw-bold">—</div>
+                <small class="opacity-75">Replace with real metric</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+        <div class="card text-bg-warning">
+            <div class="card-body">
+                <div class="fs-6 fw-semibold opacity-75">Pending tasks</div>
+                <div class="fs-2 fw-bold">—</div>
+                <small class="opacity-75">Replace with real metric</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+        <div class="card text-bg-success">
+            <div class="card-body">
+                <div class="fs-6 fw-semibold opacity-75">Healthy</div>
+                <div class="fs-2 fw-bold">OK</div>
+                <small class="opacity-75">Replace with health check</small>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card mt-4">
+    <div class="card-header">Next steps</div>
+    <div class="card-body">
+        <p class="card-text mb-2">This is the scaffolded admin dashboard. From here:</p>
+        <ul class="mb-0">
+            <li>Add controllers under <code>Areas/Administration/Controllers/</code> (e.g. <code>UsersController</code>, <code>SettingsController</code>).</li>
+            <li>Add their links to the sidebar in <code>Areas/Administration/Views/Shared/_AdminLayout.cshtml</code>.</li>
+            <li>Replace these placeholder metric cards with real queries against your DbContext.</li>
+            <li>Customise <code>wwwroot/admin/css/admin.css</code> for project-specific palette.</li>
+        </ul>
+    </div>
+</div>

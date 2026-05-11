@@ -22,7 +22,7 @@
       "tax_event_date": "2025-08-02",
       "due_date": null,
       "currency": "BGN",
-      "exchange_rate": "1.95583",
+      "exchange_rate": null,
       "place": "гр. Варна, ж.к. Младост, ул. Вяра 3",
       "notes": null
     },
@@ -39,7 +39,7 @@
       "name": "ИНКО ТРЕЙ ЕООД",
       "eik": "206802564",
       "vat_number": "BG206802564",
-      "address": null,
+      "address": "ГР. ВАРНА",
       "city": "Варна",
       "country": "BG",
       "mol": null
@@ -66,9 +66,9 @@
         "method": "card",
         "amount": "93.54",
         "currency": "BGN",
-        "iban": "BG14BPBI79421092676704",
-        "bic": "BPBIBGSF",
-        "bank_name": "Пощенска банка"
+        "iban": null,
+        "bic": null,
+        "bank_name": null
       }
     ],
     "line_items": [
@@ -77,7 +77,7 @@
         "quantity": "1.000",
         "unit": null,
         "unit_price": "1.99",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
         "net": "1.66",
         "vat": "0.33",
@@ -85,11 +85,11 @@
         "includes_vat": true
       },
       {
-        "description": "РЪКАВИЦИ ОТ ТЕЛЕШКИ ВЕЛУР С МАНШЕТ 15 СМ",
+        "description": "РЪКАВИЦИ ОТ ТЕЛЕШКИ ВЕЛУР С МАНШЕТ 15 CM",
         "quantity": "1.000",
         "unit": null,
         "unit_price": "7.99",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
         "net": "6.66",
         "vat": "1.33",
@@ -101,7 +101,7 @@
         "quantity": "1.000",
         "unit": null,
         "unit_price": "3.99",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
         "net": "3.33",
         "vat": "0.66",
@@ -109,11 +109,11 @@
         "includes_vat": true
       },
       {
-        "description": "РЪКАВИЦИ ОТ ТЕЛЕШКИ ВЕЛУР С МАНШЕТ 7 СМ",
+        "description": "РЪКАВИЦИ ОТ ТЕЛЕШКИ ВЕЛУР С МАНШЕТ 7 CM",
         "quantity": "1.000",
         "unit": null,
         "unit_price": "6.99",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
         "net": "5.83",
         "vat": "1.16",
@@ -125,7 +125,7 @@
         "quantity": "1.000",
         "unit": null,
         "unit_price": "6.99",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
         "net": "5.83",
         "vat": "1.16",
@@ -133,11 +133,11 @@
         "includes_vat": true
       },
       {
-        "description": "ПОЛИПРОПИЛЕНОВО ВЪЖЕ ПЛЕТЕНО ШАРЕН О 10ММ",
+        "description": "ПОЛИПРОПИЛЕНОВО ВЪЖЕ ПЛЕТЕНО ШАРЕН О 10MM",
         "quantity": "40.000",
         "unit": null,
         "unit_price": "1.59",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
         "net": "53.00",
         "vat": "10.60",
@@ -149,7 +149,7 @@
         "quantity": "1.000",
         "unit": null,
         "unit_price": "1.99",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
         "net": "1.66",
         "vat": "0.33",
@@ -158,10 +158,10 @@
       }
     ],
     "fiscal": {
-      "fiscal_receipt_number": "0000156549",
-      "fiscal_device_number": "51018372",
+      "fiscal_receipt_number": "000156549",
+      "fiscal_device_number": "BN017314",
       "operator": "Галина Бонева",
-      "qr_code": null
+      "qr_code": "ODE50875337CBEDFB7C56EB802EC63654113942"
     }
   },
   "validation": {
@@ -189,13 +189,13 @@
       },
       {
         "code": "iban_mod97",
-        "status": "pass",
-        "message": ""
+        "status": "skipped",
+        "message": "IBAN is null"
       },
       {
         "code": "bic_format",
-        "status": "pass",
-        "message": ""
+        "status": "skipped",
+        "message": "BIC is null"
       },
       {
         "code": "currency_iso",
@@ -245,15 +245,15 @@
   },
   "model_assessment": {
     "confidence": {
-      "overall": 0.98,
-      "document": 1,
-      "supplier": 1,
+      "overall": 0.97,
+      "document": 0.99,
+      "supplier": 0.98,
       "customer": 0.98,
-      "totals": 1,
-      "line_items": 0.98
+      "totals": 0.99,
+      "line_items": 0.95
     },
     "extraction_warnings": [
-      "Image contains a second invoice (0320040621) on the right; only the left invoice (0320040582) was extracted."
+      "Image contains a second invoice on the right; only the left invoice was extracted."
     ]
   },
   "evidence": {},
@@ -262,11 +262,11 @@
     "model": "gemini-flash-latest",
     "pipeline": "vision_direct",
     "ocr_used": false,
-    "prompt_version": "gemini-unified-v2-2026-05-09-csharp",
-    "created_at": "2026-05-09T15:28:40Z",
-    "duration_ms": 23690,
-    "input_tokens": 4424,
-    "output_tokens": 1799,
-    "cost_estimate_usd": "0.0009"
+    "prompt_version": "gemini-unified-v2-2026-05-10-csharp-targeted-fixes",
+    "created_at": "2026-05-10T08:28:49Z",
+    "duration_ms": 20840,
+    "input_tokens": 5135,
+    "output_tokens": 1777,
+    "cost_estimate_usd": "0.0079"
   }
 }

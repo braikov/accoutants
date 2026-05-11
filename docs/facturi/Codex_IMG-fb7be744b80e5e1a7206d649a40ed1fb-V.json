@@ -32,7 +32,7 @@
       "name": "НИКСМЕТАЛ ООД",
       "eik": "205318988",
       "vat_number": "BG205318988",
-      "address": "Ботевград, „Цар Иван Шишман“ 43",
+      "address": "Ботевград, \"Цар Ив. Шишман\" 43",
       "city": "Ботевград",
       "country": "BG",
       "mol": "Станислав Геровски"
@@ -52,7 +52,7 @@
       "gross": "164.08",
       "discount": null,
       "rounding": null,
-      "amount_due": null
+      "amount_due": "164.08"
     },
     "vat_breakdown": [
       {
@@ -75,16 +75,16 @@
     ],
     "line_items": [
       {
-        "description": "ДИЗ. ГОРИВО Б-Б",
+        "description": "ДИЗ. ГОРИВО Б-6",
         "quantity": "72.600",
-        "unit": null,
+        "unit": "л",
         "unit_price": "1.88333",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
         "net": "136.73",
         "vat": "27.35",
         "gross": "164.08",
-        "includes_vat": false
+        "includes_vat": true
       }
     ],
     "fiscal": {
@@ -179,14 +179,14 @@
     "confidence": {
       "overall": 0.93,
       "document": 0.98,
-      "supplier": 0.95,
-      "customer": 0.93,
-      "totals": 0.98,
-      "line_items": 0.9
+      "supplier": 0.94,
+      "customer": 0.94,
+      "totals": 0.97,
+      "line_items": 0.92
     },
     "extraction_warnings": [
-      "The image is a printed fiscal invoice/receipt hybrid and some fields are faint.",
-      "Supplier bank name and account are partially inferred from the payment block."
+      "Single fiscal-style invoice receipt; prices are gross.",
+      "Customer address is partially visible and simplified."
     ]
   },
   "evidence": {},
@@ -195,11 +195,11 @@
     "model": "gpt-5.4-mini",
     "pipeline": "vision_direct",
     "ocr_used": false,
-    "prompt_version": "codex-unified-v2-r13-2026-05-09-csharp",
-    "created_at": "2026-05-09T15:20:52Z",
-    "duration_ms": 4199,
-    "input_tokens": 3736,
-    "output_tokens": 515,
-    "cost_estimate_usd": "0.0051"
+    "prompt_version": "codex-unified-v2-r13-2026-05-10-csharp-targeted-fixes",
+    "created_at": "2026-05-10T08:22:15Z",
+    "duration_ms": 4362,
+    "input_tokens": 5985,
+    "output_tokens": 538,
+    "cost_estimate_usd": "0.0069"
   }
 }

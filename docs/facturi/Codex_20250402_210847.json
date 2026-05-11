@@ -9,9 +9,7 @@
     "extracted_document_index": 0,
     "image_quality": {
       "readability": "good",
-      "issues": [
-        "heavy_shadow_over_text"
-      ]
+      "issues": []
     }
   },
   "extraction": {
@@ -26,12 +24,12 @@
       "currency": "BGN",
       "exchange_rate": null,
       "place": null,
-      "notes": "Original; payment method: card; total amount in words: хиляда осемстотин тридесет и две и 0.77 лева"
+      "notes": null
     },
     "supplier": {
       "name": "ДИАНА ООД",
       "eik": "81187662",
-      "vat_number": "BG811187662",
+      "vat_number": "BG81187662",
       "address": "гр. Благоевград, ул. \"Георги Измирлиев\" №15, ет. 1",
       "city": "Благоевград",
       "country": "BG",
@@ -41,7 +39,7 @@
       "name": "МедТекЛаб - ЕООД",
       "eik": "201556176",
       "vat_number": "BG201556176",
-      "address": "жк ВАСИЛ ЛЕВСКИ ул. РОЩОК №9 обл. ВАРНА",
+      "address": "жк ВАСИЛ ЛЕВСКИ ул. РОЩОК №9 обл.ВАРНА",
       "city": "Варна",
       "country": "BG",
       "mol": null
@@ -68,9 +66,9 @@
         "method": "card",
         "amount": "1832.77",
         "currency": "BGN",
-        "iban": "BG79PRCB92301029788414",
-        "bic": "PRCBBGSF",
-        "bank_name": "ПРОКРЕДИТ БАНК БЪЛГАРИЯ ЕАД"
+        "iban": null,
+        "bic": null,
+        "bank_name": null
       }
     ],
     "line_items": [
@@ -80,10 +78,10 @@
         "unit": "бр",
         "unit_price": "346.59",
         "discount_pct": "0.00",
-        "vat_rate": "0.00",
-        "net": "1386.36",
-        "vat": "0.00",
-        "gross": "1386.36",
+        "vat_rate": "20.00",
+        "net": "1386.37",
+        "vat": "277.27",
+        "gross": "1663.64",
         "includes_vat": false
       },
       {
@@ -92,7 +90,7 @@
         "unit": "бр",
         "unit_price": "0.00",
         "discount_pct": "0.00",
-        "vat_rate": "0.00",
+        "vat_rate": "20.00",
         "net": "0.00",
         "vat": "0.00",
         "gross": "0.00",
@@ -103,7 +101,7 @@
         "quantity": "4.000",
         "unit": "бр",
         "unit_price": "27.70",
-        "discount_pct": "20.00",
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
         "net": "88.64",
         "vat": "17.73",
@@ -115,7 +113,7 @@
         "quantity": "4.000",
         "unit": "бр",
         "unit_price": "12.22",
-        "discount_pct": "20.00",
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
         "net": "39.10",
         "vat": "7.82",
@@ -128,10 +126,10 @@
         "unit": "бр",
         "unit_price": "3.30",
         "discount_pct": "0.00",
-        "vat_rate": "0.00",
+        "vat_rate": "20.00",
         "net": "13.20",
-        "vat": "0.00",
-        "gross": "13.20",
+        "vat": "2.64",
+        "gross": "15.84",
         "includes_vat": false
       }
     ],
@@ -167,13 +165,13 @@
       },
       {
         "code": "iban_mod97",
-        "status": "pass",
-        "message": ""
+        "status": "skipped",
+        "message": "IBAN is null"
       },
       {
         "code": "bic_format",
-        "status": "pass",
-        "message": ""
+        "status": "skipped",
+        "message": "BIC is null"
       },
       {
         "code": "currency_iso",
@@ -207,35 +205,27 @@
       },
       {
         "code": "line_items_sum",
-        "status": "fail",
-        "message": "sum(vat)=25.55, totals.vat=305.46; sum(gross)=1552.85, totals.gross=1832.77"
-      },
-      {
-        "code": "image_quality_issue",
-        "status": "warning",
-        "message": "issues: heavy_shadow_over_text"
+        "status": "pass",
+        "message": "all populated component sums match totals"
       }
     ],
     "errors": [
-      "supplier_eik_checksum",
-      "line_items_sum"
+      "supplier_eik_checksum"
     ],
-    "warnings": [
-      "image_quality_issue"
-    ]
+    "warnings": []
   },
   "model_assessment": {
     "confidence": {
-      "overall": 0.89,
-      "document": 0.98,
+      "overall": 0.97,
+      "document": 0.99,
       "supplier": 0.98,
       "customer": 0.97,
-      "totals": 0.94,
-      "line_items": 0.81
+      "totals": 0.99,
+      "line_items": 0.93
     },
     "extraction_warnings": [
-      "Line item VAT rates are inferred from totals and printed amounts.",
-      "Printed total for line 1 appears to use no VAT, but arithmetic is slightly ambiguous from the photo."
+      "Printed line totals appear gross, but invoice totals are net+VAT; line items normalized as net based on invoice structure.",
+      "The printed payment amount is shown as card payment, not bank transfer."
     ]
   },
   "evidence": {},
@@ -244,11 +234,11 @@
     "model": "gpt-5.4-mini",
     "pipeline": "vision_direct",
     "ocr_used": false,
-    "prompt_version": "codex-unified-v2-r13-2026-05-09-csharp",
-    "created_at": "2026-05-09T15:18:59Z",
-    "duration_ms": 7319,
-    "input_tokens": 4964,
-    "output_tokens": 898,
-    "cost_estimate_usd": "0.0078"
+    "prompt_version": "codex-unified-v2-r13-2026-05-10-csharp-targeted-fixes",
+    "created_at": "2026-05-10T08:20:29Z",
+    "duration_ms": 6158,
+    "input_tokens": 7213,
+    "output_tokens": 822,
+    "cost_estimate_usd": "0.0091"
   }
 }

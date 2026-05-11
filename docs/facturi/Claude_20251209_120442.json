@@ -79,7 +79,7 @@
         "quantity": "1.000",
         "unit": "бр",
         "unit_price": "546.66",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
         "net": "546.66",
         "vat": "109.33",

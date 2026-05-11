@@ -245,21 +245,26 @@ Currently violated by: Codex (leaves `vat = null` per line, stores printed net u
 
 ### R13. Trade discount column ("T.O. %" / "Отстъпка %")
 
-When a per-line discount **percentage** column is printed:
+`line_items[*].discount_pct` is **always a decimal string**, never null. Default value is `"0.00"` (no discount applied). Conventions:
+
+- `discount_pct = "0.00"` when no discount applies to this line — whether the document has no T.O. column at all, the column shows "0", or the column is empty for this row. "No discount" is one canonical value.
+- `discount_pct = "20.00"` (or whatever the printed percentage is) when an actual discount is applied.
+- 2 decimals per R1.
+
+Derivation when a non-zero discount applies:
 
 - `unit_price` = the **printed pre-discount** unit price. Never compute `unit_price = line_total / quantity`.
-- `discount_pct` = the printed discount percentage (decimal string, 2 decimals per R1).
 - `net = quantity × unit_price × (1 − discount_pct/100)` (rounded per R12).
 - `vat = net × vat_rate / 100`.
 - `gross = net + vat`.
 
-When no discount column is printed, `discount_pct = null`.
-
-**Schema impact:** `line_items[*].discount_pct` is added in v2 as a required nullable property (every defined field always present, per the v2 conventions).
+**Schema impact:** `line_items[*].discount_pct` remains technically nullable in the JSON Schema (for forward compatibility), but the v2 convention is that it's always populated. Vendors must emit `"0.00"` instead of `null` when no discount is applied. Diff scripts, sanitizers, and downstream code may treat `null` as equivalent to `"0.00"` to absorb older outputs.
 
 **Absolute-amount discounts (corner case, no schema field yet):** if the document prints an absolute lev discount per line rather than a percentage, keep the printed `unit_price`, derive `net` from the printed final line amount, and add a warning to `model_assessment.extraction_warnings`. A future schema may add `line_items[*].discount_amount` if corpus evidence justifies it — currently no such examples exist in the 23-doc corpus.
 
-Currently violated by: Gemini (computed `unit_price = line_total / quantity`, ignoring the discount column).
+Currently violated by: any vendor that emits `null` for non-discounted lines (should emit `"0.00"`).
+
+Rationale: a percentage field that's null half the time and `"0.00"` the other half creates noise in cross-vendor diffs and forces downstream code to handle two representations of the same business state. A single canonical default (`"0.00"`) eliminates the ambiguity.
 
 ---
 

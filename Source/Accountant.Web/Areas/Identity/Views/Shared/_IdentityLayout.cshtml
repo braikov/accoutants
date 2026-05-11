@@ -1,0 +1,40 @@
+@{
+    var title = ViewData["Title"] as string;
+    var fullTitle = string.IsNullOrEmpty(title) ? "Accountant" : $"{title} — Accountant";
+}
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0f172a" />
+    <title>@fullTitle</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
+    <link rel="stylesheet" href="~/identity/css/identity.css" asp-append-version="true" />
+</head>
+<body>
+    <header class="auth-head">
+        <div class="auth-container head-inner">
+            <a class="brand" href="/" aria-label="Accountant">
+                <span class="brand-mark" aria-hidden="true">a.</span>
+                <span class="brand-name">accountant</span>
+            </a>
+        </div>
+    </header>
+
+    <main class="auth-main">
+        <div class="auth-container">
+            @RenderBody()
+        </div>
+    </main>
+
+    <footer class="auth-foot">
+        <div class="auth-container foot-inner">
+            <span>© @DateTime.Now.Year accountant</span>
+            <span class="muted">AI автоматизация за счетоводни офиси</span>
+        </div>
+    </footer>
+</body>
+</html>

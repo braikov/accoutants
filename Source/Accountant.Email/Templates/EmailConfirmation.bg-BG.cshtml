@@ -1,0 +1,38 @@
+@model Accountant.Email.Models.EmailConfirmationModel
+@{
+    Layout = "_EmailLayout";
+}
+
+<h2 style="margin:0 0 16px;font-size:20px;letter-spacing:-.01em;color:#0f172a;">Потвърждаване на акаунт</h2>
+
+<p style="margin:0 0 12px;">Здравейте,</p>
+
+<p style="margin:0 0 12px;">Получихме заявка за регистрация на акаунт с адрес <strong>@Model.Email</strong>.</p>
+
+<p style="margin:0 0 20px;">За да активирате акаунта си, моля кликнете върху бутона по-долу:</p>
+
+<p style="text-align:center;margin:28px 0;">
+    <a href="@Model.CallbackUrl"
+       style="background:#0f172a;color:#ffffff;padding:12px 28px;text-decoration:none;border-radius:8px;display:inline-block;font-weight:600;font-size:14px;">
+        Потвърди акаунт
+    </a>
+</p>
+
+@if (!string.IsNullOrWhiteSpace(Model.ShortCode))
+{
+    <p style="margin:24px 0 8px;font-size:13px;color:#64748b;text-align:center;">
+        Или въведете този код в приложението:
+    </p>
+    <p style="text-align:center;margin:0 0 24px;">
+        <strong style="font-size:24px;letter-spacing:6px;background:#f1f5f9;padding:12px 20px;display:inline-block;border-radius:8px;color:#0f172a;">@Model.ShortCode</strong>
+    </p>
+}
+
+<p style="margin:24px 0 0;font-size:12px;color:#64748b;">
+    Ако бутонът не работи, копирайте този линк в браузъра си:<br />
+    <span style="word-break:break-all;color:#475569;">@Model.CallbackUrl</span>
+</p>
+
+<p style="margin:20px 0 0;padding-top:16px;border-top:1px solid #e5e7eb;font-size:12px;color:#64748b;">
+    Ако не сте поискали тази регистрация, моля игнорирайте този email — акаунтът няма да бъде активиран.
+</p>

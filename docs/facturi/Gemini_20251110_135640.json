@@ -13,24 +13,24 @@
     }
   },
   "extraction": {
-    "document_type": "protocol",
+    "document_type": "invoice",
     "language": "bg",
     "country": "BG",
     "document": {
       "number": "7000154402",
       "date": "2025-02-25",
-      "tax_event_date": null,
+      "tax_event_date": "2025-02-25",
       "due_date": null,
       "currency": "BGN",
       "exchange_rate": null,
-      "place": "Склад Онлайн магазин",
+      "place": "Бургас",
       "notes": null
     },
     "supplier": {
-      "name": "Бошнаков ЕООД",
+      "name": "\"БОШНАКОВ\" ЕООД",
       "eik": "102082965",
       "vat_number": "BG102082965",
-      "address": "жк Славейков - СПЗ",
+      "address": "жк \"Славейков\"-СПЗ ИНТЕРНЕТ МАГАЗИН",
       "city": "Бургас",
       "country": "BG",
       "mol": null
@@ -39,7 +39,7 @@
       "name": "ИНКО ТРЕЙД ЕООД",
       "eik": "206802564",
       "vat_number": "BG206802564",
-      "address": "УЛ. РОЩОК 9",
+      "address": "УЛ. РОШОК 9",
       "city": "Варна",
       "country": "BG",
       "mol": null
@@ -63,7 +63,7 @@
     ],
     "payments": [
       {
-        "method": "cash",
+        "method": "unknown",
         "amount": "963.60",
         "currency": "BGN",
         "iban": null,
@@ -77,7 +77,7 @@
         "quantity": "35.000",
         "unit": null,
         "unit_price": "2.29",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
         "net": "66.79",
         "vat": "13.36",
@@ -85,11 +85,11 @@
         "includes_vat": true
       },
       {
-        "description": "Плафон LED 35W 3300lm LED 25000h бял",
+        "description": "Плафон LED 35W 3300lm 4000K",
         "quantity": "5.000",
         "unit": null,
         "unit_price": "52.90",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
         "net": "220.42",
         "vat": "44.08",
@@ -97,11 +97,11 @@
         "includes_vat": true
       },
       {
-        "description": "Ламиниран паркет 8мм 33/AC5 Дъб Солар 1285x192 (2.22)",
+        "description": "Ламиниран паркет 8мм 33/AC5",
         "quantity": "19.000",
         "unit": null,
         "unit_price": "29.95",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
         "net": "474.21",
         "vat": "94.84",
@@ -113,7 +113,7 @@
         "quantity": "1.000",
         "unit": null,
         "unit_price": "49.90",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
         "net": "41.58",
         "vat": "8.32",
@@ -124,8 +124,8 @@
     "fiscal": {
       "fiscal_receipt_number": "02794946",
       "fiscal_device_number": "DT794946",
-      "operator": "Цветелина Калоянова",
-      "qr_code": null
+      "operator": "00001 Цветелина Калоянова",
+      "qr_code": "7AB44846942A94BE615156781235717CA4F789CC"
     }
   },
   "validation": {
@@ -217,7 +217,8 @@
       "line_items": 1
     },
     "extraction_warnings": [
-      "The image contains a handover protocol and a corresponding fiscal receipt. Data from both was used to populate the fields."
+      "Image contains a handover protocol (ПРИЕМО-ПРЕДАВАТЕЛЕН ПРОТОКОЛ) on the left; only the fiscal receipt/invoice on the right was extracted.",
+      "Payment method 'Наложен платеж' (Cash on Delivery) mapped to 'unknown'."
     ]
   },
   "evidence": {},
@@ -226,11 +227,11 @@
     "model": "gemini-flash-latest",
     "pipeline": "vision_direct",
     "ocr_used": false,
-    "prompt_version": "gemini-unified-v2-2026-05-09-csharp",
-    "created_at": "2026-05-09T15:32:58Z",
-    "duration_ms": 22555,
-    "input_tokens": 4433,
-    "output_tokens": 1341,
-    "cost_estimate_usd": "0.0007"
+    "prompt_version": "gemini-unified-v2-2026-05-10-csharp-targeted-fixes",
+    "created_at": "2026-05-10T08:30:25Z",
+    "duration_ms": 20308,
+    "input_tokens": 5144,
+    "output_tokens": 1428,
+    "cost_estimate_usd": "0.0069"
   }
 }

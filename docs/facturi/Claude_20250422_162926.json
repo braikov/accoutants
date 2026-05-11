@@ -9,13 +9,11 @@
     "extracted_document_index": 0,
     "image_quality": {
       "readability": "good",
-      "issues": [
-        "faint_background_pattern_behind_text"
-      ]
+      "issues": []
     }
   },
   "extraction": {
-    "document_type": "invoice",
+    "document_type": "receipt",
     "language": "bg",
     "country": "BG",
     "document": {
@@ -32,7 +30,7 @@
       "name": "БАУХАУС БЪЛГАРИЯ ЕООД",
       "eik": "201611345",
       "vat_number": "BG201611345",
-      "address": "бул. История славянобългарска N:17",
+      "address": "гр.София, бул.История славянобългарска N:17",
       "city": "София",
       "country": "BG",
       "mol": null
@@ -41,7 +39,7 @@
       "name": "Инко трейд - ЕООД",
       "eik": "206802564",
       "vat_number": "BG206802564",
-      "address": "ул. Рошок 9 обл. ВАРНА",
+      "address": "ул. Рощок 9 обл.ВАРНА, гр.ВАРНА 9010",
       "city": "Варна",
       "country": "BG",
       "mol": null
@@ -79,71 +77,71 @@
         "quantity": "0.063",
         "unit": "кг",
         "unit_price": "43.91",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
-        "net": "2.77",
-        "vat": "0.55",
-        "gross": "3.32",
-        "includes_vat": false
+        "net": "2.31",
+        "vat": "0.46",
+        "gross": "2.77",
+        "includes_vat": true
       },
       {
         "description": "СФЕРИЧЕН КРАН М-Ж 1 ЦОЛ",
         "quantity": "1.000",
         "unit": "бр",
         "unit_price": "19.90",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
-        "net": "19.90",
-        "vat": "3.98",
-        "gross": "23.88",
-        "includes_vat": false
+        "net": "16.58",
+        "vat": "3.32",
+        "gross": "19.90",
+        "includes_vat": true
       },
       {
         "description": "ТЕФЛОНОВА ЛЕНТА ПРОФЕСИОНАЛНА",
         "quantity": "1.000",
         "unit": "бр",
         "unit_price": "3.99",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
-        "net": "3.99",
-        "vat": "0.80",
-        "gross": "4.79",
-        "includes_vat": false
+        "net": "3.33",
+        "vat": "0.66",
+        "gross": "3.99",
+        "includes_vat": true
       },
       {
         "description": "МЕСИНГОВ НИПЕЛ 1 ЦОЛ FERRO",
         "quantity": "2.000",
         "unit": "бр",
         "unit_price": "5.41",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
-        "net": "10.82",
-        "vat": "2.16",
-        "gross": "12.98",
-        "includes_vat": false
+        "net": "9.02",
+        "vat": "1.80",
+        "gross": "10.82",
+        "includes_vat": true
       },
       {
         "description": "СВРЕДЛО BOSCH EXPERT HEX-9 MC",
         "quantity": "1.000",
         "unit": "бр",
         "unit_price": "7.80",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
-        "net": "7.80",
-        "vat": "1.56",
-        "gross": "9.36",
-        "includes_vat": false
+        "net": "6.50",
+        "vat": "1.30",
+        "gross": "7.80",
+        "includes_vat": true
       }
     ],
     "fiscal": {
       "fiscal_receipt_number": "02977927",
       "fiscal_device_number": "DT795428",
       "operator": null,
-      "qr_code": "39CC93E2A78329BB2CA6510C7B718FFF866D131A"
+      "qr_code": "39CC93E2A7B329BB2CA6510C7B718FFF866D131A"
     }
   },
   "validation": {
-    "needs_review": true,
+    "needs_review": false,
     "checks": [
       {
         "code": "supplier_eik_checksum",
@@ -207,36 +205,26 @@
       },
       {
         "code": "line_items_sum",
-        "status": "fail",
-        "message": "sum(net)=45.28, totals.net=37.73; sum(vat)=9.05, totals.vat=7.55; sum(gross)=54.33, totals.gross=45.28"
-      },
-      {
-        "code": "image_quality_issue",
-        "status": "warning",
-        "message": "issues: faint_background_pattern_behind_text"
+        "status": "pass",
+        "message": "all populated component sums match totals"
       }
     ],
-    "errors": [
-      "line_items_sum"
-    ],
-    "warnings": [
-      "image_quality_issue"
-    ]
+    "errors": [],
+    "warnings": []
   },
   "model_assessment": {
     "confidence": {
-      "overall": 0.93,
+      "overall": 0.95,
       "document": 0.97,
-      "supplier": 0.93,
-      "customer": 0.95,
+      "supplier": 0.96,
+      "customer": 0.93,
       "totals": 0.99,
-      "line_items": 0.92
+      "line_items": 0.95
     },
     "extraction_warnings": [
-      "Line item amounts on receipt are printed as VAT-group totals (Данъчна група Б); individual line VAT/gross values derived from the printed 20% rate and net amounts.",
-      "Supplier name on header reads 'БАУХАУС БЪЛГАРИЯ ЕООД ТЦ за РДГ КД' — 'ТЦ за РДГ КД' appears to be a store/location identifier; legal name extracted as 'БАУХАУС БЪЛГАРИЯ ЕООД'.",
-      "Receipt line amounts labeled 'Б' (Данъчна група Б = 20% VAT); line item net values taken as the printed amounts since the totals confirm net=37.73 and gross=45.28.",
-      "Sum of individual line nets (2.77+19.90+3.99+10.82+7.80=45.28) equals gross rather than net; the receipt prints line amounts inclusive of VAT despite 'Данъчна група Б' labeling. Line items stored with printed amounts as net per document totals reconciliation — possible that printed line amounts are gross (includes_vat=true). Totals net=37.73 and gross=45.28 are authoritative."
+      "BAUHAUS fiscal receipt with embedded ФАКТУРА ОРИГИНАЛ block; classified as receipt per PRIORITY 0. All line prices are VAT-inclusive (Данъчна група Б = 20%).",
+      "Line item net values are derived as gross / 1.20; document-printed totals (Нето: 37.73, ДДС: 7.55, Бруто: 45.28) used as authoritative cross-check.",
+      "Customer address printed as 'ул. Рощок 9 обл.ВАРНА, гр.ВАРНА 9010'; city extracted as Варна from inline address."
     ]
   },
   "evidence": {
@@ -258,35 +246,35 @@
     },
     "supplier.name": {
       "text": "БАУХАУС БЪЛГАРИЯ ЕООД ТЦ за РДГ КД",
-      "confidence": 0.92
+      "confidence": 0.95
     },
     "supplier.eik": {
       "text": "ЕИК: 201611345",
-      "confidence": 0.97
+      "confidence": 0.98
     },
     "supplier.vat_number": {
       "text": "ЗДДС N:BG201611345",
-      "confidence": 0.93
+      "confidence": 0.97
     },
     "supplier.address": {
-      "text": "гр.София.бул.История славянобългарска N:17",
-      "confidence": 0.95
+      "text": "гр.София, бул.История славянобългарска N:17",
+      "confidence": 0.97
     },
     "customer.name": {
       "text": "Инко трейд - ЕООД",
       "confidence": 0.97
     },
     "customer.eik": {
-      "text": "Ид.ном. :206802564",
-      "confidence": 0.97
+      "text": "Ид.ном.:206802564",
+      "confidence": 0.96
     },
     "customer.vat_number": {
       "text": "Ид.ном.ДДС:BG206802564",
       "confidence": 0.97
     },
     "customer.address": {
-      "text": "ул. Рошок  9 обл.ВАРНА, гр.ВАРНА 9010",
-      "confidence": 0.95
+      "text": "ул. Рощок  9 обл.ВАРНА, гр.ВАРНА 9010",
+      "confidence": 0.92
     },
     "totals.net": {
       "text": "Нето сума: 37.73 лв.",
@@ -297,11 +285,7 @@
       "confidence": 0.99
     },
     "totals.gross": {
-      "text": "Брото сума: 45.28 лв.",
-      "confidence": 0.99
-    },
-    "totals.amount_due": {
-      "text": "ОБЩА СУМА 45.28",
+      "text": "Бруто сума: 45.28 лв.",
       "confidence": 0.99
     },
     "payments[0].method": {
@@ -317,22 +301,18 @@
       "confidence": 0.99
     },
     "fiscal.qr_code": {
-      "text": "39CC93E2A78329BB2CA6510C7B718FFF866D131A",
+      "text": "39CC93E2A7B329BB2CA6510C7B718FFF866D131A",
       "confidence": 0.95
+    },
+    "vat_breakdown[0].rate": {
+      "text": "Данъчна група Б / ДДС 20%",
+      "confidence": 0.99
     },
     "line_items[0].description": {
       "text": "ГАЙКА 14X40 F70",
       "confidence": 0.97
     },
-    "line_items[0].quantity": {
-      "text": "0.063 кг.",
-      "confidence": 0.97
-    },
-    "line_items[0].unit_price": {
-      "text": "43.91",
-      "confidence": 0.97
-    },
-    "line_items[0].net": {
+    "line_items[0].gross": {
       "text": "2.77 Б",
       "confidence": 0.97
     },
@@ -340,15 +320,7 @@
       "text": "СФЕРИЧЕН КРАН М-Ж 1 ЦОЛ",
       "confidence": 0.97
     },
-    "line_items[1].quantity": {
-      "text": "1 бр.",
-      "confidence": 0.99
-    },
-    "line_items[1].unit_price": {
-      "text": "19.90",
-      "confidence": 0.99
-    },
-    "line_items[1].net": {
+    "line_items[1].gross": {
       "text": "19.90 Б",
       "confidence": 0.99
     },
@@ -356,15 +328,7 @@
       "text": "ТЕФЛОНОВА ЛЕНТА ПРОФЕСИОНАЛНА",
       "confidence": 0.97
     },
-    "line_items[2].quantity": {
-      "text": "1 бр.",
-      "confidence": 0.99
-    },
-    "line_items[2].unit_price": {
-      "text": "3.99",
-      "confidence": 0.99
-    },
-    "line_items[2].net": {
+    "line_items[2].gross": {
       "text": "3.99 Б",
       "confidence": 0.99
     },
@@ -372,15 +336,7 @@
       "text": "МЕСИНГОВ НИПЕЛ 1 ЦОЛ FERRO",
       "confidence": 0.97
     },
-    "line_items[3].quantity": {
-      "text": "2 бр.",
-      "confidence": 0.99
-    },
-    "line_items[3].unit_price": {
-      "text": "5.41",
-      "confidence": 0.99
-    },
-    "line_items[3].net": {
+    "line_items[3].gross": {
       "text": "10.82 Б",
       "confidence": 0.99
     },
@@ -388,15 +344,7 @@
       "text": "СВРЕДЛО BOSCH EXPERT HEX-9 MC",
       "confidence": 0.97
     },
-    "line_items[4].quantity": {
-      "text": "1 бр.",
-      "confidence": 0.99
-    },
-    "line_items[4].unit_price": {
-      "text": "7.80",
-      "confidence": 0.99
-    },
-    "line_items[4].net": {
+    "line_items[4].gross": {
       "text": "7.80 Б",
       "confidence": 0.99
     }
@@ -406,11 +354,11 @@
     "model": "claude-sonnet-4-6",
     "pipeline": "vision_direct",
     "ocr_used": false,
-    "prompt_version": "claude-unified-v2-2026-05-09-csharp",
-    "created_at": "2026-05-09T15:22:41Z",
-    "duration_ms": 47511,
-    "input_tokens": 6197,
-    "output_tokens": 3093,
-    "cost_estimate_usd": "0.0650"
+    "prompt_version": "claude-unified-v2-2026-05-10-csharp-targeted-fixes",
+    "created_at": "2026-05-10T08:17:47Z",
+    "duration_ms": 40158,
+    "input_tokens": 9298,
+    "output_tokens": 2703,
+    "cost_estimate_usd": "0.0684"
   }
 }

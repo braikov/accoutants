@@ -8,9 +8,10 @@
     "detected_document_count": 1,
     "extracted_document_index": 0,
     "image_quality": {
-      "readability": "fair",
+      "readability": "good",
       "issues": [
-        "low_contrast"
+        "slightly_tilted",
+        "heavy_shadow_over_text"
       ]
     }
   },
@@ -19,20 +20,20 @@
     "language": "bg",
     "country": "BG",
     "document": {
-      "number": "018015/92",
+      "number": "018015/42",
       "date": "2025-12-13",
       "tax_event_date": "2025-12-13",
       "due_date": null,
       "currency": "BGN",
       "exchange_rate": null,
-      "place": "Варна",
-      "notes": "Fiscal receipt attached to invoice-like printout. Payment by debit card. Printed invoice no. 018015/92 and QR/fiscal data visible."
+      "place": null,
+      "notes": null
     },
     "supplier": {
       "name": "\"ПРАКТИКЕР РИТЕЙЛ\" ЕООД",
       "eik": "200525782",
       "vat_number": "BG200525782",
-      "address": "ул. \"Околовръстен път\" 265",
+      "address": "ГР.СОФИЯ, ЧЛ.\"ОКОЛОВРЪСТЕН ПЪТ\" 265\nХИПЕРМАРКЕТ ПРАКТИКЕР КРАСНО СЕЛО\nГР.СОФИЯ, БУЛ.НИКОЛА МУДАНОВ 149Б",
       "city": "София",
       "country": "BG",
       "mol": null
@@ -41,7 +42,7 @@
       "name": "ИНКО ТРЕЙД ЕООД",
       "eik": "206802564",
       "vat_number": "BG206802564",
-      "address": "ул. Рощок 9",
+      "address": "УЛ. РОЩОК 9\nВАРНА",
       "city": "Варна",
       "country": "BG",
       "mol": null
@@ -60,7 +61,7 @@
         "net": "102.95",
         "vat": "20.59",
         "gross": "123.54",
-        "reason": null
+        "reason": "ДДС ГРУПА Б=20,00%"
       }
     ],
     "payments": [
@@ -73,12 +74,25 @@
         "bank_name": null
       }
     ],
-    "line_items": [],
+    "line_items": [
+      {
+        "description": "ОБЩА СУМА ЛВ",
+        "quantity": "1.000",
+        "unit": "бр",
+        "unit_price": "123.54",
+        "discount_pct": "0.00",
+        "vat_rate": "20.00",
+        "net": "102.95",
+        "vat": "20.59",
+        "gross": "123.54",
+        "includes_vat": true
+      }
+    ],
     "fiscal": {
       "fiscal_receipt_number": "02973905",
       "fiscal_device_number": "DT973905",
       "operator": "0013",
-      "qr_code": "4FDFF13070E293F44E2C90FBCCE428B7096"
+      "qr_code": "E4FDFF13D70DE293E44E2C90FBCCE428B7096"
     }
   },
   "validation": {
@@ -146,13 +160,13 @@
       },
       {
         "code": "line_items_sum",
-        "status": "skipped",
-        "message": "no line items"
+        "status": "pass",
+        "message": "all populated component sums match totals"
       },
       {
         "code": "image_quality_issue",
         "status": "warning",
-        "message": "issues: low_contrast"
+        "message": "issues: slightly_tilted, heavy_shadow_over_text"
       }
     ],
     "errors": [],
@@ -162,17 +176,17 @@
   },
   "model_assessment": {
     "confidence": {
-      "overall": 0.81,
-      "document": 0.93,
-      "supplier": 0.88,
-      "customer": 0.87,
-      "totals": 0.96,
-      "line_items": 0.2
+      "overall": 0.91,
+      "document": 0.98,
+      "supplier": 0.95,
+      "customer": 0.93,
+      "totals": 0.97,
+      "line_items": 0.78
     },
     "extraction_warnings": [
-      "Receipt date is inferred from the printed timestamp and may be the transaction date.",
-      "Document appears to be a fiscal receipt attached to an invoice-like printout.",
-      "Line items are not visible in this image."
+      "Retail fiscal receipt with invoice block; prices are gross.",
+      "Date appears as 13-12-2025 on the printed receipt.",
+      "Line items are partially collapsed into the receipt total; only one aggregated item extracted."
     ]
   },
   "evidence": {},
@@ -181,11 +195,11 @@
     "model": "gpt-5.4-mini",
     "pipeline": "vision_direct",
     "ocr_used": false,
-    "prompt_version": "codex-unified-v2-r13-2026-05-09-csharp",
-    "created_at": "2026-05-09T15:20:37Z",
-    "duration_ms": 5026,
-    "input_tokens": 3820,
-    "output_tokens": 507,
-    "cost_estimate_usd": "0.0051"
+    "prompt_version": "codex-unified-v2-r13-2026-05-10-csharp-targeted-fixes",
+    "created_at": "2026-05-10T08:21:59Z",
+    "duration_ms": 5462,
+    "input_tokens": 6069,
+    "output_tokens": 616,
+    "cost_estimate_usd": "0.0073"
   }
 }

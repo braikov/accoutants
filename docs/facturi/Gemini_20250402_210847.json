@@ -30,7 +30,7 @@
       "name": "ДИАНА ООД",
       "eik": "811187662",
       "vat_number": "BG811187662",
-      "address": "ул. \"Георги Измирлиев\" №15, ет. 1",
+      "address": "гр. Благоевград, ул. \"Георги Измирлиев\" №15, ет. 1",
       "city": "Благоевград",
       "country": "BG",
       "mol": "Диана Яръмова"
@@ -39,7 +39,7 @@
       "name": "МедТекЛаб - ЕООД",
       "eik": "201556176",
       "vat_number": "BG201556176",
-      "address": "жк ВАСИЛ ЛЕВСКИул. РОЩОК №9",
+      "address": "жк ВАСИЛ ЛЕВСКИул. РОЩОК №9 обл.ВАРНА,",
       "city": "Варна",
       "country": "BG",
       "mol": null
@@ -67,13 +67,13 @@
         "amount": "1832.77",
         "currency": "BGN",
         "iban": "BG79PRCB92301029788414",
-        "bic": "PRCBGGSF",
+        "bic": "PRCBBGSF",
         "bank_name": "ПРОКРЕДИТ БАНК БЪЛГАРИЯ ЕАД"
       }
     ],
     "line_items": [
       {
-        "description": "GOODYEAR EAGLE F1 ASYMM 6",
+        "description": "GOODYEAR EAGLE F1 ASYMM 6 (255/45R19 104Y XL FR-GY256)",
         "quantity": "4.000",
         "unit": "бр",
         "unit_price": "346.59",
@@ -85,7 +85,7 @@
         "includes_vat": false
       },
       {
-        "description": "ТР.УСЛУГА ДО СЕРВИЗ НА ДИАНА",
+        "description": "ТР.УСЛУГА ДО СЕРВИЗ НА ДИАНА (SRV000258)",
         "quantity": "4.000",
         "unit": "бр",
         "unit_price": "0.00",
@@ -97,7 +97,7 @@
         "includes_vat": false
       },
       {
-        "description": "МОНТАЖ И ДЕМОНТАЖ-ДЖИП, SUV",
+        "description": "МОНТАЖ И ДЕМОНТАЖ-ДЖИП, SUV (0004196 02)",
         "quantity": "4.000",
         "unit": "бр",
         "unit_price": "27.70",
@@ -109,7 +109,7 @@
         "includes_vat": false
       },
       {
-        "description": "ОПТИМИЗИРАН БАЛАНС",
+        "description": "ОПТИМИЗИРАН БАЛАНС (000433 02)",
         "quantity": "4.000",
         "unit": "бр",
         "unit_price": "12.22",
@@ -121,7 +121,7 @@
         "includes_vat": false
       },
       {
-        "description": "ТЕЖЕСТИ 17\"18\"19\"20\"21\"22-24\"",
+        "description": "ТЕЖЕСТИ 17\"18\"19\"20\"21\"22-24\" (WEIGHTS PASS 17-24)",
         "quantity": "4.000",
         "unit": "бр",
         "unit_price": "3.30",
@@ -214,14 +214,16 @@
   },
   "model_assessment": {
     "confidence": {
-      "overall": 1,
-      "document": 1,
-      "supplier": 1,
-      "customer": 1,
-      "totals": 1,
-      "line_items": 1
+      "overall": 0.99,
+      "document": 0.99,
+      "supplier": 0.99,
+      "customer": 0.99,
+      "totals": 0.99,
+      "line_items": 0.98
     },
-    "extraction_warnings": []
+    "extraction_warnings": [
+      "Line item 1 net amount (1386.37) differs by 0.01 from calculated quantity * unit_price (1386.36); using printed value."
+    ]
   },
   "evidence": {},
   "provider": {
@@ -229,11 +231,11 @@
     "model": "gemini-flash-latest",
     "pipeline": "vision_direct",
     "ocr_used": false,
-    "prompt_version": "gemini-unified-v2-2026-05-09-csharp",
-    "created_at": "2026-05-09T15:22:33Z",
-    "duration_ms": 12268,
-    "input_tokens": 4426,
-    "output_tokens": 1535,
-    "cost_estimate_usd": "0.0008"
+    "prompt_version": "gemini-unified-v2-2026-05-10-csharp-targeted-fixes",
+    "created_at": "2026-05-10T08:25:59Z",
+    "duration_ms": 27205,
+    "input_tokens": 5137,
+    "output_tokens": 1662,
+    "cost_estimate_usd": "0.0076"
   }
 }

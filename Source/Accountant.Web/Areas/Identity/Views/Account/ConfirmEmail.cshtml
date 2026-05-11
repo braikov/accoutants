@@ -1,0 +1,11 @@
+@{
+    ViewData["Title"] = "Имейлът е потвърден";
+}
+
+<div class="auth-card auth-status">
+    <div class="auth-status-icon success">@(Html.Raw("&#x2713;"))</div>
+    <h1>Готово!</h1>
+    <p class="lead">Имейлът ви е успешно потвърден. Сега можете да влезете в акаунта си.</p>
+
+    <a asp-action="Login" class="btn btn-primary">Към вход</a>
+</div>

@@ -30,8 +30,22 @@ public static class ModelInputSanitizer
             Fiscal = NullCoalesce(e.Fiscal, () => new Fiscal()),
             VatBreakdown = NullCoalesce(e.VatBreakdown, () => Array.Empty<VatBreakdownItem>()),
             Payments = NullCoalesce(e.Payments, () => Array.Empty<Payment>()),
-            LineItems = NullCoalesce(e.LineItems, () => Array.Empty<LineItem>()),
+            LineItems = NullCoalesce(e.LineItems, () => Array.Empty<LineItem>()).Select(SanitizeLineItem).ToArray(),
         };
+    }
+
+    /// Per R13 (revised): `discount_pct` is always a decimal string with 2 decimals, never null.
+    /// Default `"0.00"` when no discount applies. Covers vendor outputs that emit null,
+    /// the literal string `"null"` (a known Codex bug), empty strings, or whitespace.
+    private static LineItem SanitizeLineItem(LineItem li) =>
+        li with { DiscountPct = NormaliseDiscountPct(li.DiscountPct) };
+
+    private static string NormaliseDiscountPct(string? value)
+    {
+        if (string.IsNullOrWhiteSpace(value)) return "0.00";
+        var trimmed = value.Trim();
+        if (string.Equals(trimmed, "null", StringComparison.OrdinalIgnoreCase)) return "0.00";
+        return trimmed;
     }
 
     private static ModelAssessment SanitizeAssessment(ModelAssessment? source)

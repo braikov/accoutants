@@ -10,9 +10,9 @@
     "image_quality": {
       "readability": "fair",
       "issues": [
-        "low_contrast",
-        "fold_obscures_data",
-        "stamp_obscures_data"
+        "heavy_shadow_over_text",
+        "stamp_obscures_data",
+        "fold_obscures_data"
       ]
     }
   },
@@ -23,7 +23,7 @@
     "document": {
       "number": "0000300823",
       "date": "2024-09-26",
-      "tax_event_date": null,
+      "tax_event_date": "2024-09-26",
       "due_date": null,
       "currency": "BGN",
       "exchange_rate": null,
@@ -34,7 +34,7 @@
       "name": "НИКСМЕТАЛ ОЙЛ ЕООД",
       "eik": "205318980",
       "vat_number": "BG205318980",
-      "address": "ботевград, \"Цар Иван Шишман\" 43",
+      "address": "Ботевград, \"Цар Ив. Шишман\" 43",
       "city": "Ботевград",
       "country": "BG",
       "mol": "Станислав Геровски"
@@ -72,21 +72,21 @@
         "currency": "BGN",
         "iban": "BG37STSAS93001528411158",
         "bic": "STSABGSF",
-        "bank_name": "Банка ДСК"
+        "bank_name": "Банка ДСК ЕАД"
       }
     ],
     "line_items": [
       {
         "description": "ДИЗ. ГОРИВО Б-6",
         "quantity": "64.930",
-        "unit": null,
+        "unit": "л",
         "unit_price": "1.84167",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
         "net": "119.58",
         "vat": "23.92",
         "gross": "143.50",
-        "includes_vat": false
+        "includes_vat": true
       }
     ],
     "fiscal": {
@@ -172,7 +172,7 @@
       {
         "code": "image_quality_issue",
         "status": "warning",
-        "message": "issues: low_contrast, fold_obscures_data, stamp_obscures_data"
+        "message": "issues: heavy_shadow_over_text, stamp_obscures_data, fold_obscures_data"
       }
     ],
     "errors": [
@@ -185,17 +185,17 @@
   },
   "model_assessment": {
     "confidence": {
-      "overall": 0.39,
-      "document": 0.93,
-      "supplier": 0.98,
-      "customer": 0.97,
-      "totals": 0.96,
-      "line_items": 0.9
+      "overall": 0.44,
+      "document": 0.83,
+      "supplier": 0.88,
+      "customer": 0.84,
+      "totals": 0.82,
+      "line_items": 0.7
     },
     "extraction_warnings": [
-      "Multiple invoices are visible; extracted the top-left document only.",
-      "Document number and date are partially unclear; date inferred from visible text.",
-      "Four documents are visible in one image."
+      "Multiple documents visible; extracted the top-left document only.",
+      "Date text is blurry; 2024-09-26 was read with low confidence.",
+      "The top-left receipt is partially occluded by the overlaid stack and stamp."
     ]
   },
   "evidence": {},
@@ -204,11 +204,11 @@
     "model": "gpt-5.4-mini",
     "pipeline": "vision_direct",
     "ocr_used": false,
-    "prompt_version": "codex-unified-v2-r13-2026-05-09-csharp",
-    "created_at": "2026-05-09T15:19:37Z",
-    "duration_ms": 5427,
-    "input_tokens": 4959,
-    "output_tokens": 526,
-    "cost_estimate_usd": "0.0061"
+    "prompt_version": "codex-unified-v2-r13-2026-05-10-csharp-targeted-fixes",
+    "created_at": "2026-05-10T08:21:01Z",
+    "duration_ms": 4884,
+    "input_tokens": 7208,
+    "output_tokens": 551,
+    "cost_estimate_usd": "0.0079"
   }
 }

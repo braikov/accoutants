@@ -30,7 +30,7 @@
       "name": "\"НИКСМЕТАЛ ОЙЛ\" ЕООД",
       "eik": "205318980",
       "vat_number": "BG205318980",
-      "address": "\"Цар Ив. Шишман\" 43",
+      "address": "Ботевград, \"Цар Ив. Шишман\" 43",
       "city": "Ботевград",
       "country": "BG",
       "mol": "Станислав Геровски"
@@ -39,7 +39,7 @@
       "name": "ИнкоТрейд ЕООД",
       "eik": "206802564",
       "vat_number": "BG206802564",
-      "address": null,
+      "address": "гр. Варна",
       "city": "Варна",
       "country": "BG",
       "mol": "Мариана Кинчова Петрова"
@@ -66,9 +66,9 @@
         "method": "card",
         "amount": "164.08",
         "currency": "BGN",
-        "iban": "BG37STSA93001528411158",
-        "bic": "STSABGSF",
-        "bank_name": "\"Банка ДСК\" ЕАД"
+        "iban": null,
+        "bic": null,
+        "bank_name": null
       }
     ],
     "line_items": [
@@ -77,7 +77,7 @@
         "quantity": "72.600",
         "unit": null,
         "unit_price": "1.88333",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
         "net": "136.73",
         "vat": "27.35",
@@ -117,13 +117,13 @@
       },
       {
         "code": "iban_mod97",
-        "status": "pass",
-        "message": ""
+        "status": "skipped",
+        "message": "IBAN is null"
       },
       {
         "code": "bic_format",
-        "status": "pass",
-        "message": ""
+        "status": "skipped",
+        "message": "BIC is null"
       },
       {
         "code": "currency_iso",
@@ -166,12 +166,12 @@
   },
   "model_assessment": {
     "confidence": {
-      "overall": 0.99,
-      "document": 1,
-      "supplier": 1,
+      "overall": 0.98,
+      "document": 0.99,
+      "supplier": 0.99,
       "customer": 0.98,
-      "totals": 1,
-      "line_items": 1
+      "totals": 0.99,
+      "line_items": 0.98
     },
     "extraction_warnings": []
   },
@@ -181,11 +181,11 @@
     "model": "gemini-flash-latest",
     "pipeline": "vision_direct",
     "ocr_used": false,
-    "prompt_version": "gemini-unified-v2-2026-05-09-csharp",
-    "created_at": "2026-05-09T15:34:16Z",
-    "duration_ms": 11577,
-    "input_tokens": 4461,
-    "output_tokens": 946,
-    "cost_estimate_usd": "0.0006"
+    "prompt_version": "gemini-unified-v2-2026-05-10-csharp-targeted-fixes",
+    "created_at": "2026-05-10T08:50:40Z",
+    "duration_ms": 9444,
+    "input_tokens": 5172,
+    "output_tokens": 588,
+    "cost_estimate_usd": "0.0044"
   }
 }

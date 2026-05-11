@@ -30,7 +30,7 @@
       "name": "ЗОРА М.М.С. ООД",
       "eik": "121839316",
       "vat_number": "BG121839316",
-      "address": "ул Летец Радул Милков 2 Индустриална зона",
+      "address": "Божурище, ул Летец Радул Милков 2 Индустриална зона Божурище код 2227",
       "city": "Божурище",
       "country": "BG",
       "mol": null
@@ -39,7 +39,7 @@
       "name": "ИНКО ТРЕЙД ЕООД",
       "eik": "206802564",
       "vat_number": "BG206802564",
-      "address": "УЛ. ВАСИЛ СТЕФАНОВ 51",
+      "address": "България, УЛ. ВАСИЛ СТЕФАНОВ 51, 1404 СОФИЯ, BULGARIA",
       "city": "София",
       "country": "BG",
       "mol": "ПЕТЪР ПЕТРОВ"
@@ -66,9 +66,9 @@
         "method": "cash",
         "amount": "655.99",
         "currency": "BGN",
-        "iban": null,
-        "bic": null,
-        "bank_name": null
+        "iban": "BG11UNCR966010ZORAMMS1",
+        "bic": "UNCRBGSF",
+        "bank_name": "УниКредит Булбанк-АД"
       }
     ],
     "line_items": [
@@ -117,13 +117,13 @@
       },
       {
         "code": "iban_mod97",
-        "status": "skipped",
-        "message": "IBAN is null"
+        "status": "pass",
+        "message": ""
       },
       {
         "code": "bic_format",
-        "status": "skipped",
-        "message": "BIC is null"
+        "status": "pass",
+        "message": ""
       },
       {
         "code": "currency_iso",
@@ -181,11 +181,11 @@
     "model": "gemini-flash-latest",
     "pipeline": "vision_direct",
     "ocr_used": false,
-    "prompt_version": "gemini-unified-v2-2026-05-09-csharp",
-    "created_at": "2026-05-09T15:33:20Z",
-    "duration_ms": 13821,
-    "input_tokens": 4445,
-    "output_tokens": 963,
-    "cost_estimate_usd": "0.0006"
+    "prompt_version": "gemini-unified-v2-2026-05-10-csharp-targeted-fixes",
+    "created_at": "2026-05-10T08:30:45Z",
+    "duration_ms": 13741,
+    "input_tokens": 5156,
+    "output_tokens": 1029,
+    "cost_estimate_usd": "0.0057"
   }
 }

@@ -1,0 +1,119 @@
+@{
+    var currentController = (ViewContext.RouteData.Values["controller"] as string ?? "").ToLowerInvariant();
+    var currentAction = (ViewContext.RouteData.Values["action"] as string ?? "").ToLowerInvariant();
+    Func<string, bool> ctrlIs = c => !string.IsNullOrEmpty(c) && currentController == c.ToLowerInvariant();
+    var title = ViewData["Title"] as string;
+    var fullTitle = string.IsNullOrEmpty(title) ? "Admin" : $"{title} — Admin";
+}
+<!DOCTYPE html>
+<html lang="bg" data-coreui-theme="auto">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>@fullTitle</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@@coreui/coreui@@5.5.0/dist/css/coreui.min.css" integrity="sha384-X+0aDpfX+SDcRQ5L1L7yGI3l3rg2H1MnQDcJK+t9KbA8Y3X8YJpJjP0xUe7gqkM3" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@@coreui/icons@@3.0.1/css/free.min.css" />
+    <link rel="stylesheet" href="~/admin/css/admin.css" asp-append-version="true" />
+    @RenderSection("Styles", required: false)
+</head>
+<body>
+    <div class="sidebar sidebar-dark sidebar-fixed border-end" id="sidebar">
+        <div class="sidebar-header border-bottom">
+            <a class="sidebar-brand d-flex flex-row align-items-center text-decoration-none ps-3"
+               asp-area="App" asp-controller="Home" asp-action="Index">
+                <span class="badge bg-light text-dark fw-bold rounded-2">a.</span>
+                <span class="ms-2 fw-bold">admin</span>
+            </a>
+        </div>
+
+        <ul class="sidebar-nav" data-coreui="navigation">
+            <li class="nav-item">
+                <a class="nav-link @(ctrlIs("home") ? "active" : "")" asp-area="Administration" asp-controller="Home" asp-action="Index">
+                    <i class="nav-icon cil-speedometer"></i>
+                    Dashboard
+                </a>
+            </li>
+
+            @*
+                Add your project-specific nav items below. Use the helper:
+                <a class="nav-link @(ctrlIs("YourController") ? "active" : "")"
+                   asp-area="Administration" asp-controller="YourController" asp-action="Index">
+                    <i class="nav-icon cil-list"></i> Your Section
+                </a>
+
+                For grouped items, see CoreUI nav-group:
+                https://coreui.io/docs/components/sidebar/#navigation
+            *@
+        </ul>
+    </div>
+
+    <div class="wrapper d-flex flex-column min-vh-100">
+        <header class="header header-sticky p-0 mb-4">
+            <div class="container-fluid border-bottom px-4">
+                <button class="header-toggler" type="button"
+                        onclick="coreui.Sidebar.getInstance(document.querySelector('#sidebar')).toggle()">
+                    <i class="cil-menu"></i>
+                </button>
+
+                <ul class="header-nav ms-auto">
+                    <li class="nav-item dropdown">
+                        <button class="btn btn-link nav-link py-2 px-2" type="button" data-coreui-toggle="dropdown">
+                            <i class="cil-contrast"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><button class="dropdown-item" type="button" data-coreui-theme-value="light"><i class="cil-sun me-2"></i>Light</button></li>
+                            <li><button class="dropdown-item" type="button" data-coreui-theme-value="dark"><i class="cil-moon me-2"></i>Dark</button></li>
+                            <li><button class="dropdown-item active" type="button" data-coreui-theme-value="auto"><i class="cil-contrast me-2"></i>Auto</button></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item"><div class="vr h-100 mx-2 text-body text-opacity-75"></div></li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link py-1" data-coreui-toggle="dropdown" href="#" role="button">
+                            <i class="cil-user"></i>
+                            <span class="ms-2 d-none d-md-inline">@(User.Identity?.Name ?? "Guest")</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end pt-0">
+                            <div class="dropdown-header bg-body-tertiary text-body-secondary fw-semibold rounded-top mb-2">Account</div>
+                            <form method="post" asp-area="Identity" asp-controller="Account" asp-action="Logout" class="m-0">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="dropdown-item">
+                                    <i class="cil-account-logout me-2"></i> Logout
+                                </button>
+                            </form>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </header>
+
+        <div class="body flex-grow-1">
+            <div class="container-lg px-4">
+                @RenderBody()
+            </div>
+        </div>
+
+        <footer class="footer px-4">
+            <div>© @DateTime.Now.Year — Admin</div>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@@coreui/coreui@@5.5.0/dist/js/coreui.bundle.min.js" crossorigin="anonymous"></script>
+    <script>
+        // Theme toggle persistence.
+        (function () {
+            const stored = localStorage.getItem('coreui-admin-theme');
+            if (stored) document.documentElement.setAttribute('data-coreui-theme', stored);
+            document.querySelectorAll('[data-coreui-theme-value]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const v = btn.getAttribute('data-coreui-theme-value');
+                    document.documentElement.setAttribute('data-coreui-theme', v);
+                    localStorage.setItem('coreui-admin-theme', v);
+                });
+            });
+        })();
+    </script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

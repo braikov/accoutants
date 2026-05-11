@@ -4,22 +4,20 @@
 
 Документът е жив. При промяна в структурата на solution-а или ролите на проектите — обнови този файл в същия change set.
 
-## Текущ scope (research mode)
+## Текущ scope
 
-Проектът е в **research фаза** — продължение на Python research-а, но с C# tooling. Целта на C# solution-а на този етап е:
+Проектът е в преходна фаза — основната research работа (vendor prompts + extraction contract) е stable, и production foundation-а сега се вдига:
 
-1. **Source control за vendor промпти и конфигурации** — всеки `Accountant.<Vendor>` проект съдържа конкретния prompt, model config, и call логиката за един vendor. Промените в промпти се track-ват в git.
-2. **Споделен contract** (`Accountant.Contracts`) — единна C# имплементация на R1-R13 валидаторите и нормализацията, която всички vendor-и могат да use-ват.
-3. **Console sandbox** (`Accountant.Processors`) — място за batch екстракция, diff между vendor-и, eval скриптове.
+1. **Vendor extraction (research-grade, mostly stable)** — `Accountant.<Vendor>` проектите държат promptа, model config и call логиката за един vendor. Споделен contract в `Accountant.Contracts`. Console sandbox в `Accountant.Processors`.
+2. **Web foundation (active)** — `Accountant.Web` (MVC + Areas) с публичен landing (`Areas/Public`), authenticated landing (`Areas/App`), и пълен auth flow (`Areas/Identity`).
+3. **Persistence (active)** — `Accountant.DataAccess` + `Accountant.MySql` за бизнес entities + ASP.NET Core Identity tables в общ `AccountantDbContext`. EF Core 9.0 (pinned за Pomelo compat) + Pomelo.EntityFrameworkCore.MySql.
+4. **Auth + email + notifications (active)** — `Accountant.Identity` (ApplicationUser), `Accountant.Email` (RazorLight + MailKit + SMTP), `Accountant.Notifications` (host adapter върху Braikov.Notifications.* пакетите).
 
-**НЕ е в scope сега:**
+**Засега не интегрирано:**
 
-- Web UI работа (`Accountant.Web` остава скелет)
-- Persistence (`Accountant.DataAccess`, `Accountant.MySql` остават скелет — без entities, без migrations)
-- User management (`Accountant.Identity` остава скелет — потребителите ще дойдат по-късно: admin + клиенти, минимум две роли)
-- Notifications
-
-Тези проекти съществуват в solution-а, за да е готова структурата когато се мине в production-feature mode. Засега имат само празни `.csproj` файлове и placeholder.
+- Background jobs (Hangfire) — добавя се при scheduled batch extractions
+- Vendor extractors на Web ниво — `IAccountingDocumentExtractor` все още се consume-ва само от `Accountant.Processors`
+- Roles / multi-tenant boundary — Identity вдигнат с базова user table; admin vs client роли идват с първата feature task
 
 ## 1. Хранилище
 
@@ -60,15 +58,18 @@ c:\Projects\Miro\Accountant\
 │
 └── Source\                                # C# solution (новата работа)
     ├── Accountant.slnx
-    ├── Accountant.Web\                    # ASP.NET Core MVC
-    ├── Accountant.DataAccess\             # entities, ApplicationDbContext, EF configurations
-    ├── Accountant.MySql\                  # MySQL provider, EF migrations
-    ├── Accountant.Identity\               # ApplicationUser, identity модели
+    ├── Accountant.Web\                    # ASP.NET Core MVC: Areas/{Public, Identity, App}
+    ├── Accountant.DataAccess\             # entities + AccountantDbContext (business + Identity tables)
+    ├── Accountant.MySql\                  # MySQL provider, EF migrations за AccountantDbContext
+    ├── Accountant.Identity\               # ApplicationUser : IdentityUser<int>
+    ├── Accountant.Email\                  # RazorLight templates + MailKit SMTP sender + IEmailSender
+    ├── Accountant.Notifications\          # host adapter върху Braikov.Notifications.* (recipient resolver, email channel bridge, type definitions)
     ├── Accountant.Contracts\              # IAccountingDocumentExtractor, ExtractionResult DTOs, R1-R13 валидатори, нормализация
     ├── Accountant.Claude\                 # IAccountingDocumentExtractor implementation (Anthropic SDK)
     ├── Accountant.Codex\                  # IAccountingDocumentExtractor implementation (OpenAI SDK)
     ├── Accountant.Gemini\                 # IAccountingDocumentExtractor implementation (Google AI SDK)
     ├── Accountant.Processors\             # console app — sandbox / batch processing CLI
+    ├── Accountant.ReviewSite\             # отделен IIS site — browser tooling за review/diff на vendor outputs
     └── Accountant.Tests\                  # xUnit тестове (validators, normalization, contract conformance)
 ```
 
@@ -77,11 +78,22 @@ c:\Projects\Miro\Accountant\
 ```text
 Source\
 │
-├── Accountant.Web              # (.NET MVC) Главното Web приложение, в което се прави UI работата по-натам.
+├── Accountant.Web              # (.NET MVC) Web host. MVC + Areas:
+│                               #   - Areas/Public: marketing landing (drop-as-a-unit)
+│                               #   - Areas/Identity: auth UI (Login/Register/Forgot/Reset/ChangePassword)
+│                               #   - Areas/App: authenticated landing
+│                               #   - Controllers/DevDiagnosticsController: dev-only /dev/test-email + /dev/render-template
 │
-├── Accountant.DataAccess       # (Class Library) Domain entities, ApplicationDbContext, IEntityTypeConfiguration. Без provider-specific NuGet пакети.
-├── Accountant.MySql            # (Class Library) MySQL provider импл., EF Core Migrations, Pomelo.EntityFrameworkCore.MySql.
-├── Accountant.Identity         # (Class Library) ApplicationUser, ASP.NET Core Identity модели и контекст.
+├── Accountant.DataAccess       # (Class Library) AccountantDbContext : IdentityDbContext<ApplicationUser, IdentityRole<int>, int>.
+│                               # Business entities (SourceDocument, Extraction, GroundTruth, ...) + Identity tables co-located.
+├── Accountant.MySql            # (Class Library) MySQL provider, EF Core migrations за AccountantDbContext (Pomelo, EF Core 9.0).
+├── Accountant.Identity         # (Class Library) ApplicationUser : IdentityUser<int>. Минимална, разширява се с domain полета при нужда.
+│
+├── Accountant.Email            # (Razor Class Library) RazorLight email templates, MailKit-based SmtpEmailSender,
+│                               # NullEmailSender (dev), IEmailSender contract. Templates под Templates/<Name>.<culture>.cshtml.
+├── Accountant.Notifications    # (Class Library) Host adapter за Braikov.Notifications.* пакетите.
+│                               # AccountantRecipientResolver, AccountantNotificationEmailSender (мост към Accountant.Email),
+│                               # NotificationTypeDefinition-и за auth flows (email_confirmation, password_reset, password_changed).
 │
 ├── Accountant.Contracts        # (Class Library) Споделените интерфейси (IAccountingDocumentExtractor), DTO-та (ExtractionResult и под-блоковете на v2 schema), enum-и, R1-R13 валидатори, нормализационни helpers.
 │
@@ -91,41 +103,56 @@ Source\
 │
 ├── Accountant.Processors       # (Console App) Sandbox / batch CLI за изпълнение на различни задачи: пакетна екстракция върху corpus, diff между vendor-и, нормализация на исторически JSON-и, eval скриптове.
 │
+├── Accountant.ReviewSite       # (.NET MVC) Отделен IIS site (`accountant-tune.ima.bg`) за browser-based diff/review на vendor outputs + GroundTruth editor. BasicAuth.
+│
 └── Accountant.Tests            # (xUnit) Unit тестове върху валидаторите, нормализацията, contract conformance срещу schema-та.
 ```
 
 ## 4. Зависимости между проектите
 
-**Активни сега (research scope):**
+**Web host:**
+
+```text
+Accountant.Web
+  ├── Accountant.DataAccess           (AccountantDbContext)
+  ├── Accountant.MySql                (DI: AddAccountantMySql)
+  ├── Accountant.Email                (IEmailSender, AddAccountantEmail)
+  ├── Accountant.Notifications        (AddAccountantNotifications — pulls Braikov.Notifications.* transitively)
+  └── (transitive) Accountant.Identity (ApplicationUser via DataAccess)
+```
+
+**Vendor extraction:**
 
 ```text
 Accountant.Claude / Codex / Gemini
-  └── Accountant.Contracts          (имплементират IAccountingDocumentExtractor от тук)
+  └── Accountant.Contracts            (имплементират IAccountingDocumentExtractor от тук)
 
 Accountant.Processors
   ├── Accountant.Contracts
   └── Accountant.Claude / Codex / Gemini    (per-CLI команда се избира кой extractor да се използва)
-
-Accountant.Tests
-  ├── Accountant.Contracts          (тества validators, normalization)
-  └── Accountant.Claude / Codex / Gemini    (по преценка — integration тестове)
 ```
 
-**Скелет (още не са свързани):**
+**Persistence + Identity:**
 
 ```text
-Accountant.Web
-  ├── Accountant.Contracts
-  ├── Accountant.Identity
-  ├── Accountant.DataAccess
-  ├── Accountant.MySql              (само за DI: options.UseMySql(...))
-  └── Accountant.Claude / Codex / Gemini
+Accountant.DataAccess
+  └── Accountant.Identity             (ApplicationUser типа)
 
 Accountant.MySql
   └── Accountant.DataAccess
 
-Accountant.Identity
-  └── Accountant.DataAccess
+Accountant.Notifications
+  ├── Accountant.DataAccess           (lookup на ApplicationUser)
+  ├── Accountant.Email                (IEmailSender за email channel)
+  └── Braikov.Notifications.* (Core / DataAccess / MySql / Email — local NuGet feed)
+```
+
+**Tests:**
+
+```text
+Accountant.Tests
+  ├── Accountant.Contracts            (тества validators, normalization)
+  └── Accountant.Claude / Codex / Gemini    (по преценка — integration тестове, ръчно)
 ```
 
 **Правила:**
@@ -133,6 +160,8 @@ Accountant.Identity
 - Всеки vendor проект зависи САМО от `Accountant.Contracts` + неговия конкретен SDK. Не зависи от другите vendor-и.
 - `Accountant.Web` НЕ имплементира extraction логика — само consum-ва `IAccountingDocumentExtractor` през DI (когато стане активен).
 - `Accountant.Processors` е CLI sandbox — позволено е "разни задачи свързани с разработката". Не пуска production-grade код.
+- `Accountant.Email` и `Accountant.Notifications` са разделени защото имейл renderer-ът е reusable (никаква нотификация специфика), а notifications adapter-ът е host-specific (специфичен за `ApplicationUser`).
+- `Accountant.Web` Areas са drop-as-a-unit модули — всяко Area има own layout, own CSS namespace под `wwwroot/<area>/`, own README с removal procedure.
 
 ## 5. Контракт на основния интерфейс
 
@@ -193,11 +222,34 @@ Hangfire (както Assistant), MySQL storage. **Засега не задълж
 
 ## 11. Notifications
 
-[`Braikov.Notifications.*`](../../Assistant/Source/Backend/) пакетите от Assistant repo ще се консумират като NuGet (когато стане ready) или като git submodule/path reference. **Засега не интегрирани.** Когато се добавят:
-- `Accountant.Notifications` — host adapter (мап-ва Accountant entities към Braikov.Notifications contracts)
-- DI wiring в `Accountant.Web`
+`Braikov.Notifications.*` пакетите идват от standalone repo `C:\Projects\Miro\Braikov\` и се publish-ват като .nupkg в local feed `C:\Projects\Miro\NuGet\`. Accountant ги consume-ва през `NuGet.Config` (key `braikov-local`).
 
-Сценарии за нотификации (бъдеще): email при batch extraction готов, in-app notification при failure rate spike, push на mobile (ако се добави) при ръчна review нужда.
+- **Used packages:** `Braikov.Notifications.Core / DataAccess / MySql / Email` (0.1.0)
+- **Host adapter:** `Accountant.Notifications` — `AccountantRecipientResolver` (int-keyed `ApplicationUser` → `NotificationRecipient`), `AccountantNotificationEmailSender` (мост към `Accountant.Email.IEmailSender`), `NotificationTypeDefinition`-и за auth flows.
+- **DI wiring:** `Accountant.Web/Program.cs` вика `AddAccountantEmail` → `AddAccountantNotifications` (order matters — email channel sender се регистрира само ако `IEmailSender` вече е там).
+- **Persistence:** `NotificationDbContext` живее в Braikov.Notifications.MySql; mapped към същата `accountant` MySQL DB със собствена `__BraikovNotificationsMigrationsHistory` таблица. Тристранични таблици: `notifications`, `notificationdeliveries`, `usernotificationpreferences`.
+
+Auth email routing към notification pipeline-а сега е активирано чрез `Braikov.Identity.Notifications` (`.UseNotificationDispatcher()` на IdentityBuilder). Всеки auth email създава `notifications` + `notificationdeliveries` row — същия audit / retry treatment като feature notifications.
+
+## 11a. Identity (Braikov.Identity.*)
+
+ASP.NET Core Identity foundation е изваден от Accountant в standalone repo `C:\Projects\Miro\Braikov\` и се consume-ва като NuGet пакети. Accountant.Web ползва:
+
+- **`Braikov.Identity.Core`** — `AddBraikovIdentity<ApplicationUser, IdentityRole<int>>(config)` чете `Identity:` секцията на appsettings (cookie / password / lockout / signin / rate limit). `BaseAccountController<ApplicationUser, int>` се inherit-ва от `Accountant.Web.Areas.Identity.Controllers.AccountController` — тънка derived class с `CreateUser` factory override.
+- **`Braikov.Identity.Notifications`** — `.UseNotificationDispatcher()` маршрутира auth email през `INotificationService`. Type definitions (auth.email_confirmation / password_reset / password_changed) идват от пакета.
+- **`Braikov.Identity.Events.MySql`** — `AddBraikovIdentityEventsMySql(connectionString)` създава `AccountEventDbContext` + applies bundled migration. Audit log получава всеки login / register / confirm / reset / change-password / logout.
+- **`Braikov.Identity.ShortCodes.MySql`** — `AddBraikovIdentityShortCodesMySql(config, connectionString)` създава `ShortCodeTokenDbContext` + applies bundled migration. Genera 6-цифрен код покрай дългия URL token в email-ите — мобилно-friendly UX.
+
+**Тук остава host-specific (не в пакет):**
+
+- `Accountant.Identity/Models/ApplicationUser.cs` — минимална, `: IdentityUser<int>`.
+- `Accountant.DataAccess/AccountantDbContext.cs` — `: IdentityDbContext<ApplicationUser, IdentityRole<int>, int>`, co-located business + Identity tables.
+- `Accountant.Email/` — IEmailSender concrete impl (SmtpEmailSender + RazorEmailTemplateRenderer + bg-BG templates). Bridge `AccountantNotificationEmailSender` (Braikov.Notifications email channel → Accountant.Email.IEmailSender).
+- `Accountant.Notifications/AccountantRecipientResolver` — int-keyed `ApplicationUser` lookup.
+- `Accountant.Web/Areas/Identity/Views/` — 14 branded Razor views.
+- `Accountant.Web/Areas/App/` — authenticated landing.
+
+**Persistence:** 3 separate EF contexts, всички сочат към същата `accountant` MySQL DB със собствени history таблици: `__EFMigrationsHistory` (Accountant + Identity), `__BraikovNotificationsMigrationsHistory`, `__BraikovIdentityEventsMigrationsHistory`, `__BraikovIdentityShortCodesMigrationsHistory`.
 
 ## 12. Управление на тайните
 
@@ -207,8 +259,7 @@ Hangfire (както Assistant), MySQL storage. **Засега не задълж
 
 ## 13. Отворени въпроси (deferred)
 
-Всички въпроси по-долу са **отложени** до излизане от research фазата. Не блокират текущата работа.
-
-- **Persistence модел за extractions:** MySQL entities (`ExtractionRun`, `ExtractionResult`) или само disk JSON-и под `Source/Accountant.Processors/runs/`? — решава се когато тръгне production-feature work.
-- **User scope:** Минимум две роли (admin + клиенти) са потвърдени. Multi-tenant boundary, регистрация flow, и authorization detail-и — решават се при първата `Accountant.Web` / `Accountant.Identity` task.
-- **Web role:** review/diff на batch резултати, интерактивно качване на снимка → live extraction, или и двете — решава се когато се тръгне Web UI работата.
+- **Persistence модел за extractions:** MySQL entities (`SourceDocument`, `Extraction`, `GroundTruth`, `EvaluationRun`, `EvaluationDocument`) вече стоят в `AccountantDbContext`. Дали Web ще пише в тях директно или ще има service слой — решава се при първата feature.
+- **Roles / multi-tenant:** Identity вдигнат с базова user table (`ApplicationUser : IdentityUser<int>`). Admin vs client роли, multi-tenant boundary, registration approval flow — решават се при първата feature task която ги изисква.
+- **Hangfire / scheduled jobs:** не е добавен. Ще влезе с първата нужда (scheduled batch extraction, retry queue, periodic eval run).
+- **Web feature surface:** `Areas/App` е placeholder. Конкретните feature views (Documents, Extractions, Settings) — определят се по продуктовия roadmap.

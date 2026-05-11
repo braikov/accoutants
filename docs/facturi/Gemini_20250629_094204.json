@@ -8,7 +8,7 @@
     "detected_document_count": 4,
     "extracted_document_index": 0,
     "image_quality": {
-      "readability": null,
+      "readability": "excellent",
       "issues": []
     }
   },
@@ -17,9 +17,9 @@
     "language": "bg",
     "country": "BG",
     "document": {
-      "number": "0000312361",
-      "date": "2024-12-07",
-      "tax_event_date": "2024-12-07",
+      "number": "0000300823",
+      "date": "2024-09-16",
+      "tax_event_date": "2024-09-16",
       "due_date": null,
       "currency": "BGN",
       "exchange_rate": null,
@@ -27,10 +27,10 @@
       "notes": null
     },
     "supplier": {
-      "name": "НИКСМЕТАЛ ОЙЛ ЕООД",
+      "name": "\"НИКСМЕТАЛ ОИЛ\" ЕООД",
       "eik": "205318980",
       "vat_number": "BG205318980",
-      "address": "Цар Ив. Шишман 43",
+      "address": "Ботевград, \"Цар Ив. Шишман\" 43",
       "city": "Ботевград",
       "country": "BG",
       "mol": "Станислав Геровски"
@@ -39,49 +39,49 @@
       "name": "ИнкоТрейд ЕООД",
       "eik": "206802564",
       "vat_number": "BG206802564",
-      "address": null,
+      "address": "гр. Варна",
       "city": "Варна",
       "country": "BG",
       "mol": "Мариана Кинчова Петрова"
     },
     "totals": {
-      "net": "136.73",
-      "vat": "27.35",
-      "gross": "164.08",
+      "net": "119.58",
+      "vat": "23.92",
+      "gross": "143.50",
       "discount": null,
       "rounding": null,
-      "amount_due": "164.08"
+      "amount_due": "143.50"
     },
     "vat_breakdown": [
       {
         "rate": "20.00",
-        "net": "136.73",
-        "vat": "27.35",
-        "gross": "164.08",
+        "net": "119.58",
+        "vat": "23.92",
+        "gross": "143.50",
         "reason": null
       }
     ],
     "payments": [
       {
         "method": "card",
-        "amount": "164.08",
+        "amount": "143.50",
         "currency": "BGN",
-        "iban": null,
-        "bic": null,
-        "bank_name": null
+        "iban": "BG37STSA93001528411158",
+        "bic": "STSABGSF",
+        "bank_name": "Банка ДСК ЕАД"
       }
     ],
     "line_items": [
       {
         "description": "ДИЗ. ГОРИВО Б-6",
-        "quantity": "72.600",
+        "quantity": "64.930",
         "unit": null,
-        "unit_price": "1.88333",
-        "discount_pct": null,
+        "unit_price": "1.84167",
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
-        "net": "136.73",
-        "vat": "27.35",
-        "gross": "164.08",
+        "net": "119.58",
+        "vat": "23.92",
+        "gross": "143.50",
         "includes_vat": false
       }
     ],
@@ -117,13 +117,13 @@
       },
       {
         "code": "iban_mod97",
-        "status": "skipped",
-        "message": "IBAN is null"
+        "status": "pass",
+        "message": ""
       },
       {
         "code": "bic_format",
-        "status": "skipped",
-        "message": "BIC is null"
+        "status": "pass",
+        "message": ""
       },
       {
         "code": "currency_iso",
@@ -148,7 +148,7 @@
       {
         "code": "totals_match",
         "status": "pass",
-        "message": "136.73 + 27.35 = 164.08"
+        "message": "119.58 + 23.92 = 143.50"
       },
       {
         "code": "vat_breakdown_match",
@@ -173,14 +173,16 @@
   },
   "model_assessment": {
     "confidence": {
-      "overall": null,
-      "document": null,
-      "supplier": null,
-      "customer": null,
-      "totals": null,
-      "line_items": null
+      "overall": 1,
+      "document": 1,
+      "supplier": 1,
+      "customer": 1,
+      "totals": 1,
+      "line_items": 1
     },
-    "extraction_warnings": []
+    "extraction_warnings": [
+      "Image contains three other invoices (№ 0000299084, № 0000310354, № 0000312361) which were not extracted."
+    ]
   },
   "evidence": {},
   "provider": {
@@ -188,11 +190,11 @@
     "model": "gemini-flash-latest",
     "pipeline": "vision_direct",
     "ocr_used": false,
-    "prompt_version": "gemini-unified-v2-2026-05-09-csharp",
-    "created_at": "2026-05-09T15:23:37Z",
-    "duration_ms": 227829,
-    "input_tokens": 4445,
-    "output_tokens": 13865,
-    "cost_estimate_usd": "0.0045"
+    "prompt_version": "gemini-unified-v2-2026-05-10-csharp-targeted-fixes",
+    "created_at": "2026-05-10T08:27:32Z",
+    "duration_ms": 9470,
+    "input_tokens": 5156,
+    "output_tokens": 658,
+    "cost_estimate_usd": "0.0046"
   }
 }

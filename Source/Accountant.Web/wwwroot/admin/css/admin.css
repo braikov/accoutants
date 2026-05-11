@@ -1,0 +1,29 @@
+/* Admin area overrides on top of CoreUI defaults. Sweep palette /
+   spacing / typography tweaks per project here. */
+
+:root {
+  --cui-primary: #0f172a;
+  --cui-primary-rgb: 15, 23, 42;
+}
+
+.sidebar {
+  --cui-sidebar-bg: #0f172a;
+  --cui-sidebar-color: rgba(255, 255, 255, .85);
+}
+
+.sidebar-brand .badge {
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+
+.footer {
+  font-size: 12px;
+  color: var(--cui-secondary-color);
+  padding-top: 12px;
+  padding-bottom: 12px;
+  border-top: 1px solid var(--cui-border-color);
+}

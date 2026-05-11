@@ -10,12 +10,12 @@
     "image_quality": {
       "readability": "good",
       "issues": [
-        "fold_obscures_data"
+        "heavy_shadow_over_text"
       ]
     }
   },
   "extraction": {
-    "document_type": "protocol",
+    "document_type": "invoice",
     "language": "bg",
     "country": "BG",
     "document": {
@@ -26,13 +26,13 @@
       "currency": "BGN",
       "exchange_rate": null,
       "place": "София",
-      "notes": "Получил: ИНКО ТРЕЙД ЕООД; Съставил: Силвия Кюркчийска; Начин на плащане: В брой; Условие на плащане: null"
+      "notes": null
     },
     "supplier": {
       "name": "ИНКО ТРЕЙД ЕООД",
       "eik": "206802564",
       "vat_number": "BG206802564",
-      "address": "ВАРНА, УЛ РОЩОК9",
+      "address": "ВАРНА, УЛ РОЩОК 9\nBG",
       "city": "Варна",
       "country": "BG",
       "mol": null
@@ -66,7 +66,7 @@
     "payments": [
       {
         "method": "cash",
-        "amount": "499.90",
+        "amount": null,
         "currency": "BGN",
         "iban": null,
         "bic": null,
@@ -75,11 +75,11 @@
     ],
     "line_items": [
       {
-        "description": "Ауся климатик",
+        "description": "Аусо климатик",
         "quantity": "1.000",
         "unit": "бр",
         "unit_price": "416.58",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
         "net": "416.58",
         "vat": "83.32",
@@ -165,7 +165,7 @@
       {
         "code": "image_quality_issue",
         "status": "warning",
-        "message": "issues: fold_obscures_data"
+        "message": "issues: heavy_shadow_over_text"
       }
     ],
     "errors": [],
@@ -175,17 +175,17 @@
   },
   "model_assessment": {
     "confidence": {
-      "overall": 0.84,
-      "document": 0.72,
-      "supplier": 0.9,
-      "customer": 0.9,
+      "overall": 0.96,
+      "document": 0.98,
+      "supplier": 0.93,
+      "customer": 0.97,
       "totals": 0.98,
-      "line_items": 0.7
+      "line_items": 0.9
     },
     "extraction_warnings": [
-      "Printed title is partially obscured, document type inferred from structure.",
-      "Some bottom fields are faint but readable.",
-      "One line item description is slightly unclear."
+      "Document is an A4 protocol/invoice-style form with no fiscal device data; line prices appear net before VAT.",
+      "Supplier address line partially obscured by layout; city inferred from printed address and deal place.",
+      "The visible title is partially covered, but structure and totals indicate an invoice."
     ]
   },
   "evidence": {},
@@ -194,11 +194,11 @@
     "model": "gpt-5.4-mini",
     "pipeline": "vision_direct",
     "ocr_used": false,
-    "prompt_version": "codex-unified-v2-r13-2026-05-09-csharp",
-    "created_at": "2026-05-09T15:19:42Z",
-    "duration_ms": 5121,
-    "input_tokens": 4989,
-    "output_tokens": 561,
-    "cost_estimate_usd": "0.0063"
+    "prompt_version": "codex-unified-v2-r13-2026-05-10-csharp-targeted-fixes",
+    "created_at": "2026-05-10T08:21:06Z",
+    "duration_ms": 4556,
+    "input_tokens": 7238,
+    "output_tokens": 510,
+    "cost_estimate_usd": "0.0077"
   }
 }

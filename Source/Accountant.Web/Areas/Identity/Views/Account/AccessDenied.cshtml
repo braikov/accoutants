@@ -1,0 +1,11 @@
+@{
+    ViewData["Title"] = "Нямате достъп";
+}
+
+<div class="auth-card auth-status">
+    <div class="auth-status-icon error">@(Html.Raw("&#x2715;"))</div>
+    <h1>Нямате достъп до тази страница</h1>
+    <p class="lead">Влезте с акаунт, който има нужните права, или се свържете с администратор.</p>
+
+    <a asp-action="Login" class="btn btn-primary">Към вход</a>
+</div>

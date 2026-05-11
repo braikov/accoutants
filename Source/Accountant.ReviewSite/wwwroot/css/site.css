@@ -68,6 +68,11 @@ body:has(.compare-grid) .app-shell {
   padding: 12px;
 }
 
+body:has(.gt-grid) .app-shell {
+  max-width: none;
+  padding: 12px;
+}
+
 .page-head,
 .detail-head {
   align-items: end;
@@ -501,4 +506,203 @@ h1 {
   .compare-grid {
     grid-template-columns: 1fr;
   }
+}
+
+/* Ground truth editor */
+.gt-grid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 720px minmax(0, 1fr);
+  align-items: start;
+}
+
+.gt-grid .image-panel {
+  position: sticky;
+  top: 12px;
+  max-height: calc(100vh - 60px);
+}
+
+.gt-grid .image-stage {
+  max-height: calc(100vh - 110px);
+  overflow: hidden;
+}
+
+.gt-grid .image-stage img {
+  max-width: 100%;
+  max-height: calc(100vh - 120px);
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+}
+
+.gt-form {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.gt-grid .diff-table-wrap {
+  max-height: calc(100vh - 200px);
+  overflow: auto;
+}
+
+.gt-table {
+  width: 100%;
+  table-layout: fixed;
+}
+
+.gt-table th,
+.gt-table td {
+  vertical-align: middle;
+  padding: 2px 6px;
+  font-size: 12px;
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 26px;
+}
+
+.gt-table td code,
+.gt-table .vendor-cell {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.gt-table th {
+  position: sticky;
+  top: 0;
+  background: var(--surface-2, #f8fafc);
+  z-index: 1;
+  white-space: nowrap;
+  text-align: left;
+}
+
+.gt-table tbody tr:nth-child(odd) {
+  background: #fbfdff;
+}
+
+.gt-table tbody tr.gt-row-diff {
+  background: #fff7ed;
+}
+
+.gt-table tbody tr.gt-row-diff:nth-child(odd) {
+  background: #ffedd5;
+}
+
+.gt-table th:nth-child(1), .gt-table td:nth-child(1) { width: 22%; }
+.gt-table th:nth-child(2), .gt-table td:nth-child(2) { width: 22%; }
+.gt-table th:nth-child(3), .gt-table td:nth-child(3) { width: 18%; }
+.gt-table th:nth-child(4), .gt-table td:nth-child(4) { width: 19%; }
+.gt-table th:nth-child(5), .gt-table td:nth-child(5) { width: 19%; }
+
+.gt-input {
+  width: 100%;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12px;
+  padding: 2px 6px;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: #fff;
+}
+
+.gt-input:focus {
+  outline: 2px solid var(--brand, #2563eb);
+  outline-offset: -1px;
+}
+
+.vendor-cell {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12px;
+  color: var(--ink, #0f172a);
+  word-break: break-word;
+  display: inline-block;
+  max-width: 100%;
+}
+
+.gt-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 12px;
+  border-top: 1px solid var(--line);
+  background: var(--surface-2, #f8fafc);
+  position: sticky;
+  bottom: 0;
+}
+
+.gt-actions .primary {
+  background: var(--brand, #2563eb);
+  color: #fff;
+  border: 0;
+  border-radius: 6px;
+  padding: 8px 18px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.gt-actions .primary:hover {
+  filter: brightness(1.05);
+}
+
+.gt-hint {
+  color: var(--muted, #64748b);
+  font-size: 12px;
+}
+
+.auth-notice {
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  color: #065f46;
+  padding: 10px 14px;
+  border-radius: 6px;
+  margin-bottom: 12px;
+  font-size: 13px;
+}
+
+@media (max-width: 1100px) {
+  .gt-grid {
+    grid-template-columns: 1fr;
+  }
+  .gt-grid .image-stage {
+    position: static;
+    max-height: 60vh;
+  }
+}
+
+/* Index-card action row (Compare / Edit truth) */
+.card-actions {
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.card-action {
+  flex: 1;
+  text-align: center;
+  padding: 6px 8px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  text-decoration: none;
+  color: var(--ink, #0f172a);
+  font-size: 12px;
+  font-weight: 600;
+  background: var(--surface, #fff);
+}
+
+.card-action:hover {
+  background: var(--surface-2, #f8fafc);
+}
+
+.card-action.primary-action {
+  background: var(--brand, #2563eb);
+  color: #fff;
+  border-color: transparent;
+}
+
+.card-action.primary-action:hover {
+  filter: brightness(1.05);
 }

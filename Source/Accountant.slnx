@@ -3,9 +3,11 @@
   <Project Path="Accountant.Codex/Accountant.Codex.csproj" />
   <Project Path="Accountant.Contracts/Accountant.Contracts.csproj" />
   <Project Path="Accountant.DataAccess/Accountant.DataAccess.csproj" />
+  <Project Path="Accountant.Email/Accountant.Email.csproj" />
   <Project Path="Accountant.Gemini/Accountant.Gemini.csproj" />
   <Project Path="Accountant.Identity/Accountant.Identity.csproj" />
   <Project Path="Accountant.MySql/Accountant.MySql.csproj" />
+  <Project Path="Accountant.Notifications/Accountant.Notifications.csproj" />
   <Project Path="Accountant.Processors/Accountant.Processors.csproj" />
   <Project Path="Accountant.ReviewSite/Accountant.ReviewSite.csproj" />
   <Project Path="Accountant.Tests/Accountant.Tests.csproj" />

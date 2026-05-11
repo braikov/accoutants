@@ -52,3 +52,8 @@ project.lock.json
 appsettings.*.local.json
 *.pubxml.user
 secrets.json
+
+# --- Personal scratch notes (not for sharing) ---
+/usefull-commands.txt
+/docs/evaluation
+/docs/facturi/ground_truth

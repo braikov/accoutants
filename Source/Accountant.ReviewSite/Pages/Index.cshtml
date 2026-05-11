@@ -33,10 +33,10 @@
 <section class="document-grid" aria-label="Documents">
     @foreach (var document in Model.Documents)
     {
-        <a class="document-card" asp-page="/Document" asp-route-file="@document.FileName">
-            <div class="thumb-wrap">
+        <div class="document-card">
+            <a class="thumb-wrap" asp-page="/Document" asp-route-file="@document.FileName">
                 <img src="/document-image?file=@Uri.EscapeDataString(document.FileName)" alt="@document.FileName" loading="lazy" />
-            </div>
+            </a>
             <div class="card-body">
                 <div class="file-name">@document.FileName</div>
                 <div class="meta-line">
@@ -51,7 +51,11 @@
                         <span class="ai-pill @(ai.Value ? "ok" : "missing")">@ai.Key</span>
                     }
                 </div>
+                <div class="card-actions">
+                    <a class="card-action" asp-page="/Document" asp-route-file="@document.FileName">Compare</a>
+                    <a class="card-action primary-action" asp-page="/GroundTruth" asp-route-file="@document.FileName">Edit truth</a>
+                </div>
             </div>
-        </a>
+        </div>
     }
 </section>

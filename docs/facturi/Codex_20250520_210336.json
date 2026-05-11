@@ -10,7 +10,7 @@
     "image_quality": {
       "readability": "good",
       "issues": [
-        "fold_obscures_data"
+        "heavy_shadow_over_text"
       ]
     }
   },
@@ -26,10 +26,10 @@
       "currency": "BGN",
       "exchange_rate": null,
       "place": null,
-      "notes": "Оригинал. Плащане в БРОЙ. Страница 1/2 visible."
+      "notes": null
     },
     "supplier": {
-      "name": "Инекс Трейд ЕООД",
+      "name": "Индекс Трейд ЕООД",
       "eik": "106610986",
       "vat_number": "BG106610986",
       "address": "гр. Враца, бул. Васил Кънчов № 120",
@@ -68,9 +68,9 @@
         "method": "cash",
         "amount": "108.00",
         "currency": "BGN",
-        "iban": null,
-        "bic": null,
-        "bank_name": null
+        "iban": "BG42UNCR76301077969699",
+        "bic": "UNCRBGSF",
+        "bank_name": "УНИКРЕДИТ БУЛБАНК"
       }
     ],
     "line_items": [
@@ -79,7 +79,7 @@
         "quantity": "1.000",
         "unit": "бр",
         "unit_price": "90.00",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
         "net": "90.00",
         "vat": "18.00",
@@ -90,7 +90,7 @@
     "fiscal": {
       "fiscal_receipt_number": null,
       "fiscal_device_number": null,
-      "operator": "Цветелина Петкова",
+      "operator": null,
       "qr_code": null
     }
   },
@@ -119,13 +119,13 @@
       },
       {
         "code": "iban_mod97",
-        "status": "skipped",
-        "message": "IBAN is null"
+        "status": "pass",
+        "message": ""
       },
       {
         "code": "bic_format",
-        "status": "skipped",
-        "message": "BIC is null"
+        "status": "pass",
+        "message": ""
       },
       {
         "code": "currency_iso",
@@ -165,7 +165,7 @@
       {
         "code": "image_quality_issue",
         "status": "warning",
-        "message": "issues: fold_obscures_data"
+        "message": "issues: heavy_shadow_over_text"
       }
     ],
     "errors": [],
@@ -175,14 +175,17 @@
   },
   "model_assessment": {
     "confidence": {
-      "overall": 0.93,
+      "overall": 0.98,
       "document": 0.99,
-      "supplier": 0.95,
-      "customer": 0.95,
+      "supplier": 0.98,
+      "customer": 0.98,
       "totals": 0.99,
-      "line_items": 0.96
+      "line_items": 0.98
     },
-    "extraction_warnings": []
+    "extraction_warnings": [
+      "Invoice shows a separate VAT breakdown; line gross inferred from totals.",
+      "Payment method appears to be cash."
+    ]
   },
   "evidence": {},
   "provider": {
@@ -190,11 +193,11 @@
     "model": "gpt-5.4-mini",
     "pipeline": "vision_direct",
     "ocr_used": false,
-    "prompt_version": "codex-unified-v2-r13-2026-05-09-csharp",
-    "created_at": "2026-05-09T15:19:13Z",
-    "duration_ms": 7658,
-    "input_tokens": 4921,
-    "output_tokens": 541,
-    "cost_estimate_usd": "0.0061"
+    "prompt_version": "codex-unified-v2-r13-2026-05-10-csharp-targeted-fixes",
+    "created_at": "2026-05-10T08:20:41Z",
+    "duration_ms": 6188,
+    "input_tokens": 7170,
+    "output_tokens": 528,
+    "cost_estimate_usd": "0.0078"
   }
 }

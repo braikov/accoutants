@@ -20,17 +20,17 @@
       "number": "0000315475",
       "date": "2025-01-04",
       "tax_event_date": "2025-01-04",
-      "due_date": "2025-01-04",
+      "due_date": null,
       "currency": "BGN",
       "exchange_rate": null,
-      "place": null,
+      "place": "Ботевград",
       "notes": null
     },
     "supplier": {
       "name": "НИКСМЕТАЛ ОЙЛ ЕООД",
-      "eik": "205318980",
-      "vat_number": "BG205318980",
-      "address": "ул. Цар Ив. Шишман 43",
+      "eik": "205318988",
+      "vat_number": "BG205318988",
+      "address": "гр. Ботевград, \"Цар Ив. Шишман\" 43",
       "city": "Ботевград",
       "country": "BG",
       "mol": "Станислав Геровски"
@@ -39,7 +39,7 @@
       "name": "ИнкоТрейд ЕООД",
       "eik": "206802564",
       "vat_number": "BG206802564",
-      "address": null,
+      "address": "гр. Варна",
       "city": "Варна",
       "country": "BG",
       "mol": "Мариана Кинчова Петрова"
@@ -77,7 +77,7 @@
         "quantity": "9.100",
         "unit": "л",
         "unit_price": "0.74167",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
         "net": "6.75",
         "vat": "1.35",
@@ -89,7 +89,7 @@
         "quantity": "79.050",
         "unit": "л",
         "unit_price": "1.95000",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
         "net": "154.15",
         "vat": "30.83",
@@ -109,8 +109,8 @@
     "checks": [
       {
         "code": "supplier_eik_checksum",
-        "status": "pass",
-        "message": ""
+        "status": "fail",
+        "message": "EIK '205318988' fails Bulgarian checksum."
       },
       {
         "code": "customer_eik_checksum",
@@ -154,8 +154,8 @@
       },
       {
         "code": "due_date_after_issue",
-        "status": "pass",
-        "message": ""
+        "status": "skipped",
+        "message": "issue or due date missing/malformed"
       },
       {
         "code": "totals_match",
@@ -178,7 +178,9 @@
         "message": "detected 6 documents; only index 0 extracted."
       }
     ],
-    "errors": [],
+    "errors": [
+      "supplier_eik_checksum"
+    ],
     "warnings": [
       "multiple_documents_detected"
     ]
@@ -193,7 +195,7 @@
       "line_items": 1
     },
     "extraction_warnings": [
-      "Image contains 5 other invoices with attached fiscal receipts which were not extracted."
+      "Image contains 5 other fiscal receipts/invoices which were not extracted."
     ]
   },
   "evidence": {},
@@ -202,11 +204,11 @@
     "model": "gemini-flash-latest",
     "pipeline": "vision_direct",
     "ocr_used": false,
-    "prompt_version": "gemini-unified-v2-2026-05-09-csharp",
-    "created_at": "2026-05-09T15:32:03Z",
-    "duration_ms": 17866,
-    "input_tokens": 4428,
-    "output_tokens": 1063,
-    "cost_estimate_usd": "0.0007"
+    "prompt_version": "gemini-unified-v2-2026-05-10-csharp-targeted-fixes",
+    "created_at": "2026-05-10T08:29:21Z",
+    "duration_ms": 32872,
+    "input_tokens": 5139,
+    "output_tokens": 1068,
+    "cost_estimate_usd": "0.0058"
   }
 }

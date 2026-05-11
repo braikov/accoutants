@@ -8,7 +8,7 @@
     "detected_document_count": 1,
     "extracted_document_index": 0,
     "image_quality": {
-      "readability": "excellent",
+      "readability": null,
       "issues": []
     }
   },
@@ -24,13 +24,13 @@
       "currency": "BGN",
       "exchange_rate": null,
       "place": "Варна",
-      "notes": "Основание: УНП: ZK143176-0205-0102740 пос обб"
+      "notes": "УНП: ZK143176-0205-0102740 пос обб"
     },
     "supplier": {
       "name": "Ардес Информационни Технологии ЕООД",
       "eik": "103857070",
       "vat_number": "BG103857070",
-      "address": "бул. Сливница 118, ет.1, ап.1",
+      "address": "бул. Сливница 118, ет.1, ап.1, Варна, 9000",
       "city": "Варна",
       "country": "BG",
       "mol": "Димитър Димитров"
@@ -39,7 +39,7 @@
       "name": "Дигитален Хамелеон ЕООД",
       "eik": "207498356",
       "vat_number": null,
-      "address": "Манастриски ливади 176",
+      "address": "Манастирски ливади 176",
       "city": "София",
       "country": "BG",
       "mol": "Габриела Петрова"
@@ -77,9 +77,9 @@
         "quantity": "1.000",
         "unit": "бр",
         "unit_price": "26.6667",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
-        "net": "26.6667",
+        "net": "26.67",
         "vat": "5.33",
         "gross": "32.00",
         "includes_vat": false
@@ -89,9 +89,9 @@
         "quantity": "1.000",
         "unit": "бр",
         "unit_price": "10.0000",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
-        "net": "10.0000",
+        "net": "10.00",
         "vat": "2.00",
         "gross": "12.00",
         "includes_vat": false
@@ -178,12 +178,12 @@
   },
   "model_assessment": {
     "confidence": {
-      "overall": 1,
-      "document": 1,
-      "supplier": 1,
-      "customer": 1,
-      "totals": 1,
-      "line_items": 1
+      "overall": null,
+      "document": null,
+      "supplier": null,
+      "customer": null,
+      "totals": null,
+      "line_items": null
     },
     "extraction_warnings": []
   },
@@ -193,11 +193,11 @@
     "model": "gemini-flash-latest",
     "pipeline": "vision_direct",
     "ocr_used": false,
-    "prompt_version": "gemini-unified-v2-2026-05-09-csharp",
-    "created_at": "2026-05-09T15:23:25Z",
-    "duration_ms": 12428,
-    "input_tokens": 4445,
-    "output_tokens": 1162,
-    "cost_estimate_usd": "0.0007"
+    "prompt_version": "gemini-unified-v2-2026-05-10-csharp-targeted-fixes",
+    "created_at": "2026-05-10T08:27:08Z",
+    "duration_ms": 23973,
+    "input_tokens": 5156,
+    "output_tokens": 3036,
+    "cost_estimate_usd": "0.0117"
   }
 }

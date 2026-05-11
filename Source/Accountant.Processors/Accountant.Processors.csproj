@@ -5,6 +5,8 @@
     <ProjectReference Include="..\Accountant.Claude\Accountant.Claude.csproj" />
     <ProjectReference Include="..\Accountant.Codex\Accountant.Codex.csproj" />
     <ProjectReference Include="..\Accountant.Gemini\Accountant.Gemini.csproj" />
+    <ProjectReference Include="..\Accountant.DataAccess\Accountant.DataAccess.csproj" />
+    <ProjectReference Include="..\Accountant.MySql\Accountant.MySql.csproj" />
   </ItemGroup>
 
   <ItemGroup>

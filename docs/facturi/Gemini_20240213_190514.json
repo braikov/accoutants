@@ -30,7 +30,7 @@
       "name": "АВАНС ТРЕЙД ООД",
       "eik": "201760264",
       "vat_number": "BG201760264",
-      "address": "ул.Свищовска 1",
+      "address": "ул, Свищовска 1, ПК 5300",
       "city": "Габрово",
       "country": "BG",
       "mol": "Николай Умников"
@@ -39,7 +39,7 @@
       "name": "ИНКО ТРЕЙД ЕООД",
       "eik": "206802564",
       "vat_number": "BG206802564",
-      "address": "УЛ.РОЩОК 9",
+      "address": "УЛ. РОЩОК 9",
       "city": "Варна",
       "country": "BG",
       "mol": null
@@ -77,7 +77,7 @@
         "quantity": "240.000",
         "unit": "бр",
         "unit_price": "0.958",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
         "net": "230.00",
         "vat": "46.00",
@@ -166,14 +166,16 @@
   },
   "model_assessment": {
     "confidence": {
-      "overall": 1,
+      "overall": 0.98,
       "document": 1,
       "supplier": 1,
       "customer": 1,
       "totals": 1,
-      "line_items": 1
+      "line_items": 0.95
     },
-    "extraction_warnings": []
+    "extraction_warnings": [
+      "Line item net (230.00) does not match quantity (240.000) * unit_price (0.958) = 229.92."
+    ]
   },
   "evidence": {},
   "provider": {
@@ -181,11 +183,11 @@
     "model": "gemini-flash-latest",
     "pipeline": "vision_direct",
     "ocr_used": false,
-    "prompt_version": "gemini-unified-v2-2026-05-09-csharp",
-    "created_at": "2026-05-09T15:21:54Z",
-    "duration_ms": 4800,
-    "input_tokens": 4433,
-    "output_tokens": 639,
-    "cost_estimate_usd": "0.0005"
+    "prompt_version": "gemini-unified-v2-2026-05-10-csharp-targeted-fixes",
+    "created_at": "2026-05-10T08:22:20Z",
+    "duration_ms": 21900,
+    "input_tokens": 5144,
+    "output_tokens": 1018,
+    "cost_estimate_usd": "0.0056"
   }
 }

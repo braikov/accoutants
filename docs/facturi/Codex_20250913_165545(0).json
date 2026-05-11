@@ -22,11 +22,11 @@
       "number": "0300432384",
       "date": "2025-09-13",
       "tax_event_date": "2025-09-13",
-      "due_date": null,
+      "due_date": "2025-09-13",
       "currency": "BGN",
       "exchange_rate": null,
       "place": null,
-      "notes": "Payment method: debit/credit card. Barcodes and QR code present. Stamped/printed ORIGINAL."
+      "notes": null
     },
     "supplier": {
       "name": "УНИЦЕМ ЕООД",
@@ -75,11 +75,11 @@
     ],
     "line_items": [
       {
-        "description": "ЛЕПИЛО МОНТАЖНО DCP AC 500 БЯЛ",
+        "description": "600170 ЛЕПИЛО МОНТАЖНО DCP AC 500 БЯЛ",
         "quantity": "1.000",
         "unit": "бр",
         "unit_price": "4.1583",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
         "net": "4.16",
         "vat": "0.83",
@@ -87,11 +87,11 @@
         "includes_vat": false
       },
       {
-        "description": "СИЛИКОН САНИТАРЕН CERESIT БЯЛ",
+        "description": "9757 СИЛИКОН САНИТАРЕН CERESIT БЯЛ",
         "quantity": "1.000",
         "unit": "бр",
         "unit_price": "8.0833",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
         "net": "8.08",
         "vat": "1.62",
@@ -99,11 +99,11 @@
         "includes_vat": false
       },
       {
-        "description": "УПЛЪТНИТЕЛ ПАРКЕТ SOUDAL ДЪБ 310МЛ",
+        "description": "201596 УПЛЪТНИТЕЛ ПАРКЕТ SOUDAL ДЪБ 310МЛ",
         "quantity": "1.000",
         "unit": "бр",
         "unit_price": "4.4167",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
         "net": "4.42",
         "vat": "0.88",
@@ -111,11 +111,11 @@
         "includes_vat": false
       },
       {
-        "description": "ПРЕПАРАТ ЗА СТЪКЛО ПОМПА A1 500МЛ.",
+        "description": "311449 ПРЕПАРАТ ЗА СТЪКЛО ПОМПА A1 500мл.",
         "quantity": "1.000",
         "unit": "бр",
         "unit_price": "2.1667",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
         "net": "2.17",
         "vat": "0.43",
@@ -123,11 +123,11 @@
         "includes_vat": false
       },
       {
-        "description": "ПОКРИВАЛО 20КВ.М.4X5М RINO",
+        "description": "21640 ПОКРИВАЛО 20КВ.М.4X5M RINO",
         "quantity": "2.000",
         "unit": "бр",
         "unit_price": "1.0417",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
         "net": "2.08",
         "vat": "0.42",
@@ -135,11 +135,11 @@
         "includes_vat": false
       },
       {
-        "description": "ТИКСО ЗА БОЯДИСВАНЕ MAGUS 45M/50MM",
+        "description": "200477 ТИКСО ЗА БОЯДИСВАНЕ MAGUS 45M/50MM",
         "quantity": "2.000",
         "unit": "бр",
         "unit_price": "4.9333",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
         "net": "9.87",
         "vat": "1.97",
@@ -147,11 +147,11 @@
         "includes_vat": false
       },
       {
-        "description": "ВАЛЯК МИКРОФИБЪР MICROSTAR Ф17 10СМ",
+        "description": "600074 ВАЛЯК МИКРОФИБЪР MICROSTAR Φ17 10CM",
         "quantity": "1.000",
         "unit": "бр",
         "unit_price": "3.1667",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
         "net": "3.17",
         "vat": "0.63",
@@ -159,11 +159,11 @@
         "includes_vat": false
       },
       {
-        "description": "ВАНА ЗА БОЯ 31/35СМ. СИНЯ",
+        "description": "21600 ВАНА ЗА БОЯ 31/35CM. СИНЯ",
         "quantity": "1.000",
         "unit": "бр",
-        "unit_price": "3.5",
-        "discount_pct": null,
+        "unit_price": "3.5000",
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
         "net": "3.50",
         "vat": "0.70",
@@ -171,11 +171,11 @@
         "includes_vat": false
       },
       {
-        "description": "ТОРБИЧКА МАЛКА",
+        "description": "302989 ТОРБИЧКА МАЛКА",
         "quantity": "1.000",
         "unit": "бр",
         "unit_price": "0.2083",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
         "net": "0.21",
         "vat": "0.04",
@@ -187,7 +187,7 @@
       "fiscal_receipt_number": null,
       "fiscal_device_number": null,
       "operator": null,
-      "qr_code": null
+      "qr_code": "visible"
     }
   },
   "validation": {
@@ -240,8 +240,8 @@
       },
       {
         "code": "due_date_after_issue",
-        "status": "skipped",
-        "message": "issue or due date missing/malformed"
+        "status": "pass",
+        "message": ""
       },
       {
         "code": "totals_match",
@@ -271,16 +271,15 @@
   },
   "model_assessment": {
     "confidence": {
-      "overall": 0.97,
-      "document": 0.99,
+      "overall": 0.91,
+      "document": 0.98,
       "supplier": 0.98,
       "customer": 0.97,
-      "totals": 0.99,
-      "line_items": 0.92
+      "totals": 0.96,
+      "line_items": 0.74
     },
     "extraction_warnings": [
-      "Line-item EUR amounts are visible but not extracted as document currency.",
-      "Some line totals are rounded from printed unit prices."
+      "Line-item amounts on this invoice appear printed net; gross values were derived with 20% VAT."
     ]
   },
   "evidence": {},
@@ -289,11 +288,11 @@
     "model": "gpt-5.4-mini",
     "pipeline": "vision_direct",
     "ocr_used": false,
-    "prompt_version": "codex-unified-v2-r13-2026-05-09-csharp",
-    "created_at": "2026-05-09T15:20:12Z",
-    "duration_ms": 8030,
-    "input_tokens": 4971,
-    "output_tokens": 1123,
-    "cost_estimate_usd": "0.0088"
+    "prompt_version": "codex-unified-v2-r13-2026-05-10-csharp-targeted-fixes",
+    "created_at": "2026-05-10T08:21:34Z",
+    "duration_ms": 7639,
+    "input_tokens": 7220,
+    "output_tokens": 1176,
+    "cost_estimate_usd": "0.0107"
   }
 }

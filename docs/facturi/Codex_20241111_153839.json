@@ -10,6 +10,7 @@
     "image_quality": {
       "readability": "good",
       "issues": [
+        "fold_obscures_data",
         "stamp_obscures_data"
       ]
     }
@@ -22,14 +23,14 @@
       "number": "0656479304",
       "date": "2024-11-11",
       "tax_event_date": "2024-11-11",
-      "due_date": "2024-11-11",
+      "due_date": null,
       "currency": "BGN",
-      "exchange_rate": null,
+      "exchange_rate": "1.95583",
       "place": null,
-      "notes": "Attached fiscal receipt visible; total shown in BGN and EUR. Payment by card."
+      "notes": null
     },
     "supplier": {
-      "name": "А1 България ЕАД",
+      "name": "A1 България ЕАД",
       "eik": "131468980",
       "vat_number": "BG131468980",
       "address": "София 1309, ул. Кукуш 1",
@@ -41,20 +42,28 @@
       "name": "Инко трейд ЕООД",
       "eik": "206802564",
       "vat_number": "BG206802564",
-      "address": "гр. Варна, кв. 23-ти Микрорайон (Китайската стена",
+      "address": "гр. Варна, кб. 23-ти Микрорайон (Китайската стена",
       "city": "Варна",
       "country": "BG",
-      "mol": "Мариана Кинчова Петрова"
+      "mol": "Марина Кинчова Петрова"
     },
     "totals": {
-      "net": "1416.65",
-      "vat": "283.33",
+      "net": null,
+      "vat": null,
       "gross": "1699.98",
-      "discount": "0.00",
+      "discount": null,
       "rounding": null,
       "amount_due": "1699.98"
     },
-    "vat_breakdown": [],
+    "vat_breakdown": [
+      {
+        "rate": "20.00",
+        "net": "1416.65",
+        "vat": "283.33",
+        "gross": "1699.98",
+        "reason": null
+      }
+    ],
     "payments": [
       {
         "method": "card",
@@ -76,38 +85,38 @@
         "net": "1416.65",
         "vat": "283.33",
         "gross": "1699.98",
-        "includes_vat": true
+        "includes_vat": false
       },
       {
         "description": "Ваучер за отстъпка от устройство 50лв.",
         "quantity": "1.000",
         "unit": "бр",
         "unit_price": "-50.00",
-        "discount_pct": "null",
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
-        "net": "-50.00",
-        "vat": "-10.00",
-        "gross": "-60.00",
-        "includes_vat": true
+        "net": "-41.67",
+        "vat": "-8.33",
+        "gross": "-50.00",
+        "includes_vat": false
       },
       {
-        "description": "Отстъпка 20 лв. за устройство в брой",
+        "description": "Отстъпка 20 лв. за устройство 6 брои",
         "quantity": "1.000",
         "unit": "бр",
         "unit_price": "-20.00",
-        "discount_pct": "null",
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
-        "net": "-20.00",
-        "vat": "-4.00",
-        "gross": "-24.00",
-        "includes_vat": true
+        "net": "-16.67",
+        "vat": "-3.33",
+        "gross": "-20.00",
+        "includes_vat": false
       }
     ],
     "fiscal": {
-      "fiscal_receipt_number": "A1BG4323",
-      "fiscal_device_number": "4323000000312287",
+      "fiscal_receipt_number": "4323",
+      "fiscal_device_number": "8CE9DE3343EAA440EA0DC85F4A3080BAE8374E96",
       "operator": "Nikolou",
-      "qr_code": "8CE9DE3343EAA44DEA0DC85F4A3080BAE8374E96"
+      "qr_code": "A1BG4323"
     }
   },
   "validation": {
@@ -160,23 +169,23 @@
       },
       {
         "code": "due_date_after_issue",
+        "status": "skipped",
+        "message": "issue or due date missing/malformed"
+      },
+      {
+        "code": "totals_match",
+        "status": "skipped",
+        "message": "net/vat/gross not all populated"
+      },
+      {
+        "code": "vat_breakdown_match",
         "status": "pass",
         "message": ""
       },
       {
-        "code": "totals_match",
-        "status": "pass",
-        "message": "1416.65 + 283.33 = 1699.98"
-      },
-      {
-        "code": "vat_breakdown_match",
-        "status": "skipped",
-        "message": "vat_breakdown is empty"
-      },
-      {
         "code": "line_items_sum",
         "status": "fail",
-        "message": "sum(net)=1346.65, totals.net=1416.65; sum(vat)=269.33, totals.vat=283.33; sum(gross)=1615.98, totals.gross=1699.98"
+        "message": "sum(gross)=1629.98, totals.gross=1699.98"
       },
       {
         "code": "multiple_documents_detected",
@@ -186,7 +195,7 @@
       {
         "code": "image_quality_issue",
         "status": "warning",
-        "message": "issues: stamp_obscures_data"
+        "message": "issues: fold_obscures_data, stamp_obscures_data"
       }
     ],
     "errors": [
@@ -200,16 +209,16 @@
   "model_assessment": {
     "confidence": {
       "overall": 0.86,
-      "document": 0.99,
-      "supplier": 0.97,
-      "customer": 0.9,
-      "totals": 0.95,
-      "line_items": 0.81
+      "document": 0.95,
+      "supplier": 0.98,
+      "customer": 0.93,
+      "totals": 0.92,
+      "line_items": 0.79
     },
     "extraction_warnings": [
-      "Fiscal receipt is attached and partly overlaps the invoice.",
-      "Customer address is partially cropped.",
-      "Line-level discount arithmetic is inferred from visible totals."
+      "Retail fiscal receipt with invoice block; line prices treated as VAT-inclusive.",
+      "Customer address is partially obscured/cropped on the right edge.",
+      "Line-item arithmetic inferred for discount lines."
     ]
   },
   "evidence": {},
@@ -218,11 +227,11 @@
     "model": "gpt-5.4-mini",
     "pipeline": "vision_direct",
     "ocr_used": false,
-    "prompt_version": "codex-unified-v2-r13-2026-05-09-csharp",
-    "created_at": "2026-05-09T15:18:40Z",
-    "duration_ms": 6833,
-    "input_tokens": 4947,
-    "output_tokens": 722,
-    "cost_estimate_usd": "0.0070"
+    "prompt_version": "codex-unified-v2-r13-2026-05-10-csharp-targeted-fixes",
+    "created_at": "2026-05-10T08:20:15Z",
+    "duration_ms": 5067,
+    "input_tokens": 7196,
+    "output_tokens": 709,
+    "cost_estimate_usd": "0.0086"
   }
 }

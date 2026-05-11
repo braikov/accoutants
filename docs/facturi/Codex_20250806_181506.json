@@ -9,7 +9,9 @@
     "extracted_document_index": 0,
     "image_quality": {
       "readability": "good",
-      "issues": []
+      "issues": [
+        "multiple_documents"
+      ]
     }
   },
   "extraction": {
@@ -24,13 +26,13 @@
       "currency": "BGN",
       "exchange_rate": null,
       "place": "гр. Варна, ж.к. Младост, ул. Вяра 3",
-      "notes": "Two fiscal receipts are visible in the image; extracted the larger left receipt. The right receipt was not extracted."
+      "notes": null
     },
     "supplier": {
-      "name": "ДОВЕРИЕ - БРИКО АД",
+      "name": "ДОВЕРИЕ – БРИКО АД",
       "eik": "130006992",
       "vat_number": "BG130006992",
-      "address": "гр. София, бул. Цариградско шосе 115",
+      "address": "гр. София, бул. Цариградско шосе 115\nТърговски Център Мосю Бриколаж\nгр. Варна, ж.к. Младост, ул. Вяра 3",
       "city": "София",
       "country": "BG",
       "mol": null
@@ -39,35 +41,35 @@
       "name": "ИНКО ТРЕЙ ЕООД",
       "eik": "206802564",
       "vat_number": "BG206802564",
-      "address": "гр. Варна",
-      "city": "Варна",
+      "address": null,
+      "city": "гр. Варна",
       "country": "BG",
       "mol": null
     },
     "totals": {
-      "net": "77.95",
-      "vat": "15.59",
-      "gross": "93.54",
+      "net": "139.43",
+      "vat": "27.89",
+      "gross": "167.32",
       "discount": null,
       "rounding": null,
-      "amount_due": "93.54"
+      "amount_due": "167.32"
     },
     "vat_breakdown": [
       {
         "rate": "20.00",
-        "net": "77.95",
-        "vat": "15.59",
-        "gross": "93.54",
-        "reason": null
+        "net": "139.43",
+        "vat": "27.89",
+        "gross": "167.32",
+        "reason": "ДДС 20.00%"
       }
     ],
     "payments": [
       {
         "method": "card",
-        "amount": "93.54",
+        "amount": "167.32",
         "currency": "BGN",
         "iban": "BG14BPBI79421092676704",
-        "bic": "BPBIGBSF",
+        "bic": "BPBIBGSF",
         "bank_name": "Юробанк България АД"
       }
     ],
@@ -77,91 +79,103 @@
         "quantity": "1.000",
         "unit": "бр",
         "unit_price": "1.99",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
-        "net": "1.99",
-        "vat": "0.40",
-        "gross": "2.39",
-        "includes_vat": false
+        "net": "1.66",
+        "vat": "0.33",
+        "gross": "1.99",
+        "includes_vat": true
       },
       {
         "description": "РЪКАВИЦИ ОТ ТЕЛЕШКИ ВЕЛУР С МАНШЕТ 15 СМ",
         "quantity": "1.000",
         "unit": "бр",
         "unit_price": "7.99",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
-        "net": "7.99",
-        "vat": "1.60",
-        "gross": "9.59",
-        "includes_vat": false
+        "net": "6.66",
+        "vat": "1.33",
+        "gross": "7.99",
+        "includes_vat": true
       },
       {
         "description": "СТРОИТЕЛНИ РЪКАВИЦИ TMP-P",
         "quantity": "1.000",
         "unit": "бр",
         "unit_price": "3.99",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
-        "net": "3.99",
-        "vat": "0.80",
-        "gross": "4.79",
-        "includes_vat": false
+        "net": "3.33",
+        "vat": "0.66",
+        "gross": "3.99",
+        "includes_vat": true
       },
       {
         "description": "РЪКАВИЦИ ОТ ТЕЛЕШКИ ВЕЛУР С МАНШЕТ 7 СМ",
         "quantity": "1.000",
         "unit": "бр",
         "unit_price": "6.99",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
-        "net": "6.99",
-        "vat": "1.40",
-        "gross": "8.39",
-        "includes_vat": false
+        "net": "5.83",
+        "vat": "1.16",
+        "gross": "6.99",
+        "includes_vat": true
       },
       {
         "description": "РЪКАВИЦИ ОТ ТЕЛЕШКИ ВЕЛУР",
         "quantity": "1.000",
         "unit": "бр",
         "unit_price": "6.99",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
-        "net": "6.99",
-        "vat": "1.40",
-        "gross": "8.39",
-        "includes_vat": false
+        "net": "5.83",
+        "vat": "1.16",
+        "gross": "6.99",
+        "includes_vat": true
       },
       {
-        "description": "ПОЛИПРОПИЛЕНОВО ВЪЖЕ ПЛЕТЕНО ШАРЕН 10 ММ",
+        "description": "ПОЛИПРОПИЛЕНОВО ВЪЖЕ ПЛЕТЕНО ШАРЕН 0.10ММ",
         "quantity": "40.000",
         "unit": "бр",
         "unit_price": "1.59",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
-        "net": "63.60",
-        "vat": "12.72",
-        "gross": "76.32",
-        "includes_vat": false
+        "net": "53.00",
+        "vat": "10.60",
+        "gross": "63.60",
+        "includes_vat": true
       },
       {
         "description": "РЪКАВИЦИ PINTO PU/ПОЛИЕСТЕР ЖЪЛТИ",
         "quantity": "1.000",
         "unit": "бр",
         "unit_price": "1.99",
-        "discount_pct": null,
+        "discount_pct": "0.00",
         "vat_rate": "20.00",
-        "net": "1.99",
-        "vat": "0.40",
-        "gross": "2.39",
-        "includes_vat": false
+        "net": "1.66",
+        "vat": "0.33",
+        "gross": "1.99",
+        "includes_vat": true
+      },
+      {
+        "description": "ТОАЛЕТНА СЕДАЛКА ЗА МОНОБЛОК 7837S LIM",
+        "quantity": "1.000",
+        "unit": "бр",
+        "unit_price": "54.99",
+        "discount_pct": "0.00",
+        "vat_rate": "20.00",
+        "net": "45.82",
+        "vat": "9.17",
+        "gross": "54.99",
+        "includes_vat": true
       }
     ],
     "fiscal": {
-      "fiscal_receipt_number": "0000156549",
-      "fiscal_device_number": "BN017314",
-      "operator": "Оператор 1",
-      "qr_code": "0DE590B75337CBEDFB7C55EBB002EC63654113942"
+      "fiscal_receipt_number": null,
+      "fiscal_device_number": null,
+      "operator": null,
+      "qr_code": null
     }
   },
   "validation": {
@@ -220,7 +234,7 @@
       {
         "code": "totals_match",
         "status": "pass",
-        "message": "77.95 + 15.59 = 93.54"
+        "message": "139.43 + 27.89 = 167.32"
       },
       {
         "code": "vat_breakdown_match",
@@ -230,33 +244,40 @@
       {
         "code": "line_items_sum",
         "status": "fail",
-        "message": "sum(net)=93.54, totals.net=77.95; sum(vat)=18.72, totals.vat=15.59; sum(gross)=112.26, totals.gross=93.54"
+        "message": "sum(net)=123.79, totals.net=139.43; sum(vat)=24.74, totals.vat=27.89; sum(gross)=148.53, totals.gross=167.32"
       },
       {
         "code": "multiple_documents_detected",
         "status": "warning",
         "message": "detected 2 documents; only index 0 extracted."
+      },
+      {
+        "code": "image_quality_issue",
+        "status": "warning",
+        "message": "issues: multiple_documents"
       }
     ],
     "errors": [
       "line_items_sum"
     ],
     "warnings": [
-      "multiple_documents_detected"
+      "multiple_documents_detected",
+      "image_quality_issue"
     ]
   },
   "model_assessment": {
     "confidence": {
-      "overall": 0.78,
-      "document": 0.93,
-      "supplier": 0.96,
+      "overall": 0.89,
+      "document": 0.99,
+      "supplier": 0.98,
       "customer": 0.94,
-      "totals": 0.98,
-      "line_items": 0.9
+      "totals": 0.91,
+      "line_items": 0.86
     },
     "extraction_warnings": [
-      "Two receipts are visible; extracted the larger left receipt.",
-      "Some line-item VAT amounts were derived from the printed 20% rate."
+      "Two fiscal receipts are visible; extracted the larger left receipt.",
+      "Receipt with invoice sub-block; prices treated as VAT-inclusive.",
+      "Customer city parsed from visible line and may be part of the address block."
     ]
   },
   "evidence": {},
@@ -265,11 +286,11 @@
     "model": "gpt-5.4-mini",
     "pipeline": "vision_direct",
     "ocr_used": false,
-    "prompt_version": "codex-unified-v2-r13-2026-05-09-csharp",
-    "created_at": "2026-05-09T15:19:53Z",
-    "duration_ms": 7841,
-    "input_tokens": 4295,
-    "output_tokens": 1056,
-    "cost_estimate_usd": "0.0080"
+    "prompt_version": "codex-unified-v2-r13-2026-05-10-csharp-targeted-fixes",
+    "created_at": "2026-05-10T08:21:16Z",
+    "duration_ms": 6920,
+    "input_tokens": 6544,
+    "output_tokens": 1132,
+    "cost_estimate_usd": "0.0100"
   }
 }

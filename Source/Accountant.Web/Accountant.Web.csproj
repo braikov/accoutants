@@ -5,6 +5,7 @@
     <ProjectReference Include="..\Accountant.Email\Accountant.Email.csproj" />
     <ProjectReference Include="..\Accountant.MySql\Accountant.MySql.csproj" />
     <ProjectReference Include="..\Accountant.Notifications\Accountant.Notifications.csproj" />
+    <ProjectReference Include="..\Accountant.Storage\Accountant.Storage.csproj" />
   </ItemGroup>
 
   <ItemGroup>

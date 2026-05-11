@@ -4,6 +4,7 @@ using Accountant.Email;
 using Accountant.Identity.Models;
 using Accountant.MySql;
 using Accountant.Notifications;
+using Accountant.Storage;
 using Braikov.Identity.Core;
 using Braikov.Identity.Core.Resources;
 using Braikov.Identity.Events.MySql;
@@ -68,6 +69,11 @@ builder.Services.AddBraikovIdentityEventsMySql(connectionString);
 // confirmation / reset emails). dotnet ef database update --context
 // ShortCodeTokenDbContext applies the bundled migration.
 builder.Services.AddBraikovIdentityShortCodesMySql(builder.Configuration, connectionString);
+
+// Storage abstraction — LocalFileStore by default, persists uploads under
+// `App_Data/uploads/yyyy/MM/`. Thumbnail renderers for images + PDF are
+// also wired here.
+builder.Services.AddAccountantStorage(builder.Configuration);
 
 var app = builder.Build();
 

@@ -10,6 +10,7 @@
   <Project Path="Accountant.Notifications/Accountant.Notifications.csproj" />
   <Project Path="Accountant.Processors/Accountant.Processors.csproj" />
   <Project Path="Accountant.ReviewSite/Accountant.ReviewSite.csproj" />
+  <Project Path="Accountant.Storage/Accountant.Storage.csproj" />
   <Project Path="Accountant.Tests/Accountant.Tests.csproj" />
   <Project Path="Accountant.Web/Accountant.Web.csproj" />
 </Solution>

@@ -27,6 +27,7 @@
             <nav class="head-auth" aria-label="Акаунт">
                 @if (User?.Identity?.IsAuthenticated == true)
                 {
+                    <a class="head-auth-link head-auth-link-primary" asp-area="App" asp-controller="Workspace" asp-action="Index">Към работния плот</a>
                     <span class="head-auth-user" title="@User.Identity!.Name">@User.Identity!.Name</span>
                     <form asp-area="Identity" asp-controller="Account" asp-action="Logout" method="post" class="head-auth-form">
                         <button type="submit" class="head-auth-link">Изход</button>

@@ -1,0 +1,17 @@
+@model (List<Accountant.Web.Areas.App.ViewModels.FolderNode> Nodes, int? CurrentFolderId)
+@if (Model.Nodes.Count > 0)
+{
+    <ul class="folder-tree-children">
+        @foreach (var node in Model.Nodes)
+        {
+            var isActive = node.Id == Model.CurrentFolderId;
+            <li>
+                <a class="folder-link @(isActive ? "is-active" : "")"
+                   asp-action="Index" asp-route-folderId="@node.Id">@node.Name</a>
+                <button type="button" class="folder-add" title="Подпапка"
+                        data-action="new-folder" data-parent="@node.Id">+</button>
+                @await Html.PartialAsync("_FolderChildren", (node.Children, Model.CurrentFolderId))
+            </li>
+        }
+    </ul>
+}

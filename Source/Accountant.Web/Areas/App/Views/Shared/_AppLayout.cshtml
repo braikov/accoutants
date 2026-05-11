@@ -22,7 +22,7 @@
 <body>
     <header class="app-head">
         <div class="app-container head-inner">
-            <a class="brand" href="@Url.Action("Index", "Home", new { area = "App" })" aria-label="Accountant">
+            <a class="brand" href="@Url.Action("Index", "Workspace", new { area = "App" })" aria-label="Accountant">
                 <span class="brand-mark" aria-hidden="true">a.</span>
                 <span class="brand-name">accountant</span>
             </a>
@@ -69,5 +69,6 @@
             <span class="muted">AI автоматизация за счетоводни офиси</span>
         </div>
     </footer>
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

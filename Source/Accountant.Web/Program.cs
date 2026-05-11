@@ -89,6 +89,7 @@ builder.Services.AddAccountantJobs(builder.Configuration, connectionString);
 // is the per-request snapshot populated by ActiveTenantMiddleware.
 builder.Services.AddScoped<TenantService>();
 builder.Services.AddScoped<IActiveTenantAccessor, ActiveTenantAccessor>();
+builder.Services.AddScoped<WorkspaceService>();
 
 var app = builder.Build();
 
@@ -118,6 +119,15 @@ app.UseHangfireDashboard(hangfireOptions.DashboardPath, new DashboardOptions
 });
 
 app.MapStaticAssets();
+
+// Area-specific default for /App/ — WorkspaceController is the entry point
+// (folder tree + documents grid). Must come BEFORE the generic area route
+// so `/App` resolves here instead of defaulting to a non-existent HomeController.
+app.MapAreaControllerRoute(
+    name: "app_default",
+    areaName: "App",
+    pattern: "App/{controller=Workspace}/{action=Index}/{id?}")
+    .WithStaticAssets();
 
 // Public area route — handles /, /Public/Home/*, /Public/<controller>/<action>.
 app.MapControllerRoute(

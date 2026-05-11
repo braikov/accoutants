@@ -1,0 +1,35 @@
+@model Accountant.Web.Areas.App.ViewModels.DocumentRow
+@{
+    string StatusBadge(Accountant.DataAccess.Entities.Product.DocumentStatus s) => s switch
+    {
+        Accountant.DataAccess.Entities.Product.DocumentStatus.Uploaded => "Качен",
+        Accountant.DataAccess.Entities.Product.DocumentStatus.Queued => "В опашка",
+        Accountant.DataAccess.Entities.Product.DocumentStatus.Processing => "Обработва се",
+        Accountant.DataAccess.Entities.Product.DocumentStatus.Extracted => "Готов",
+        Accountant.DataAccess.Entities.Product.DocumentStatus.Failed => "Грешка",
+        _ => s.ToString(),
+    };
+    var statusClass = "status-" + Model.Status.ToString().ToLowerInvariant();
+}
+<article class="document-card" data-doc-id="@Model.Id" data-status="@Model.Status">
+    <label class="document-checkbox">
+        <input type="checkbox" data-role="select"
+               @(Model.Status == Accountant.DataAccess.Entities.Product.DocumentStatus.Uploaded
+                 || Model.Status == Accountant.DataAccess.Entities.Product.DocumentStatus.Failed
+                 ? "" : "disabled") />
+    </label>
+    <a class="document-thumb" asp-controller="Documents" asp-action="Detail" asp-route-id="@Model.Id" title="@Model.OriginalFileName">
+        @if (Model.HasThumbnail)
+        {
+            <img src="@Url.Action("Thumbnail", "Documents", new { id = Model.Id })" alt="" loading="lazy" />
+        }
+        else
+        {
+            <span class="document-thumb-placeholder">@(Model.ContentType == "application/pdf" ? "PDF" : "DOC")</span>
+        }
+    </a>
+    <div class="document-meta">
+        <span class="document-name" title="@Model.OriginalFileName">@Model.OriginalFileName</span>
+        <span class="document-badge @statusClass" data-role="status-badge">@StatusBadge(Model.Status)</span>
+    </div>
+</article>

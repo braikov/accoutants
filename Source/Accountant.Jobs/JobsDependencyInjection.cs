@@ -48,6 +48,8 @@ public static class JobsDependencyInjection
         services.AddSingleton<IExtractorFactory, ExtractorFactory>();
         services.AddSingleton<AdminDashboardAuthorizationFilter>();
         services.AddScoped<ExtractDocumentJob>();
+        // Registered AFTER Hangfire so its server is up before recovery runs.
+        services.AddHostedService<StuckJobRecoveryService>();
         return services;
     }
 }

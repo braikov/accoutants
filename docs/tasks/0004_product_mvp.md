@@ -224,21 +224,21 @@ D6. **Pending Phase E onwards** — convention: all workspace queries must filte
 
 **Deliverable: ✅** TenantService + middleware + switcher + Tenants controller all build clean. End-to-end smoke deferred to Phase E (needs upload flow to exercise the tenant scoping).
 
-### Phase E — Workspace UI ⏳ Чакаща
+### Phase E — Workspace UI ✅ (Rename/Delete UI follow-up)
 
-E1. `WorkspaceController` in `Areas/App/Controllers/`:
-   - `Index` (the main page)
-   - `Statuses(folderId)` — JSON polling endpoint
-E2. `WorkspaceViewModel`: tenant info, folder tree (root + immediate children), folder selection, documents in current folder, breadcrumbs.
-E3. View: 3-column layout (header / sidebar tree / main grid).
-E4. Folder tree: server-rendered as nested `<ul>` with CoreUI nav-group OR client-side library (jstree). Decision: server-rendered with native HTML; expand/collapse via CSS + lightweight JS. Avoids large client deps for MVP.
-E5. Folder operations: `+ New folder` button at any level → modal with name input → POST to `Folders/Create`. Right-click context menu → Rename / Delete.
-E6. Drop zone: HTML5 drag-drop. Multiple files. Streaming upload via `fetch` + multipart. Per-file progress bar.
-E7. Thumbnails grid: CSS grid layout, thumbnail + filename + status badge + check checkbox.
-E8. "Process selected" button: enabled when ≥1 Uploaded doc selected → POST `Documents/EnqueueExtraction` with selected IDs.
-E9. Polling: every 2.5s while page visible, GET `Documents/Statuses?folderId=N&documentIds=...` → updates status badges in DOM.
+E1. ✅ [WorkspaceController](../../Source/Accountant.Web/Areas/App/Controllers/WorkspaceController.cs) — `Index(int? folderId)` renders the main page; `Statuses(?ids=...)` returns JSON `[{id, status, hasThumbnail}]` for polling. Replaces the placeholder `HomeController`; new area-default route in Program.cs maps `/App` → `Workspace.Index`.
+E2. ✅ [WorkspaceViewModel](../../Source/Accountant.Web/Areas/App/ViewModels/WorkspaceViewModel.cs) (tenant, FolderNode tree, current folder, breadcrumbs, document rows). [WorkspaceService](../../Source/Accountant.Web/Areas/App/Services/WorkspaceService.cs) loads tree + documents in one round-trip per request, scoped to active tenant.
+E3. ✅ 3-column layout in [Workspace/Index.cshtml](../../Source/Accountant.Web/Areas/App/Views/Workspace/Index.cshtml) — sidebar (folder tree) / main (header + drop zone + grid).
+E4. ✅ Server-rendered recursive nested `<ul>` via [_FolderChildren.cshtml](../../Source/Accountant.Web/Areas/App/Views/Workspace/_FolderChildren.cshtml). Expand/collapse is implicit (always shown; small datasets in MVP). No client lib added.
+E5. ✅ "+ Нова" button + `<dialog>` modal → POST `Folders/Create`. [FoldersController](../../Source/Accountant.Web/Areas/App/Controllers/FoldersController.cs) also exposes `Rename` + `Delete` endpoints (used in follow-up). **Follow-up:** wire right-click context menu for Rename/Delete (controllers ready; UI deferred — see `docs/followups.md`).
+E6. ✅ Drop zone with `dragenter/dragover/drop`, XHR multipart upload, per-file `<progress>` and status indicator. Accepts PDF + common image types; client filters by MIME; server caps file at 25 MB / form at 120 MB.
+E7. ✅ CSS grid via [_DocumentCard.cshtml](../../Source/Accountant.Web/Areas/App/Views/Workspace/_DocumentCard.cshtml) — thumbnail / filename / status badge / checkbox.
+E8. ✅ "Обработи избраните" button enables when ≥1 Uploaded/Failed doc selected → POST `Documents/EnqueueExtraction` enqueues a Hangfire job per id via `IBackgroundJobClient`. Status flips to Queued in same transaction.
+E9. ✅ `workspace.js` polls every 2.5s while `document.visibilityState === 'visible'`. Only sends ids in `[Queued, Processing]`. Updates badge + swaps placeholder → thumbnail when the extractor produces one.
 
-**Deliverable:** user can navigate folder tree, create folders, upload files, see thumbnails, click process, watch statuses update.
+Synchronous thumbnail generation during upload (image via ImageSharp; PDF via PDFtoImage first page). Failure is non-fatal — placeholder shows instead, document still usable.
+
+**Deliverable: ✅** Build clean; awaiting manual smoke (upload PDF/image → Hangfire dashboard → status transitions). Anthropic API key needs to be set in user-secrets (`Claude:ApiKey`) for the extractor to actually run.
 
 ### Phase F — Document detail (read-only) ⏳ Чакаща
 

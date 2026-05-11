@@ -1,0 +1,89 @@
+@model Accountant.Web.Areas.App.ViewModels.WorkspaceViewModel
+@{
+    ViewData["Title"] = "Работен плот";
+    Layout = "_AppLayout";
+}
+
+<section class="workspace"
+         data-folder-id="@(Model.CurrentFolderId?.ToString() ?? "")">
+    <aside class="workspace-sidebar">
+        <div class="sidebar-head">
+            <span class="sidebar-title">Папки</span>
+            <button type="button" class="link" data-action="new-folder" data-parent="">+ Нова</button>
+        </div>
+        <ul class="folder-tree">
+            <li>
+                <a class="folder-link @(Model.CurrentFolderId is null ? "is-active" : "")"
+                   asp-action="Index" asp-route-folderId="">
+                    @Model.Root.Name
+                </a>
+                @await Html.PartialAsync("_FolderChildren", (Model.Root.Children, Model.CurrentFolderId))
+            </li>
+        </ul>
+    </aside>
+
+    <main class="workspace-main">
+        <header class="workspace-head">
+            <nav class="breadcrumbs">
+                <a asp-action="Index" asp-route-folderId="">@Model.Root.Name</a>
+                @foreach (var crumb in Model.Breadcrumbs)
+                {
+                    <span class="sep">/</span>
+                    <a asp-action="Index" asp-route-folderId="@crumb.Id">@crumb.Name</a>
+                }
+            </nav>
+            <h1>@Model.CurrentFolderName</h1>
+            <div class="workspace-actions">
+                <button type="button" class="btn-secondary" data-action="new-folder" data-parent="@(Model.CurrentFolderId?.ToString() ?? "")">+ Подпапка</button>
+                <button type="button" class="btn-primary" data-action="process" disabled>Обработи избраните</button>
+            </div>
+        </header>
+
+        <div class="drop-zone" data-role="drop-zone" tabindex="0" aria-label="Зона за качване на файлове">
+            <p class="drop-zone-hint">
+                Пуснете файлове тук
+                <span class="muted">или</span>
+                <label class="link" for="file-input">изберете от диска</label>
+                <input id="file-input" type="file" multiple accept=".pdf,image/*" hidden />
+            </p>
+        </div>
+
+        <ul class="upload-progress" data-role="upload-progress"></ul>
+
+        <div class="documents-grid" data-role="documents-grid">
+            @if (Model.Documents.Count == 0)
+            {
+                <p class="empty-state muted">Все още няма документи в тази папка.</p>
+            }
+            else
+            {
+                foreach (var doc in Model.Documents)
+                {
+                    @await Html.PartialAsync("_DocumentCard", doc)
+                }
+            }
+        </div>
+    </main>
+</section>
+
+<dialog id="new-folder-dialog" class="modal">
+    <form method="dialog" class="modal-form" data-role="new-folder-form">
+        <h2>Нова папка</h2>
+        <label>
+            Име
+            <input type="text" name="Name" maxlength="120" required autocomplete="off" />
+        </label>
+        <input type="hidden" name="ParentFolderId" />
+        <div class="modal-actions">
+            <button type="button" value="cancel" data-action="cancel">Отказ</button>
+            <button type="submit" class="btn-primary">Създай</button>
+        </div>
+        <p class="error" data-role="new-folder-error" hidden></p>
+    </form>
+</dialog>
+
+@Html.AntiForgeryToken()
+
+@section Scripts {
+    <script src="~/app/js/workspace.js" asp-append-version="true"></script>
+}

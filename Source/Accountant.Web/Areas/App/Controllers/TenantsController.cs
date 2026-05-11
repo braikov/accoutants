@@ -42,7 +42,7 @@ public sealed class TenantsController : Controller
             ActiveTenantCookie.Name,
             tenant.Id.ToString(CultureInfo.InvariantCulture),
             ActiveTenantCookie.DefaultOptions());
-        return RedirectToAction("Index", "Home", new { area = "App" });
+        return RedirectToAction("Index", "Workspace", new { area = "App" });
     }
 
     [HttpPost]
@@ -62,7 +62,7 @@ public sealed class TenantsController : Controller
         {
             return Redirect(returnUrl);
         }
-        return RedirectToAction("Index", "Home", new { area = "App" });
+        return RedirectToAction("Index", "Workspace", new { area = "App" });
     }
 
     private int CurrentUserId()

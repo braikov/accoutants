@@ -36,4 +36,15 @@ public sealed class AccountController : BaseAccountController<ApplicationUser, i
             UserName = model.Email,
             Email = model.Email
         };
+
+    /// Override the Braikov default (`/App/Home/Index`) — the App area's
+    /// landing controller is `WorkspaceController` since Task 0004 Phase E.
+    protected override string ResolveLandingUrl(string? returnUrl)
+    {
+        if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+        {
+            return returnUrl;
+        }
+        return Url.Action("Index", "Workspace", new { area = "App" }) ?? "/";
+    }
 }

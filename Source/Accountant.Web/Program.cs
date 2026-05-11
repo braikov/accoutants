@@ -6,6 +6,8 @@ using Accountant.Jobs;
 using Accountant.MySql;
 using Accountant.Notifications;
 using Accountant.Storage;
+using Accountant.Web.Areas.App.Middleware;
+using Accountant.Web.Areas.App.Services;
 using Hangfire;
 using Microsoft.Extensions.Options;
 using Braikov.Identity.Core;
@@ -83,6 +85,11 @@ builder.Services.AddAccountantStorage(builder.Configuration);
 // (admin role only — see AdminDashboardAuthorizationFilter).
 builder.Services.AddAccountantJobs(builder.Configuration, connectionString);
 
+// Tenant module — TenantService is the business logic; IActiveTenantAccessor
+// is the per-request snapshot populated by ActiveTenantMiddleware.
+builder.Services.AddScoped<TenantService>();
+builder.Services.AddScoped<IActiveTenantAccessor, ActiveTenantAccessor>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -98,6 +105,10 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+// Active-tenant middleware. Must run AFTER auth (needs HttpContext.User) and
+// BEFORE controllers (controllers read IActiveTenantAccessor.Current).
+app.UseMiddleware<ActiveTenantMiddleware>();
 
 // Hangfire dashboard. Auth filter rejects anonymous / non-Admin requests with 401.
 var hangfireOptions = app.Services.GetRequiredService<IOptions<HangfireOptions>>().Value;

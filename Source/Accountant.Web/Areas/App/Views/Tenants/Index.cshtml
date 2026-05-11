@@ -1,0 +1,35 @@
+@model IReadOnlyList<Accountant.Web.Areas.App.Services.TenantSummary>
+@{
+    ViewData["Title"] = "Фирми";
+}
+
+<section class="page-head">
+    <h1>Фирми</h1>
+    <a class="btn-primary" asp-action="Create">+ Нова фирма</a>
+</section>
+
+<table class="data-table">
+    <thead>
+        <tr>
+            <th>Име</th>
+            <th>Роля</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var m in Model)
+        {
+            <tr>
+                <td>@m.Name</td>
+                <td>@(m.Role == Accountant.DataAccess.Entities.Product.TenantRole.Owner ? "Собственик" : "Член")</td>
+                <td>
+                    <form asp-action="Switch" method="post" class="inline-form">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="tenantId" value="@m.Id" />
+                        <button type="submit" class="link">Активирай</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

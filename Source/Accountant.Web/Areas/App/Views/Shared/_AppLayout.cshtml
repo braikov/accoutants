@@ -1,6 +1,11 @@
+@inject Accountant.Web.Areas.App.Services.IActiveTenantAccessor ActiveTenant
+@inject Accountant.Web.Areas.App.Services.TenantService Tenants
 @{
     var title = ViewData["Title"] as string;
     var fullTitle = string.IsNullOrEmpty(title) ? "Accountant" : $"{title} — Accountant";
+    int userId = int.Parse(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)!.Value, System.Globalization.CultureInfo.InvariantCulture);
+    var memberships = await Tenants.ListMembershipsAsync(userId, Context.RequestAborted);
+    var active = ActiveTenant.Current;
 }
 <!DOCTYPE html>
 <html lang="bg">
@@ -22,6 +27,27 @@
                 <span class="brand-name">accountant</span>
             </a>
             <nav class="head-nav" aria-label="Акаунт">
+                @if (active is not null)
+                {
+                    <details class="tenant-switcher">
+                        <summary class="tenant-switcher-summary" title="Активна фирма">
+                            <span class="tenant-switcher-name">@active.Name</span>
+                            <span class="tenant-switcher-caret" aria-hidden="true">▾</span>
+                        </summary>
+                        <div class="tenant-switcher-menu">
+                            @foreach (var m in memberships)
+                            {
+                                <form asp-area="App" asp-controller="Tenants" asp-action="Switch" method="post" class="tenant-switcher-form">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="tenantId" value="@m.Id" />
+                                    <input type="hidden" name="returnUrl" value="@Context.Request.Path@Context.Request.QueryString" />
+                                    <button type="submit" class="tenant-switcher-item @(m.Id == active.Id ? "is-active" : "")">@m.Name</button>
+                                </form>
+                            }
+                            <a asp-area="App" asp-controller="Tenants" asp-action="Create" class="tenant-switcher-item tenant-switcher-create">+ Нова фирма</a>
+                        </div>
+                    </details>
+                }
                 <span class="head-nav-user" title="@User.Identity!.Name">@User.Identity!.Name</span>
                 <a class="head-nav-link" asp-area="Identity" asp-controller="Account" asp-action="ChangePassword">Смяна на парола</a>
                 <form asp-area="Identity" asp-controller="Account" asp-action="Logout" method="post" class="head-nav-form">

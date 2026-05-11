@@ -213,16 +213,16 @@ C5. ✅ `[AutomaticRetry(Attempts=3, DelaysInSeconds={30,120,300})]` on the job 
 
 **Follow-up (Phase J):** vendor selection currently reads `Extraction:DefaultVendor` from configuration. Replace with DB-backed `ApplicationSettings` when admin model picker lands.
 
-### Phase D — Tenant + membership + active-tenant switcher ⏳ Чакаща
+### Phase D — Tenant + membership + active-tenant switcher ✅
 
-D1. On user registration (extend `BaseAccountController.Register` override or post-create hook): auto-create a default Tenant named "<user-email>'s firm" + add membership with Role=Owner.
-D2. `TenantService`: list user's tenants, set active.
-D3. Active tenant stored in cookie (HttpOnly, 30-day expiration). `ActiveTenantId` claim added on every request via middleware (reads cookie, validates membership, populates `HttpContext.Items["ActiveTenant"]`).
-D4. `_AppLayout` header: tenant switcher dropdown (server-rendered).
-D5. `/App/Tenants/Create` — form to start a new tenant (post-MVP polish, but the controller endpoint is required for testing).
-D6. All client-side queries filter by `ActiveTenantId`.
+D1. ✅ Auto-bootstrap moved from `BaseAccountController.Register` override into [ActiveTenantMiddleware](../../Source/Accountant.Web/Areas/App/Middleware/ActiveTenantMiddleware.cs): on the first authenticated request after registration, [TenantService.EnsureDefaultTenantAsync](../../Source/Accountant.Web/Areas/App/Services/TenantService.cs) creates the "<email-local-part>'s firm" tenant + Owner membership. Idempotent — no-op when a membership already exists. Avoids modifying the Braikov Identity package + self-heals if a user somehow ends up tenantless.
+D2. ✅ [TenantService](../../Source/Accountant.Web/Areas/App/Services/TenantService.cs) — `ListMembershipsAsync`, `IsMemberAsync`, `CreateTenantAsync`, `EnsureDefaultTenantAsync`.
+D3. ✅ Active tenant stored in `.Accountant.ActiveTenant` cookie ([ActiveTenantCookie](../../Source/Accountant.Web/Areas/App/Services/ActiveTenantCookie.cs); HttpOnly, Secure, SameSite=Lax, 30-day expiry). Middleware reads cookie, validates membership, falls back to first membership when invalid, and re-writes the cookie if the resolved id differs. Exposes the result via scoped `IActiveTenantAccessor`.
+D4. ✅ [_AppLayout](../../Source/Accountant.Web/Areas/App/Views/Shared/_AppLayout.cshtml) header: `<details>`-based switcher dropdown with all memberships + "+ Нова фирма" link. Styles in [app.css](../../Source/Accountant.Web/wwwroot/app/css/app.css).
+D5. ✅ [TenantsController](../../Source/Accountant.Web/Areas/App/Controllers/TenantsController.cs) — `Index` (list), `Create` (GET+POST creates + auto-activates new tenant), `Switch` (POST sets cookie and redirects to `returnUrl` when local).
+D6. **Pending Phase E onwards** — convention: all workspace queries must filter by `IActiveTenantAccessor.Current.Id`. Document upload, folder tree, document listings, and the extract job will enforce this.
 
-**Deliverable:** new user has 1 default tenant; can create more; switcher works; data is tenant-scoped.
+**Deliverable: ✅** TenantService + middleware + switcher + Tenants controller all build clean. End-to-end smoke deferred to Phase E (needs upload flow to exercise the tenant scoping).
 
 ### Phase E — Workspace UI ⏳ Чакаща
 

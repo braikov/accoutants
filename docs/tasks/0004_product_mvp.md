@@ -264,19 +264,18 @@ G5. ✅ `<div asp-validation-summary="ModelOnly">` at the top + `<span asp-valid
 
 **Deliverable: ✅** Build clean. Edit form renders, saves a new `DocumentCorrection` row, Detail page picks the correction up automatically via `IsCorrected` precedence, Download serves the corrected JSON.
 
-### Phase H — Admin dashboard ⏳ Чакаща
+### Phase H — Admin dashboard ✅
 
-H1. `Administration/Home/Index` (replaces template's placeholder) renders 5 metric cards + 3 charts.
-H2. `AdminDashboardService` with SQL queries:
-   - DocumentsThisMonth count
-   - TotalTokens (sum of TokensIn + TokensOut) over current month
-   - TotalCost (sum of EstimatedCostUsd) over current month
-   - ActiveUsersLast7Days (distinct UserId in DocumentExtractions joined via Documents)
-   - FailedExtractionsThisMonth count
-H3. Chart data endpoints (JSON): `/Administration/Charts/DocumentsPerDay?days=30`, `/Administration/Charts/VendorDistribution`, `/Administration/Charts/AvgLatency`.
-H4. View: Chart.js (CDN) reads the JSON endpoints.
+H1. ✅ [Administration/Home/Index](../../Source/Accountant.Web/Areas/Administration/Views/Home/Index.cshtml) renders 5 metric cards (документи / токени / разход / активни потребители 7д / неуспешни) + 3 Chart.js canvases.
+H2. ✅ [AdminDashboardService](../../Source/Accountant.Web/Areas/Administration/Services/AdminDashboardService.cs) — `LoadMetricsAsync` aggregates the five cards in three queries (Documents count, GroupBy single bucket for tokens+cost, distinct active users, failed extractions count). All `AsNoTracking`, all projected to records.
+H3. ✅ [ChartsController](../../Source/Accountant.Web/Areas/Administration/Controllers/ChartsController.cs) — `DocumentsPerDay?days=30` (zero-fills missing dates so the line stays continuous), `VendorDistribution` (this month, successful only), `AvgLatency` (per vendor, this month). `[Authorize(Roles="Admin")]` on the controller.
+H4. ✅ Chart.js 4.4.6 via jsdelivr CDN; lightweight [dashboard.js](../../Source/Accountant.Web/wwwroot/admin/js/dashboard.js) fetches each endpoint and renders. Bulgarian vendor labels mapped client-side.
 
-**Deliverable:** admin sees real-time metrics on landing.
+Plus [AdminRoleBootstrapService](../../Source/Accountant.Web/Areas/Administration/AdminRoleBootstrapService.cs) (IHostedService) — creates the `Admin` role and promotes the lowest-`UserId` account on first run when no admin exists. Idempotent. Removes the manual SQL step for the first admin.
+
+[_AppLayout](../../Source/Accountant.Web/Areas/App/Views/Shared/_AppLayout.cshtml) header gets an "Администрация" link visible only to users in the `Admin` role.
+
+**Deliverable: ✅** Build clean. After Web restart the first registered user becomes Admin and `/Administration` shows metrics + charts driven by the real DB.
 
 ### Phase I — Admin Documents / Users / Tenants tables ⏳ Чакаща
 

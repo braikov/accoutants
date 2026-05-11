@@ -48,6 +48,10 @@
                         </div>
                     </details>
                 }
+                @if (User.IsInRole("Admin"))
+                {
+                    <a class="head-nav-link" asp-area="Administration" asp-controller="Home" asp-action="Index">Администрация</a>
+                }
                 <span class="head-nav-user" title="@User.Identity!.Name">@User.Identity!.Name</span>
                 <a class="head-nav-link" asp-area="Identity" asp-controller="Account" asp-action="ChangePassword">Смяна на парола</a>
                 <form asp-area="Identity" asp-controller="Account" asp-action="Logout" method="post" class="head-nav-form">

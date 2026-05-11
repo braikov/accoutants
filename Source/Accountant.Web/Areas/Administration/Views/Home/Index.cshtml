@@ -1,55 +1,79 @@
+@model Accountant.Web.Areas.Administration.Services.DashboardMetrics
 @{
     ViewData["Title"] = "Dashboard";
 }
 
-<div class="row g-4">
+<div class="row g-4 mb-4">
     <div class="col-sm-6 col-lg-3">
         <div class="card text-bg-primary">
             <div class="card-body">
-                <div class="fs-6 fw-semibold opacity-75">Total users</div>
-                <div class="fs-2 fw-bold">—</div>
-                <small class="opacity-75">Replace with real metric</small>
+                <div class="fs-6 fw-semibold opacity-75">Документи (този месец)</div>
+                <div class="fs-2 fw-bold">@Model.DocumentsThisMonth.ToString("N0")</div>
             </div>
         </div>
     </div>
     <div class="col-sm-6 col-lg-3">
         <div class="card text-bg-info">
             <div class="card-body">
-                <div class="fs-6 fw-semibold opacity-75">Sign-ups today</div>
-                <div class="fs-2 fw-bold">—</div>
-                <small class="opacity-75">Replace with real metric</small>
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-6 col-lg-3">
-        <div class="card text-bg-warning">
-            <div class="card-body">
-                <div class="fs-6 fw-semibold opacity-75">Pending tasks</div>
-                <div class="fs-2 fw-bold">—</div>
-                <small class="opacity-75">Replace with real metric</small>
+                <div class="fs-6 fw-semibold opacity-75">Токени (този месец)</div>
+                <div class="fs-2 fw-bold">@Model.TotalTokensThisMonth.ToString("N0")</div>
             </div>
         </div>
     </div>
     <div class="col-sm-6 col-lg-3">
         <div class="card text-bg-success">
             <div class="card-body">
-                <div class="fs-6 fw-semibold opacity-75">Healthy</div>
-                <div class="fs-2 fw-bold">OK</div>
-                <small class="opacity-75">Replace with health check</small>
+                <div class="fs-6 fw-semibold opacity-75">Разход (USD, този месец)</div>
+                <div class="fs-2 fw-bold">$@Model.TotalCostUsdThisMonth.ToString("0.00")</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+        <div class="card text-bg-warning">
+            <div class="card-body">
+                <div class="fs-6 fw-semibold opacity-75">Активни потребители (7д)</div>
+                <div class="fs-2 fw-bold">@Model.ActiveUsersLast7Days</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+        <div class="card text-bg-danger">
+            <div class="card-body">
+                <div class="fs-6 fw-semibold opacity-75">Неуспешни (този месец)</div>
+                <div class="fs-2 fw-bold">@Model.FailedExtractionsThisMonth</div>
             </div>
         </div>
     </div>
 </div>
 
-<div class="card mt-4">
-    <div class="card-header">Next steps</div>
-    <div class="card-body">
-        <p class="card-text mb-2">This is the scaffolded admin dashboard. From here:</p>
-        <ul class="mb-0">
-            <li>Add controllers under <code>Areas/Administration/Controllers/</code> (e.g. <code>UsersController</code>, <code>SettingsController</code>).</li>
-            <li>Add their links to the sidebar in <code>Areas/Administration/Views/Shared/_AdminLayout.cshtml</code>.</li>
-            <li>Replace these placeholder metric cards with real queries against your DbContext.</li>
-            <li>Customise <code>wwwroot/admin/css/admin.css</code> for project-specific palette.</li>
-        </ul>
+<div class="row g-4">
+    <div class="col-lg-8">
+        <div class="card h-100">
+            <div class="card-header">Документи на ден (последни 30 дни)</div>
+            <div class="card-body">
+                <canvas id="chart-documents-per-day" height="120"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="card h-100">
+            <div class="card-header">Разпределение по AI (този месец)</div>
+            <div class="card-body">
+                <canvas id="chart-vendor-distribution" height="180"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">Средно време за обработка по AI (този месец)</div>
+            <div class="card-body">
+                <canvas id="chart-avg-latency" height="80"></canvas>
+            </div>
+        </div>
     </div>
 </div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js"></script>
+    <script src="~/admin/js/dashboard.js" asp-append-version="true"></script>
+}

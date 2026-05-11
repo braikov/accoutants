@@ -6,6 +6,8 @@ using Accountant.Jobs;
 using Accountant.MySql;
 using Accountant.Notifications;
 using Accountant.Storage;
+using Accountant.Web.Areas.Administration;
+using Accountant.Web.Areas.Administration.Services;
 using Accountant.Web.Areas.App.Middleware;
 using Accountant.Web.Areas.App.Services;
 using Hangfire;
@@ -36,6 +38,14 @@ builder.Services
     .AddEntityFrameworkStores<AccountantDbContext>()
     .AddDefaultTokenProviders()
     .UseNotificationDispatcher();
+
+// Re-validate the auth cookie every 5 minutes. Without this, role changes
+// (e.g. AdminRoleBootstrapService promoting a user) only take effect on the
+// next login because the cookie carries a snapshot of the user's claims.
+builder.Services.Configure<SecurityStampValidatorOptions>(options =>
+{
+    options.ValidationInterval = TimeSpan.FromMinutes(5);
+});
 
 // Localization — needed so resource-keyed ViewModels render translated
 // labels and the controller's ModelState errors come back in BG/EN.
@@ -90,6 +100,8 @@ builder.Services.AddAccountantJobs(builder.Configuration, connectionString);
 builder.Services.AddScoped<TenantService>();
 builder.Services.AddScoped<IActiveTenantAccessor, ActiveTenantAccessor>();
 builder.Services.AddScoped<WorkspaceService>();
+builder.Services.AddScoped<AdminDashboardService>();
+builder.Services.AddHostedService<AdminRoleBootstrapService>();
 
 var app = builder.Build();
 

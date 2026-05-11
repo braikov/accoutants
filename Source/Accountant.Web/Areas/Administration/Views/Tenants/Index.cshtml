@@ -1,0 +1,42 @@
+@model Accountant.Web.Areas.Administration.ViewModels.TenantsListViewModel
+@{
+    ViewData["Title"] = "Фирми";
+}
+
+<h1 class="h4 mb-3">Фирми</h1>
+
+<div class="card">
+    <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+            <thead class="table-light small">
+                <tr>
+                    <th>Име</th>
+                    <th>Собственик</th>
+                    <th class="text-end">Членове</th>
+                    <th class="text-end">Документи</th>
+                    <th class="text-end">USD</th>
+                    <th>Създадена</th>
+                </tr>
+            </thead>
+            <tbody class="small">
+                @foreach (var row in Model.Page.Items)
+                {
+                    <tr>
+                        <td>@row.Name</td>
+                        <td>@(row.OwnerEmail ?? "—")</td>
+                        <td class="text-end">@row.MembersCount</td>
+                        <td class="text-end">@row.DocumentsCount.ToString("N0")</td>
+                        <td class="text-end">@row.CostUsd.ToString("0.0000")</td>
+                        <td>@row.CreatedAtUtc.ToLocalTime().ToString("dd.MM.yyyy")</td>
+                    </tr>
+                }
+                @if (Model.Page.Items.Count == 0)
+                {
+                    <tr><td colspan="6" class="text-center text-body-secondary py-4">Няма фирми.</td></tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@await Html.PartialAsync("_Pager", (Model.Page.Page, Model.Page.TotalPages, Model.Page.TotalCount, (object)new { PageSize = Model.Page.PageSize }))

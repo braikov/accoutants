@@ -1,0 +1,149 @@
+@model Accountant.Web.Areas.Administration.ViewModels.DocumentsListViewModel
+@using Accountant.DataAccess.Entities.Product
+@{
+    ViewData["Title"] = "Документи";
+    string StatusBadge(DocumentStatus s) => s switch
+    {
+        DocumentStatus.Uploaded => "<span class=\"badge text-bg-secondary\">Качен</span>",
+        DocumentStatus.Queued => "<span class=\"badge text-bg-warning\">В опашка</span>",
+        DocumentStatus.Processing => "<span class=\"badge text-bg-info\">Обработва се</span>",
+        DocumentStatus.Extracted => "<span class=\"badge text-bg-success\">Готов</span>",
+        DocumentStatus.Failed => "<span class=\"badge text-bg-danger\">Грешка</span>",
+        _ => s.ToString(),
+    };
+}
+
+<h1 class="h4 mb-3">Документи</h1>
+
+<form method="get" class="card card-body mb-3">
+    <div class="row g-2 align-items-end">
+        <div class="col-md-3">
+            <label class="form-label small">Фирма</label>
+            <select name="TenantId" class="form-select form-select-sm">
+                <option value="">Всички</option>
+                @foreach (var t in Model.Tenants)
+                {
+                    <option value="@t.Id" selected="@(Model.Filter.TenantId == t.Id)">@t.Name</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label class="form-label small">Потребител</label>
+            <select name="UserId" class="form-select form-select-sm">
+                <option value="">Всички</option>
+                @foreach (var u in Model.Users)
+                {
+                    <option value="@u.Id" selected="@(Model.Filter.UserId == u.Id)">@u.Email</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-2">
+            <label class="form-label small">AI</label>
+            <select name="Vendor" class="form-select form-select-sm">
+                <option value="">Всички</option>
+                @foreach (var v in new[] { ("claude","Claude"), ("codex","Codex"), ("gemini","Gemini") })
+                {
+                    <option value="@v.Item1" selected="@(Model.Filter.Vendor == v.Item1)">@v.Item2</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-2">
+            <label class="form-label small">Статус</label>
+            <select name="Status" class="form-select form-select-sm">
+                <option value="">Всички</option>
+                @foreach (var s in Enum.GetValues<DocumentStatus>())
+                {
+                    <option value="@((int)s)" selected="@(Model.Filter.Status == s)">@StatusLabel(s)</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-1">
+            <label class="form-label small">От</label>
+            <input type="date" name="DateFrom" class="form-control form-control-sm" value="@Model.Filter.DateFrom?.ToString("yyyy-MM-dd")" />
+        </div>
+        <div class="col-md-1">
+            <label class="form-label small">До</label>
+            <input type="date" name="DateTo" class="form-control form-control-sm" value="@Model.Filter.DateTo?.ToString("yyyy-MM-dd")" />
+        </div>
+        <div class="col-12 mt-2">
+            <button type="submit" class="btn btn-primary btn-sm">Прилагане</button>
+            <a class="btn btn-link btn-sm" asp-action="Index">Изчистване</a>
+        </div>
+    </div>
+</form>
+
+<div class="card">
+    <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+            <thead class="table-light small">
+                <tr>
+                    <th></th>
+                    <th>Файл</th>
+                    <th>Фирма</th>
+                    <th>Потребител</th>
+                    <th>Статус</th>
+                    <th>Качен</th>
+                    <th>AI</th>
+                    <th class="text-end">ms</th>
+                    <th class="text-end">USD</th>
+                </tr>
+            </thead>
+            <tbody class="small">
+                @foreach (var row in Model.Page.Items)
+                {
+                    <tr>
+                        <td style="width: 50px;">
+                            @if (row.HasThumbnail)
+                            {
+                                <img src="@Url.Action("Thumbnail", "Documents", new { area = "App", id = row.Id })"
+                                     alt="" style="width: 40px; height: 40px; object-fit: cover; border-radius: 4px;" />
+                            }
+                        </td>
+                        <td>
+                            <a asp-area="App" asp-controller="Documents" asp-action="Detail" asp-route-id="@row.Id" target="_blank">
+                                @row.OriginalFileName
+                            </a>
+                        </td>
+                        <td>@row.TenantName</td>
+                        <td class="text-truncate" style="max-width: 200px;">@row.UploadedByEmail</td>
+                        <td>@Html.Raw(StatusBadge(row.Status))</td>
+                        <td>@row.CreatedAtUtc.ToLocalTime().ToString("dd.MM.yyyy HH:mm")</td>
+                        <td>@(row.Vendor ?? "—")</td>
+                        <td class="text-end">@(row.LatencyMs?.ToString("N0") ?? "—")</td>
+                        <td class="text-end">@(row.CostUsd?.ToString("0.0000") ?? "—")</td>
+                    </tr>
+                }
+                @if (Model.Page.Items.Count == 0)
+                {
+                    <tr><td colspan="9" class="text-center text-body-secondary py-4">Няма документи по тези филтри.</td></tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@{
+    var routeValues = new
+    {
+        TenantId = Model.Filter.TenantId,
+        UserId = Model.Filter.UserId,
+        Vendor = Model.Filter.Vendor,
+        Status = Model.Filter.Status,
+        DateFrom = Model.Filter.DateFrom?.ToString("yyyy-MM-dd"),
+        DateTo = Model.Filter.DateTo?.ToString("yyyy-MM-dd"),
+        PageSize = Model.Filter.PageSize,
+    };
+}
+@await Html.PartialAsync("_Pager", (Model.Page.Page, Model.Page.TotalPages, Model.Page.TotalCount, (object)routeValues))
+
+@functions {
+    string StatusLabel(DocumentStatus s) => s switch
+    {
+        DocumentStatus.Uploaded => "Качен",
+        DocumentStatus.Queued => "В опашка",
+        DocumentStatus.Processing => "Обработва се",
+        DocumentStatus.Extracted => "Готов",
+        DocumentStatus.Failed => "Грешка",
+        _ => s.ToString(),
+    };
+}

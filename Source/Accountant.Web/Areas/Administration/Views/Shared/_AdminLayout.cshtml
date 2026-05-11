@@ -33,17 +33,24 @@
                     Dashboard
                 </a>
             </li>
-
-            @*
-                Add your project-specific nav items below. Use the helper:
-                <a class="nav-link @(ctrlIs("YourController") ? "active" : "")"
-                   asp-area="Administration" asp-controller="YourController" asp-action="Index">
-                    <i class="nav-icon cil-list"></i> Your Section
+            <li class="nav-item">
+                <a class="nav-link @(ctrlIs("documents") ? "active" : "")" asp-area="Administration" asp-controller="Documents" asp-action="Index">
+                    <i class="nav-icon cil-file"></i>
+                    Документи
                 </a>
-
-                For grouped items, see CoreUI nav-group:
-                https://coreui.io/docs/components/sidebar/#navigation
-            *@
+            </li>
+            <li class="nav-item">
+                <a class="nav-link @(ctrlIs("users") ? "active" : "")" asp-area="Administration" asp-controller="Users" asp-action="Index">
+                    <i class="nav-icon cil-user"></i>
+                    Потребители
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link @(ctrlIs("tenants") ? "active" : "")" asp-area="Administration" asp-controller="Tenants" asp-action="Index">
+                    <i class="nav-icon cil-building"></i>
+                    Фирми
+                </a>
+            </li>
         </ul>
     </div>
 

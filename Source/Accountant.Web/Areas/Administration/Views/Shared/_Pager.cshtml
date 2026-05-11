@@ -1,0 +1,23 @@
+@model (int Page, int TotalPages, int TotalCount, object? RouteValues)
+@{
+    if (Model.TotalPages <= 1) { return; }
+    string PageUrl(int page) {
+        var values = new Microsoft.AspNetCore.Routing.RouteValueDictionary(Model.RouteValues ?? new {});
+        values["page"] = page;
+        return Url.Action(ViewContext.RouteData.Values["action"]?.ToString(), values)!;
+    }
+    var hasPrev = Model.Page > 1;
+    var hasNext = Model.Page < Model.TotalPages;
+}
+<nav class="d-flex justify-content-between align-items-center mt-3 small text-body-secondary">
+    <span>Общо: @Model.TotalCount.ToString("N0")</span>
+    <ul class="pagination pagination-sm m-0">
+        <li class="page-item @(hasPrev ? "" : "disabled")">
+            <a class="page-link" href="@(hasPrev ? PageUrl(Model.Page - 1) : "#")">←</a>
+        </li>
+        <li class="page-item disabled"><span class="page-link">@Model.Page / @Model.TotalPages</span></li>
+        <li class="page-item @(hasNext ? "" : "disabled")">
+            <a class="page-link" href="@(hasNext ? PageUrl(Model.Page + 1) : "#")">→</a>
+        </li>
+    </ul>
+</nav>

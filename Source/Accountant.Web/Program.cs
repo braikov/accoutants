@@ -101,6 +101,7 @@ builder.Services.AddScoped<TenantService>();
 builder.Services.AddScoped<IActiveTenantAccessor, ActiveTenantAccessor>();
 builder.Services.AddScoped<WorkspaceService>();
 builder.Services.AddScoped<AdminDashboardService>();
+builder.Services.AddScoped<AdminCatalogService>();
 builder.Services.AddHostedService<AdminRoleBootstrapService>();
 
 var app = builder.Build();

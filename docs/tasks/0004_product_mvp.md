@@ -277,12 +277,16 @@ Plus [AdminRoleBootstrapService](../../Source/Accountant.Web/Areas/Administratio
 
 **Deliverable: ✅** Build clean. After Web restart the first registered user becomes Admin and `/Administration` shows metrics + charts driven by the real DB.
 
-### Phase I — Admin Documents / Users / Tenants tables ⏳ Чакаща
+### Phase I — Admin Documents / Users / Tenants tables ✅
 
-I1. `Administration/Documents` — server-side paginated DataTable. Filters as listed in Pages section.
-I2. `Administration/Users` — list + per-user detail.
-I3. `Administration/Tenants` — list + per-tenant detail.
-I4. All views use the scaffolded `_AdminLayout` (from braikov-admin template).
+I1. ✅ [Administration/Documents](../../Source/Accountant.Web/Areas/Administration/Controllers/DocumentsController.cs) — server-side paginated table. Filters: tenant, user, vendor, status, date range. Thumbnails inline, link to `/App/Documents/Detail/{id}` opens in a new tab.
+I2. ✅ [Administration/Users](../../Source/Accountant.Web/Areas/Administration/Controllers/UsersController.cs) — email + confirmation + lockout + per-user aggregates (tenants count, documents count, total tokens, total cost). Per-user detail deferred (the table already shows the aggregate row).
+I3. ✅ [Administration/Tenants](../../Source/Accountant.Web/Areas/Administration/Controllers/TenantsController.cs) — name + owner email + members count + documents count + cost. Per-tenant detail deferred.
+I4. ✅ All three views use `_AdminLayout` with new sidebar nav entries. Shared [_Pager](../../Source/Accountant.Web/Areas/Administration/Views/Shared/_Pager.cshtml) partial (tuple model: current page / total pages / total count / route values) preserves filters across page changes.
+
+[AdminCatalogService](../../Source/Accountant.Web/Areas/Administration/Services/AdminCatalogService.cs) owns all queries — `AsNoTracking`, projected to record DTOs, single round-trip per page. `MaxPageSize` clamped to 200.
+
+**Deliverable: ✅** Build clean. Admin can browse all documents across tenants with filters, see per-user usage, and see per-tenant rollups.
 
 **Deliverable:** admin can drill into any document / user / tenant.
 
